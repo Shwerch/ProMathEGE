@@ -4,9 +4,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/dark_background"
-    app:autoSizeTextType="uniform"
-    tools:targetApi="o">
+    android:background="?android:attr/colorBackground"
+    app:autoSizeTextType="uniform">
 
     <Button
         android:id="@+id/mainmenu"
@@ -16,10 +15,10 @@
         android:backgroundTint="@color/dark_info_icons"
         android:breakStrategy="balanced"
         android:text="@string/main_menu"
-        android:textColor="@color/dark_text_color"
-        android:textColorHighlight="@color/dark_text_color"
-        android:textColorHint="@color/dark_text_color"
-        android:textColorLink="@color/dark_text_color"
+        android:textColor="?android:attr/textColor"
+        android:textColorHighlight="?android:attr/textColor"
+        android:textColorHint="?android:attr/textColor"
+        android:textColorLink="?android:attr/textColor"
         android:textSize="16sp"
         app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,10 +37,10 @@
         android:layout_marginEnd="16dp"
         android:gravity="center"
         android:text="@string/theory"
-        android:textColor="@color/dark_text_color"
-        android:textColorHighlight="@color/dark_text_color"
-        android:textColorHint="@color/dark_text_color"
-        android:textColorLink="@color/dark_text_color"
+        android:textColor="?android:attr/textColor"
+        android:textColorHighlight="?android:attr/textColor"
+        android:textColorHint="?android:attr/textColor"
+        android:textColorLink="?android:attr/textColor"
         android:textSize="30sp"
         app:autoSizeTextType="none"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,13 +49,16 @@
 
     <ListView
         android:id="@+id/list"
+        android:textColor="?android:attr/textColor"
+        android:textColorHighlight="?android:attr/textColor"
+        android:textColorHint="?android:attr/textColor"
+        android:textColorLink="?android:attr/textColor"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:entries="@array/Topics"
         app:circularflow_defaultRadius="10dp"
         app:circularflow_radiusInDP="10dp"
         app:layout_constraintBottom_toTopOf="@id/mainmenu"
@@ -65,6 +67,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout="@android:layout/list_content" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

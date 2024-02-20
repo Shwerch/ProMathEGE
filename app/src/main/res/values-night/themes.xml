@@ -1,14 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:ignore="NewApi">shortEdges</item>
         <item name="android:statusBarColor">@color/dark_background</item>
+
+        <item name="background">@color/dark_background</item>
+        <item name="android:textColor">@color/dark_text_color</item>
+        <item name="android:buttonStyle">@color/dark_text_color</item>
+
         <item name="colorPrimary">@color/dark_accents</item>
         <item name="colorPrimaryVariant">@color/dark_accents</item>
         <item name="colorOnPrimary">@color/dark_accents</item>
         <item name="colorSecondary">@color/dark_accents</item>
         <item name="colorSecondaryVariant">@color/dark_accents</item>
         <item name="colorOnSecondary">@color/dark_accents</item>
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
 </resources>

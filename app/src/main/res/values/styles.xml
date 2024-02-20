@@ -2,14 +2,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="AppTheme" parent="Theme.MyApplication">
         <item name="color">@color/dark_text_color</item>
-        <item name="colorPrimary">@color/dark_text_color</item>
+        <item name="colorPrimary">@color/light_text_color</item>
         <item name="colorPrimaryDark">@color/dark_text_color</item>
-        <item name="colorAccent">@color/dark_text_color</item>
         <item name="buttonStyle">@style/SystemButtonStyle</item>
     </style>
 
     <style name="SystemButtonStyle" parent="Widget.MaterialComponents.Button">
         <item name="android:background">@drawable/button_border</item>
     </style>
+
+    <style name="MainButtons" parent="AppTheme">
+        <item name="android:background">@drawable/button_border</item>
+    </style>
+
+
 
 </resources>
