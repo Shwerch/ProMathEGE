@@ -19,16 +19,6 @@ public class Shop extends MyAppCompatActivity {
         super.SetSizes(new Button[]{MainMenu});
 
         ListView List = findViewById(R.id.list);
-
-        List.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(Shop.this,TheoryActivity.class);
-                intent.putExtra("Chapter",position);
-                intent.putExtra("ChapterName",(String) List.getItemAtPosition(position));
-                startActivity(intent);
-            }
-        });
     }
 }
 

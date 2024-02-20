@@ -1,17 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowLayoutInDisplayCutoutMode" tools:ignore="NewApi">shortEdges</item>
-        <item name="android:statusBarColor">#00000000</item>
-
-        <item name="background">@color/light_background</item>
-        <item name="android:textColor">@color/light_text_color</item>
-
-        <item name="colorPrimary">@color/light_accents</item>
-        <item name="colorPrimaryVariant">@color/light_accents</item>
-        <item name="colorOnPrimary">@color/light_accents</item>
-        <item name="colorSecondary">@color/light_accents</item>
-        <item name="colorSecondaryVariant">@color/light_accents</item>
-        <item name="colorOnSecondary">@color/light_accents</item>
+        <item name="android:statusBarColor">@color/light_background</item>
     </style>
+    <style name="Theme.MyApplication" parent="Base.Theme.MyApplication" />
+
+    <string name="Mode">Light</string>
+
+    <color name="Background">@color/light_background</color>
+    <color name="TextColor">@color/light_text_color</color>
+    <color name="MainButtonColor" tools:ignore="MissingDefaultResource">@color/light_standard_icons</color>
+    <color name="MainButtonStrokeColor" tools:ignore="MissingDefaultResource">@color/light_inscriptions</color>
+    <color name="ButtonColor" tools:ignore="MissingDefaultResource">@color/light_info_icons</color>
+    <color name="ButtonStrokeColor" tools:ignore="MissingDefaultResource">@color/light_standard_icons</color>
 </resources>

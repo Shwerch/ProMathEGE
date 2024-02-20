@@ -10,27 +10,18 @@
 
     <Button
         android:id="@+id/mainmenu"
+        style="@style/Buttons"
         android:layout_width="200dp"
         android:layout_height="55dp"
         android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/dark_info_icons"
-        android:breakStrategy="balanced"
         android:text="@string/main_menu"
-        android:textColor="?android:attr/textColor"
-        android:textColorHighlight="?android:attr/textColor"
-        android:textColorHint="?android:attr/textColor"
-        android:textColorLink="?android:attr/textColor"
-        android:textSize="16sp"
-        app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:strokeColor="@color/dark_standard_icons"
-        app:strokeWidth="1.5dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/title"
-        style="@style/AppTheme"
+        style="@style/Text"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -38,10 +29,6 @@
         android:layout_marginEnd="16dp"
         android:gravity="center"
         android:text="@string/practice"
-        android:textColor="?android:attr/textColor"
-        android:textColorHighlight="?android:attr/textColor"
-        android:textColorHint="?android:attr/textColor"
-        android:textColorLink="?android:attr/textColor"
         android:textSize="30sp"
         app:autoSizeTextType="none"
         app:layout_constraintEnd_toEndOf="parent"

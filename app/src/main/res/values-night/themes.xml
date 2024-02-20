@@ -1,17 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowLayoutInDisplayCutoutMode" tools:ignore="NewApi">shortEdges</item>
-        <item name="android:statusBarColor">#00000000</item>
-
-        <item name="background">@color/dark_background</item>
-        <item name="android:textColor">@color/dark_text_color</item>
-
-        <item name="colorPrimary">@color/dark_accents</item>
-        <item name="colorPrimaryVariant">@color/dark_accents</item>
-        <item name="colorOnPrimary">@color/dark_accents</item>
-        <item name="colorSecondary">@color/dark_accents</item>
-        <item name="colorSecondaryVariant">@color/dark_accents</item>
-        <item name="colorOnSecondary">@color/dark_accents</item>
+        <item name="android:statusBarColor">@color/dark_background</item>
     </style>
+
+    <string name="Mode">Dark</string>
+
+    <color name="Background">@color/dark_background</color>
+    <color name="TextColor">@color/dark_text_color</color>
+    <color name="MainButtonColor" tools:ignore="MissingDefaultResource">@color/dark_standard_icons</color>
+    <color name="MainButtonStrokeColor" tools:ignore="MissingDefaultResource">@color/dark_inscriptions</color>
+    <color name="ButtonColor" tools:ignore="MissingDefaultResource">@color/dark_info_icons</color>
+    <color name="ButtonStrokeColor" tools:ignore="MissingDefaultResource">@color/dark_standard_icons</color>
 </resources>

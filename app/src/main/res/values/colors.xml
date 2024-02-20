@@ -15,4 +15,6 @@
     <color name="light_signatures">#ff888b91</color>
     <color name="light_inscriptions">#ff6d6f70</color>
     <color name="light_accents">#ff5383c3</color>
+
+    <color name="void0">#00FFFFFF</color>
 </resources>
