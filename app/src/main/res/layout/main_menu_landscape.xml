@@ -43,40 +43,44 @@
         style="@style/Buttons"
         android:layout_width="155dp"
         android:layout_height="55dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="12dp"
         android:text="@string/settings"
-        app:layout_constraintStart_toStartOf="@id/right"
-        app:layout_constraintTop_toTopOf="@id/right" />
+        app:layout_constraintBottom_toBottomOf="@id/practice"
+        app:layout_constraintStart_toEndOf="@id/practice"
+        app:layout_constraintTop_toTopOf="@+id/practice" />
 
     <Button
         android:id="@+id/points"
         style="@style/Buttons"
         android:layout_width="155dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="12dp"
         android:text=""
-        app:layout_constraintBottom_toBottomOf="@id/right"
-        app:layout_constraintStart_toStartOf="@id/right" />
+        app:layout_constraintBottom_toBottomOf="@id/theory"
+        app:layout_constraintStart_toEndOf="@id/theory"
+        app:layout_constraintTop_toTopOf="@+id/theory" />
 
     <Button
         android:id="@+id/about"
         style="@style/Buttons"
         android:layout_width="155dp"
         android:layout_height="55dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
         android:text="@string/about"
-        app:layout_constraintEnd_toStartOf="@id/left"
-        app:layout_constraintTop_toTopOf="@id/left" />
+        app:layout_constraintBottom_toBottomOf="@id/practice"
+        app:layout_constraintEnd_toStartOf="@+id/practice"
+        app:layout_constraintTop_toTopOf="@+id/practice" />
 
     <Button
         android:id="@+id/exit"
         style="@style/Buttons"
         android:layout_width="155dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="12dp"
         android:text="@string/exit"
-        app:layout_constraintBottom_toTopOf="@id/left"
-        app:layout_constraintEnd_toStartOf="@id/left" />
+        app:layout_constraintBottom_toBottomOf="@id/theory"
+        app:layout_constraintEnd_toStartOf="@+id/theory"
+        app:layout_constraintTop_toTopOf="@+id/theory" />
 
     <TextView
         android:id="@+id/apptitle"
@@ -115,24 +119,5 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/practice"/>
-
-    <Space
-        android:id="@+id/right"
-        android:layout_width="1dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="12dp"
-        app:layout_constraintBottom_toTopOf="@id/practice"
-        app:layout_constraintStart_toEndOf="@id/theory"
-        app:layout_constraintTop_toBottomOf="@id/theory"
-        app:layout_constraintVertical_bias="0.5" />
-
-    <Space
-        android:id="@+id/left"
-        android:layout_width="1dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="12dp"
-        app:layout_constraintBottom_toTopOf="@id/practice"
-        app:layout_constraintEnd_toStartOf="@id/theory"
-        app:layout_constraintTop_toBottomOf="@id/theory" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

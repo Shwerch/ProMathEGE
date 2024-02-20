@@ -13,12 +13,11 @@
         style="@style/MainButtons"
         android:layout_width="160dp"
         android:layout_height="55dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/start_test"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/space"/>
+        app:layout_constraintStart_toStartOf="@id/space" />
 
     <Button
         android:id="@+id/mainmenu"

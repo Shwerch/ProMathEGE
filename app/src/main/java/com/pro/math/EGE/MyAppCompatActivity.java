@@ -30,10 +30,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int width = size.x;
-        int height = size.y;
-        double multiplier = (Math.min(width,height)/1080d-1d)/2d+1d;
-        Toast.makeText(getBaseContext(),String.valueOf(multiplier),Toast.LENGTH_SHORT).show();
+        double multiplier = (Math.min(size.x,size.y)/1080d-1d)/2d+1d;
         for (Button object : Objects) {
             ViewGroup.LayoutParams params = object.getLayoutParams();
             params.width = (int)(params.width * multiplier);
