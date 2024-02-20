@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dark_background">#1B1B1B</color>
+    <color name="dark_text_color">#dee0e4</color>
+    <color name="dark_info_icons">#3e3f41</color>
+    <color name="dark_standard_icons">#555657</color>
+    <color name="dark_signatures">#6d6f70</color>
+    <color name="dark_inscriptions">#888b91</color>
+    <color name="dark_accents">#71a5e5</color>
+
+    <color name="light_background">#f5f7f9</color>
+    <color name="light_text_color">#dee0e4</color>
+    <color name="light_info_icons">#bec2c5</color>
+    <color name="light_standard_icons">#a2a6ac</color>
+    <color name="light_signatures">#888b91</color>
+    <color name="light_inscriptions">#6d6f70</color>
+    <color name="light_accents">#5383c3</color>
+</resources>

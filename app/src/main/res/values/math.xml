@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="UpperCharacters">
+        <item>ᵃ</item>
+        <item>ᵇ</item>
+        <item>ᶜ</item>
+        <item>ᵈ</item>
+        <item>ᵉ</item>
+        <item>ᶠ</item>
+        <item>ᵍ</item>
+        <item>ʰ</item>
+        <item>ᶦ</item>
+        <item>ʲ</item>
+        <item>ᵏ</item>
+        <item>ˡ</item>
+        <item>ᵐ</item>
+        <item>ⁿ</item>
+        <item>ᵒ</item>
+        <item>ᵖ</item>
+        <item>ᑫ</item>
+        <item>ʳ</item>
+        <item>ˢ</item>
+        <item>ᵗ</item>
+        <item>ᵘ</item>
+        <item>ᵛ</item>
+        <item>ʷ</item>
+        <item>ˣ</item>
+        <item>ʸ</item>
+        <item>ᶻ</item>
+    </string-array>
+    <string-array name="LowerCharacters">
+        <item>ₑ</item>
+        <item>ₕ</item>
+        <item>ᵢ</item>
+        <item>ⱼ</item>
+        <item>ₖ</item>
+        <item>ₗ</item>
+        <item>ₘ</item>
+        <item>ₙ</item>
+        <item>ₒ</item>
+        <item>ₚ</item>
+        <item>ᵣ</item>
+        <item>ₛ</item>
+        <item>ₜ</item>
+        <item>ᵤ</item>
+        <item>ᵥ</item>
+        <item>ₓ</item>
+    </string-array>
+    <string-array name="UpperDigits">
+        <item>⁰</item>
+        <item>¹</item>
+        <item>²</item>
+        <item>³</item>
+        <item>⁴</item>
+        <item>⁵</item>
+        <item>⁶</item>
+        <item>⁷</item>
+        <item>⁸</item>
+        <item>⁹</item>
+    </string-array>
+    <string-array name="LowerDigits">
+        <item>₀</item>
+        <item>₁</item>
+        <item>₂</item>
+        <item>₃</item>
+        <item>₄</item>
+        <item>₅</item>
+        <item>₆</item>
+        <item>₇</item>
+        <item>₈</item>
+        <item>₉</item>
+    </string-array>
+    <string name="UpperMinus">⁻</string>
+    <string name="UpperPlus">⁺</string>
+    <string name="TopUnderline">̅</string>
+    <string name="Root2">√</string>
+    <string name="Root3">∛</string>
+    <string name="Root4">∜</string>
+    <string name="Belongs">∈</string>
+    <string name="NotBelongs">∉</string>
+    <string name="PlusMinus">∓</string>
+    <string name="Infinity">∞</string>
+    <string name="BiggerOrEqual">≧</string>
+    <string name="Bigger">≻</string>
+    <string name="SmallerOrEqual">≤</string>
+    <string name="Smaller">≺</string>
+    <string name="Including">⋃</string>
+</resources>
