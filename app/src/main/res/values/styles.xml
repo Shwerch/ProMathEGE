@@ -10,6 +10,12 @@
         <item name="android:textColorHighlight">@color/TextColor</item>
         <item name="android:textColorHint">@color/TextColor</item>
         <item name="android:textColorLink">@color/TextColor</item>
+        <item name="android:textColorPrimary">@color/TextColor</item>
+        <item name="android:textColorSecondary">@color/TextColor</item>
+        <item name="android:textColorAlertDialogListItem">@color/TextColor</item>
+        <item name="android:textColorHighlightInverse">@color/TextColor</item>
+        <item name="android:textColorHintInverse">@color/TextColor</item>
+        <item name="android:textColorTertiary">@color/TextColor</item>
         <item name="android:textSize">22sp</item>
     </style>
 
@@ -22,6 +28,12 @@
         <item name="android:textColorHighlight">@color/TextColor</item>
         <item name="android:textColorHint">@color/TextColor</item>
         <item name="android:textColorLink">@color/TextColor</item>
+        <item name="android:textColorPrimary">@color/TextColor</item>
+        <item name="android:textColorSecondary">@color/TextColor</item>
+        <item name="android:textColorAlertDialogListItem">@color/TextColor</item>
+        <item name="android:textColorHighlightInverse">@color/TextColor</item>
+        <item name="android:textColorHintInverse">@color/TextColor</item>
+        <item name="android:textColorTertiary">@color/TextColor</item>
         <item name="android:textSize">14sp</item>
     </style>
 
@@ -30,6 +42,12 @@
         <item name="android:textColorHighlight">@color/TextColor</item>
         <item name="android:textColorHint">@color/TextColor</item>
         <item name="android:textColorLink">@color/TextColor</item>
+        <item name="android:textColorPrimary">@color/TextColor</item>
+        <item name="android:textColorSecondary">@color/TextColor</item>
+        <item name="android:textColorAlertDialogListItem">@color/TextColor</item>
+        <item name="android:textColorHighlightInverse">@color/TextColor</item>
+        <item name="android:textColorHintInverse">@color/TextColor</item>
+        <item name="android:textColorTertiary">@color/TextColor</item>
         <item name="android:background">@color/void0</item>
     </style>
 
