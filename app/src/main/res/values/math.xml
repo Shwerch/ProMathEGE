@@ -28,6 +28,7 @@
         <item>ʸ</item>
         <item>ᶻ</item>
     </string-array>
+
     <string-array name="LowerCharacters">
         <item>ₑ</item>
         <item>ₕ</item>
@@ -46,6 +47,7 @@
         <item>ᵥ</item>
         <item>ₓ</item>
     </string-array>
+
     <string-array name="UpperDigits">
         <item>⁰</item>
         <item>¹</item>
@@ -58,6 +60,7 @@
         <item>⁸</item>
         <item>⁹</item>
     </string-array>
+
     <string-array name="LowerDigits">
         <item>₀</item>
         <item>₁</item>
@@ -70,6 +73,7 @@
         <item>₈</item>
         <item>₉</item>
     </string-array>
+
     <string name="UpperMinus">⁻</string>
     <string name="UpperPlus">⁺</string>
     <string name="TopUnderline">̅</string>
@@ -85,4 +89,83 @@
     <string name="SmallerOrEqual">≤</string>
     <string name="Smaller">≺</string>
     <string name="Including">⋃</string>
+
+    <string-array name="d0">
+        <item>₀</item>
+        <item>0</item>
+        <item>⁰</item>
+    </string-array>
+
+    <string-array name="d1">
+        <item>₁</item>
+        <item>1</item>
+        <item>¹</item>
+    </string-array>
+
+    <string-array name="d2">
+        <item>₂</item>
+        <item>2</item>
+        <item>²</item>
+    </string-array>
+
+    <string-array name="d3">
+        <item>₃</item>
+        <item>3</item>
+        <item>³</item>
+    </string-array>
+
+    <string-array name="d4">
+        <item>₄</item>
+        <item>4</item>
+        <item>⁴</item>
+    </string-array>
+
+    <string-array name="d5">
+        <item>₅</item>
+        <item>5</item>
+        <item>⁵</item>
+    </string-array>
+
+    <string-array name="d6">
+        <item>₆</item>
+        <item>6</item>
+        <item>⁶</item>
+    </string-array>
+
+    <string-array name="d7">
+        <item>₇</item>
+        <item>7</item>
+        <item>⁷</item>
+    </string-array>
+
+    <string-array name="d8">
+        <item>₈</item>
+        <item>8</item>
+        <item>⁸</item>
+    </string-array>
+
+    <string-array name="d9">
+        <item>₉</item>
+        <item>9</item>
+        <item>⁹</item>
+    </string-array>
+
+    <string-array name="x">
+        <item>ₓ</item>
+        <item>x</item>
+        <item>ˣ</item>
+    </string-array>
+
+    <string-array name="y">
+        <item>-</item>
+        <item>y</item>
+        <item>ʸ</item>
+    </string-array>
+
+    <string-array name="e">
+        <item>ₑ</item>
+        <item>e</item>
+        <item>ᵉ</item>
+    </string-array>
+
 </resources>

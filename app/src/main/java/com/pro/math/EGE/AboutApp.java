@@ -11,7 +11,6 @@ public class AboutApp extends MyAppCompatActivity {
         setContentView(R.layout.about_app);
         final Button Back = findViewById(R.id.mainmenu);
         super.BackToMainMenu(Back);
-        final TextView AboutText = findViewById(R.id.about_text);
         super.SetSizes(new Button[]{Back});
     }
 }

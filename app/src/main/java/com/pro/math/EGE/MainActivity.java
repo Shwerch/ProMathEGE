@@ -51,23 +51,11 @@ public class MainActivity extends MyAppCompatActivity {
         Points.setText(GetCorrectFormOfPoints((long)(Math.random()*5000)));
 
         Exit.setOnClickListener(v -> Close());
-        About.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this,AboutApp.class));
-        });
-        Theory.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this,Theory.class));
-        });
-        Settings.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this,Settings.class));
-        });
-        Points.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this,Points.class));
-        });
-        Practice.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this,Practice.class));
-        });
-        Shop.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this,Shop.class));
-        });
+        About.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,AboutApp.class)));
+        Theory.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,Theory.class)));
+        Settings.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,Settings.class)));
+        Points.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,Points.class)));
+        Practice.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,Practice.class)));
+        Shop.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,Shop.class)));
     }
 }

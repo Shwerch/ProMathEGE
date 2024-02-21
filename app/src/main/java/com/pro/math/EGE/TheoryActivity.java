@@ -2,7 +2,6 @@ package com.pro.math.EGE;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,13 +28,6 @@ public class TheoryActivity extends MyAppCompatActivity {
         super.BackToMainMenu(MainMenu);
         super.SetSizes(new Button[]{MainMenu,StartTest});
         TheoryTitle.setText(ChapterName);
-        /*ListView list = findViewById(R.id.list);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(TheoryActivity.this,Theory.class));
-            }
-        });*/
     }
 }
 
