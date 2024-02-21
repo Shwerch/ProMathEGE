@@ -3,13 +3,12 @@
     <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowLayoutInDisplayCutoutMode" tools:ignore="NewApi">shortEdges</item>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
+        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">false</item>
         <item name="colorPrimaryDark">@color/dark_background</item>
         <item name="colorPrimary">@color/dark_background</item>
         <item name="android:windowBackground">@color/dark_background</item>
         <item name="android:navigationIcon">@color/dark_background</item>
     </style>
-
-    <string name="Mode">Dark</string>
 
     <color name="Background">@color/dark_background</color>
     <color name="TextColor">@color/dark_text_color</color>

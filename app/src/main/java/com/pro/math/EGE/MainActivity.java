@@ -5,7 +5,6 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
 import android.widget.Button;
-import android.widget.Toast;
 
 
 public class MainActivity extends MyAppCompatActivity {
@@ -38,7 +37,6 @@ public class MainActivity extends MyAppCompatActivity {
         else {
             setContentView(R.layout.main_menu_portrait);
         }
-
         final Button Points = findViewById(R.id.points);
         final Button Settings = findViewById(R.id.settings);
 
@@ -48,7 +46,6 @@ public class MainActivity extends MyAppCompatActivity {
 
         final Button Exit = findViewById(R.id.exit);
         final Button About = findViewById(R.id.about);
-        Toast.makeText(this, size.x + "x" + size.y, Toast.LENGTH_SHORT).show();
         super.SetSizes(new Button[]{Points,Settings,Theory,Practice,Shop,Exit,About});
 
         Points.setText(GetCorrectFormOfPoints((long)(Math.random()*5000)));

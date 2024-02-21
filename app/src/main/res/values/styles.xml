@@ -17,6 +17,14 @@
         <item name="android:textColorHintInverse">@color/TextColor</item>
         <item name="android:textColorTertiary">@color/TextColor</item>
         <item name="android:textSize">22sp</item>
+
+        <item name="android:shadowColor">@color/Background</item>
+        <item name="android:shadowRadius">2</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+
+        <item name="android:stateListAnimator">@animator/button_state_list_animator</item>
+        <item name="android:elevation">10dp</item>
     </style>
 
     <style name="Buttons">
@@ -35,6 +43,14 @@
         <item name="android:textColorHintInverse">@color/TextColor</item>
         <item name="android:textColorTertiary">@color/TextColor</item>
         <item name="android:textSize">14sp</item>
+
+        <item name="android:shadowColor">@color/Background</item>
+        <item name="android:shadowRadius">2</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+
+        <item name="android:stateListAnimator">@animator/button_state_list_animator</item>
+        <item name="android:elevation">10dp</item>
     </style>
 
     <style name="Text">

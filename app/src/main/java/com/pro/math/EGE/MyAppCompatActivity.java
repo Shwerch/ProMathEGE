@@ -1,6 +1,5 @@
 package com.pro.math.EGE;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
@@ -33,13 +32,15 @@ public class MyAppCompatActivity extends AppCompatActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        double multiplier = (Math.min(size.x,size.y)/1500d-1d)/2d+1d;
+        double multiplier = (Math.min(size.x,size.y)/1300d-1d)/1.45d+1d;
+        double textSize = multiplier-0.1d;
+        Toast.makeText(this,"Multiplier: " + multiplier,Toast.LENGTH_SHORT).show();
         for (Button object : Objects) {
             ViewGroup.LayoutParams params = object.getLayoutParams();
             params.width = (int)(params.width * multiplier);
             params.height = (int)(params.height * multiplier);
             object.setLayoutParams(params);
-            object.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float)(object.getTextSize() * multiplier));
+            object.setTextSize(TypedValue.COMPLEX_UNIT_PX, (float)(object.getTextSize() * textSize));
         }
     }
 }
