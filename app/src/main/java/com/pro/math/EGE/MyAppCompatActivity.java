@@ -32,7 +32,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        double multiplier = (Math.min(size.x,size.y)/1300d-1d)/1.45d+1d;
+        double multiplier = (Math.min(size.x,size.y)/1200d-1d)/1.4d+1d;
         double textSize = multiplier-0.1d;
         Toast.makeText(this,"Multiplier: " + multiplier,Toast.LENGTH_SHORT).show();
         for (Button object : Objects) {

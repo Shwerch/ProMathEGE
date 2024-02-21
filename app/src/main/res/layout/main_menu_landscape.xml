@@ -67,9 +67,9 @@
         android:layout_height="55dp"
         android:layout_marginEnd="12dp"
         android:text="@string/about"
-        app:layout_constraintBottom_toBottomOf="@id/practice"
-        app:layout_constraintEnd_toStartOf="@+id/practice"
-        app:layout_constraintTop_toTopOf="@+id/practice" />
+        app:layout_constraintBottom_toBottomOf="@id/theory"
+        app:layout_constraintEnd_toStartOf="@+id/theory"
+        app:layout_constraintTop_toTopOf="@+id/theory" />
 
     <Button
         android:id="@+id/exit"
@@ -78,9 +78,9 @@
         android:layout_height="55dp"
         android:layout_marginEnd="12dp"
         android:text="@string/exit"
-        app:layout_constraintBottom_toBottomOf="@id/theory"
-        app:layout_constraintEnd_toStartOf="@+id/theory"
-        app:layout_constraintTop_toTopOf="@+id/theory" />
+        app:layout_constraintBottom_toBottomOf="@id/practice"
+        app:layout_constraintEnd_toStartOf="@+id/practice"
+        app:layout_constraintTop_toTopOf="@+id/practice" />
 
     <TextView
         android:id="@+id/apptitle"
