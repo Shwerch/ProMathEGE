@@ -16,39 +16,9 @@
     <string name="points2">балл</string>
     <string name="points3">балла</string>
 
-    <string-array name="Topics">
-        <item>Базовые формулы</item>
-        <item>Планиметрия</item>
-        <item>Векторы</item>
-        <item>Стереометрия</item>
-        <item>Теория вероятностей</item>
-        <item>Производная</item>
-        <item>Логарифмы</item>
-        <item>Стереометрия</item>
-        <item>Планиметрия</item>
-    </string-array>
-
     <string-array name="Settings">
         <item>Показывать правильный ответ в случае ошибки</item>
         <item>Переходить на следующее задание автоматически</item>
-    </string-array>
-
-    <string-array name="Shop">
-        <item>Формула 1</item>
-        <item>Формула 2</item>
-        <item>Формула 3</item>
-        <item>Формула 4</item>
-        <item>Формула 5</item>
-        <item>Формула 6</item>
-        <item>Формула 7</item>
-        <item>Формула 8</item>
-        <item>Формула 9</item>
-        <item>Формула 10</item>
-        <item>Формула 11</item>
-        <item>Формула 12</item>
-        <item>Формула 13</item>
-        <item>Формула 14</item>
-        <item>Формула 15</item>
     </string-array>
 
     <string name="error_whe_getting_topic">Ошибка: не удалось получить выбранный раздел</string>

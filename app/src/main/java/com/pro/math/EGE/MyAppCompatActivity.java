@@ -10,6 +10,7 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,9 +33,9 @@ public class MyAppCompatActivity extends AppCompatActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        double multiplier = (Math.min(size.x,size.y)/1200d-1d)/1.4d+1d;
+        double multiplier = (Math.min(size.x,size.y)/1250d-1d)/1.3d+1d;
         double textSize = multiplier-0.1d;
-        Log.d("MyMultiplier", String.valueOf(multiplier));
+        Toast.makeText(this,String.valueOf(multiplier),Toast.LENGTH_SHORT).show();
         for (Button object : Objects) {
             ViewGroup.LayoutParams params = object.getLayoutParams();
             params.width = (int)(params.width * multiplier);

@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class MainActivity extends MyAppCompatActivity {
@@ -31,6 +32,7 @@ public class MainActivity extends MyAppCompatActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
+        Toast.makeText(this,size.x+"x"+size.y, Toast.LENGTH_SHORT).show();
         if (size.x > size.y + 300) {
             setContentView(R.layout.main_menu_landscape);
         }
