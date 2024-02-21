@@ -11,7 +11,7 @@
     <Button
         android:id="@+id/start_test"
         style="@style/MainButtons"
-        android:layout_width="160dp"
+        android:layout_width="170dp"
         android:layout_height="55dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
@@ -22,13 +22,12 @@
     <Button
         android:id="@+id/mainmenu"
         style="@style/Buttons"
-        android:layout_width="160dp"
+        android:layout_width="170dp"
         android:layout_height="55dp"
-        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/main_menu"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/space"/>
+        app:layout_constraintEnd_toStartOf="@id/space" />
 
     <TextView
         android:id="@+id/title"

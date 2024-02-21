@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
         display.getSize(size);
         double multiplier = (Math.min(size.x,size.y)/1200d-1d)/1.4d+1d;
         double textSize = multiplier-0.1d;
-        Toast.makeText(this,"Multiplier: " + multiplier,Toast.LENGTH_SHORT).show();
+        Log.d("MyMultiplier", String.valueOf(multiplier));
         for (Button object : Objects) {
             ViewGroup.LayoutParams params = object.getLayoutParams();
             params.width = (int)(params.width * multiplier);
