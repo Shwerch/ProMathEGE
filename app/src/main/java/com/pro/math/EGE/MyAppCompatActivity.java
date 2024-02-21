@@ -1,5 +1,6 @@
 package com.pro.math.EGE;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
@@ -21,16 +22,18 @@ public class MyAppCompatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setNavigationBarColor(getResources().getColor(R.color.Background));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+        getWindow().setStatusBarColor(getResources().getColor(R.color.Background));
+        if (Build.VERSION.SDK_INT >= 34) {
             overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN,R.anim.fadein,R.anim.fadeout);
             overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE,R.anim.fadeout,R.anim.fadein);
         }
+
     }
     protected void SetSizes(Button[] Objects) {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        double multiplier = (Math.min(size.x,size.y)/1080d-1d)/2d+1d;
+        double multiplier = (Math.min(size.x,size.y)/1500d-1d)/2d+1d;
         for (Button object : Objects) {
             ViewGroup.LayoutParams params = object.getLayoutParams();
             params.width = (int)(params.width * multiplier);

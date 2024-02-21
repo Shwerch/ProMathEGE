@@ -32,7 +32,7 @@ public class MainActivity extends MyAppCompatActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        if (size.x > size.y + 500) {
+        if (size.x > size.y + 300) {
             setContentView(R.layout.main_menu_landscape);
         }
         else {
