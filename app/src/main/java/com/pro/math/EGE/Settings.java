@@ -1,10 +1,9 @@
 package com.pro.math.EGE;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Settings extends MyAppCompatActivity {
@@ -14,8 +13,9 @@ public class Settings extends MyAppCompatActivity {
         setContentView(R.layout.settings);
 
         final Button MainMenu = findViewById(R.id.mainmenu);
+        final TextView Title = findViewById(R.id.title);
         super.BackToMainMenu(MainMenu);
-        super.SetSizes(new Button[]{MainMenu});
+        super.SetSizes(new Button[]{MainMenu},Title);
 
         ListView List = findViewById(R.id.settings_list);
 

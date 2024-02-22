@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/Background"
     app:autoSizeTextType="uniform">
 
     <Button
@@ -36,10 +35,10 @@
 
     <ListView
         android:id="@+id/list"
-        android:textColor="?android:attr/textColor"
-        android:textColorHighlight="?android:attr/textColor"
-        android:textColorHint="?android:attr/textColor"
-        android:textColorLink="?android:attr/textColor"
+        android:textColor="@color/TextColor"
+        android:textColorHighlight="@color/TextColor"
+        android:textColorHint="@color/TextColor"
+        android:textColorLink="@color/TextColor"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"

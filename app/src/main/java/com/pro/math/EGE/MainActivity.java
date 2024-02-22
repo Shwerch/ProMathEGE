@@ -5,25 +5,13 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
 
 public class MainActivity extends MyAppCompatActivity {
+    private Button PointsButton;
     private void Close() {
         this.finishAffinity();
-    }
-
-    private String GetCorrectFormOfPoints(long points) {
-        long remainder  = points % 10;
-        String text;
-        if ((points > 9 && points < 20) || remainder == 0 || remainder >= 5) {
-            text = points + " " + getResources().getString(R.string.points1);
-        } else if (remainder == 1) {
-            text = points + " " + getResources().getString(R.string.points2);
-        } else {
-            text = points + " " + getResources().getString(R.string.points3);
-        }
-        return text;
     }
 
     @Override
@@ -32,7 +20,6 @@ public class MainActivity extends MyAppCompatActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        Toast.makeText(this,size.x+"x"+size.y, Toast.LENGTH_SHORT).show();
         if (size.x > size.y + 300) {
             setContentView(R.layout.main_menu_landscape);
         }
@@ -48,9 +35,12 @@ public class MainActivity extends MyAppCompatActivity {
 
         final Button Exit = findViewById(R.id.exit);
         final Button About = findViewById(R.id.about);
-        super.SetSizes(new Button[]{Points,Settings,Theory,Practice,Shop,Exit,About});
 
-        Points.setText(GetCorrectFormOfPoints((long)(Math.random()*5000)));
+        final TextView Title = findViewById(R.id.title);
+
+        super.SetSizes(new Button[]{Points,Settings,Theory,Practice,Shop,Exit,About},Title);
+
+        PointsButton = Points;
 
         Exit.setOnClickListener(v -> Close());
         About.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,AboutApp.class)));
@@ -59,5 +49,20 @@ public class MainActivity extends MyAppCompatActivity {
         Points.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,Points.class)));
         Practice.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,Practice.class)));
         Shop.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,Shop.class)));
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        long points = (long)(Math.random()*5000);
+        long remainder  = points % 10;
+        String text;
+        if ((points > 9 && points < 20) || remainder == 0 || remainder >= 5) {
+            text = points + " " + getResources().getString(R.string.points1);
+        } else if (remainder == 1) {
+            text = points + " " + getResources().getString(R.string.points2);
+        } else {
+            text = points + " " + getResources().getString(R.string.points3);
+        }
+        PointsButton.setText(text);
     }
 }

@@ -12,8 +12,9 @@ public class AboutApp extends MyAppCompatActivity {
         setContentView(R.layout.about_app);
         final Button Back = findViewById(R.id.mainmenu);
         final TextView About = findViewById(R.id.about_text);
+        final TextView Title = findViewById(R.id.title);
         About.setMovementMethod(new ScrollingMovementMethod());
         super.BackToMainMenu(Back);
-        super.SetSizes(new Button[]{Back});
+        super.SetSizes(new Button[]{Back},Title);
     }
 }

@@ -3,9 +3,7 @@ package com.pro.math.EGE;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,10 +19,11 @@ public class TheoryActivity extends MyAppCompatActivity {
         final TextView List = findViewById(R.id.list);
 
         int Chapter = 0;
-        String ChapterName = (String) getIntent().getSerializableExtra("ChapterName");
+        String ChapterName = "";
         try {
             Chapter = (int) getIntent().getSerializableExtra("Chapter");
-        } catch (NullPointerException e) {
+            ChapterName =  getResources().getStringArray(R.array.Topics)[Chapter];
+        } catch (Exception e) {
             Toast.makeText(getBaseContext(),R.string.error_whe_getting_topic, Toast.LENGTH_LONG).show();
             startActivity(new Intent(TheoryActivity.this,Theory.class));
         }
@@ -32,7 +31,7 @@ public class TheoryActivity extends MyAppCompatActivity {
         List.setText(getResources().getStringArray(R.array.Theory)[Chapter]);
 
         super.BackToMainMenu(MainMenu);
-        super.SetSizes(new Button[]{MainMenu,StartTest});
+        super.SetSizes(new Button[]{MainMenu,StartTest},TheoryTitle);
         TheoryTitle.setText(ChapterName);
     }
 }

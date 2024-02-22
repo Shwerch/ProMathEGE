@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class Theory extends MyAppCompatActivity {
 
@@ -14,8 +15,9 @@ public class Theory extends MyAppCompatActivity {
 
         setContentView(R.layout.theory);
         final Button MainMenu = findViewById(R.id.mainmenu);
+        final TextView Title = findViewById(R.id.title);
         super.BackToMainMenu(MainMenu);
-        super.SetSizes(new Button[]{MainMenu});
+        super.SetSizes(new Button[]{MainMenu},Title);
 
         String[] Chapters = getResources().getStringArray(R.array.Topics);
 
@@ -27,7 +29,6 @@ public class Theory extends MyAppCompatActivity {
         List.setOnItemClickListener((parent, view, position, id) -> {
             Intent intent = new Intent(Theory.this,TheoryActivity.class);
             intent.putExtra("Chapter",position);
-            intent.putExtra("ChapterName",Chapters[position]);
             startActivity(intent);
         });
     }

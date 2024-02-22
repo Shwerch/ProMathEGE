@@ -2,6 +2,7 @@ package com.pro.math.EGE;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class Points extends MyAppCompatActivity {
     @Override
@@ -10,7 +11,8 @@ public class Points extends MyAppCompatActivity {
         setContentView(R.layout.points);
 
         final Button MainMenu = findViewById(R.id.mainmenu);
+        final TextView Title = findViewById(R.id.title);
         super.BackToMainMenu(MainMenu);
-        super.SetSizes(new Button[]{MainMenu});
+        super.SetSizes(new Button[]{MainMenu},Title);
     }
 }
