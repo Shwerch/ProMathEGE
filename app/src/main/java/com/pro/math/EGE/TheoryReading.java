@@ -13,7 +13,7 @@ public class TheoryReading extends MyAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.theory_activity);
+        setContentView(R.layout.theory_reading);
         final Button MainMenu = findViewById(R.id.mainmenu);
         final Button StartTest = findViewById(R.id.start_test);
         final TextView TheoryTitle = findViewById(R.id.title);
@@ -32,6 +32,7 @@ public class TheoryReading extends MyAppCompatActivity {
         List.setText(getResources().getStringArray(R.array.Theory)[Chapter]);
 
         super.BackToMainMenu(MainMenu);
+        StartTest.setOnClickListener(v -> startActivity(new Intent(this, TheoryTesting.class)));
         super.SetSizes(new Button[]{MainMenu,StartTest},TheoryTitle);
         TheoryTitle.setText(ChapterName);
 

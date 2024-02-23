@@ -7,9 +7,11 @@
     <string name="practice">Практика</string>
     <string name="shop">Магазин задач</string>
     <string name="back">Назад</string>
-    <string name="main_menu">Назад</string>
+    <string name="main_menu">Главное меню</string>
     <string name="points">Баллы</string>
     <string name="start_test">Начать тест</string>
+    <string name="next">Дальше</string>
+    <string name="theory_test">Тест по теории</string>
     <string name="about_text">Создано благодаря центру образования детей IT–CUBE, 2023–2024 учебный год.</string>
 
     <string name="points1">баллов</string>

@@ -38,6 +38,9 @@
         <activity
             android:name=".Shop">
         </activity>
+        <activity
+            android:name=".TheoryTesting">
+        </activity>
     </application>
 
 </manifest>

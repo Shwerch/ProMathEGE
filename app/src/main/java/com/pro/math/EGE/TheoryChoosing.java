@@ -13,7 +13,7 @@ public class TheoryChoosing extends MyAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.theory);
+        setContentView(R.layout.theory_choosing);
         final Button MainMenu = findViewById(R.id.mainmenu);
         final TextView Title = findViewById(R.id.title);
         super.BackToMainMenu(MainMenu);
