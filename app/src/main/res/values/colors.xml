@@ -17,4 +17,7 @@
     <color name="light_accents">#ff5383c3</color>
 
     <color name="void0">#00FFFFFF</color>
+
+    <color name="green">#32FF32</color>
+    <color name="red">#FF3232</color>
 </resources>

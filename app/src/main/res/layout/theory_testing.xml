@@ -89,44 +89,36 @@
                 android:id="@+id/answer1"
                 style="@style/Buttons"
                 android:layout_width="300dp"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:layout_gravity="center" />
 
             <Button
                 android:id="@+id/answer2"
                 style="@style/Buttons"
                 android:layout_width="300dp"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:layout_gravity="center" />
 
             <Button
                 android:id="@+id/answer3"
                 style="@style/Buttons"
                 android:layout_width="300dp"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:layout_gravity="center" />
 
             <Button
                 android:id="@+id/answer4"
                 style="@style/Buttons"
                 android:layout_width="300dp"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:layout_gravity="center" />
 
             <Button
                 android:id="@+id/answer5"
                 style="@style/Buttons"
                 android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center" />
-
-            <Button
-                android:id="@+id/check"
-                style="@style/MainButtons"
-                android:layout_width="170dp"
                 android:layout_height="55dp"
-                android:layout_gravity="center"
-                android:text="@string/check" />
+                android:layout_gravity="center" />
 
         </LinearLayout>
 

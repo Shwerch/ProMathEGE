@@ -74,27 +74,36 @@ public class BasicFormulas {
         int Chapter = (int)(Math.random()*2);
         String[] Formulas;
         int[] Coincidences;
-        String[] Selected = new String[6];
+        String[] Selected = new String[7];
 
         if (Chapter == 0) {
-            Formulas = AbbreviatedMultiplicationFormulas;
-            Coincidences = AbbreviatedMultiplicationFormulasCoincidences;
+            Formulas = AbbreviatedMultiplicationFormulas.clone();
+            Coincidences = AbbreviatedMultiplicationFormulasCoincidences.clone();
         } else {
-            Formulas = DegreeFormulas;
-            Coincidences = DegreeFormulasCoincidences;
+            Formulas = DegreeFormulas.clone();
+            Coincidences = DegreeFormulasCoincidences.clone();
         }
         
-        int RandomAnswer = (int)(Math.random()*Formulas.length);
+        final int RandomAnswer = (int)(Math.random()*Formulas.length);
         Selected[0] = Formulas[RandomAnswer];
-        Selected[1+((int)(Math.random()*5))] = Formulas[Coincidences[RandomAnswer]];
+        final int RightAnswer = 1+((int)(Math.random()*5));
+        Selected[RightAnswer] = Formulas[Coincidences[RandomAnswer]];
+        Selected[6] = String.valueOf(RightAnswer);
         Collections.shuffle(Arrays.asList(Formulas));
 
+        Log.d("MYLOG","1. "+Arrays.toString(Selected));
+        Log.d("MYLOG","2. Chapter:"+Chapter+" RandomAnswer:"+RandomAnswer+" RightAnswer:"+RightAnswer+" Coincidences:"+Coincidences[RandomAnswer]);
+        Log.d("MYLOG","3.:"+Arrays.toString(Formulas));
+
         for (int select = 1;select < 6;select++) {
+            if (Selected[select] != null) {
+                continue;
+            }
             String formula = null;
             for (String formulaSearch : Formulas) {
                 boolean contains = false;
-                for (String selectSearch : Selected) {
-                    if (Objects.equals(selectSearch, formulaSearch)) {
+                for (int selectSearch = 0;selectSearch < 6;selectSearch++) {
+                    if (Objects.equals(Selected[selectSearch], formulaSearch)) {
                         contains = true;
                         break;
                     }
@@ -113,6 +122,11 @@ public class BasicFormulas {
                 Selected[select] = formula;
             }
         }
+
+        Formulas = null;
+        Coincidences = null;
+
+        System.gc();
 
         return Selected;
     }
