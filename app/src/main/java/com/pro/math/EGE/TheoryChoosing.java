@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class Theory extends MyAppCompatActivity {
+public class TheoryChoosing extends MyAppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class Theory extends MyAppCompatActivity {
         List.setAdapter(Adapter);
 
         List.setOnItemClickListener((parent, view, position, id) -> {
-            Intent intent = new Intent(Theory.this,TheoryActivity.class);
+            Intent intent = new Intent(TheoryChoosing.this, TheoryReading.class);
             intent.putExtra("Chapter",position);
             startActivity(intent);
         });

@@ -44,7 +44,7 @@ public class MainActivity extends MyAppCompatActivity {
 
         Exit.setOnClickListener(v -> Close());
         About.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,AboutApp.class)));
-        Theory.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,Theory.class)));
+        Theory.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, TheoryChoosing.class)));
         Settings.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,Settings.class)));
         Points.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,Points.class)));
         Practice.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,Practice.class)));
