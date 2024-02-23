@@ -43,12 +43,12 @@ public class MainActivity extends MyAppCompatActivity {
         PointsButton = Points;
 
         Exit.setOnClickListener(v -> Close());
-        About.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,AboutApp.class)));
-        Theory.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, TheoryChoosing.class)));
-        Settings.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,Settings.class)));
-        Points.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,Points.class)));
-        Practice.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,Practice.class)));
-        Shop.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,Shop.class)));
+        About.setOnClickListener(v -> startActivity(new Intent(this,AboutApp.class)));
+        Theory.setOnClickListener(v -> startActivity(new Intent(this, TheoryChoosing.class)));
+        Settings.setOnClickListener(v -> startActivity(new Intent(this,Settings.class)));
+        Points.setOnClickListener(v -> startActivity(new Intent(this,Points.class)));
+        Practice.setOnClickListener(v -> startActivity(new Intent(this,Practice.class)));
+        Shop.setOnClickListener(v -> startActivity(new Intent(this,Shop.class)));
     }
     @Override
     protected void onResume() {

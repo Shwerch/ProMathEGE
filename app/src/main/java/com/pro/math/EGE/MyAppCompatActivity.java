@@ -33,8 +33,11 @@ public class MyAppCompatActivity extends AppCompatActivity {
         Point size = new Point();
         display.getSize(size);
         double multiplier = (Math.min(size.x,size.y)/1250d-1d)/1.3d+1d;
-        double textSize = multiplier-0.075d;
-        Toast.makeText(this,String.valueOf(multiplier),Toast.LENGTH_SHORT).show();
+        double textSize = multiplier-0.1d;
+
+        if (Title != null) {
+            Title.setTextSize(0,(float)(Title.getTextSize()*multiplier));
+        }
 
         for (Button object : Objects) {
             ViewGroup.LayoutParams params = object.getLayoutParams();

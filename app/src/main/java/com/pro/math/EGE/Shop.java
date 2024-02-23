@@ -2,6 +2,7 @@ package com.pro.math.EGE;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class Shop extends MyAppCompatActivity {
@@ -16,7 +17,7 @@ public class Shop extends MyAppCompatActivity {
         super.BackToMainMenu(MainMenu);
         super.SetSizes(new Button[]{MainMenu},Title);
 
-        //ListView List = findViewById(R.id.list);
+        ListView List = findViewById(R.id.list);
     }
 }
 

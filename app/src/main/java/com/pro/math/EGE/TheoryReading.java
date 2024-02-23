@@ -19,31 +19,24 @@ public class TheoryReading extends MyAppCompatActivity {
         final TextView TheoryTitle = findViewById(R.id.title);
         final TextView List = findViewById(R.id.list);
 
-        int Chapter = 0;
-        String ChapterName = "";
+        int Chapter;
         try {
             Chapter = (int) getIntent().getSerializableExtra("Chapter");
-            ChapterName =  getResources().getStringArray(R.array.Topics)[Chapter];
         } catch (Exception e) {
-            Toast.makeText(getBaseContext(),R.string.error_whe_getting_topic, Toast.LENGTH_LONG).show();
-            startActivity(new Intent(TheoryReading.this, TheoryChoosing.class));
+            Toast.makeText(getBaseContext(), R.string.error_whe_getting_topic, Toast.LENGTH_LONG).show();
+            startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            return;
         }
+        String ChapterName = getResources().getStringArray(R.array.Topics)[Chapter];
+
         List.setMovementMethod(new ScrollingMovementMethod());
         List.setText(getResources().getStringArray(R.array.Theory)[Chapter]);
 
         super.BackToMainMenu(MainMenu);
-        StartTest.setOnClickListener(v -> startActivity(new Intent(this, TheoryTesting.class)));
-        super.SetSizes(new Button[]{MainMenu,StartTest},TheoryTitle);
+        super.SetSizes(new Button[]{MainMenu, StartTest}, TheoryTitle);
         TheoryTitle.setText(ChapterName);
 
-        switch (Chapter) {
-            case 0:
-                for (int i = 0;i < 5;i++) {
-                    Log.d("MYLOG",String.join("\n",BasicFormulas.CreateTask()));
-                }
-
-                break;
-        }
+        StartTest.setOnClickListener(v -> startActivity(new Intent(this,TheoryTesting.class).putExtra("Chapter",Chapter)));
     }
 }
 

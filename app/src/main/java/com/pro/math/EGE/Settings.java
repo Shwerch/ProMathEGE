@@ -20,6 +20,6 @@ public class Settings extends MyAppCompatActivity {
         ListView List = findViewById(R.id.settings_list);
 
         List.setOnItemClickListener((parent, view, position, id) ->
-                Toast.makeText(Settings.this,(String)List.getItemAtPosition(position),Toast.LENGTH_SHORT).show());
+                Toast.makeText(this,(String)List.getItemAtPosition(position),Toast.LENGTH_SHORT).show());
     }
 }

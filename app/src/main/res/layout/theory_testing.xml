@@ -52,4 +52,85 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fillViewport="true"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toTopOf="@id/mainmenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|fill_vertical"
+            android:foregroundGravity="top|center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:scrollbars="vertical">
+
+
+            <Button
+                android:id="@+id/task"
+                style="@style/MainButtons"
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center" />
+
+            <Button
+                android:id="@+id/answer1"
+                style="@style/Buttons"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center" />
+
+            <Button
+                android:id="@+id/answer2"
+                style="@style/Buttons"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center" />
+
+            <Button
+                android:id="@+id/answer3"
+                style="@style/Buttons"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center" />
+
+            <Button
+                android:id="@+id/answer4"
+                style="@style/Buttons"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center" />
+
+            <Button
+                android:id="@+id/answer5"
+                style="@style/Buttons"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center" />
+
+            <Button
+                android:id="@+id/check"
+                style="@style/MainButtons"
+                android:layout_width="170dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:text="@string/check" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
