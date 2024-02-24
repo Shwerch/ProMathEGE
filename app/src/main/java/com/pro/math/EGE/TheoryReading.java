@@ -1,9 +1,10 @@
 package com.pro.math.EGE;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
+import android.view.Display;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,7 +14,15 @@ public class TheoryReading extends MyAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.theory_reading);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        if (size.x > size.y + 300) {
+            setContentView(R.layout.theory_reading_landscape);
+        }
+        else {
+            setContentView(R.layout.theory_reading_portrait);
+        }
         final Button MainMenu = findViewById(R.id.mainmenu);
         final Button StartTest = findViewById(R.id.start_test);
         final TextView TheoryTitle = findViewById(R.id.title);

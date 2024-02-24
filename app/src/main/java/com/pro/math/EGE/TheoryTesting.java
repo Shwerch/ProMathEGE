@@ -1,8 +1,9 @@
 package com.pro.math.EGE;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,7 +14,17 @@ public class TheoryTesting extends MyAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.theory_testing);
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        if (size.x > size.y + 300) {
+            setContentView(R.layout.theory_testing_landscape);
+        }
+        else {
+            setContentView(R.layout.theory_testing);
+        }
+
         final Button MainMenu = findViewById(R.id.mainmenu);
         final TextView Title = findViewById(R.id.title);
         final Button Next = findViewById(R.id.next);
@@ -26,6 +37,7 @@ public class TheoryTesting extends MyAppCompatActivity {
         final Button Answer4 = findViewById(R.id.answer4);
         final Button Answer5 = findViewById(R.id.answer5);
         final Button Answer6 = findViewById(R.id.answer6);
+        Button[] Answers = new Button[] {Answer1,Answer2,Answer3,Answer4,Answer5,Answer6};
 
         String[] NewTask = BasicFormulas.CreateTask();
 
@@ -40,24 +52,18 @@ public class TheoryTesting extends MyAppCompatActivity {
             return;
         }
 
-
         Task.setText(getResources().getString(R.string.question)+" "+NewTask[0]+" ?");
-        Answer1.setText(NewTask[1]);
-        Answer2.setText(NewTask[2]);
-        Answer3.setText(NewTask[3]);
-        Answer4.setText(NewTask[4]);
-        Answer5.setText(NewTask[5]);
-        Answer6.setText(NewTask[6]);
-
-        Button[] Buttons = new Button[] {Answer1,Answer2,Answer3,Answer4,Answer5,Answer6};
+        for (int i = 0;i < Answers.length;i++) {
+            Answers[i].setText(NewTask[i+1]);
+        }
 
         final double[] Reward = {1};
 
-        for (int i = 0;i < Buttons.length;i++) {
+        for (int i = 0;i < Answers.length;i++) {
             final int k = i+1;
-            Buttons[i].setOnClickListener(v -> {
+            Answers[i].setOnClickListener(v -> {
                 if (k == RightAnswer) {
-                    Buttons[k-1].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
+                    Answers[k-1].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
                     if (Reward[0] != 0) {
                         Toast.makeText(this,getResources().getStringArray(R.array.right)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)]
                                 +" "+getResources().getStringArray(R.array.rightReward)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)]
@@ -67,7 +73,7 @@ public class TheoryTesting extends MyAppCompatActivity {
                         Toast.makeText(this,getResources().getStringArray(R.array.right)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)],Toast.LENGTH_SHORT).show();
                     }
                                     } else {
-                    Buttons[k-1].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.red));
+                    Answers[k-1].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.red));
                     if (Reward[0] != 0) {
                         Reward[0] -= 0.5d;
                     }

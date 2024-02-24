@@ -12,20 +12,19 @@
         style="@style/MainButtons"
         android:layout_width="170dp"
         android:layout_height="55dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="4dp"
         android:text="@string/start_test"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/space" />
+        app:layout_constraintBottom_toBottomOf="@id/space"
+        app:layout_constraintStart_toEndOf="@id/space" />
 
     <Button
         android:id="@+id/mainmenu"
         style="@style/Buttons"
         android:layout_width="170dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="4dp"
         android:text="@string/main_menu"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/space"
         app:layout_constraintEnd_toStartOf="@id/space" />
 
     <TextView
@@ -54,7 +53,7 @@
         android:scrollbars="vertical"
         app:circularflow_defaultRadius="10dp"
         app:circularflow_radiusInDP="10dp"
-        app:layout_constraintBottom_toTopOf="@id/mainmenu"
+        app:layout_constraintBottom_toTopOf="@id/start_test"
         app:layout_constraintCircleRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,6 +64,7 @@
         android:id="@+id/space"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
