@@ -18,12 +18,7 @@ public class TheoryTesting extends MyAppCompatActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        if (size.x > size.y + 300) {
-            setContentView(R.layout.theory_testing_landscape);
-        }
-        else {
-            setContentView(R.layout.theory_testing);
-        }
+        setContentView(R.layout.theory_testing);
 
         final Button MainMenu = findViewById(R.id.mainmenu);
         final TextView Title = findViewById(R.id.title);
@@ -58,6 +53,7 @@ public class TheoryTesting extends MyAppCompatActivity {
         }
 
         final double[] Reward = {1};
+        final boolean[] AnswerIsGiven = {false};
 
         for (int i = 0;i < Answers.length;i++) {
             final int k = i+1;
@@ -72,7 +68,8 @@ public class TheoryTesting extends MyAppCompatActivity {
                     } else {
                         Toast.makeText(this,getResources().getStringArray(R.array.right)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)],Toast.LENGTH_SHORT).show();
                     }
-                                    } else {
+                    AnswerIsGiven[0] = true;
+                } else if (!AnswerIsGiven[0]) {
                     Answers[k-1].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.red));
                     if (Reward[0] != 0) {
                         Reward[0] -= 0.5d;
