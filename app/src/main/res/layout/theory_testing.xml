@@ -120,6 +120,13 @@
                 android:layout_height="55dp"
                 android:layout_gravity="center" />
 
+            <Button
+                android:id="@+id/answer6"
+                style="@style/Buttons"
+                android:layout_width="300dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center" />
+
         </LinearLayout>
 
 

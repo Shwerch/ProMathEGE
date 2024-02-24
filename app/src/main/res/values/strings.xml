@@ -24,7 +24,7 @@
 
     <string-array name="rightReward">
         <item>Вы получаете</item>
-        <item>Ваша награда -</item>
+        <item>Ваша награда:</item>
         <item>Добавлено</item>
     </string-array>
 

@@ -25,21 +25,21 @@ public class BasicFormulas {
             /*11*/"(a + b)(a² - ab + b²)",
             /*12*/"a³ - b³",
             /*13*/"(a - b)(a² + ab + b²)",
-    };private static final int[] AbbreviatedMultiplicationFormulasCoincidences = {
-            1,
-            0,
-            3,
-            2,
-            5,
-            4,
-            7,
-            6,
-            9,
-            8,
-            11,
-            10,
-            13,
-            12,
+    };private static final int[][] AbbreviatedMultiplicationFormulasCoincidences = {
+            /*0*/{1,3},
+            /*1*/{0,2},
+            /*2*/{3,1},
+            /*3*/{2,0},
+            /*4*/{5,3},
+            /*5*/{4,2},
+            /*6*/{7,9},
+            /*7*/{6,8},
+            /*8*/{9,7},
+            /*9*/{8,6},
+            /*10*/{11,13},
+            /*11*/{10,12},
+            /*12*/{13,11},
+            /*13*/{12,10},
     };
     private static final String[] DegreeFormulas = {
             /*0*/"a⁰",
@@ -56,38 +56,40 @@ public class BasicFormulas {
             /*11*/"1/aⁿ",
             /*12*/"aⁿ/aᵐ",
             /*13*/"aⁿ⁻ᵐ",
-    };private static final int[] DegreeFormulasCoincidences = {
-            1,
-            0,
-            3,
-            2,
-            5,
-            4,
-            7,
-            6,
-            9,
-            8,
-            11,
-            10,
-            13,
-            12,
+    };private static final int[][] DegreeFormulasCoincidences = {
+            /*0*/{1,3},
+            /*1*/{0,2},
+            /*2*/{3,1},
+            /*3*/{2,0},
+            /*4*/{5,7},
+            /*5*/{4,6},
+            /*6*/{7,4},
+            /*7*/{6,5},
+            /*8*/{9,5},
+            /*9*/{8,4},
+            /*10*/{11,1},
+            /*11*/{10,0},
+            /*12*/{13,6},
+            /*13*/{12,7},
     };
 
     private static int PreviousQuestion = -1;
     private static int PreviousChapter = -1;
 
     public static String[] CreateTask() {
+        final int LENGHT = 7;
+
         int Chapter = (int)(Math.random()*2);
         String[] Formulas;
-        int[] Coincidences;
-        String[] Selected = new String[7];
+        int[][] Coincidences;
+        String[] Selected = new String[LENGHT+1];
 
         if (Chapter == 0) {
             Formulas = AbbreviatedMultiplicationFormulas.clone();
-            Coincidences = AbbreviatedMultiplicationFormulasCoincidences.clone();
+            Coincidences = AbbreviatedMultiplicationFormulasCoincidences;
         } else {
             Formulas = DegreeFormulas.clone();
-            Coincidences = DegreeFormulasCoincidences.clone();
+            Coincidences = DegreeFormulasCoincidences;
         }
         
         int RandomAnswer = (int)(Math.random()*Formulas.length);
@@ -96,28 +98,42 @@ public class BasicFormulas {
                 RandomAnswer = 1;
             } else if (RandomAnswer == (Formulas.length-1)) {
                 RandomAnswer -= 1;
-            } else {
+            } else if ((int)(Math.random()*2) == 0) {
                 RandomAnswer += 1;
+            } else {
+                RandomAnswer -= 1;
             }
-            Log.d("MYLOG", Formulas[PreviousQuestion]+" "+Formulas[RandomAnswer]);
         }
         PreviousQuestion = RandomAnswer;
         PreviousChapter = Chapter;
 
         Selected[0] = Formulas[RandomAnswer];
-        final int RightAnswer = 1+((int)(Math.random()*5));
-        Selected[RightAnswer] = Formulas[Coincidences[RandomAnswer]];
-        Selected[6] = String.valueOf(RightAnswer);
+        int RightAnswer = 1+((int)(Math.random()*(LENGHT-1)));
+        int WrongAnswer = 1+((int)(Math.random()*(LENGHT-1)));
+        if (WrongAnswer == RightAnswer) {
+            if (RightAnswer == 0) {
+                WrongAnswer = 1;
+            } else if (RightAnswer == LENGHT-1) {
+                WrongAnswer = LENGHT-2;
+            } else if ((int)(Math.random()*2) == 0) {
+                WrongAnswer += 1+(int)(Math.random()*((LENGHT-1)-WrongAnswer));
+            } else {
+                WrongAnswer -= 1+(int)(Math.random()*(WrongAnswer-1));
+            }
+        }
+        Selected[RightAnswer] = Formulas[Coincidences[RandomAnswer][0]];
+        Selected[WrongAnswer] = Formulas[Coincidences[RandomAnswer][1]];
+        Selected[LENGHT] = String.valueOf(RightAnswer);
         Collections.shuffle(Arrays.asList(Formulas));
 
-        for (int select = 1;select < 6;select++) {
+        for (int select = 1;select < LENGHT;select++) {
             if (Selected[select] != null) {
                 continue;
             }
             String formula = null;
             for (String formulaSearch : Formulas) {
                 boolean contains = false;
-                for (int selectSearch = 0;selectSearch < 6;selectSearch++) {
+                for (int selectSearch = 0;selectSearch < LENGHT;selectSearch++) {
                     if (Objects.equals(Selected[selectSearch], formulaSearch)) {
                         contains = true;
                         break;
@@ -129,7 +145,7 @@ public class BasicFormulas {
                 }
             }
             if (formula == null) {
-                for (int select1 = select;select1 < 6;select1++) {
+                for (int select1 = select;select1 < LENGHT;select1++) {
                     Selected[select1] = "";
                 }
                 break;
@@ -139,7 +155,6 @@ public class BasicFormulas {
         }
 
         Formulas = null;
-        Coincidences = null;
 
         System.gc();
 

@@ -25,6 +25,7 @@ public class TheoryTesting extends MyAppCompatActivity {
         final Button Answer3 = findViewById(R.id.answer3);
         final Button Answer4 = findViewById(R.id.answer4);
         final Button Answer5 = findViewById(R.id.answer5);
+        final Button Answer6 = findViewById(R.id.answer6);
 
         String[] NewTask = BasicFormulas.CreateTask();
 
@@ -32,7 +33,7 @@ public class TheoryTesting extends MyAppCompatActivity {
         int RightAnswer;
         try {
             Chapter = (int) getIntent().getSerializableExtra("Chapter");
-            RightAnswer = Integer.parseInt(NewTask[6]);
+            RightAnswer = Integer.parseInt(NewTask[7]);
         } catch (Exception e) {
             Toast.makeText(getBaseContext(), R.string.error_whe_getting_topic, Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -46,8 +47,9 @@ public class TheoryTesting extends MyAppCompatActivity {
         Answer3.setText(NewTask[3]);
         Answer4.setText(NewTask[4]);
         Answer5.setText(NewTask[5]);
+        Answer6.setText(NewTask[6]);
 
-        Button[] Buttons = new Button[] {Answer1,Answer2,Answer3,Answer4,Answer5};
+        Button[] Buttons = new Button[] {Answer1,Answer2,Answer3,Answer4,Answer5,Answer6};
 
         final double[] Reward = {1};
 
@@ -76,6 +78,6 @@ public class TheoryTesting extends MyAppCompatActivity {
         Title.setText(getResources().getStringArray(R.array.TopicsTest)[Chapter]);
         super.BackToMainMenu(MainMenu);
         Next.setOnClickListener(v -> startActivity(new Intent(this, TheoryTesting.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtra("Chapter",Chapter)));
-        super.SetSizes(new Button[]{MainMenu,Next,Task,Answer1,Answer2,Answer3,Answer4,Answer5},Title);
+        super.SetSizes(new Button[]{MainMenu,Next,Task,Answer1,Answer2,Answer3,Answer4,Answer5,Answer6},Title);
     }
 }
