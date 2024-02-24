@@ -53,16 +53,6 @@ public class MainActivity extends MyAppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        long points = (long)(Math.random()*5000);
-        long remainder  = points % 10;
-        String text;
-        if ((points > 9 && points < 20) || remainder == 0 || remainder >= 5) {
-            text = points + " " + getResources().getString(R.string.points1);
-        } else if (remainder == 1) {
-            text = points + " " + getResources().getString(R.string.points2);
-        } else {
-            text = points + " " + getResources().getString(R.string.points3);
-        }
-        PointsButton.setText(text);
+        PointsButton.setText(super.GetRightPointsEnd((long)(Math.random()*5000)));
     }
 }

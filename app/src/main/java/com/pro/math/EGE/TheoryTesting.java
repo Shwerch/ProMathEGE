@@ -49,14 +49,26 @@ public class TheoryTesting extends MyAppCompatActivity {
 
         Button[] Buttons = new Button[] {Answer1,Answer2,Answer3,Answer4,Answer5};
 
+        final double[] Reward = {1};
+
         for (int i = 0;i < Buttons.length;i++) {
             final int k = i+1;
             Buttons[i].setOnClickListener(v -> {
                 if (k == RightAnswer) {
                     Buttons[k-1].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
-                    Toast.makeText(this,getResources().getStringArray(R.array.right)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)],Toast.LENGTH_SHORT).show();
-                } else {
+                    if (Reward[0] != 0) {
+                        Toast.makeText(this,getResources().getStringArray(R.array.right)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)]
+                                +" "+getResources().getStringArray(R.array.rightReward)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)]
+                                +" "+super.GetRightPointsEnd((long)(20L*Reward[0]))+".",Toast.LENGTH_SHORT).show();
+                        Reward[0] = 0;
+                    } else {
+                        Toast.makeText(this,getResources().getStringArray(R.array.right)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)],Toast.LENGTH_SHORT).show();
+                    }
+                                    } else {
                     Buttons[k-1].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.red));
+                    if (Reward[0] != 0) {
+                        Reward[0] -= 0.5d;
+                    }
                 }
             });
         }

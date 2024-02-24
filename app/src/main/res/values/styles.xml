@@ -16,12 +16,12 @@
         <item name="android:textColorHighlightInverse">@color/TextColor</item>
         <item name="android:textColorHintInverse">@color/TextColor</item>
         <item name="android:textColorTertiary">@color/TextColor</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">21sp</item>
 
         <item name="android:shadowColor">@color/Background</item>
-        <item name="android:shadowRadius">2</item>
-        <item name="android:shadowDx">2</item>
-        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">3</item>
+        <item name="android:shadowDx">3</item>
+        <item name="android:shadowDy">3</item>
 
         <item name="android:stateListAnimator">@animator/button_state_list_animator</item>
         <item name="android:elevation">10dp</item>
@@ -45,9 +45,9 @@
         <item name="android:textSize">14sp</item>
 
         <item name="android:shadowColor">@color/Background</item>
-        <item name="android:shadowRadius">2</item>
-        <item name="android:shadowDx">2</item>
-        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">3</item>
+        <item name="android:shadowDx">3</item>
+        <item name="android:shadowDy">3</item>
 
         <item name="android:stateListAnimator">@animator/button_state_list_animator</item>
         <item name="android:elevation">10dp</item>

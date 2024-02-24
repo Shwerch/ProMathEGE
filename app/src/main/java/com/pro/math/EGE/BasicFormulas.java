@@ -1,6 +1,9 @@
 package com.pro.math.EGE;
 
 import android.util.Log;
+import android.widget.Toast;
+
+import androidx.activity.result.contract.ActivityResultContracts;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -70,6 +73,9 @@ public class BasicFormulas {
             12,
     };
 
+    private static int PreviousQuestion = -1;
+    private static int PreviousChapter = -1;
+
     public static String[] CreateTask() {
         int Chapter = (int)(Math.random()*2);
         String[] Formulas;
@@ -84,16 +90,25 @@ public class BasicFormulas {
             Coincidences = DegreeFormulasCoincidences.clone();
         }
         
-        final int RandomAnswer = (int)(Math.random()*Formulas.length);
+        int RandomAnswer = (int)(Math.random()*Formulas.length);
+        if (RandomAnswer == PreviousQuestion && Chapter == PreviousChapter) {
+            if (RandomAnswer == 0) {
+                RandomAnswer = 1;
+            } else if (RandomAnswer == (Formulas.length-1)) {
+                RandomAnswer -= 1;
+            } else {
+                RandomAnswer += 1;
+            }
+            Log.d("MYLOG", Formulas[PreviousQuestion]+" "+Formulas[RandomAnswer]);
+        }
+        PreviousQuestion = RandomAnswer;
+        PreviousChapter = Chapter;
+
         Selected[0] = Formulas[RandomAnswer];
         final int RightAnswer = 1+((int)(Math.random()*5));
         Selected[RightAnswer] = Formulas[Coincidences[RandomAnswer]];
         Selected[6] = String.valueOf(RightAnswer);
         Collections.shuffle(Arrays.asList(Formulas));
-
-        Log.d("MYLOG","1. "+Arrays.toString(Selected));
-        Log.d("MYLOG","2. Chapter:"+Chapter+" RandomAnswer:"+RandomAnswer+" RightAnswer:"+RightAnswer+" Coincidences:"+Coincidences[RandomAnswer]);
-        Log.d("MYLOG","3.:"+Arrays.toString(Formulas));
 
         for (int select = 1;select < 6;select++) {
             if (Selected[select] != null) {

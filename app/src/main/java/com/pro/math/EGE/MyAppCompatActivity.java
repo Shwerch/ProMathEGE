@@ -17,6 +17,20 @@ public class MyAppCompatActivity extends AppCompatActivity {
     protected void BackToMainMenu(Button button) {
         button.setOnClickListener(v -> startActivity(new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));/*startActivity(new Intent(this,MainActivity.class))*/
     }
+
+    protected String GetRightPointsEnd(long points) {
+        long remainder  = points % 10;
+        String text;
+        if ((points > 9 && points < 20) || remainder == 0 || remainder >= 5) {
+            text = points + " " + getResources().getString(R.string.points1);
+        } else if (remainder == 1) {
+            text = points + " " + getResources().getString(R.string.points2);
+        } else {
+            text = points + " " + getResources().getString(R.string.points3);
+        }
+        return text;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +45,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        double multiplier = (Math.min(size.x,size.y)/1250d-1d)/1.3d+1d;
+        double multiplier = (Math.min(size.x,size.y)/1250d-1)/1.3d+1;
         double textSize = multiplier-0.1d;
 
         if (Title != null) {
