@@ -2,6 +2,7 @@ package com.pro.math.EGE;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,7 +67,7 @@ public class TheoryTesting extends MyAppCompatActivity {
         String[][] Formulas;
         switch (Topic) {
             case 1:
-                Chapter = (int)(Math.random()*Planimetry.ChaptersCount);
+                Chapter = 1;//(int)(Math.random()*Planimetry.ChaptersCount);
                 Reward = Planimetry.Rewards;
                 SubTopic = Planimetry.GetSubTopic(Chapter);
                 Formulas = Planimetry.GetFormulas(Chapter);
@@ -108,14 +109,17 @@ public class TheoryTesting extends MyAppCompatActivity {
             QuestionAndAnswers[SelectedList[i]] = Formulas[RandomQuestion][QuestionAndAnswersDirection[i+1]];
             CorrectAnswers[i] = SelectedList[i];
         }
-        Collections.shuffle(Arrays.asList(Formulas));
 
         for (int select = 1;select < LENGHT;select++) {
             if (QuestionAndAnswers[select] != null) {
                 continue;
             }
             String formula = null;
-            for (String[] formulas : Formulas) {
+            for (int i = 0;i < Formulas.length;i++) {
+                if (RandomQuestion == i) {
+                    continue;
+                }
+                String[] formulas = Formulas[i];
                 boolean Break = false;
                 Integer[] randomDirection = GetRandomArrayList(0,formulas.length);
                 for (int formulaDirection : randomDirection) {
@@ -145,9 +149,6 @@ public class TheoryTesting extends MyAppCompatActivity {
                 QuestionAndAnswers[select] = formula;
             }
         }
-
-        Formulas = null;
-        System.gc();
 
         Task.setText(getResources().getString(R.string.question)+" "+QuestionAndAnswers[0]+" ?");
         TopicText.setText(SubTopic);

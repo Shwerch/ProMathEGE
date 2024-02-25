@@ -30,22 +30,23 @@ public class BasicFormulas {
             {"Sₙ","(b₁ - bₙ₊₁)/(1 - q)","b₁ * (1 - qⁿ)/(1 - q)"},
     };
     private static final String[] SubTopics = {
-        "Формулы сокращенного умножения",
-        "Арифметическая прогрессия",
-        "Формулы степеней",
-        "Геометрическая прогрессия",
+            "Геометрическая прогрессия",
+            "Формулы сокращенного умножения",
+            "Арифметическая прогрессия",
+            "Формулы степеней",
     };
     public static final int ChaptersCount = 4;
     public static final long Rewards = 20;
     public static String[][] GetFormulas(final int Chapter) {
-        if (Chapter == 0) {
-            return AbbreviatedMultiplicationFormulas.clone();
-        }else if (Chapter == 1) {
-            return ArithmeticProgressionFormulas.clone();
-        }else if (Chapter == 2) {
-            return DegreeFormulas.clone();
-        }else {
-            return GeometricProgressionFormulas.clone();
+        switch (Chapter) {
+            case 1:
+                return AbbreviatedMultiplicationFormulas;
+            case 2:
+                return ArithmeticProgressionFormulas;
+            case 3:
+                return DegreeFormulas;
+            default:
+                return GeometricProgressionFormulas;
         }
     }
     public static String GetSubTopic(final int Chapter) {
