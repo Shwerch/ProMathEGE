@@ -66,7 +66,7 @@ public class TheoryTesting extends MyAppCompatActivity {
         String[][] Formulas;
         switch (Topic) {
             default:
-                Chapter = 1;//(int)(Math.random()*BasicFormulas.ChaptersCount);
+                Chapter = (int)(Math.random()*BasicFormulas.ChaptersCount);
                 Reward = BasicFormulas.Rewards;
                 SubTopic = BasicFormulas.GetSubTopic(Chapter);
                 Formulas = BasicFormulas.GetFormulas(Chapter);

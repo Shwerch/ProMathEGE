@@ -20,7 +20,7 @@ public class BasicFormulas {
             {"aⁿ/aᵐ", "aⁿ⁻ᵐ"},
     };
     private static final String[][] ArithmeticProgressionFormulas = {
-            {"aₙ", "a₁ + (n - 1)d", "aₙ₋₁ + d"},
+            {"aₙ", "a₁ + (n - 1)d", "aₙ₋₁ + d", "(aₙ₊₁ + aₙ₋₁)/2"},
             {"d", "aₙ - aₙ₋₁"},
             {"Sₙ", "((a₁ + aₙ) * n)/2", "n(2a₁ + (n - 1)d)/2"},
     };
