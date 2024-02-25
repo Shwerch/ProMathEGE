@@ -1,7 +1,7 @@
 package com.pro.math.EGE;
 
 public class BasicFormulas {
-    private static final String[][] AbbreviatedMultiplicationFormulas = {
+    private static final String[][] AbbreviatedMultiplications = {
             {"(a + b)²", "a² + 2ab + b²"},
             {"(a - b)²", "a² - 2ab + b²"},
             {"a² - b²", "(a - b)(a + b)"},
@@ -10,7 +10,7 @@ public class BasicFormulas {
             {"a³ + b³", "(a + b)(a² - ab + b²)"},
             {"a³ - b³", "(a - b)(a² + ab + b²)"},
     };
-    private static final String[][] DegreeFormulas = {
+    private static final String[][] Degrees = {
             {"a⁰", "1"},
             {"a¹", "a"},
             {"aⁿ * aᵐ", "aⁿ⁺ᵐ"},
@@ -19,12 +19,12 @@ public class BasicFormulas {
             {"a⁻ⁿ", "1/aⁿ"},
             {"aⁿ/aᵐ", "aⁿ⁻ᵐ"},
     };
-    private static final String[][] ArithmeticProgressionFormulas = {
+    private static final String[][] ArithmeticProgressions = {
             {"aₙ", "a₁ + (n - 1)d", "aₙ₋₁ + d", "(aₙ₊₁ + aₙ₋₁)/2"},
             {"d", "aₙ - aₙ₋₁"},
             {"Sₙ", "((a₁ + aₙ) * n)/2", "n(2a₁ + (n - 1)d)/2"},
     };
-    private static final String[][] GeometricProgressionFormulas = {
+    private static final String[][] GeometricProgressions = {
             {"bₙ","b₁ * qⁿ⁻¹","bₙ₋₁ * q"},
             {"q","bₙ / bₙ₋₁"},
             {"Sₙ","(b₁ - bₙ₊₁)/(1 - q)","b₁ * (1 - qⁿ)/(1 - q)"},
@@ -40,13 +40,13 @@ public class BasicFormulas {
     public static String[][] GetFormulas(final int Chapter) {
         switch (Chapter) {
             case 1:
-                return AbbreviatedMultiplicationFormulas;
+                return AbbreviatedMultiplications;
             case 2:
-                return ArithmeticProgressionFormulas;
+                return ArithmeticProgressions;
             case 3:
-                return DegreeFormulas;
+                return Degrees;
             default:
-                return GeometricProgressionFormulas;
+                return GeometricProgressions;
         }
     }
     public static String GetSubTopic(final int Chapter) {

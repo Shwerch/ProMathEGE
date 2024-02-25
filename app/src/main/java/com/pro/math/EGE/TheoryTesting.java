@@ -1,8 +1,8 @@
 package com.pro.math.EGE;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +29,7 @@ public class TheoryTesting extends MyAppCompatActivity {
         Array = IntegerArray.toArray(new Integer[0]);
         return Array;
     }
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +68,7 @@ public class TheoryTesting extends MyAppCompatActivity {
         String[][] Formulas;
         switch (Topic) {
             case 1:
-                Chapter = 1;//(int)(Math.random()*Planimetry.ChaptersCount);
+                Chapter = (int)(Math.random()*Planimetry.ChaptersCount);
                 Reward = Planimetry.Rewards;
                 SubTopic = Planimetry.GetSubTopic(Chapter);
                 Formulas = Planimetry.GetFormulas(Chapter);

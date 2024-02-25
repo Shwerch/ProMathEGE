@@ -13,9 +13,13 @@ public class Planimetry {
             {"r","(a + b - c)/2"},
             {"R","c/2"},
     };
+    /*private static final String[][] Trapezoid = {
+            {"S","h*(a+b)/2","0.5*d*e*sin(j)"},
+    };*/
     private static final String[] SubTopics = {
             "Треугольник",
             "Прямоугольный треугольник",
+            //"Трапеция",
     };
     public static final int ChaptersCount = 2;
     public static final long Rewards = 40;
