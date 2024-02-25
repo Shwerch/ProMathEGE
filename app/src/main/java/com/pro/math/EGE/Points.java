@@ -1,5 +1,6 @@
 package com.pro.math.EGE;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;

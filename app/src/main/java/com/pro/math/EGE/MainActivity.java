@@ -1,8 +1,11 @@
 package com.pro.math.EGE;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.widget.Button;
 import android.widget.TextView;
@@ -53,6 +56,20 @@ public class MainActivity extends MyAppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        PointsButton.setText(super.GetRightPointsEnd((long)(Math.random()*5000)));
+        try {
+            SQLiteDatabase db = getBaseContext().openOrCreateDatabase("PointStorage", MODE_PRIVATE, null);
+            db.execSQL("CREATE TABLE IF NOT EXISTS data (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
+            Cursor query = db.rawQuery("SELECT * FROM data;",null);
+            db.execSQL("INSERT OR IGNORE INTO data VALUES (1,0);");
+            if (query.moveToFirst()){
+                long points = query.getLong(0);
+                PointsButton.setText(super.GetRightPointsEnd(points));
+            } else {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            Log.d("MYLOG",String.valueOf(e));
+            PointsButton.setText(super.GetRightPointsEnd(-1));
+        }
     }
 }
