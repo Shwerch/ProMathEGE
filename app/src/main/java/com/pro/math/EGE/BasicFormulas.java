@@ -24,106 +24,31 @@ public class BasicFormulas {
             {"d", "aₙ - aₙ₋₁"},
             {"Sₙ", "((a₁ + aₙ) * n)/2", "n(2a₁ + (n - 1)d)/2"},
     };
-    private static final String[] SubTopics = {
-      "Формулы сокращенного умножения",
-      "Арифметическая прогрессия",
-      "Формулы степеней"
+    private static final String[][] GeometricProgressionFormulas = {
+            {"bₙ","b₁ * qⁿ⁻¹","bₙ₋₁ * q"},
+            {"q","bₙ / bₙ₋₁"},
+            {"Sₙ","(b₁ - bₙ₊₁)/(1 - q)","b₁ * (1 - qⁿ)/(1 - q)"},
     };
-    public static final int ChaptersCount = 3;
+    private static final String[] SubTopics = {
+        "Формулы сокращенного умножения",
+        "Арифметическая прогрессия",
+        "Формулы степеней",
+        "Геометрическая прогрессия",
+    };
+    public static final int ChaptersCount = 4;
     public static final long Rewards = 20;
     public static String[][] GetFormulas(final int Chapter) {
         if (Chapter == 0) {
             return AbbreviatedMultiplicationFormulas.clone();
         }else if (Chapter == 1) {
             return ArithmeticProgressionFormulas.clone();
-        }else {
+        }else if (Chapter == 2) {
             return DegreeFormulas.clone();
+        }else {
+            return GeometricProgressionFormulas.clone();
         }
-    }
-    public static String[][][] GetAllFormulas() {
-        return new String[][][] {AbbreviatedMultiplicationFormulas,DegreeFormulas};
     }
     public static String GetSubTopic(final int Chapter) {
         return SubTopics[Chapter];
     }
 }
-    /*public static String[] CreateTask(final int LENGHT) {
-
-        int Chapter = (int)(Math.random()*2);
-        String[][] Formulas;
-        String[] Selected = new String[LENGHT+1];
-
-        if (Chapter == 0) {
-            Formulas = AbbreviatedMultiplicationFormulas.clone();
-        } else {
-            Formulas = DegreeFormulas.clone();
-        }
-
-        int RandomQuestion = (int)(Math.random()*Formulas.length);
-        if (RandomQuestion == PreviousQuestion && Chapter == PreviousChapter) {
-            if (RandomQuestion == 0) {
-                RandomQuestion = 1;
-            } else if (RandomQuestion == (Formulas.length-1)) {
-                RandomQuestion -= 1;
-            } else if ((int)(Math.random()*2) == 0) {
-                RandomQuestion += 1;
-            } else {
-                RandomQuestion -= 1;
-            }
-        }
-        PreviousQuestion = RandomQuestion;
-        PreviousChapter = Chapter;
-
-        int QuestionDirection = (int)(Math.random()*2);
-        Selected[0] = Formulas[RandomQuestion][QuestionDirection];
-        if (QuestionDirection == 0) {
-            QuestionDirection = 1;
-        } else {
-            QuestionDirection = 0;
-        }
-
-        int RightAnswer = 1+((int)(Math.random()*(LENGHT-1)));
-        Selected[RightAnswer] = Formulas[RandomQuestion][QuestionDirection];
-        Selected[LENGHT] = String.valueOf(RightAnswer);
-        Collections.shuffle(Arrays.asList(Formulas));
-
-        for (int select = 1;select < LENGHT;select++) {
-            if (Selected[select] != null) {
-                continue;
-            }
-            String formula = null;
-            for (String[] formulas : Formulas) {
-                boolean Break = false;
-                for (int formulaDirestion = 0; formulaDirestion < 2; formulaDirestion++) {
-                    boolean contains = false;
-                    for (int selectSearch = 0; selectSearch < LENGHT; selectSearch++) {
-                        if (Objects.equals(Selected[selectSearch], formulas[formulaDirestion])) {
-                            contains = true;
-                            break;
-                        }
-                    }
-                    if (!contains) {
-                        formula = formulas[formulaDirestion];
-                        Break = true;
-                        break;
-                    }
-                }
-                if (Break) {
-                    break;
-                }
-            }
-            if (formula == null) {
-                for (int select1 = select;select1 < LENGHT;select1++) {
-                    Selected[select1] = "";
-                }
-                break;
-            } else {
-                Selected[select] = formula;
-            }
-        }
-
-        Formulas = null;
-        System.gc();
-
-        return Selected;
-    }*/

@@ -65,6 +65,12 @@ public class TheoryTesting extends MyAppCompatActivity {
         String SubTopic;
         String[][] Formulas;
         switch (Topic) {
+            case 1:
+                Chapter = (int)(Math.random()*Planimetry.ChaptersCount);
+                Reward = Planimetry.Rewards;
+                SubTopic = Planimetry.GetSubTopic(Chapter);
+                Formulas = Planimetry.GetFormulas(Chapter);
+                break;
             default:
                 Chapter = (int)(Math.random()*BasicFormulas.ChaptersCount);
                 Reward = BasicFormulas.Rewards;
