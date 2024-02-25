@@ -24,7 +24,11 @@ public class BasicFormulas {
             {"d", "aₙ - aₙ₋₁"},
             {"Sₙ", "((a₁ + aₙ) * n)/2", "n(2a₁ + (n - 1)d)/2"},
     };
-
+    private static final String[] SubTopics = {
+      "Формулы сокращенного умножения",
+      "Арифметическая прогрессия",
+      "Формулы степеней"
+    };
     public static final int ChaptersCount = 3;
     public static final long Rewards = 20;
     public static String[][] GetFormulas(final int Chapter) {
@@ -38,6 +42,9 @@ public class BasicFormulas {
     }
     public static String[][][] GetAllFormulas() {
         return new String[][][] {AbbreviatedMultiplicationFormulas,DegreeFormulas};
+    }
+    public static String GetSubTopic(final int Chapter) {
+        return SubTopics[Chapter];
     }
 }
     /*public static String[] CreateTask(final int LENGHT) {

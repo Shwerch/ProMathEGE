@@ -35,6 +35,7 @@ public class TheoryTesting extends MyAppCompatActivity {
         final Button Next = findViewById(R.id.next);
 
         final TextView Task = findViewById(R.id.task);
+        final TextView TopicText = findViewById(R.id.topic);
 
         final Button Answer1 = findViewById(R.id.answer1);
         final Button Answer2 = findViewById(R.id.answer2);
@@ -45,7 +46,6 @@ public class TheoryTesting extends MyAppCompatActivity {
         Button[] AnswersButtons = new Button[] {Answer1,Answer2,Answer3,Answer4,Answer5,Answer6};
 
         int Topic;
-        String[][] Formulas;
         try {
             Topic = (int) getIntent().getSerializableExtra("Topic");
         } catch (Exception e) {
@@ -56,13 +56,17 @@ public class TheoryTesting extends MyAppCompatActivity {
 
         final int Chapter;
         final long Reward;
+        String SubTopic;
+        String[][] Formulas;
         switch (Topic) {
             default:
                 Chapter = (int)(Math.random()*BasicFormulas.ChaptersCount);
-                Formulas = BasicFormulas.GetFormulas(Chapter);
                 Reward = BasicFormulas.Rewards;
+                SubTopic = BasicFormulas.GetSubTopic(Chapter);
+                Formulas = BasicFormulas.GetFormulas(Chapter);
                 break;
         }
+
         final int FormulasLength = Formulas.length;
         int RandomQuestion = (int)(Math.random()*FormulasLength);
         if (RandomQuestion == PreviousQuestion && Chapter == PreviousChapter && Topic == PreviousTopic) {
@@ -92,7 +96,7 @@ public class TheoryTesting extends MyAppCompatActivity {
             QuestionDirection.add(i);
         }
 
-        int CorrectAnswersNumbers = 1+(int)(Math.random()*(Formulas[RandomQuestion].length-1));
+        int CorrectAnswersNumbers = Formulas[RandomQuestion].length-1;//1+(int)(Math.random()*(Formulas[RandomQuestion].length-1));
         int[] CorrectAnswers = new int[CorrectAnswersNumbers];
 
         int RandomQuestionDirection = (int)(Math.random()*QuestionDirection.size());
@@ -166,12 +170,13 @@ public class TheoryTesting extends MyAppCompatActivity {
         System.gc();
 
         Task.setText(getResources().getString(R.string.question)+" "+Selected[0]+" ?");
+        TopicText.setText(SubTopic);
         for (int i = 0;i < AnswersButtons.length;i++) {
-            AnswersButtons[i].setText(Selected[i+1]);
+            AnswersButtons[i].setText(Selected[i + 1]);
         }
 
         final double[] RewardMultiplier = {1};
-        final boolean[] AnswerIsGiven = {false};
+        final int[] AnswersCountIsGiven = {0};
 
         for (int i = 0;i < AnswersButtons.length;i++) {
             final int k = i+1;
@@ -186,17 +191,16 @@ public class TheoryTesting extends MyAppCompatActivity {
                 if (correct) {
                     AnswersButtons[k-1].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
                     if (RewardMultiplier[0] != 0) {
-                        long reward = (long)(Reward*RewardMultiplier[0]);
+                        long reward = (long)(Reward*RewardMultiplier[0]/CorrectAnswersNumbers);
                         super.SetPoints(super.GetPoints()+reward);
                         Toast.makeText(this,getResources().getStringArray(R.array.right)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)]+
                                 " "+getResources().getStringArray(R.array.rightReward)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)]+
                                 " "+super.GetRightPointsEnd(reward),Toast.LENGTH_SHORT).show();
-                        RewardMultiplier[0] = 0;
                     } else {
                         Toast.makeText(this,getResources().getStringArray(R.array.right)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)],Toast.LENGTH_SHORT).show();
                     }
-                    AnswerIsGiven[0] = true;
-                } else if (!AnswerIsGiven[0]) {
+                    AnswersCountIsGiven[0] += 1;
+                } else if (AnswersCountIsGiven[0] < CorrectAnswersNumbers) {
                     AnswersButtons[k-1].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.red));
                     if (RewardMultiplier[0] != 0) {
                         RewardMultiplier[0] -= 0.5d;
