@@ -40,5 +40,5 @@
         <item>Переходить на следующее задание автоматически</item>
     </string-array>
 
-    <string name="error_whe_getting_topic">Ошибка: не удалось получить выбранный раздел</string>
+    <string name="error_whe_getting_topic">Не удалось получить выбранный раздел</string>
 </resources>

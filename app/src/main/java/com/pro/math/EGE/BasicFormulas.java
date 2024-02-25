@@ -27,8 +27,14 @@ public class BasicFormulas {
     private static int PreviousQuestion = -1;
     private static int PreviousChapter = -1;
 
-    public static String[] CreateTask() {
-        final int LENGHT = 7;
+    public static String[][] GetFormulas(final int Chapter) {
+        if (Chapter == 0) {
+            return AbbreviatedMultiplicationFormulas.clone();
+        } else {
+            return DegreeFormulas.clone();
+        }
+    }
+    /*public static String[] CreateTask(final int LENGHT) {
 
         int Chapter = (int)(Math.random()*2);
         String[][] Formulas;
@@ -39,7 +45,7 @@ public class BasicFormulas {
         } else {
             Formulas = DegreeFormulas.clone();
         }
-        
+
         int RandomQuestion = (int)(Math.random()*Formulas.length);
         if (RandomQuestion == PreviousQuestion && Chapter == PreviousChapter) {
             if (RandomQuestion == 0) {
@@ -107,5 +113,5 @@ public class BasicFormulas {
         System.gc();
 
         return Selected;
-    }
+    }*/
 }

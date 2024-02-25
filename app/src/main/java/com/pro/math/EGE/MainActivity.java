@@ -60,7 +60,6 @@ public class MainActivity extends MyAppCompatActivity {
         } else {
             PointsButton.setText(super.GetRightPointsEnd(points));
         }
-        PointsButton.setText(getString(R.string.undefined_points));
 
     }
 }

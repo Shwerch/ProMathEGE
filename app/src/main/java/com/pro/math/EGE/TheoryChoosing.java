@@ -28,7 +28,7 @@ public class TheoryChoosing extends MyAppCompatActivity {
 
         List.setOnItemClickListener((parent, view, position, id) -> {
             Intent intent = new Intent(this, TheoryReading.class);
-            intent.putExtra("Chapter",position);
+            intent.putExtra("Topic",position);
             startActivity(intent);
         });
     }

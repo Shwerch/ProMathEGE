@@ -46,6 +46,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
         }
         return points;
     }
+
     protected void SetPoints(long points) {
         SQLiteDatabase db = null;
         Cursor query = null;
