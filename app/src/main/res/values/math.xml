@@ -74,8 +74,6 @@
         <item>₉</item>
     </string-array>
 
-    <string name="UpperMinus">⁻</string>
-    <string name="UpperPlus">⁺</string>
     <string name="TopUnderline">̅</string>
     <string name="Root2">√</string>
     <string name="Root3">∛</string>
@@ -89,6 +87,18 @@
     <string name="SmallerOrEqual">≤</string>
     <string name="Smaller">≺</string>
     <string name="Including">⋃</string>
+
+    <string-array name="minus">
+        <item>₋</item>
+        <item>-</item>
+        <item>⁻</item>
+    </string-array>
+
+    <string-array name="plus">
+        <item>₊</item>
+        <item>+</item>
+        <item>⁺</item>
+    </string-array>
 
     <string-array name="d0">
         <item>₀</item>
