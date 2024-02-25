@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
@@ -53,18 +54,21 @@ public class TheoryTesting extends MyAppCompatActivity {
             return;
         }
 
-        int Chapter = (int)(Math.random()*2);
+        final int Chapter;
+        final long Reward;
         switch (Topic) {
             default:
+                Chapter = (int)(Math.random()*BasicFormulas.ChaptersCount);
                 Formulas = BasicFormulas.GetFormulas(Chapter);
+                Reward = BasicFormulas.Rewards;
                 break;
         }
-
-        int RandomQuestion = (int)(Math.random()*Formulas.length);
+        final int FormulasLength = Formulas.length;
+        int RandomQuestion = (int)(Math.random()*FormulasLength);
         if (RandomQuestion == PreviousQuestion && Chapter == PreviousChapter && Topic == PreviousTopic) {
             if (RandomQuestion == 0) {
                 RandomQuestion = 1;
-            } else if (RandomQuestion == (Formulas.length-1)) {
+            } else if (RandomQuestion == (FormulasLength-1)) {
                 RandomQuestion -= 1;
             } else if ((int)(Math.random()*2) == 0) {
                 RandomQuestion += 1;
@@ -78,12 +82,28 @@ public class TheoryTesting extends MyAppCompatActivity {
 
         String[] Selected = new String[LENGHT];
 
-        int QuestionDirection = (int)(Math.random()*2);
-        Selected[0] = Formulas[RandomQuestion][QuestionDirection];
-        if (QuestionDirection == 0) {
-            QuestionDirection = 1;
-        } else {
-            QuestionDirection = 0;
+        ArrayList<Integer> SelectedList = new ArrayList<>();
+        for (int i = 1;i < LENGHT;i++) {
+            SelectedList.add(i);
+        }
+
+        ArrayList<Integer> QuestionDirection = new ArrayList<>();
+        for (int i = 0;i < Formulas[RandomQuestion].length;i++) {
+            QuestionDirection.add(i);
+        }
+
+        int CorrectAnswersNumbers = 1+(int)(Math.random()*(Formulas[RandomQuestion].length-1));
+        int[] CorrectAnswers = new int[CorrectAnswersNumbers];
+        int RandomQuestionDirection = (int)(Math.random()*QuestionDirection.size());
+        Selected[0] = Formulas[RandomQuestion][QuestionDirection.get(RandomQuestionDirection)];
+        QuestionDirection.remove(RandomQuestionDirection);
+        for (int i = 0;i < CorrectAnswersNumbers;i++) {
+            int RandomAnswerDirection = (int)(Math.random()*QuestionDirection.size());
+            int RandomSelectedList = (int)(Math.random()*SelectedList.size());
+            CorrectAnswers[i] = SelectedList.get(RandomSelectedList);
+            Selected[SelectedList.get(RandomSelectedList)] = Formulas[RandomQuestion][QuestionDirection.get(RandomAnswerDirection)];
+            QuestionDirection.remove(RandomAnswerDirection);
+            SelectedList.remove(RandomSelectedList);
         }
 
         int RightAnswer = 1+((int)(Math.random()*(LENGHT-1)));
@@ -97,18 +117,36 @@ public class TheoryTesting extends MyAppCompatActivity {
             String formula = null;
             for (String[] formulas : Formulas) {
                 boolean Break = false;
-                for (int formulaDirestion = 0; formulaDirestion < 2; formulaDirestion++) {
-                    boolean contains = false;
-                    for (int selectSearch = 0; selectSearch < LENGHT; selectSearch++) {
-                        if (Objects.equals(Selected[selectSearch], formulas[formulaDirestion])) {
-                            contains = true;
+                int randomDirestion = (int)(Math.random()*2);
+                if (randomDirestion == 0) {
+                    for (int formulaDirestion = 0; formulaDirestion < 2; formulaDirestion++) {
+                        boolean contains = false;
+                        for (int selectSearch = 0; selectSearch < LENGHT; selectSearch++) {
+                            if (Objects.equals(Selected[selectSearch], formulas[formulaDirestion])) {
+                                contains = true;
+                                break;
+                            }
+                        }
+                        if (!contains) {
+                            formula = formulas[formulaDirestion];
+                            Break = true;
                             break;
                         }
                     }
-                    if (!contains) {
-                        formula = formulas[formulaDirestion];
-                        Break = true;
-                        break;
+                } else {
+                    for (int formulaDirestion = 1; formulaDirestion > -1; formulaDirestion--) {
+                        boolean contains = false;
+                        for (int selectSearch = 0; selectSearch < LENGHT; selectSearch++) {
+                            if (Objects.equals(Selected[selectSearch], formulas[formulaDirestion])) {
+                                contains = true;
+                                break;
+                            }
+                        }
+                        if (!contains) {
+                            formula = formulas[formulaDirestion];
+                            Break = true;
+                            break;
+                        }
                     }
                 }
                 if (Break) {
@@ -133,7 +171,7 @@ public class TheoryTesting extends MyAppCompatActivity {
             AnswersButtons[i].setText(Selected[i+1]);
         }
 
-        final double[] Reward = {1};
+        final double[] RewardMultiplier = {1};
         final boolean[] AnswerIsGiven = {false};
 
         for (int i = 0;i < AnswersButtons.length;i++) {
@@ -141,19 +179,21 @@ public class TheoryTesting extends MyAppCompatActivity {
             AnswersButtons[i].setOnClickListener(v -> {
                 if (k == RightAnswer) {
                     AnswersButtons[k-1].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
-                    if (Reward[0] != 0) {
-                        Toast.makeText(this,getResources().getStringArray(R.array.right)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)]
-                                +" "+getResources().getStringArray(R.array.rightReward)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)]
-                                +" "+super.GetRightPointsEnd((long)(20L*Reward[0]))+".",Toast.LENGTH_SHORT).show();
-                        Reward[0] = 0;
+                    if (RewardMultiplier[0] != 0) {
+                        long reward = (long)(Reward*RewardMultiplier[0]);
+                        super.SetPoints(super.GetPoints()+reward);
+                        Toast.makeText(this,getResources().getStringArray(R.array.right)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)]+
+                                " "+getResources().getStringArray(R.array.rightReward)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)]+
+                                " "+super.GetRightPointsEnd(reward),Toast.LENGTH_SHORT).show();
+                        RewardMultiplier[0] = 0;
                     } else {
                         Toast.makeText(this,getResources().getStringArray(R.array.right)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)],Toast.LENGTH_SHORT).show();
                     }
                     AnswerIsGiven[0] = true;
                 } else if (!AnswerIsGiven[0]) {
                     AnswersButtons[k-1].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.red));
-                    if (Reward[0] != 0) {
-                        Reward[0] -= 0.5d;
+                    if (RewardMultiplier[0] != 0) {
+                        RewardMultiplier[0] -= 0.5d;
                     }
                 }
             });
