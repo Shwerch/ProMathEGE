@@ -20,12 +20,14 @@
         <item>Правильный ответ!</item>
         <item>Отлично.</item>
         <item>Верно!</item>
+        <item>Замечательно.</item>
     </string-array>
 
     <string-array name="rightReward">
         <item>Вы получаете</item>
         <item>Ваша награда:</item>
         <item>Добавлено</item>
+        <item>Вам начисляется</item>
     </string-array>
 
     <string name="points1">баллов</string>

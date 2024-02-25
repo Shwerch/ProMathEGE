@@ -8,8 +8,6 @@
         <item>Теория вероятностей</item>
         <item>Производная</item>
         <item>Логарифмы</item>
-        <item>Стереометрия</item>
-        <item>Планиметрия</item>
     </string-array>
 
     <string-array name="TopicsTest">
@@ -20,8 +18,16 @@
         <item>Тест по теории вероятностей</item>
         <item>Тест по производной</item>
         <item>Тест по логарифмам</item>
-        <item>Тест по стереометрии</item>
-        <item>Тест по планиметрии</item>
+    </string-array>
+
+    <string-array name="TestAvailable">
+        <item>true</item>
+        <item>false</item>
+        <item>false</item>
+        <item>false</item>
+        <item>false</item>
+        <item>false</item>
+        <item>false</item>
     </string-array>
 
     <string-array name="Theory">
@@ -147,7 +153,10 @@ V = 4/3 * πR³
         </item>
 
         <item>
-            С наибольшей вероятностью, теория по теории вероятностей здесь будет.
+            Вероятностью события A в некотором испытании называют отношение:\n
+\n
+P(A) = m/n, где n — общее число всех исходов этого испытания, а m — количество исходов, благоприятствующих событию A.\n
+
         </item>
 
         <item>
@@ -190,14 +199,6 @@ V = 4/3 * πR³
             logₙᵃm = (1/a)*logₙm\n
             logₙm = (logₖm)/(logₖn)\n
             logₙm = 1/(logₘn)\n
-        </item>
-
-        <item>
-            Здесь стереометрия готовится наступать на баллы ЕГЭ.
-        </item>
-
-        <item>
-            Страшнейшая планиметрия будет в этом разделе.
         </item>
     </string-array>
 </resources>

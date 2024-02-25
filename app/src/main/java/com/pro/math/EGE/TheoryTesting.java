@@ -34,12 +34,16 @@ public class TheoryTesting extends MyAppCompatActivity {
         final Button Answer6 = findViewById(R.id.answer6);
         Button[] Answers = new Button[] {Answer1,Answer2,Answer3,Answer4,Answer5,Answer6};
 
-        String[] NewTask = BasicFormulas.CreateTask();
-
         int Chapter;
         int RightAnswer;
+        String[] NewTask;
         try {
             Chapter = (int) getIntent().getSerializableExtra("Chapter");
+            switch (Chapter) {
+                default:
+                    NewTask = BasicFormulas.CreateTask();
+                    break;
+            }
             RightAnswer = Integer.parseInt(NewTask[7]);
         } catch (Exception e) {
             Toast.makeText(getBaseContext(), R.string.error_whe_getting_topic, Toast.LENGTH_LONG).show();
