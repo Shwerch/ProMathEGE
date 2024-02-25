@@ -94,6 +94,7 @@ public class TheoryTesting extends MyAppCompatActivity {
 
         int CorrectAnswersNumbers = 1+(int)(Math.random()*(Formulas[RandomQuestion].length-1));
         int[] CorrectAnswers = new int[CorrectAnswersNumbers];
+
         int RandomQuestionDirection = (int)(Math.random()*QuestionDirection.size());
         Selected[0] = Formulas[RandomQuestion][QuestionDirection.get(RandomQuestionDirection)];
         QuestionDirection.remove(RandomQuestionDirection);
@@ -106,8 +107,6 @@ public class TheoryTesting extends MyAppCompatActivity {
             SelectedList.remove(RandomSelectedList);
         }
 
-        int RightAnswer = 1+((int)(Math.random()*(LENGHT-1)));
-        Selected[RightAnswer] = Formulas[RandomQuestion][QuestionDirection];
         Collections.shuffle(Arrays.asList(Formulas));
 
         for (int select = 1;select < LENGHT;select++) {
@@ -117,8 +116,8 @@ public class TheoryTesting extends MyAppCompatActivity {
             String formula = null;
             for (String[] formulas : Formulas) {
                 boolean Break = false;
-                int randomDirestion = (int)(Math.random()*2);
-                if (randomDirestion == 0) {
+                int randomDirection = (int)(Math.random()*2);
+                if (randomDirection == 0) {
                     for (int formulaDirestion = 0; formulaDirestion < 2; formulaDirestion++) {
                         boolean contains = false;
                         for (int selectSearch = 0; selectSearch < LENGHT; selectSearch++) {
@@ -177,7 +176,14 @@ public class TheoryTesting extends MyAppCompatActivity {
         for (int i = 0;i < AnswersButtons.length;i++) {
             final int k = i+1;
             AnswersButtons[i].setOnClickListener(v -> {
-                if (k == RightAnswer) {
+                boolean correct = false;
+                for (int correctAnswer : CorrectAnswers) {
+                    if (k == correctAnswer) {
+                        correct = true;
+                        break;
+                    }
+                }
+                if (correct) {
                     AnswersButtons[k-1].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
                     if (RewardMultiplier[0] != 0) {
                         long reward = (long)(Reward*RewardMultiplier[0]);
