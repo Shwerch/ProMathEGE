@@ -26,6 +26,7 @@ public class TheoryTesting extends MyAppCompatActivity {
         }
         List<Integer> IntegerArray = Arrays.asList(Array);
         Collections.shuffle(IntegerArray);
+        Collections.shuffle(IntegerArray);
         Array = IntegerArray.toArray(new Integer[0]);
         return Array;
     }
@@ -67,17 +68,23 @@ public class TheoryTesting extends MyAppCompatActivity {
         String SubTopic;
         String[][] Formulas;
         switch (Topic) {
+            case 5:
+                Chapter = (int)(Math.random()* TheoryTopicDerivatives.ChaptersCount);
+                Reward = TheoryTopicDerivatives.Rewards;
+                SubTopic = TheoryTopicDerivatives.GetSubTopic(Chapter);
+                Formulas = TheoryTopicDerivatives.GetFormulas(Chapter);
+                break;
             case 1:
-                Chapter = (int)(Math.random()*Planimetry.ChaptersCount);
-                Reward = Planimetry.Rewards;
-                SubTopic = Planimetry.GetSubTopic(Chapter);
-                Formulas = Planimetry.GetFormulas(Chapter);
+                Chapter = (int)(Math.random()* TheoryTopicPlanimetry.ChaptersCount);
+                Reward = TheoryTopicPlanimetry.Rewards;
+                SubTopic = TheoryTopicPlanimetry.GetSubTopic(Chapter);
+                Formulas = TheoryTopicPlanimetry.GetFormulas(Chapter);
                 break;
             default:
-                Chapter = (int)(Math.random()*BasicFormulas.ChaptersCount);
-                Reward = BasicFormulas.Rewards;
-                SubTopic = BasicFormulas.GetSubTopic(Chapter);
-                Formulas = BasicFormulas.GetFormulas(Chapter);
+                Chapter = (int)(Math.random()* TheoryTopicBasicFormulas.ChaptersCount);
+                Reward = TheoryTopicBasicFormulas.Rewards;
+                SubTopic = TheoryTopicBasicFormulas.GetSubTopic(Chapter);
+                Formulas = TheoryTopicBasicFormulas.GetFormulas(Chapter);
                 break;
         }
 

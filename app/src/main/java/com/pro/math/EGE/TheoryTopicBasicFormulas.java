@@ -1,6 +1,6 @@
 package com.pro.math.EGE;
 
-public class BasicFormulas {
+public class TheoryTopicBasicFormulas {
     private static final String[][] AbbreviatedMultiplications = {
             {"(a + b)²", "a² + 2ab + b²"},
             {"(a - b)²", "a² - 2ab + b²"},
@@ -29,12 +29,6 @@ public class BasicFormulas {
             {"q","bₙ / bₙ₋₁"},
             {"Sₙ","(b₁ - bₙ₊₁)/(1 - q)","b₁ * (1 - qⁿ)/(1 - q)"},
     };
-    private static final String[] SubTopics = {
-            "Геометрическая прогрессия",
-            "Формулы сокращенного умножения",
-            "Арифметическая прогрессия",
-            "Формулы степеней",
-    };
     public static final int ChaptersCount = 4;
     public static final long Rewards = 20;
     public static String[][] GetFormulas(final int Chapter) {
@@ -50,6 +44,15 @@ public class BasicFormulas {
         }
     }
     public static String GetSubTopic(final int Chapter) {
-        return SubTopics[Chapter];
+        switch (Chapter) {
+            case 1:
+                return "Формулы сокращенного умножения";
+            case 2:
+                return "Арифметическая прогрессия";
+            case 3:
+                return "Формулы степеней";
+            default:
+                return "Геометрическая прогрессия";
+        }
     }
 }

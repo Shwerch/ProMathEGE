@@ -26,7 +26,7 @@
         <item>false</item>
         <item>false</item>
         <item>false</item>
-        <item>false</item>
+        <item>true</item>
         <item>false</item>
     </string-array>
 
@@ -189,6 +189,7 @@ P(A) = m/n, где n — общее число всех исходов этог�
             (u + y)` = u` + y`\n
             (u/y)` = (u`*y - u*y`)/y²\n
             (xⁿ)` = n * xⁿ⁻¹\n
+            (aˣ)` = aˣ * ln a\n
             (sin x)` = cos x\n
             (cos x)` = -sin x\n
             (tg x)` = 1/(cos² x)\n
@@ -197,7 +198,6 @@ P(A) = m/n, где n — общее число всех исходов этог�
             (arccos x)` = -1/√(1-x²)\n
             (arctg x)` = 1/(1+x²)\n
             (arcctg x)` = -1/(1+x²)\n
-            (aˣ)` = aˣ * ln a
         </item>
 
         <item>
