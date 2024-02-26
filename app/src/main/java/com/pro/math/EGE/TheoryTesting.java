@@ -1,43 +1,20 @@
 package com.pro.math.EGE;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-
 import androidx.core.content.ContextCompat;
 
 public class TheoryTesting extends MyAppCompatActivity {
-    private static int PreviousQuestion = -1;
-    private static int PreviousChapter = -1;
-    private static int PreviousTopic = -1;
 
-    private Integer[] GetRandomArrayList(int start,int length) {
-        Integer[] Array = new Integer[length];
-        for (int i = 0;i < length;i++) {
-            Array[i] = i+start;
-        }
-        List<Integer> IntegerArray = Arrays.asList(Array);
-        Collections.shuffle(IntegerArray);
-        Collections.shuffle(IntegerArray);
-        return IntegerArray.toArray(new Integer[] {});
-    }
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        final int LENGHT = 7;
-
         setContentView(R.layout.theory_testing);
 
         final Button MainMenu = findViewById(R.id.mainmenu);
