@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -190,7 +189,7 @@ public class TheoryTesting extends MyAppCompatActivity {
                     AnswersButtons[k-1].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
                     if (RewardMultiplier[0] != 0) {
                         long reward = (long)(Reward*RewardMultiplier[0]/CorrectAnswersCount);
-                        super.SetPoints(super.GetPoints()+reward);
+                        super.ChangePoints(reward);
                         Toast.makeText(this,getResources().getStringArray(R.array.right)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)]+
                                 " "+getResources().getStringArray(R.array.rightReward)[(int)(Math.random()*getResources().getStringArray(R.array.right).length)]+
                                 " "+super.GetRightPointsEnd(reward),Toast.LENGTH_SHORT).show();

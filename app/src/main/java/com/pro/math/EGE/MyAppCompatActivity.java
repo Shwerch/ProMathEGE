@@ -21,6 +21,30 @@ public class MyAppCompatActivity extends AppCompatActivity {
         button.setOnClickListener(v -> startActivity(new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));/*startActivity(new Intent(this,MainActivity.class))*/
     }
 
+    protected void ChangePoints(long difference) {
+        SQLiteDatabase db = null;
+        Cursor query = null;
+        try {
+            db = getBaseContext().openOrCreateDatabase("PointStorage", MODE_PRIVATE, null);
+            db.execSQL("CREATE TABLE IF NOT EXISTS data (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
+            query = db.rawQuery("SELECT * FROM data;",null);
+            db.execSQL("INSERT OR IGNORE INTO data VALUES (1,0);");
+            if (query.moveToFirst()){
+                long points = query.getLong(1);
+                db.execSQL("UPDATE data SET points = "+(points+difference)+" WHERE id = 1");
+                query.close();
+                db.close();
+            } else {
+                query.close();
+                db.close();
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            try { assert query != null; query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
+            Log.d("MYLOG","DataBase ChangePoints: "+e);
+        }
+    }
+
     protected long GetPoints() {
         long points;
         SQLiteDatabase db = null;
@@ -40,7 +64,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
                 throw new Exception();
             }
         } catch (Exception e) {
-            try { query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
+            try { assert query != null; query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
             points = -1;
             Log.d("MYLOG","DataBase GetPoints: "+e);
         }
@@ -65,7 +89,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
                 throw new Exception();
             }
         } catch (Exception e) {
-            try { query.close(); } catch (Exception ex) {} try { db.close(); } catch (Exception ex) {}
+            try { assert query != null; query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
             Log.d("MYLOG","DataBase SetPoints: "+e);
         }
     }
