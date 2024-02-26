@@ -20,6 +20,21 @@ public class MyAppCompatActivity extends AppCompatActivity {
     protected void BackToMainMenu(Button button) {
         button.setOnClickListener(v -> startActivity(new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));/*startActivity(new Intent(this,MainActivity.class))*/
     }
+    protected void DefineDataBase() {
+        SQLiteDatabase db = null;
+        Cursor query = null;
+        try {
+            db = getBaseContext().openOrCreateDatabase("PointStorage", MODE_PRIVATE, null);
+            db.execSQL("CREATE TABLE IF NOT EXISTS data (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
+            db.execSQL("INSERT OR IGNORE INTO data VALUES (0,0);");
+
+            db.close();
+
+        } catch (Exception e) {
+            try { assert query != null; query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
+            Log.d("MYLOG","DataBase DefineDataBase: "+e);
+        }
+    }
 
     protected void ChangePoints(long difference) {
         SQLiteDatabase db = null;
@@ -28,10 +43,10 @@ public class MyAppCompatActivity extends AppCompatActivity {
             db = getBaseContext().openOrCreateDatabase("PointStorage", MODE_PRIVATE, null);
             db.execSQL("CREATE TABLE IF NOT EXISTS data (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
             query = db.rawQuery("SELECT * FROM data;",null);
-            db.execSQL("INSERT OR IGNORE INTO data VALUES (1,0);");
+            db.execSQL("INSERT OR IGNORE INTO data VALUES (0,0);");
             if (query.moveToFirst()){
                 long points = query.getLong(1);
-                db.execSQL("UPDATE data SET points = "+(points+difference)+" WHERE id = 1");
+                db.execSQL("UPDATE data SET points = "+(points+difference)+" WHERE id = 0");
                 query.close();
                 db.close();
             } else {
@@ -53,7 +68,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
             db = getBaseContext().openOrCreateDatabase("PointStorage", MODE_PRIVATE, null);
             db.execSQL("CREATE TABLE IF NOT EXISTS data (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
             query = db.rawQuery("SELECT * FROM data;",null);
-            db.execSQL("INSERT OR IGNORE INTO data VALUES (1,0);");
+            db.execSQL("INSERT OR IGNORE INTO data VALUES (0,0);");
             if (query.moveToFirst()){
                 points = query.getLong(1);
                 query.close();
@@ -78,7 +93,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
             db = getBaseContext().openOrCreateDatabase("PointStorage", MODE_PRIVATE, null);
             db.execSQL("CREATE TABLE IF NOT EXISTS data (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
             query = db.rawQuery("SELECT * FROM data;",null);
-            db.execSQL("INSERT OR IGNORE INTO data VALUES (1,0);");
+            db.execSQL("INSERT OR IGNORE INTO data VALUES (0,0);");
             if (query.moveToFirst()){
                 db.execSQL("UPDATE data SET points = "+points+" WHERE id = 1");
                 query.close();

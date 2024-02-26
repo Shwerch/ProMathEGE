@@ -14,21 +14,12 @@ public class TheoryTopicStereometry {
             {"Sбок","4a²"},
             {"d","√(3a²)"},
     };
-    private static final String[][] Rhombus = {
-            {"S","a*hₒ","a² * sin a","0.5*d1*d2",},
-            {"r","h/2","S/2a",},
-            {"a","S/h","S/2r","P/4",},
-            {"d1","2S/d2",},
-            {"d2","2S/d1",},
-    };
     public static final int ChaptersCount = 2;
     public static final long Rewards = 40;
     public static String[][] GetFormulas(final int Chapter) {
         switch (Chapter) {
             case 1:
                 return Cube;
-            case 2:
-                return Rhombus;
             default:
                 return RectangularParallelepiped;
         }
@@ -37,8 +28,6 @@ public class TheoryTopicStereometry {
         switch (Chapter) {
             case 1:
                 return "Куб";
-            case 2:
-                return "Ромб";
             default:
                 return "Прямоугольный параллелепипед";
         }
