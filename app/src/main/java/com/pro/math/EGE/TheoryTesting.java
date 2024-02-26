@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -27,8 +28,7 @@ public class TheoryTesting extends MyAppCompatActivity {
         List<Integer> IntegerArray = Arrays.asList(Array);
         Collections.shuffle(IntegerArray);
         Collections.shuffle(IntegerArray);
-        Array = IntegerArray.toArray(new Integer[0]);
-        return Array;
+        return IntegerArray.toArray(new Integer[] {});
     }
     @SuppressLint("SetTextI18n")
     @Override
@@ -68,11 +68,23 @@ public class TheoryTesting extends MyAppCompatActivity {
         String SubTopic;
         String[][] Formulas;
         switch (Topic) {
+            case 6:
+                Chapter = (int)(Math.random()* TheoryTopicLogarithms.ChaptersCount);
+                Reward = TheoryTopicLogarithms.Rewards;
+                SubTopic = TheoryTopicLogarithms.GetSubTopic(Chapter);
+                Formulas = TheoryTopicLogarithms.GetFormulas(Chapter);
+                break;
             case 5:
                 Chapter = (int)(Math.random()* TheoryTopicDerivatives.ChaptersCount);
                 Reward = TheoryTopicDerivatives.Rewards;
                 SubTopic = TheoryTopicDerivatives.GetSubTopic(Chapter);
                 Formulas = TheoryTopicDerivatives.GetFormulas(Chapter);
+                break;
+            case 3:
+                Chapter = (int)(Math.random()*TheoryTopicStereometry.ChaptersCount);
+                Reward = TheoryTopicStereometry.Rewards;
+                SubTopic = TheoryTopicStereometry.GetSubTopic(Chapter);
+                Formulas = TheoryTopicStereometry.GetFormulas(Chapter);
                 break;
             case 1:
                 Chapter = (int)(Math.random()* TheoryTopicPlanimetry.ChaptersCount);
@@ -149,10 +161,7 @@ public class TheoryTesting extends MyAppCompatActivity {
                 }
             }
             if (formula == null) {
-                for (int select1 = select;select1 < LENGHT;select1++) {
-                    QuestionAndAnswers[select1] = "";
-                }
-                break;
+                QuestionAndAnswers[select] = "";
             } else {
                 QuestionAndAnswers[select] = formula;
             }
