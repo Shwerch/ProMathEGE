@@ -49,8 +49,11 @@ public class Shop extends MyAppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Object listItem = List.getItemAtPosition(position);
-                Toast.makeText(getBaseContext(), (CharSequence)listItem, Toast.LENGTH_SHORT).show();
-                Shop.super.BuySubTopic(ShopIDsList.get(position));
+                if (Shop.super.BuySubTopic(ShopIDsList.get(position))) {
+                    Toast.makeText(getBaseContext(),"Успешно куплено "+((CharSequence)listItem),Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getBaseContext(),"Недостаточно баллов для покупки "+((CharSequence)listItem),Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

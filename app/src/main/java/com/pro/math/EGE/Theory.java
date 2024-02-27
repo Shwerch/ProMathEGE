@@ -269,7 +269,7 @@ class TheoryStorage {
             {1, 0},
             {1, 0},
     };
-    public static int[][] FormulasIDs;
+    public static int[][] FormulasIDs = FormulasAvailability.clone() ;
     public static final long[] Rewards = new long[] {
             20,
             40,
