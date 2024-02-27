@@ -13,6 +13,7 @@ import android.view.Display;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,7 +29,6 @@ public class MyAppCompatActivity extends AppCompatActivity {
     protected void DefineDataBases() {
         SQLiteDatabase db = null;
         Cursor query = null;
-
         try {
             db = getBaseContext().openOrCreateDatabase(storageName, MODE_PRIVATE, null);
             db.execSQL("CREATE TABLE IF NOT EXISTS "+pointsTableName+" (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
@@ -45,15 +45,21 @@ public class MyAppCompatActivity extends AppCompatActivity {
                 }
             }
 
+            id = 0;
+            Shop.ResetShop();
             query = db.rawQuery("SELECT * FROM "+subTopicsName+";",null);
             query.moveToFirst();
             for (int topic = 0;topic < TheoryStorage.FormulasAvailability.length;topic++) {
                 for (int chapter = 0; chapter < TheoryStorage.FormulasAvailability[topic].length; chapter++) {
-                    TheoryStorage.FormulasAvailability[topic][chapter] = query.getInt(1);
+                    id += 1;
+                    int availability = query.getInt(1);
+                    TheoryStorage.FormulasAvailability[topic][chapter] = availability;
+                    if (availability == 0) {
+                        Shop.AddToShop(TheoryStorage.SubTopics[topic][chapter],id);
+                    }
                     query.moveToNext();
                 }
             }
-
             query.close();
             db.close();
         } catch (Exception e) {
@@ -61,7 +67,59 @@ public class MyAppCompatActivity extends AppCompatActivity {
             Log.d("MYLOG","DataBase DefineDataBase: "+e);
         }
     }
+    protected void BuySubTopic(long subTopicID) {
+        SQLiteDatabase db = null;
+        Cursor query = null;
+        try {
+            db = getBaseContext().openOrCreateDatabase(storageName, MODE_PRIVATE, null);
 
+            query = db.rawQuery("SELECT * FROM "+pointsTableName+";",null);
+            query.moveToFirst();
+            long points = query.getLong(1);
+            if (points >= 100) {
+                db.execSQL("UPDATE "+pointsTableName+" SET points = "+(points-100L)+" WHERE id = 1");
+                query.close();
+                Toast.makeText(getBaseContext(),"Формулы успешно приобретены!", Toast.LENGTH_SHORT).show();
+            } else {
+                db.close();
+                query.close();
+                Toast.makeText(getBaseContext(),"Вам не хватает баллов.", Toast.LENGTH_SHORT).show();
+                throw new Exception();
+            }
+
+            query = db.rawQuery("SELECT * FROM "+subTopicsName+";",null);
+            query.move((int)subTopicID);
+            if (query.getInt(1) == 0) {
+                db.execSQL("UPDATE "+subTopicsName+" SET availability = 1 WHERE id = "+subTopicID);
+                Shop.RemoveFromShop(subTopicID);
+                query.close();
+                db.close();
+            } else {
+                query.close();
+                db.close();
+                throw new Exception();
+            }
+
+            boolean end = false;
+            Log.d("MYLOG", Arrays.deepToString(TheoryStorage.FormulasIDs));
+            for (int topic = 0;topic < TheoryStorage.FormulasAvailability.length;topic++) {
+                for (int chapter = 0; chapter < TheoryStorage.FormulasAvailability[topic].length; chapter++) {
+                    if (TheoryStorage.FormulasIDs[topic][chapter] == subTopicID) {
+                        TheoryStorage.FormulasAvailability[topic][chapter] = 1;
+                        end = true;
+                        break;
+                    }
+                }
+                if (end) {
+                    break;
+                }
+            }
+            Log.d("MYLOG", Arrays.deepToString(TheoryStorage.FormulasIDs));
+        } catch (Exception e) {
+            try { assert query != null; query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
+            Log.d("MYLOG","DataBase BuySubTopic: "+e);
+        }
+    }
     protected void ChangePoints(long difference) {
         SQLiteDatabase db = null;
         Cursor query = null;
