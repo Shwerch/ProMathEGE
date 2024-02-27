@@ -19,38 +19,41 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Arrays;
 
 public class MyAppCompatActivity extends AppCompatActivity {
+    private final String storageName = "Storage";
+    private final String pointsTableName = "Points";
+    private final String subTopicsName = "SubTopics";
     protected void BackToMainMenu(Button button) {
         button.setOnClickListener(v -> startActivity(new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));/*startActivity(new Intent(this,MainActivity.class))*/
     }
     protected void DefineDataBases() {
-        TheoryStorage.FormulasIDs = TheoryStorage.FormulasAvailability.clone();
         SQLiteDatabase db = null;
         Cursor query = null;
+
         try {
-            db = getBaseContext().openOrCreateDatabase("PointStorage", MODE_PRIVATE, null);
-            db.execSQL("CREATE TABLE IF NOT EXISTS data (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
-            query = db.rawQuery("SELECT * FROM data;",null);
-            db.execSQL("INSERT OR IGNORE INTO data VALUES (1,0);");
-            query.close();
-            int id = 1;
+            db = getBaseContext().openOrCreateDatabase(storageName, MODE_PRIVATE, null);
+            db.execSQL("CREATE TABLE IF NOT EXISTS "+pointsTableName+" (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
+            db.execSQL("INSERT OR IGNORE INTO "+pointsTableName+" VALUES (1,0);");
+
+            TheoryStorage.FormulasIDs = TheoryStorage.FormulasAvailability.clone();
+            db.execSQL("CREATE TABLE IF NOT EXISTS "+subTopicsName+" (id INTEGER PRIMARY KEY AUTOINCREMENT, availability INTEGER)");
+            int id = 0;
             for (int topic = 0;topic < TheoryStorage.FormulasAvailability.length;topic++) {
                 for (int chapter = 0;chapter < TheoryStorage.FormulasAvailability[topic].length;chapter++) {
                     id += 1;
-                    db.execSQL("INSERT OR IGNORE INTO data VALUES ("+id+","+TheoryStorage.FormulasAvailability[topic][chapter]+");");
+                    db.execSQL("INSERT OR IGNORE INTO "+subTopicsName+" VALUES ("+id+","+TheoryStorage.FormulasAvailability[topic][chapter]+");");
                     TheoryStorage.FormulasIDs[topic][chapter] = id;
                 }
             }
 
-            query = db.rawQuery("SELECT * FROM data;",null);
+            query = db.rawQuery("SELECT * FROM "+subTopicsName+";",null);
             query.moveToFirst();
             for (int topic = 0;topic < TheoryStorage.FormulasAvailability.length;topic++) {
                 for (int chapter = 0; chapter < TheoryStorage.FormulasAvailability[topic].length; chapter++) {
-                    if (query.moveToNext()) {
-                        TheoryStorage.FormulasAvailability[topic][chapter] = query.getInt(1);
-                    }
+                    TheoryStorage.FormulasAvailability[topic][chapter] = query.getInt(1);
+                    query.moveToNext();
                 }
             }
-            Log.d("MYLOG", Arrays.deepToString(TheoryStorage.FormulasAvailability));
+
             query.close();
             db.close();
         } catch (Exception e) {
@@ -63,11 +66,11 @@ public class MyAppCompatActivity extends AppCompatActivity {
         SQLiteDatabase db = null;
         Cursor query = null;
         try {
-            db = getBaseContext().openOrCreateDatabase("PointStorage", MODE_PRIVATE, null);
-            query = db.rawQuery("SELECT * FROM data;",null);
+            db = getBaseContext().openOrCreateDatabase(storageName, MODE_PRIVATE, null);
+            query = db.rawQuery("SELECT * FROM "+pointsTableName+";",null);
             if (query.moveToFirst()){
                 long points = query.getLong(1);
-                db.execSQL("UPDATE data SET points = "+(points+difference)+" WHERE id = 0");
+                db.execSQL("UPDATE "+pointsTableName+" SET points = "+(points+difference)+" WHERE id = 1");
                 query.close();
                 db.close();
             } else {
@@ -86,16 +89,15 @@ public class MyAppCompatActivity extends AppCompatActivity {
         SQLiteDatabase db = null;
         Cursor query = null;
         try {
-            db = getBaseContext().openOrCreateDatabase("PointStorage", MODE_PRIVATE, null);
-            db.execSQL("CREATE TABLE IF NOT EXISTS data (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
-            query = db.rawQuery("SELECT * FROM data;",null);
+            db = getBaseContext().openOrCreateDatabase(storageName, MODE_PRIVATE, null);
+            query = db.rawQuery("SELECT * FROM "+pointsTableName+";",null);
             if (query.moveToFirst()){
                 points = query.getLong(1);
                 query.close();
-                //db.close();
+                db.close();
             } else {
                 query.close();
-                //db.close();
+                db.close();
                 throw new Exception();
             }
         } catch (Exception e) {
@@ -110,11 +112,10 @@ public class MyAppCompatActivity extends AppCompatActivity {
         SQLiteDatabase db = null;
         Cursor query = null;
         try {
-            db = getBaseContext().openOrCreateDatabase("PointStorage", MODE_PRIVATE, null);
-            db.execSQL("CREATE TABLE IF NOT EXISTS data (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
-            query = db.rawQuery("SELECT * FROM data;",null);
+            db = getBaseContext().openOrCreateDatabase(storageName, MODE_PRIVATE, null);
+            query = db.rawQuery("SELECT * FROM "+pointsTableName+";",null);
             if (query.moveToFirst()){
-                db.execSQL("UPDATE data SET points = "+points+" WHERE id = 1");
+                db.execSQL("UPDATE "+pointsTableName+" SET points = "+(points)+" WHERE id = 1");
                 query.close();
                 db.close();
             } else {
@@ -124,7 +125,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
             }
         } catch (Exception e) {
             try { assert query != null; query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
-            Log.d("MYLOG","DataBase SetPoints: "+e);
+            Log.d("MYLOG","DataBase ChangePoints: "+e);
         }
     }
 
