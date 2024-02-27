@@ -32,16 +32,17 @@ public class TheoryTesting extends MyAppCompatActivity {
         final Button Answer6 = findViewById(R.id.answer6);
         Button[] AnswersButtons = new Button[] {Answer1,Answer2,Answer3,Answer4,Answer5,Answer6};
 
+
         int Topic;
         try {
+            //noinspection DataFlowIssue
             Topic = (int) getIntent().getSerializableExtra("Topic");
         } catch (Exception e) {
             Toast.makeText(getBaseContext(), R.string.error_whe_getting_topic, Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             return;
         }
-        //Log.d("MYLOG", "Total: "+Runtime.getRuntime().totalMemory()/8_388_608d+" MB\nFree: "+Runtime.getRuntime().freeMemory()/8_388_608d+" MB\nAllocated "+(Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/8_388_608d+" MB");
-        System.gc();
+
         Theory.Setup(Topic);
 
         final String[] QuestionAndAnswers = Theory.GetQuestionAndAnswers();

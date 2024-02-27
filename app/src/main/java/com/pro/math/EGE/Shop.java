@@ -6,7 +6,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class Shop extends MyAppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

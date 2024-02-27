@@ -16,20 +16,43 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Arrays;
+
 public class MyAppCompatActivity extends AppCompatActivity {
     protected void BackToMainMenu(Button button) {
         button.setOnClickListener(v -> startActivity(new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));/*startActivity(new Intent(this,MainActivity.class))*/
     }
-    protected void DefineDataBase() {
+    protected void DefineDataBases() {
+        TheoryStorage.FormulasIDs = TheoryStorage.FormulasAvailability.clone();
         SQLiteDatabase db = null;
         Cursor query = null;
         try {
             db = getBaseContext().openOrCreateDatabase("PointStorage", MODE_PRIVATE, null);
             db.execSQL("CREATE TABLE IF NOT EXISTS data (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
-            db.execSQL("INSERT OR IGNORE INTO data VALUES (0,0);");
+            query = db.rawQuery("SELECT * FROM data;",null);
+            db.execSQL("INSERT OR IGNORE INTO data VALUES (1,0);");
+            query.close();
+            int id = 1;
+            for (int topic = 0;topic < TheoryStorage.FormulasAvailability.length;topic++) {
+                for (int chapter = 0;chapter < TheoryStorage.FormulasAvailability[topic].length;chapter++) {
+                    id += 1;
+                    db.execSQL("INSERT OR IGNORE INTO data VALUES ("+id+","+TheoryStorage.FormulasAvailability[topic][chapter]+");");
+                    TheoryStorage.FormulasIDs[topic][chapter] = id;
+                }
+            }
 
+            query = db.rawQuery("SELECT * FROM data;",null);
+            query.moveToFirst();
+            for (int topic = 0;topic < TheoryStorage.FormulasAvailability.length;topic++) {
+                for (int chapter = 0; chapter < TheoryStorage.FormulasAvailability[topic].length; chapter++) {
+                    if (query.moveToNext()) {
+                        TheoryStorage.FormulasAvailability[topic][chapter] = query.getInt(1);
+                    }
+                }
+            }
+            Log.d("MYLOG", Arrays.deepToString(TheoryStorage.FormulasAvailability));
+            query.close();
             db.close();
-
         } catch (Exception e) {
             try { assert query != null; query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
             Log.d("MYLOG","DataBase DefineDataBase: "+e);
@@ -41,9 +64,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
         Cursor query = null;
         try {
             db = getBaseContext().openOrCreateDatabase("PointStorage", MODE_PRIVATE, null);
-            db.execSQL("CREATE TABLE IF NOT EXISTS data (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
             query = db.rawQuery("SELECT * FROM data;",null);
-            db.execSQL("INSERT OR IGNORE INTO data VALUES (0,0);");
             if (query.moveToFirst()){
                 long points = query.getLong(1);
                 db.execSQL("UPDATE data SET points = "+(points+difference)+" WHERE id = 0");
@@ -68,14 +89,13 @@ public class MyAppCompatActivity extends AppCompatActivity {
             db = getBaseContext().openOrCreateDatabase("PointStorage", MODE_PRIVATE, null);
             db.execSQL("CREATE TABLE IF NOT EXISTS data (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
             query = db.rawQuery("SELECT * FROM data;",null);
-            db.execSQL("INSERT OR IGNORE INTO data VALUES (0,0);");
             if (query.moveToFirst()){
                 points = query.getLong(1);
                 query.close();
-                db.close();
+                //db.close();
             } else {
                 query.close();
-                db.close();
+                //db.close();
                 throw new Exception();
             }
         } catch (Exception e) {
@@ -93,7 +113,6 @@ public class MyAppCompatActivity extends AppCompatActivity {
             db = getBaseContext().openOrCreateDatabase("PointStorage", MODE_PRIVATE, null);
             db.execSQL("CREATE TABLE IF NOT EXISTS data (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
             query = db.rawQuery("SELECT * FROM data;",null);
-            db.execSQL("INSERT OR IGNORE INTO data VALUES (0,0);");
             if (query.moveToFirst()){
                 db.execSQL("UPDATE data SET points = "+points+" WHERE id = 1");
                 query.close();

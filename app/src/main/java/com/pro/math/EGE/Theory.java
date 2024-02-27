@@ -19,20 +19,20 @@ public class Theory {
     private static String[] QuestionAndAnswers;
     private static int[] CorrectAnswers;
     private static int CorrectAnswersCount;
-    public static void Setup(int topic) {
-        Reward = TheoryStorage.Rewards[topic];
+    public static void Setup(int Topic) {
+        Reward = TheoryStorage.Rewards[Topic];
         AvailableChapters = new ArrayList<>();
-        for (int i = 0; i < TheoryStorage.AllFormulas[topic].length; i++) {
-            if (TheoryStorage.FormulasAvailability[topic][i] == 1) {
+        for (int i = 0; i < TheoryStorage.AllFormulas[Topic].length; i++) {
+            if (TheoryStorage.FormulasAvailability[Topic][i] == 1) {
                 AvailableChapters.add(i);
             }
         }
         int Chapter = AvailableChapters.get((int)(Math.random()*AvailableChapters.size()));
-        SubTopic = TheoryStorage.SubTopics[topic][Chapter];
-        String[][] formulas1 = TheoryStorage.AllFormulas[topic][Chapter];
+        SubTopic = TheoryStorage.SubTopics[Topic][Chapter];
+        String[][] formulas1 = TheoryStorage.AllFormulas[Topic][Chapter];
 
         int RandomQuestion = (int)(Math.random()* formulas1.length);
-        if (RandomQuestion == PreviousQuestion && Chapter == PreviousChapter && topic == PreviousTopic) {
+        if (RandomQuestion == PreviousQuestion && Chapter == PreviousChapter && Topic == PreviousTopic) {
             if (RandomQuestion == 0) {
                 RandomQuestion = 1;
             } else if (RandomQuestion == (formulas1.length-1)) {
@@ -45,7 +45,7 @@ public class Theory {
         }
         PreviousQuestion = RandomQuestion;
         PreviousChapter = Chapter;
-        PreviousTopic = topic;
+        PreviousTopic = Topic;
 
         QuestionAndAnswers = new String[LENGTH];
 
@@ -112,9 +112,6 @@ public class Theory {
     }
     public static int GetCorrectAnswersCount() {
         return CorrectAnswersCount;
-    }
-    public void ChangeFormulasAvailability(int[][] newFormulasAvailability) {
-        TheoryStorage.FormulasAvailability = newFormulasAvailability;
     }
     private static Integer[] GetRandomArrayList(int start, int length) {
         Integer[] Array = new Integer[length];
@@ -272,6 +269,7 @@ class TheoryStorage {
             {1, 0},
             {1, 0},
     };
+    public static int[][] FormulasIDs;
     public static final long[] Rewards = new long[] {
             20,
             40,
