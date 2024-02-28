@@ -2,9 +2,6 @@ package com.pro.math.EGE;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -12,12 +9,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Shop extends MyAppCompatActivity {
     private static ArrayList<String> ShopSubTopicsList = new ArrayList<>();
     private static ArrayList<Long> ShopIDsList = new ArrayList<>();
-    private static ArrayAdapter<String> arrayAdapter = null;
     private void BuyEnded() {
         startActivity(new Intent(this,Shop.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
@@ -29,15 +24,6 @@ public class Shop extends MyAppCompatActivity {
         int index = ShopIDsList.indexOf(newID);
         ShopSubTopicsList.remove(index);
         ShopIDsList.remove(index);
-        /*try {
-            arrayAdapter.clear();
-            for (String subTopic : ShopSubTopicsList) {
-                arrayAdapter.add(subTopic);
-            }
-            arrayAdapter.remove(ShopSubTopicsList.get(index));
-            arrayAdapter.notifyDataSetInvalidated();
-        }catch (Exception ignored) {}*/
-
     }
     public static void ResetShop() {
         ShopSubTopicsList = new ArrayList<>();
@@ -54,18 +40,15 @@ public class Shop extends MyAppCompatActivity {
         super.SetSizes(new Button[]{MainMenu},Title);
 
         ListView List = findViewById(R.id.list);
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ShopSubTopicsList);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ShopSubTopicsList);
         List.setAdapter(arrayAdapter);
-        List.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Object listItem = List.getItemAtPosition(position);
-                if (Shop.super.BuySubTopic(ShopIDsList.get(position))) {
-                    Toast.makeText(getBaseContext(),"Успешно куплено "+((CharSequence)listItem),Toast.LENGTH_SHORT).show();
-                    BuyEnded();
-                } else {
-                    Toast.makeText(getBaseContext(),"Недостаточно баллов для покупки "+((CharSequence)listItem),Toast.LENGTH_SHORT).show();
-                }
+        List.setOnItemClickListener((parent, view, position, id) -> {
+            Object listItem = List.getItemAtPosition(position);
+            if (Shop.super.BuySubTopic(ShopIDsList.get(position))) {
+                Toast.makeText(getBaseContext(),"Успешно куплено "+(listItem),Toast.LENGTH_SHORT).show();
+                BuyEnded();
+            } else {
+                Toast.makeText(getBaseContext(),"Недостаточно баллов для покупки "+(listItem),Toast.LENGTH_SHORT).show();
             }
         });
     }

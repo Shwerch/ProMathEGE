@@ -13,11 +13,8 @@ import android.view.Display;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.Arrays;
 
 public class MyAppCompatActivity extends AppCompatActivity {
     private final String storageName = "Storage";
@@ -61,7 +58,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
             query.close();
             db.close();
         } catch (Exception e) {
-            try { assert query != null; query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
+            try { query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
             Log.d("MYLOG","DataBase DefineDataBase: "+e);
         }
     }
@@ -98,24 +95,21 @@ public class MyAppCompatActivity extends AppCompatActivity {
                 db.close();
                 throw new Exception("Already have this");
             }
-            DefineDataBases();
-            /*boolean end = false;
-            int id = 0;
+            query.close();
+
+            query = db.rawQuery("SELECT * FROM "+subTopicsName+";",null);
+            query.moveToFirst();
             for (int topic = 0;topic < TheoryStorage.FormulasAvailability.length;topic++) {
                 for (int chapter = 0; chapter < TheoryStorage.FormulasAvailability[topic].length; chapter++) {
-                    id += 1;
-                    if (id == subTopicID) {
-                        TheoryStorage.FormulasAvailability[topic][chapter] = 1;
-                        end = true;
-                        break;
-                    }
+                    int availability = query.getInt(1);
+                    TheoryStorage.FormulasAvailability[topic][chapter] = availability;
+                    query.moveToNext();
                 }
-                if (end) {
-                    break;
-                }
-            }*/
+            }
+            query.close();
+            db.close();
         } catch (Exception e) {
-            try { assert query != null; query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
+            try { query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
             Log.d("MYLOG","DataBase BuySubTopic: "+e);
         }
         return Successful;
@@ -137,7 +131,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
                 throw new Exception();
             }
         } catch (Exception e) {
-            try { assert query != null; query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
+            try { query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
             Log.d("MYLOG","DataBase ChangePoints: "+e);
         }
     }
@@ -159,7 +153,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
                 throw new Exception();
             }
         } catch (Exception e) {
-            try { assert query != null; query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
+            try { query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
             points = -1;
             Log.d("MYLOG","DataBase GetPoints: "+e);
         }
@@ -182,7 +176,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
                 throw new Exception();
             }
         } catch (Exception e) {
-            try { assert query != null; query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
+            try { query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
             Log.d("MYLOG","DataBase ChangePoints: "+e);
         }
     }
