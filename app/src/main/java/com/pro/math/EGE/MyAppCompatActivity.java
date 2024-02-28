@@ -34,14 +34,12 @@ public class MyAppCompatActivity extends AppCompatActivity {
             db.execSQL("CREATE TABLE IF NOT EXISTS "+pointsTableName+" (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
             db.execSQL("INSERT OR IGNORE INTO "+pointsTableName+" VALUES (1,0);");
 
-            TheoryStorage.FormulasIDs = TheoryStorage.FormulasAvailability.clone();
             db.execSQL("CREATE TABLE IF NOT EXISTS "+subTopicsName+" (id INTEGER PRIMARY KEY AUTOINCREMENT, availability INTEGER)");
             int id = 0;
             for (int topic = 0;topic < TheoryStorage.FormulasAvailability.length;topic++) {
                 for (int chapter = 0;chapter < TheoryStorage.FormulasAvailability[topic].length;chapter++) {
                     id += 1;
                     db.execSQL("INSERT OR IGNORE INTO "+subTopicsName+" VALUES ("+id+","+TheoryStorage.FormulasAvailability[topic][chapter]+");");
-                    TheoryStorage.FormulasIDs[topic][chapter] = id;
                 }
             }
 
@@ -85,7 +83,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
             } else {
                 db.close();
                 query.close();
-                throw new Exception();
+                throw new Exception("Need 100+ points");
             }
 
             query = db.rawQuery("SELECT * FROM "+subTopicsName+";",null);
@@ -98,10 +96,10 @@ public class MyAppCompatActivity extends AppCompatActivity {
             } else {
                 query.close();
                 db.close();
-                throw new Exception();
+                throw new Exception("Already have this");
             }
-
-            boolean end = false;
+            DefineDataBases();
+            /*boolean end = false;
             int id = 0;
             for (int topic = 0;topic < TheoryStorage.FormulasAvailability.length;topic++) {
                 for (int chapter = 0; chapter < TheoryStorage.FormulasAvailability[topic].length; chapter++) {
@@ -115,7 +113,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
                 if (end) {
                     break;
                 }
-            }
+            }*/
         } catch (Exception e) {
             try { assert query != null; query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
             Log.d("MYLOG","DataBase BuySubTopic: "+e);
