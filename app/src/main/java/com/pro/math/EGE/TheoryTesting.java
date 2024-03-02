@@ -45,7 +45,6 @@ public class TheoryTesting extends MyAppCompatActivity {
         final Button Answer6 = findViewById(R.id.answer6);
         Button[] AnswersButtons = new Button[] {Answer1,Answer2,Answer3,Answer4,Answer5,Answer6};
 
-
         int Topic;
         try {
             //noinspection DataFlowIssue

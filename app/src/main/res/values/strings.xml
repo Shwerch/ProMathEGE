@@ -15,6 +15,8 @@
     <string name="theory_test">Тест по теории</string>
     <string name="question">Чему равно</string>
     <string name="undefined_points">\u003F\u003F\u003F баллов</string>
+    <string name="error_whe_getting_topic">Не удалось получить выбранный раздел</string>
+    <string name="reset_progress">Сбросить прогресс</string>
     <string name="about_text">Создано Ильей Поповым благодаря центру образования детей IT–CUBE, 2023–2024 учебный год.</string>
 
     <string-array name="right">
@@ -40,5 +42,4 @@
         <item>Переходить на следующее задание автоматически</item>
     </string-array>
 
-    <string name="error_whe_getting_topic">Не удалось получить выбранный раздел</string>
 </resources>

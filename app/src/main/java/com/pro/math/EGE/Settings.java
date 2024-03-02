@@ -1,10 +1,9 @@
 package com.pro.math.EGE;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class Settings extends MyAppCompatActivity {
     @Override
@@ -14,12 +13,15 @@ public class Settings extends MyAppCompatActivity {
 
         final Button MainMenu = findViewById(R.id.mainmenu);
         final TextView Title = findViewById(R.id.title);
+
+        final Button ResetProgress = findViewById(R.id.reset_progress);
+
         super.BackToMainMenu(MainMenu);
         super.SetSizes(new Button[]{MainMenu},Title);
 
-        ListView List = findViewById(R.id.settings_list);
-
-        List.setOnItemClickListener((parent, view, position, id) ->
-                Toast.makeText(this,(String)List.getItemAtPosition(position),Toast.LENGTH_SHORT).show());
+        ResetProgress.setOnClickListener(v -> {
+            super.ResetDataBases();
+            startActivity(new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        });
     }
 }

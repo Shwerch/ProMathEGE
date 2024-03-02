@@ -269,14 +269,14 @@ class TheoryStorage {
             {1, 0},
             {1, 0},
     };
-    public static final int[][] FormulasIDs = new int[][] {
-            {1, 2, 3, 4},
-            {5, 6, 7},
+    public static final int[][] FormulasAvailabilityDefault = new int[][] {
+            {1, 1, 0, 0},
+            {1, 0, 0},
             {},
-            {8, 9},
+            {1, 0},
             {},
-            {10, 11},
-            {12, 13},
+            {1, 0},
+            {1, 0},
     };
     public static final long[] Rewards = new long[] {
             20,

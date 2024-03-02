@@ -68,6 +68,22 @@ public class MyAppCompatActivity extends AppCompatActivity {
             Log.d("MYLOG","DataBase DefineDataBase: "+e);
         }
     }
+
+    protected void ResetDataBases() {
+        SQLiteDatabase db = null;
+        try {
+            db = getBaseContext().openOrCreateDatabase(storageName, MODE_PRIVATE, null);
+            db.execSQL("DROP TABLE IF EXISTS "+pointsTableName);
+            db.execSQL("DROP TABLE IF EXISTS "+subTopicsName);
+            db.close();
+            TheoryStorage.FormulasAvailability = TheoryStorage.FormulasAvailabilityDefault.clone();
+            DefineDataBases();
+        } catch (Exception e) {
+            try { db.close(); } catch (Exception ignored) {}
+            Log.d("MYLOG","DataBase ResetDataBases: "+e);
+        }
+    }
+
     protected boolean BuySubTopic(long subTopicID) {
         boolean Successful = false;
 
