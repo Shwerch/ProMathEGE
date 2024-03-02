@@ -8,6 +8,17 @@
     tools:targetApi="o">
 
     <Button
+        android:id="@+id/points"
+        style="@style/Buttons"
+        android:layout_width="155dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <Button
         android:id="@+id/mainmenu"
         style="@style/Buttons"
         android:layout_width="170dp"

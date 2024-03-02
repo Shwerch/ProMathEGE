@@ -17,7 +17,7 @@ public class Settings extends MyAppCompatActivity {
         final Button ResetProgress = findViewById(R.id.reset_progress);
 
         super.BackToMainMenu(MainMenu);
-        super.SetSizes(new Button[]{MainMenu},Title);
+        super.SetSizes(new Button[]{MainMenu,ResetProgress},Title);
 
         ResetProgress.setOnClickListener(v -> {
             super.ResetDataBases();

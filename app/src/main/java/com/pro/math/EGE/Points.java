@@ -1,11 +1,11 @@
 package com.pro.math.EGE;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class Points extends MyAppCompatActivity {
+    private Button PointsButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -13,7 +13,23 @@ public class Points extends MyAppCompatActivity {
 
         final Button MainMenu = findViewById(R.id.mainmenu);
         final TextView Title = findViewById(R.id.title);
+        final Button Points = findViewById(R.id.points);
+
         super.BackToMainMenu(MainMenu);
-        super.SetSizes(new Button[]{MainMenu},Title);
+        super.SetSizes(new Button[]{MainMenu,Points},Title);
+
+        PointsButton = Points;
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        long points = super.GetPoints();
+        if (points == -1) {
+            PointsButton.setText(getString(R.string.undefined_points));
+        } else {
+            PointsButton.setText(super.GetRightPointsEnd(points));
+        }
+
     }
 }
