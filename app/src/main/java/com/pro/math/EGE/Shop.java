@@ -43,12 +43,12 @@ public class Shop extends MyAppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ShopSubTopicsList);
         List.setAdapter(arrayAdapter);
         List.setOnItemClickListener((parent, view, position, id) -> {
-            Object listItem = List.getItemAtPosition(position);
+            //Object listItem = List.getItemAtPosition(position);
             if (Shop.super.BuySubTopic(ShopIDsList.get(position))) {
-                Toast.makeText(getBaseContext(),"Успешно куплено "+(listItem),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(),getResources().getString(R.string.successful_purchase),Toast.LENGTH_SHORT).show();
                 BuyEnded();
             } else {
-                Toast.makeText(getBaseContext(),"Недостаточно баллов для покупки "+(listItem),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(),getResources().getString(R.string.not_enough_points),Toast.LENGTH_SHORT).show();
             }
         });
     }
