@@ -35,10 +35,10 @@ public class MyAppCompatActivity extends AppCompatActivity {
 
             db.execSQL("CREATE TABLE IF NOT EXISTS "+subTopicsName+" (id INTEGER PRIMARY KEY AUTOINCREMENT, availability INTEGER)");
             int id = 0;
-            for (int topic = 0;topic < TheoryStorage.FormulasAvailability.length;topic++) {
-                for (int chapter = 0;chapter < TheoryStorage.FormulasAvailability[topic].length;chapter++) {
+            for (int topic = 0;topic < Theory.FormulasAvailability.length;topic++) {
+                for (int chapter = 0;chapter < Theory.FormulasAvailability[topic].length;chapter++) {
                     id += 1;
-                    db.execSQL("INSERT OR IGNORE INTO "+subTopicsName+" VALUES ("+id+","+TheoryStorage.FormulasAvailability[topic][chapter]+");");
+                    db.execSQL("INSERT OR IGNORE INTO "+subTopicsName+" VALUES ("+id+","+Theory.FormulasAvailability[topic][chapter]+");");
                 }
             }
 
@@ -46,13 +46,13 @@ public class MyAppCompatActivity extends AppCompatActivity {
             Shop.ResetShop();
             query = db.rawQuery("SELECT * FROM "+subTopicsName+";",null);
             query.moveToFirst();
-            for (int topic = 0;topic < TheoryStorage.FormulasAvailability.length;topic++) {
-                for (int chapter = 0; chapter < TheoryStorage.FormulasAvailability[topic].length; chapter++) {
+            for (int topic = 0;topic < Theory.FormulasAvailability.length;topic++) {
+                for (int chapter = 0; chapter < Theory.FormulasAvailability[topic].length; chapter++) {
                     id += 1;
                     int availability = query.getInt(1);
-                    TheoryStorage.FormulasAvailability[topic][chapter] = availability;
+                    Theory.FormulasAvailability[topic][chapter] = availability;
                     if (availability == 0) {
-                        Shop.AddToShop(TheoryStorage.SubTopics[topic][chapter],id);
+                        Shop.AddToShop(Theory.SubTopics[topic][chapter],id);
                     }
                     query.moveToNext();
                 }
@@ -71,7 +71,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
             db.execSQL("DROP TABLE IF EXISTS "+pointsTableName);
             db.execSQL("DROP TABLE IF EXISTS "+subTopicsName);
             db.close();
-            TheoryStorage.FormulasAvailability = TheoryStorage.FormulasAvailabilityDefault.clone();
+            Theory.FormulasAvailability = Theory.FormulasAvailabilityDefault.clone();
             DefineDataBases();
         } catch (Exception e) {
             try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
@@ -116,10 +116,10 @@ public class MyAppCompatActivity extends AppCompatActivity {
 
             query = db.rawQuery("SELECT * FROM "+subTopicsName+";",null);
             query.moveToFirst();
-            for (int topic = 0;topic < TheoryStorage.FormulasAvailability.length;topic++) {
-                for (int chapter = 0; chapter < TheoryStorage.FormulasAvailability[topic].length; chapter++) {
+            for (int topic = 0;topic < Theory.FormulasAvailability.length;topic++) {
+                for (int chapter = 0; chapter < Theory.FormulasAvailability[topic].length; chapter++) {
                     int availability = query.getInt(1);
-                    TheoryStorage.FormulasAvailability[topic][chapter] = availability;
+                    Theory.FormulasAvailability[topic][chapter] = availability;
                     query.moveToNext();
                 }
             }

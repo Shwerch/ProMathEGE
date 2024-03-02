@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Theory {
+
     private static final int LENGTH = 7;
     private static int PreviousQuestion = -1;
     private static int PreviousChapter = -1;
@@ -20,16 +21,16 @@ public class Theory {
     private static int[] CorrectAnswers;
     private static int CorrectAnswersCount;
     public static void Setup(int Topic) {
-        Reward = TheoryStorage.Rewards[Topic];
+        Reward = Rewards[Topic];
         AvailableChapters = new ArrayList<>();
-        for (int i = 0; i < TheoryStorage.AllFormulas[Topic].length; i++) {
-            if (TheoryStorage.FormulasAvailability[Topic][i] == 1) {
+        for (int i = 0; i < AllFormulas[Topic].length; i++) {
+            if (FormulasAvailability[Topic][i] == 1) {
                 AvailableChapters.add(i);
             }
         }
         int Chapter = AvailableChapters.get((int)(Math.random()*AvailableChapters.size()));
-        SubTopic = TheoryStorage.SubTopics[Topic][Chapter];
-        String[][] formulas1 = TheoryStorage.AllFormulas[Topic][Chapter];
+        SubTopic = SubTopics[Topic][Chapter];
+        String[][] formulas1 = AllFormulas[Topic][Chapter];
 
         int RandomQuestion = (int)(Math.random()* formulas1.length);
         if (RandomQuestion == PreviousQuestion && Chapter == PreviousChapter && Topic == PreviousTopic) {
@@ -123,9 +124,6 @@ public class Theory {
         Collections.shuffle(IntegerArray);
         return IntegerArray.toArray(new Integer[] {});
     }
-}
-
-class TheoryStorage {
     public static final String[][][][] AllFormulas = {
             {
                     {
@@ -232,6 +230,7 @@ class TheoryStorage {
                             {"logₙm","1/(logₘn)"},
                     },
             },
+            {},
     };
     public static String[][] SubTopics = new String[][] {
             {
@@ -259,6 +258,7 @@ class TheoryStorage {
                     "Логарифмы",
                     "Преобразование логарифмических выражений",
             },
+            {},
     };
     public static int[][] FormulasAvailability = new int[][] {
             {1, 1, 0, 0},
@@ -268,6 +268,7 @@ class TheoryStorage {
             {},
             {1, 0},
             {1, 0},
+            {},
     };
     public static final int[][] FormulasAvailabilityDefault = new int[][] {
             {1, 1, 0, 0},
@@ -277,6 +278,7 @@ class TheoryStorage {
             {},
             {1, 0},
             {1, 0},
+            {}
     };
     public static final long[] Rewards = new long[] {
             20,
@@ -286,5 +288,6 @@ class TheoryStorage {
             0,
             40,
             40,
+            0,
     };
 }
