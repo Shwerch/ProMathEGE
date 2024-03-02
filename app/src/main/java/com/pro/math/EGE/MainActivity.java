@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Display;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends MyAppCompatActivity {
@@ -27,6 +28,7 @@ public class MainActivity extends MyAppCompatActivity {
         else {
             setContentView(R.layout.main_menu_portrait);
         }
+        Toast.makeText(getBaseContext(),size.x+"x"+size.y,Toast.LENGTH_LONG).show();
         final Button Points = findViewById(R.id.points);
         final Button Settings = findViewById(R.id.settings);
 

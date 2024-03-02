@@ -2,6 +2,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="MainButtons">
+        <item name="fontFamily">sans-serif-medium</item>
         <item name="android:backgroundTint">@color/MainButtonColor</item>
         <item name="cornerRadius">10dp</item>
         <item name="strokeColor">@color/MainButtonStrokeColor</item>
@@ -28,6 +29,7 @@
     </style>
 
     <style name="Buttons">
+        <item name="fontFamily">sans-serif-medium</item>
         <item name="android:backgroundTint">@color/ButtonColor</item>
         <item name="cornerRadius">10dp</item>
         <item name="strokeColor">@color/ButtonStrokeColor</item>
@@ -54,6 +56,7 @@
     </style>
 
     <style name="Text">
+        <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/TextColor</item>
         <item name="android:textColorHighlight">@color/TextColor</item>
         <item name="android:textColorHint">@color/TextColor</item>

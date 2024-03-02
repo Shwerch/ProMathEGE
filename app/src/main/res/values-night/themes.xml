@@ -10,6 +10,8 @@
         <item name="android:navigationIcon">@color/dark_background</item>
     </style>
 
+    <bool name="LightTheme">true</bool>
+
     <color name="Background">@color/dark_background</color>
     <color name="TextColor">@color/dark_text_color</color>
     <color name="MainButtonColor" tools:ignore="MissingDefaultResource">@color/dark_standard_icons</color>

@@ -2,6 +2,7 @@ package com.pro.math.EGE;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
@@ -11,9 +12,14 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.view.View;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MyAppCompatActivity extends AppCompatActivity {
@@ -199,7 +205,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setNavigationBarColor(getResources().getColor(R.color.Background));
         getWindow().setStatusBarColor(getResources().getColor(R.color.Background));
-        if (Build.VERSION.SDK_INT >= 34) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN,R.anim.fadein,R.anim.fadeout);
             overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE,R.anim.fadeout,R.anim.fadein);
         }
@@ -208,9 +214,9 @@ public class MyAppCompatActivity extends AppCompatActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        double multiplier = (Math.min(size.x,size.y)/1250d-1)/1.3d+1;
+        double multiplier = (Math.min(size.x,size.y)/1500d-1)/2.5d+1;
         double textSize = multiplier-0.1d;
-
+        Toast.makeText(getBaseContext(), String.valueOf(multiplier), Toast.LENGTH_LONG).show();
         if (Title != null) {
             Title.setTextSize(0,(float)(Title.getTextSize()*multiplier));
         }

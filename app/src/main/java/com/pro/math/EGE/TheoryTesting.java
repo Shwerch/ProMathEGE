@@ -2,12 +2,16 @@ package com.pro.math.EGE;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
+
+import java.util.Objects;
 
 public class TheoryTesting extends MyAppCompatActivity {
 
@@ -15,7 +19,16 @@ public class TheoryTesting extends MyAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.theory_testing);
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        if (size.x > size.y + 300) {
+            setContentView(R.layout.theory_testing_landscape);
+        }
+        else {
+            setContentView(R.layout.theory_testing_portrait);
+        }
 
         final Button MainMenu = findViewById(R.id.mainmenu);
         final TextView Title = findViewById(R.id.title);

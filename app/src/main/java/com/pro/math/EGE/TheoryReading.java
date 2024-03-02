@@ -16,9 +16,6 @@ public class TheoryReading extends MyAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
 
         int Topic;
         try {
@@ -30,6 +27,9 @@ public class TheoryReading extends MyAppCompatActivity {
         }
 
         boolean startTest = true;
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
         if (size.x > size.y + 300) {
             if (Objects.equals(getResources().getStringArray(R.array.TestAvailable)[Topic],"true")) {
                 setContentView(R.layout.theory_reading_landscape);
