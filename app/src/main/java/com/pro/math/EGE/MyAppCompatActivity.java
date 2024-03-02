@@ -2,7 +2,6 @@ package com.pro.math.EGE;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
@@ -12,15 +11,12 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.view.View;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Objects;
 
 public class MyAppCompatActivity extends AppCompatActivity {
     private final String storageName = "Storage";
@@ -64,11 +60,10 @@ public class MyAppCompatActivity extends AppCompatActivity {
             query.close();
             db.close();
         } catch (Exception e) {
-            try { query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
+            try { Objects.requireNonNull(query).close(); } catch (Exception ignored) {} try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
             Log.d("MYLOG","DataBase DefineDataBase: "+e);
         }
     }
-
     protected void ResetDataBases() {
         SQLiteDatabase db = null;
         try {
@@ -79,7 +74,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
             TheoryStorage.FormulasAvailability = TheoryStorage.FormulasAvailabilityDefault.clone();
             DefineDataBases();
         } catch (Exception e) {
-            try { db.close(); } catch (Exception ignored) {}
+            try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
             Log.d("MYLOG","DataBase ResetDataBases: "+e);
         }
     }
@@ -109,15 +104,15 @@ public class MyAppCompatActivity extends AppCompatActivity {
             query.move((int)subTopicID);
             if (query.getInt(1) == 0) {
                 db.execSQL("UPDATE "+subTopicsName+" SET availability = 1 WHERE id = "+subTopicID);
-                Shop.RemoveFromShop(subTopicID);
                 query.close();
                 db.close();
+                Shop.RemoveFromShop(subTopicID);
+                DefineDataBases();
             } else {
                 query.close();
                 db.close();
                 throw new Exception("Already have this");
             }
-            query.close();
 
             query = db.rawQuery("SELECT * FROM "+subTopicsName+";",null);
             query.moveToFirst();
@@ -131,7 +126,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
             query.close();
             db.close();
         } catch (Exception e) {
-            try { query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
+            try { Objects.requireNonNull(query).close(); } catch (Exception ignored) {} try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
             Log.d("MYLOG","DataBase BuySubTopic: "+e);
         }
         return Successful;
@@ -153,7 +148,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
                 throw new Exception();
             }
         } catch (Exception e) {
-            try { query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
+            try { Objects.requireNonNull(query).close(); } catch (Exception ignored) {} try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
             Log.d("MYLOG","DataBase ChangePoints: "+e);
         }
     }
@@ -175,14 +170,14 @@ public class MyAppCompatActivity extends AppCompatActivity {
                 throw new Exception();
             }
         } catch (Exception e) {
-            try { query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
+            try { Objects.requireNonNull(query).close(); } catch (Exception ignored) {} try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
             points = -1;
             Log.d("MYLOG","DataBase GetPoints: "+e);
         }
         return points;
     }
 
-    protected void SetPoints(long points) {
+    /*protected void SetPoints(long points) {
         SQLiteDatabase db = null;
         Cursor query = null;
         try {
@@ -198,10 +193,10 @@ public class MyAppCompatActivity extends AppCompatActivity {
                 throw new Exception();
             }
         } catch (Exception e) {
-            try { query.close(); } catch (Exception ignored) {} try { db.close(); } catch (Exception ignored) {}
+            try { Objects.requireNonNull(query).close(); } catch (Exception ignored) {} try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
             Log.d("MYLOG","DataBase ChangePoints: "+e);
         }
-    }
+    }*/
 
     protected String GetRightPointsEnd(long points) {
         long remainder  = points % 10;
@@ -232,7 +227,6 @@ public class MyAppCompatActivity extends AppCompatActivity {
         display.getSize(size);
         double multiplier = (Math.min(size.x,size.y)/1500d-1)/2.5d+1;
         double textSize = multiplier-0.1d;
-        Toast.makeText(getBaseContext(), String.valueOf(multiplier), Toast.LENGTH_LONG).show();
         if (Title != null) {
             Title.setTextSize(0,(float)(Title.getTextSize()*multiplier));
         }
