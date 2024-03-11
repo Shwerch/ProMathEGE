@@ -24,7 +24,7 @@
             android:name=".TheoryChoosing">
         </activity>
         <activity
-            android:name=".Practice">
+            android:name=".PracticeChoosing">
         </activity>
         <activity
             android:name=".TheoryReading">

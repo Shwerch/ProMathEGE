@@ -48,7 +48,7 @@ public class MainActivity extends MyAppCompatActivity {
         Theory.setOnClickListener(v -> startActivity(new Intent(this, TheoryChoosing.class)));
         Settings.setOnClickListener(v -> startActivity(new Intent(this,Settings.class)));
         Points.setOnClickListener(v -> startActivity(new Intent(this,Points.class)));
-        Practice.setOnClickListener(v -> startActivity(new Intent(this,Practice.class)));
+        Practice.setOnClickListener(v -> startActivity(new Intent(this, PracticeChoosing.class)));
         Shop.setOnClickListener(v -> startActivity(new Intent(this,Shop.class)));
     }
     @Override

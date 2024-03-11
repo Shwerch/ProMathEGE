@@ -21,7 +21,8 @@ import java.util.Objects;
 public class MyAppCompatActivity extends AppCompatActivity {
     private final String storageName = "Storage";
     private final String pointsTableName = "Points";
-    private final String subTopicsName = "SubTopics";
+    private final String subTopicsTableName = "SubTopics";
+    private final String tasksTableName = "Tasks";
     protected void BackToMainMenu(Button button) {
         button.setOnClickListener(v -> startActivity(new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));/*startActivity(new Intent(this,MainActivity.class))*/
     }
@@ -33,18 +34,25 @@ public class MyAppCompatActivity extends AppCompatActivity {
             db.execSQL("CREATE TABLE IF NOT EXISTS "+pointsTableName+" (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
             db.execSQL("INSERT OR IGNORE INTO "+pointsTableName+" VALUES (1,0);");
 
-            db.execSQL("CREATE TABLE IF NOT EXISTS "+subTopicsName+" (id INTEGER PRIMARY KEY AUTOINCREMENT, availability INTEGER)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS "+subTopicsTableName+" (id INTEGER PRIMARY KEY AUTOINCREMENT, availability INTEGER)");
+
+            db.execSQL("CREATE TABLE IF NOT EXISTS "+tasksTableName+" (id INTEGER PRIMARY KEY AUTOINCREMENT, availability INTEGER)");
+
             int id = 0;
             for (int topic = 0;topic < Theory.FormulasAvailability.length;topic++) {
                 for (int chapter = 0;chapter < Theory.FormulasAvailability[topic].length;chapter++) {
                     id += 1;
-                    db.execSQL("INSERT OR IGNORE INTO "+subTopicsName+" VALUES ("+id+","+Theory.FormulasAvailability[topic][chapter]+");");
+                    db.execSQL("INSERT OR IGNORE INTO "+subTopicsTableName+" VALUES ("+id+","+Theory.FormulasAvailability[topic][chapter]+");");
                 }
+            }
+
+            for (int i = 0;i < 12;i++) {
+                db.execSQL("INSERT OR IGNORE INTO "+tasksTableName+" VALUES ("+id+",0);");
             }
 
             id = 0;
             Shop.ResetShop();
-            query = db.rawQuery("SELECT * FROM "+subTopicsName+";",null);
+            query = db.rawQuery("SELECT * FROM "+subTopicsTableName+";",null);
             query.moveToFirst();
             for (int topic = 0;topic < Theory.FormulasAvailability.length;topic++) {
                 for (int chapter = 0; chapter < Theory.FormulasAvailability[topic].length; chapter++) {
@@ -69,7 +77,8 @@ public class MyAppCompatActivity extends AppCompatActivity {
         try {
             db = getBaseContext().openOrCreateDatabase(storageName, MODE_PRIVATE, null);
             db.execSQL("DROP TABLE IF EXISTS "+pointsTableName);
-            db.execSQL("DROP TABLE IF EXISTS "+subTopicsName);
+            db.execSQL("DROP TABLE IF EXISTS "+subTopicsTableName);
+            db.execSQL("DROP TABLE IF EXISTS "+tasksTableName);
             db.close();
             Theory.FormulasAvailability = Theory.FormulasAvailabilityDefault.clone();
             DefineDataBases();
@@ -78,7 +87,19 @@ public class MyAppCompatActivity extends AppCompatActivity {
             Log.d("MYLOG","DataBase ResetDataBases: "+e);
         }
     }
+    protected boolean BuyTasks(int id) {
+        boolean Successful = false;
 
+        SQLiteDatabase db = null;
+        try {
+            db = getBaseContext().openOrCreateDatabase(storageName, MODE_PRIVATE, null);
+            db.execSQL("INSERT OR IGNORE INTO "+tasksTableName+" VALUES ("+id+",1);");
+        } catch (Exception e) {
+            try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
+            Log.d("MYLOG","DataBase DefineDataBase: "+e);
+        }
+        return Successful;
+    }
     protected boolean BuySubTopic(long subTopicID) {
         boolean Successful = false;
 
@@ -100,10 +121,10 @@ public class MyAppCompatActivity extends AppCompatActivity {
                 throw new Exception("Need 100+ points");
             }
 
-            query = db.rawQuery("SELECT * FROM "+subTopicsName+";",null);
+            query = db.rawQuery("SELECT * FROM "+subTopicsTableName+";",null);
             query.move((int)subTopicID);
             if (query.getInt(1) == 0) {
-                db.execSQL("UPDATE "+subTopicsName+" SET availability = 1 WHERE id = "+subTopicID);
+                db.execSQL("UPDATE "+subTopicsTableName+" SET availability = 1 WHERE id = "+subTopicID);
                 query.close();
                 db.close();
                 Shop.RemoveFromShop(subTopicID);
@@ -114,7 +135,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
                 throw new Exception("Already have this");
             }
 
-            query = db.rawQuery("SELECT * FROM "+subTopicsName+";",null);
+            query = db.rawQuery("SELECT * FROM "+subTopicsTableName+";",null);
             query.moveToFirst();
             for (int topic = 0;topic < Theory.FormulasAvailability.length;topic++) {
                 for (int chapter = 0; chapter < Theory.FormulasAvailability[topic].length; chapter++) {
