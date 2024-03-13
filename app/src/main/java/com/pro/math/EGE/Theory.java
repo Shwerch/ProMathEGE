@@ -201,7 +201,9 @@ public class Theory {
                             {"(u + y)`", "u` + y`"},
                             {"(u/y)`", "(u`*y - u*y`)/y²"},
                             {"(xⁿ)`", "n * xⁿ⁻¹"},
-                            {"(aˣ)`", "aˣ * ln a"}
+                            {"(aˣ)`", "aˣ * ln a"},
+                            {"(ln a)`,1/x"},
+                            {"(logₙa)`,1/(a * ln n)"}
                     },
                     {
                             {"(sin x)`", "cos x"},
