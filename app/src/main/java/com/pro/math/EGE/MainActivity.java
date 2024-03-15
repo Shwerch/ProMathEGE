@@ -54,8 +54,6 @@ public class MainActivity extends MyAppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        super.ChangePoints(100L);
         long points = super.GetPoints();
         if (points == -1) {
             PointsButton.setText(getString(R.string.undefined_points));
