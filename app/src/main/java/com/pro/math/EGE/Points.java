@@ -24,7 +24,7 @@ public class Points extends MyAppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(this,"aboba", Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"abeba", Toast.LENGTH_LONG).show();
         long points = super.GetPoints();
         if (points == -1) {
             PointsButton.setText(getString(R.string.undefined_points));
