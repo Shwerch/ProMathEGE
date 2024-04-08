@@ -3,6 +3,7 @@ package com.pro.math.EGE;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Points extends MyAppCompatActivity {
     private Button PointsButton;
@@ -23,7 +24,7 @@ public class Points extends MyAppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        Toast.makeText(this,"aboba", Toast.LENGTH_LONG).show();
         long points = super.GetPoints();
         if (points == -1) {
             PointsButton.setText(getString(R.string.undefined_points));
