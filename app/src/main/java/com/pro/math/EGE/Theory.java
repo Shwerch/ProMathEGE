@@ -1,12 +1,7 @@
 package com.pro.math.EGE;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.TreeMap;
-import java.util.List;
-import java.util.Objects;
-import java.util.TreeSet;
 
 public class Theory {
     private static final int LENGTH = 7;
@@ -21,22 +16,18 @@ public class Theory {
     private static String[] QuestionAndAnswers;
     private static int[] CorrectAnswers;
     private static int CorrectAnswersCount;
-    private static TreeMap<String,TreeMap<String,ArrayList<String[]>>> Formulas = new TreeMap<>();
-    private static TreeMap<String,TreeMap<String,Integer>> FormulasAvailability = new TreeMap<>();
+    private static TreeMap<String,TreeMap<String,String[][]>> Formulas = new TreeMap<>();
+    private static TreeMap<String,TreeMap<String,Boolean>> FormulasAvailability = new TreeMap<>();
     private static TreeMap<String,TreeMap<String,Integer>> FormulasRewards = new TreeMap<>();
     // Базовые формулы, Формулы сокращенного умножения
-    public static void AddFormula(String topic,String subTopic,String[] formulas,int availability,int reward) {
-        TreeMap<String,ArrayList<String[]>> treeMap = Formulas.get(topic);
+    public static void AddFormulas(String topic,String subTopic,String[][] formulas,boolean availability,int reward) {
+        TreeMap<String,String[][]> treeMap = Formulas.get(topic);
         if (treeMap == null)
             treeMap = new TreeMap<>();
-        ArrayList<String[]> treeMapValue = treeMap.get(subTopic);
-        if (treeMapValue == null)
-            treeMapValue = new ArrayList<>();
-        treeMapValue.add(formulas);
-        treeMap.put(subTopic,treeMapValue);
+        treeMap.put(subTopic,formulas);
         Formulas.put(topic,treeMap);
 
-        TreeMap<String,Integer> treeMapAvailability = FormulasAvailability.get(topic);
+        TreeMap<String,Boolean> treeMapAvailability = FormulasAvailability.get(topic);
         if (treeMapAvailability == null)
             treeMapAvailability = new TreeMap<>();
         treeMapAvailability.put(subTopic,availability);
@@ -45,11 +36,31 @@ public class Theory {
         TreeMap<String,Integer> treeMapReward = FormulasRewards.get(topic);
         if (treeMapReward == null)
             treeMapReward = new TreeMap<>();
-        treeMapReward.put(subTopic,availability);
+        treeMapReward.put(subTopic,reward);
         FormulasRewards.put(topic,treeMapReward);
     }
     static {
-        AddFormula("Базовые формулы","Формулы сокращенного умножения",new String[] {},1,20);
+        String[][] ShortMultiplicationFormulas = new String[][] {
+                {"(a + b)²", "a² + 2ab + b²"},
+                {"(a - b)²", "a² - 2ab + b²"},
+                {"a² - b²", "(a - b)(a + b)"},
+                {"(a + b)³", "a³ + 3a²b + 3ab² + b³"},
+                {"(a - b)³", "a³ - 3a²b + 3ab² - b³"},
+                {"a³ + b³", "(a + b)(a² - ab + b²)"},
+                {"a³ - b³", "(a - b)(a² + ab + b²)"},
+        };
+        AddFormulas("Base formulas","Short multiplication formulas",ShortMultiplicationFormulas,true,20);
+        String[][] Degrees = new String[][] {
+                {"a⁰", "1"},
+                {"a¹", "a"},
+                {"aⁿ * aᵐ", "aⁿ⁺ᵐ"},
+                {"(aⁿ)ᵐ", "aⁿᵐ"},
+                {"aⁿbⁿ", "(ab)ⁿ"},
+                {"a⁻ⁿ", "1/aⁿ"},
+                {"aⁿ/aᵐ", "aⁿ⁻ᵐ"},
+        };
+        AddFormulas("Base formulas","Degrees",Degrees,true,20);
+
     }
     /*public static void Setup(int Topic) {
         Reward = Rewards[Topic];
