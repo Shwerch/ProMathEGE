@@ -1,5 +1,6 @@
 package com.pro.math.EGE;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -16,59 +17,52 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
 
 public class MyAppCompatActivity extends AppCompatActivity {
     private final String storageName = "Storage";
     private final String pointsTableName = "Points";
     private final String subTopicsTableName = "SubTopics";
     private final String tasksTableName = "Tasks";
+    private static TreeMap<String,TreeMap<String,Boolean>> FormulasAvailability = (TreeMap<String, TreeMap<String, Boolean>>) Theory.FormulasAvailability.clone();
     protected void BackToMainMenu(Button button) {
         button.setOnClickListener(v -> startActivity(new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));/*startActivity(new Intent(this,MainActivity.class))*/
     }
+    @SuppressLint("Recycle")
     protected void DefineDataBases() {
         SQLiteDatabase db = null;
-        Cursor query = null;
         try {
             db = getBaseContext().openOrCreateDatabase(storageName, MODE_PRIVATE, null);
             db.execSQL("CREATE TABLE IF NOT EXISTS "+pointsTableName+" (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
             db.execSQL("INSERT OR IGNORE INTO "+pointsTableName+" VALUES (1,0);");
 
-            db.execSQL("CREATE TABLE IF NOT EXISTS "+subTopicsTableName+" (id INTEGER PRIMARY KEY AUTOINCREMENT, availability INTEGER)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS "+subTopicsTableName+" (topic TEXT PRIMARY KEY ,subTopic TEXT PRIMARY KEY ,availability BIT)");
 
-            db.execSQL("CREATE TABLE IF NOT EXISTS "+tasksTableName+" (id INTEGER PRIMARY KEY AUTOINCREMENT, availability INTEGER)");
+            db.execSQL("CREATE TABLE IF NOT EXISTS "+tasksTableName+" (topic TEXT PRIMARY KEY ,subTopic TEXT PRIMARY KEY ,availability BIT)");
 
-            int id = 0;
-            for (int topic = 0;topic < Theory.FormulasAvailability.length;topic++) {
-                for (int chapter = 0;chapter < Theory.FormulasAvailability[topic].length;chapter++) {
-                    id += 1;
-                    db.execSQL("INSERT OR IGNORE INTO "+subTopicsTableName+" VALUES ("+id+","+Theory.FormulasAvailability[topic][chapter]+");");
+            for (Map.Entry<String, TreeMap<String, Boolean>> entry : FormulasAvailability.entrySet()) {
+                for (Map.Entry<String, Boolean> entry1 : entry.getValue().entrySet()) {
+                    byte bit = 0;
+                    if (entry1.getValue())
+                        bit = 1;
+                    db.execSQL("INSERT OR IGNORE INTO "+subTopicsTableName+" VALUES ("+entry.getKey()+","+entry1.getKey()+","+bit+");");
+                }
+            }
+            for (Map.Entry<String, TreeMap<String, Boolean>> entry : FormulasAvailability.entrySet()) {
+                for (Map.Entry<String, Boolean> entry1 : entry.getValue().entrySet()) {
+                    Cursor cursorCourses = db.rawQuery("SELECT * FROM " + subTopicsTableName + " WHERE topic = " + entry.getKey() + " AND subTopic = "+ entry1.getKey()+";", null);
+                    cursorCourses.moveToFirst();
+                    Objects.requireNonNull(FormulasAvailability.get(entry.getKey())).put(entry1.getKey(),Objects.equals(cursorCourses.getString(2),"1"));
+                    cursorCourses.close();
                 }
             }
 
-            for (int i = 0;i < 12;i++) {
-                db.execSQL("INSERT OR IGNORE INTO "+tasksTableName+" VALUES ("+id+",0);");
-            }
-
-            id = 0;
             Shop.ResetShop();
-            query = db.rawQuery("SELECT * FROM "+subTopicsTableName+";",null);
-            query.moveToFirst();
-            for (int topic = 0;topic < Theory.FormulasAvailability.length;topic++) {
-                for (int chapter = 0; chapter < Theory.FormulasAvailability[topic].length; chapter++) {
-                    id += 1;
-                    int availability = query.getInt(1);
-                    Theory.FormulasAvailability[topic][chapter] = availability;
-                    if (availability == 0) {
-                        Shop.AddToShop(Theory.SubTopics[topic][chapter],id);
-                    }
-                    query.moveToNext();
-                }
-            }
-            query.close();
             db.close();
         } catch (Exception e) {
-            try { Objects.requireNonNull(query).close(); } catch (Exception ignored) {} try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
+            try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
             Log.d("MYLOG","DataBase DefineDataBase: "+e);
         }
     }
@@ -80,7 +74,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
             db.execSQL("DROP TABLE IF EXISTS "+subTopicsTableName);
             db.execSQL("DROP TABLE IF EXISTS "+tasksTableName);
             db.close();
-            Theory.FormulasAvailability = Theory.FormulasAvailabilityDefault.clone();
+            FormulasAvailability = (TreeMap<String, TreeMap<String, Boolean>>) Theory.FormulasAvailability.clone();
             DefineDataBases();
         } catch (Exception e) {
             try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}

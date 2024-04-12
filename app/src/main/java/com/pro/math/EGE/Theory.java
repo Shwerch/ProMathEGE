@@ -22,11 +22,11 @@ public class Theory {
     private static String[] QuestionAndAnswers;
     private static int[] CorrectAnswers;
     private static int CorrectAnswersCount;
-    private static TreeMap<String,TreeMap<String,String[][]>> Formulas = new TreeMap<>();
-    private static TreeMap<String,TreeMap<String,Boolean>> FormulasAvailability = new TreeMap<>();
-    private static TreeMap<String,TreeMap<String,Integer>> FormulasRewards = new TreeMap<>();
-    private static TreeSet<String> FormulasTopics = new TreeSet<>();
-    private static TreeMap<String,TreeSet<String>> FormulasSubTopics = new TreeMap<>();
+    public static TreeMap<String,TreeMap<String,String[][]>> Formulas = new TreeMap<>();
+    public static TreeMap<String,TreeMap<String,Boolean>> FormulasAvailability = new TreeMap<>();
+    public static TreeMap<String,TreeMap<String,Integer>> FormulasRewards = new TreeMap<>();
+    public static TreeSet<String> FormulasTopics = new TreeSet<>();
+    public static TreeMap<String,TreeSet<String>> FormulasSubTopics = new TreeMap<>();
     private static void AddFormulas(String topic, String subTopic, String[][] formulas, boolean availability, int reward) {
         TreeMap<String,String[][]> treeMap = Formulas.get(topic);
         if (treeMap == null)
