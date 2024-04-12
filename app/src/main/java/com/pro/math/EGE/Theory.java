@@ -3,11 +3,12 @@ package com.pro.math.EGE;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.TreeMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.TreeSet;
 
 public class Theory {
-
     private static final int LENGTH = 7;
     private static int PreviousQuestion = -1;
     private static int PreviousChapter = -1;
@@ -20,7 +21,37 @@ public class Theory {
     private static String[] QuestionAndAnswers;
     private static int[] CorrectAnswers;
     private static int CorrectAnswersCount;
-    public static void Setup(int Topic) {
+    private static TreeMap<String,TreeMap<String,ArrayList<String[]>>> Formulas = new TreeMap<>();
+    private static TreeMap<String,TreeMap<String,Integer>> FormulasAvailability = new TreeMap<>();
+    private static TreeMap<String,TreeMap<String,Integer>> FormulasRewards = new TreeMap<>();
+    // Базовые формулы, Формулы сокращенного умножения
+    public static void AddFormula(String topic,String subTopic,String[] formulas,int availability,int reward) {
+        TreeMap<String,ArrayList<String[]>> treeMap = Formulas.get(topic);
+        if (treeMap == null)
+            treeMap = new TreeMap<>();
+        ArrayList<String[]> treeMapValue = treeMap.get(subTopic);
+        if (treeMapValue == null)
+            treeMapValue = new ArrayList<>();
+        treeMapValue.add(formulas);
+        treeMap.put(subTopic,treeMapValue);
+        Formulas.put(topic,treeMap);
+
+        TreeMap<String,Integer> treeMapAvailability = FormulasAvailability.get(topic);
+        if (treeMapAvailability == null)
+            treeMapAvailability = new TreeMap<>();
+        treeMapAvailability.put(subTopic,availability);
+        FormulasAvailability.put(topic,treeMapAvailability);
+
+        TreeMap<String,Integer> treeMapReward = FormulasRewards.get(topic);
+        if (treeMapReward == null)
+            treeMapReward = new TreeMap<>();
+        treeMapReward.put(subTopic,availability);
+        FormulasRewards.put(topic,treeMapReward);
+    }
+    static {
+        AddFormula("Базовые формулы","Формулы сокращенного умножения",new String[] {},1,20);
+    }
+    /*public static void Setup(int Topic) {
         Reward = Rewards[Topic];
         AvailableChapters = new ArrayList<>();
         for (int i = 0; i < AllFormulas[Topic].length; i++) {
@@ -123,8 +154,8 @@ public class Theory {
         Collections.shuffle(IntegerArray);
         Collections.shuffle(IntegerArray);
         return IntegerArray.toArray(new Integer[] {});
-    }
-    public static final String[][][][] AllFormulas = {
+    }*/
+    /*public static final String[][][][] AllFormulas = {
             {
                     {
                             {"(a + b)²", "a² + 2ab + b²"},
@@ -292,5 +323,5 @@ public class Theory {
             40,
             40,
             0,
-    };
+    };*/
 }
