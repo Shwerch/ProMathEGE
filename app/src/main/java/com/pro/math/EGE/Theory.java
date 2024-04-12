@@ -79,11 +79,54 @@ public class Theory {
                 {"2R", "a/sin(a)", "b/sin(b)", "c/sin(c)"},
                 {"c²", "b² + c² - 2ab*cos(α)"},
         };
-        String[][] RectangularParallelepiped = new String[][] {
-
+        String[][] RectangularTriangle = new String[][] {
+                {"S", "0.5*a*b", "0.5*c*h"},
+                {"c²", "b² + c²"},
+                {"r", "(a + b - c)/2"},
+                {"R", "c/2"},
+        };
+        String[][] Rhomb = new String[][] {
+                {"S", "a*hₒ", "a² * sin a", "0.5*d1*d2",},
+                {"r", "h/2", "S/2a",},
+                {"a", "S/h", "S/2r", "P/4",},
+                {"d1", "2S/d2",},
+                {"d2", "2S/d1",},
         };
         AddFormulas("Planimetry","Triangle",Triangle,true,40);
-        AddFormulas("Planimetry","Rectangular parallelepiped",RectangularParallelepiped,true,40);
+        AddFormulas("Planimetry","Rectangular triangle",RectangularTriangle,false,40);
+        AddFormulas("Planimetry","Rhomb",Rhomb,false,40);
+
+        String[][] RectangularParallelepiped = new String[][] {
+                {"V", "abc"},
+                {"S", "2(ab + bc + ca)"},
+                {"Sбок", "2c(a + b)"},
+                {"d", "√(a² + b² + c²)"},
+        };
+        String[][] Cube = new String[][] {
+                {"a", "b", "c"},
+                {"V", "a³"},
+                {"S", "6a²"},
+                {"Sбок", "4a²"},
+                {"d", "√(3a²)"},
+        };
+        AddFormulas("Stereometry","Rectangular parallelepiped",RectangularParallelepiped,true,40);
+        AddFormulas("Stereometry","Cube",Cube,false,40);
+
+        String[][] DerivativesOfFunctions = new String[][] {
+                {"f`(x)","k","tg(α)"},
+                {"с`", "0"},
+                {"(u * c)`", "c * u`"},
+                {"(u + y)`", "u` + y`"},
+                {"(u/y)`", "(u`*y - u*y`)/y²"},
+                {"(xⁿ)`", "n * xⁿ⁻¹"},
+                {"(aˣ)`", "aˣ * ln a"},
+                {"(ln a)`,1/x"},
+                {"(logₙa)`,1/(a * ln n)"}
+        };
+        String[][] DerivativesOfTrigonometricFunctions = new String[][] {
+                
+        };
+        AddFormulas("Derivative","Derivatives of trigonometric functions",DerivativesOfTrigonometricFunctions,false,40);
     }
     /*public static void Setup(int Topic) {
         Reward = Rewards[Topic];
