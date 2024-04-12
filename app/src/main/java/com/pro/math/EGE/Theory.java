@@ -1,7 +1,11 @@
 package com.pro.math.EGE;
 
+import android.content.Context;
+import android.content.res.Resources;
+
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class Theory {
     private static final int LENGTH = 7;
@@ -19,8 +23,9 @@ public class Theory {
     private static TreeMap<String,TreeMap<String,String[][]>> Formulas = new TreeMap<>();
     private static TreeMap<String,TreeMap<String,Boolean>> FormulasAvailability = new TreeMap<>();
     private static TreeMap<String,TreeMap<String,Integer>> FormulasRewards = new TreeMap<>();
-    // Базовые формулы, Формулы сокращенного умножения
-    public static void AddFormulas(String topic,String subTopic,String[][] formulas,boolean availability,int reward) {
+    private static TreeSet<String> FormulasTopics = new TreeSet<>();
+    private static TreeMap<String,TreeSet<String>> FormulasSubTopics = new TreeMap<>();
+    public void AddFormulas(String topic,String subTopic,String[][] formulas,boolean availability,int reward) {
         TreeMap<String,String[][]> treeMap = Formulas.get(topic);
         if (treeMap == null)
             treeMap = new TreeMap<>();
@@ -38,8 +43,16 @@ public class Theory {
             treeMapReward = new TreeMap<>();
         treeMapReward.put(subTopic,reward);
         FormulasRewards.put(topic,treeMapReward);
+
+        FormulasTopics.add(topic);
+
+        TreeSet<String> treeMapSubTopic = FormulasSubTopics.get(topic);
+        if (treeMapSubTopic == null)
+            treeMapSubTopic = new TreeSet<>();
+        treeMapSubTopic.add(subTopic);
+        FormulasSubTopics.put(topic,treeMapSubTopic);
     }
-    static {
+    public void Setup() {
         String[][] ShortMultiplicationFormulas = new String[][] {
                 {"(a + b)²", "a² + 2ab + b²"},
                 {"(a - b)²", "a² - 2ab + b²"},
@@ -68,10 +81,10 @@ public class Theory {
                 {"q", "bₙ / bₙ₋₁"},
                 {"Sₙ", "(b₁ - bₙ₊₁)/(1 - q)", "b₁ * (1 - qⁿ)/(1 - q)"},
         };
-        AddFormulas("Base formulas","Short multiplication formulas",ShortMultiplicationFormulas,true,20);
-        AddFormulas("Base formulas","Degrees",Degrees,true,40);
-        AddFormulas("Base formulas","Arithmetic progression",ArithmeticProgression,false,40);
-        AddFormulas("Base formulas","Geometric progression",GeometricProgression,false,40);
+        AddFormulas("Базовые формулы","Формулы сокращенного умножения",ShortMultiplicationFormulas,true,20);
+        AddFormulas("Базовые формулы","Формулы степеней",Degrees,true,40);
+        AddFormulas("Базовые формулы","Арифметическая прогрессия",ArithmeticProgression,false,40);
+        AddFormulas("Базовые формулы","Геометрическая прогрессия",GeometricProgression,false,40);
 
         String[][] Triangle = new String[][] {
                 {"S", "0.5*h*a", "0.5*b*c*sin(α)", "√(p(p - a)(p - b)(p - c))", "p*r"},
@@ -92,9 +105,9 @@ public class Theory {
                 {"d1", "2S/d2",},
                 {"d2", "2S/d1",},
         };
-        AddFormulas("Planimetry","Triangle",Triangle,true,40);
-        AddFormulas("Planimetry","Rectangular triangle",RectangularTriangle,false,40);
-        AddFormulas("Planimetry","Rhomb",Rhomb,false,40);
+        AddFormulas("Планиметрия","Треугольник",Triangle,true,40);
+        AddFormulas("Планиметрия","Прямоугольный треугольник",RectangularTriangle,false,40);
+        AddFormulas("Планиметрия","Ромб",Rhomb,false,40);
 
         String[][] RectangularParallelepiped = new String[][] {
                 {"V", "abc"},
@@ -109,8 +122,8 @@ public class Theory {
                 {"Sбок", "4a²"},
                 {"d", "√(3a²)"},
         };
-        AddFormulas("Stereometry","Rectangular parallelepiped",RectangularParallelepiped,true,40);
-        AddFormulas("Stereometry","Cube",Cube,false,40);
+        AddFormulas("Стереометрия","Прямоугольный параллелепипед",RectangularParallelepiped,true,40);
+        AddFormulas("Стереометрия","Куб",Cube,false,40);
 
         String[][] DerivativesOfFunctions = new String[][] {
                 {"f`(x)","k","tg(α)"},
@@ -124,9 +137,18 @@ public class Theory {
                 {"(logₙa)`,1/(a * ln n)"}
         };
         String[][] DerivativesOfTrigonometricFunctions = new String[][] {
-                
+                {"(sin x)`", "cos x"},
+                {"(cos x)`", "-sin x"},
+                {"(tg x)`", "1/(cos² x)"},
+                {"(ctg x)`", "-1/(cos² x)"},
+                {"(arcsin x)`", "1/√(1-x²)"},
+                {"(arccos x)`", "-1/√(1-x²)"},
+                {"(arctg x)`", "1/(1+x²)"},
+                {"(arcctg x)`", "-1/(1+x²)"},
         };
-        AddFormulas("Derivative","Derivatives of trigonometric functions",DerivativesOfTrigonometricFunctions,false,40);
+        AddFormulas("Производная","Производные функций",DerivativesOfFunctions,true,40);
+        AddFormulas("Производная","Производные тригонометрических функций",DerivativesOfTrigonometricFunctions,false,40);
+
     }
     /*public static void Setup(int Topic) {
         Reward = Rewards[Topic];
