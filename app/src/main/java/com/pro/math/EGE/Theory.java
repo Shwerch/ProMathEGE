@@ -49,7 +49,6 @@ public class Theory {
                 {"a³ + b³", "(a + b)(a² - ab + b²)"},
                 {"a³ - b³", "(a - b)(a² + ab + b²)"},
         };
-        AddFormulas("Base formulas","Short multiplication formulas",ShortMultiplicationFormulas,true,20);
         String[][] Degrees = new String[][] {
                 {"a⁰", "1"},
                 {"a¹", "a"},
@@ -59,8 +58,32 @@ public class Theory {
                 {"a⁻ⁿ", "1/aⁿ"},
                 {"aⁿ/aᵐ", "aⁿ⁻ᵐ"},
         };
-        AddFormulas("Base formulas","Degrees",Degrees,true,20);
+        String[][] ArithmeticProgression = new String[][] {
+                {"aₙ", "a₁ + (n - 1)d", "aₙ₋₁ + d", "(aₙ₊₁ + aₙ₋₁)/2"},
+                {"d", "aₙ - aₙ₋₁"},
+                {"Sₙ", "((a₁ + aₙ) * n)/2", "n(2a₁ + (n - 1)d)/2"},
+        };
+        String[][] GeometricProgression = new String[][] {
+                {"bₙ", "b₁ * qⁿ⁻¹", "bₙ₋₁ * q"},
+                {"q", "bₙ / bₙ₋₁"},
+                {"Sₙ", "(b₁ - bₙ₊₁)/(1 - q)", "b₁ * (1 - qⁿ)/(1 - q)"},
+        };
+        AddFormulas("Base formulas","Short multiplication formulas",ShortMultiplicationFormulas,true,20);
+        AddFormulas("Base formulas","Degrees",Degrees,true,40);
+        AddFormulas("Base formulas","Arithmetic progression",ArithmeticProgression,false,40);
+        AddFormulas("Base formulas","Geometric progression",GeometricProgression,false,40);
 
+        String[][] Triangle = new String[][] {
+                {"S", "0.5*h*a", "0.5*b*c*sin(α)", "√(p(p - a)(p - b)(p - c))", "p*r"},
+                {"R", "(a*b*c)/4S"},
+                {"2R", "a/sin(a)", "b/sin(b)", "c/sin(c)"},
+                {"c²", "b² + c² - 2ab*cos(α)"},
+        };
+        String[][] RectangularParallelepiped = new String[][] {
+
+        };
+        AddFormulas("Planimetry","Triangle",Triangle,true,40);
+        AddFormulas("Planimetry","Rectangular parallelepiped",RectangularParallelepiped,true,40);
     }
     /*public static void Setup(int Topic) {
         Reward = Rewards[Topic];
