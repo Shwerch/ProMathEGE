@@ -16,8 +16,6 @@ public class Theory {
     private static int PreviousQuestion;
     private static String PreviousSubTopic;
     private static String PreviousTopic;
-
-    public static ArrayList<Integer> AvailableChapters;
     private static int Reward;
     private static String SubTopic;
 
@@ -242,19 +240,19 @@ public class Theory {
                 if (RandomQuestion == i) {
                     continue;
                 }
-                String[] formulas = formulas[i];
+                String[] formulas1 = formulas[i];
                 boolean Break = false;
-                Integer[] randomDirection = GetRandomArrayList(0,formulas.length);
+                Integer[] randomDirection = GetRandomArrayList(0,formulas1.length);
                 for (int formulaDirection : randomDirection) {
                     boolean contains = false;
                     for (int selectSearch = 0; selectSearch < LENGTH; selectSearch++) {
-                        if (Objects.equals(QuestionAndAnswers[selectSearch],formulas[formulaDirection])) {
+                        if (Objects.equals(QuestionAndAnswers[selectSearch],formulas1[formulaDirection])) {
                             contains = true;
                             break;
                         }
                     }
                     if (!contains) {
-                        formula = formulas[formulaDirection];
+                        formula = formulas1[formulaDirection];
                         Break = true;
                         break;
                     }

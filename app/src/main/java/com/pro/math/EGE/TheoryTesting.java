@@ -11,8 +11,6 @@ import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
-import java.util.Objects;
-
 public class TheoryTesting extends MyAppCompatActivity {
 
     @SuppressLint("SetTextI18n")
