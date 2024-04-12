@@ -1,20 +1,24 @@
 package com.pro.math.EGE;
 
-import android.content.Context;
-import android.content.res.Resources;
-
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Random;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class Theory {
     private static final int LENGTH = 7;
-    private static int PreviousQuestion = -1;
-    private static int PreviousChapter = -1;
-    private static int PreviousTopic = -1;
+    private static int PreviousQuestion;
+    private static String PreviousSubTopic;
+    private static String PreviousTopic;
 
     public static ArrayList<Integer> AvailableChapters;
-    private static long Reward;
+    private static int Reward;
     private static String SubTopic;
 
     private static String[] QuestionAndAnswers;
@@ -25,7 +29,7 @@ public class Theory {
     private static TreeMap<String,TreeMap<String,Integer>> FormulasRewards = new TreeMap<>();
     private static TreeSet<String> FormulasTopics = new TreeSet<>();
     private static TreeMap<String,TreeSet<String>> FormulasSubTopics = new TreeMap<>();
-    public void AddFormulas(String topic,String subTopic,String[][] formulas,boolean availability,int reward) {
+    private static void AddFormulas(String topic, String subTopic, String[][] formulas, boolean availability, int reward) {
         TreeMap<String,String[][]> treeMap = Formulas.get(topic);
         if (treeMap == null)
             treeMap = new TreeMap<>();
@@ -52,7 +56,7 @@ public class Theory {
         treeMapSubTopic.add(subTopic);
         FormulasSubTopics.put(topic,treeMapSubTopic);
     }
-    public void Setup() {
+    static  {
         String[][] ShortMultiplicationFormulas = new String[][] {
                 {"(a + b)²", "a² + 2ab + b²"},
                 {"(a - b)²", "a² - 2ab + b²"},
@@ -82,7 +86,7 @@ public class Theory {
                 {"Sₙ", "(b₁ - bₙ₊₁)/(1 - q)", "b₁ * (1 - qⁿ)/(1 - q)"},
         };
         AddFormulas("Базовые формулы","Формулы сокращенного умножения",ShortMultiplicationFormulas,true,20);
-        AddFormulas("Базовые формулы","Формулы степеней",Degrees,true,40);
+        AddFormulas("Базовые формулы","Формулы степеней",Degrees,true,20);
         AddFormulas("Базовые формулы","Арифметическая прогрессия",ArithmeticProgression,false,40);
         AddFormulas("Базовые формулы","Геометрическая прогрессия",GeometricProgression,false,40);
 
@@ -128,9 +132,10 @@ public class Theory {
         String[][] DerivativesOfFunctions = new String[][] {
                 {"f`(x)","k","tg(α)"},
                 {"с`", "0"},
-                {"(u * c)`", "c * u`"},
+                {"(c * u)`", "c * u`"},
                 {"(u + y)`", "u` + y`"},
-                {"(u/y)`", "(u`*y - u*y`)/y²"},
+                {"(u * y)`","u`y + uy`"},
+                {"(u / y)`", "(u`y - uy`)/y²"},
                 {"(xⁿ)`", "n * xⁿ⁻¹"},
                 {"(aˣ)`", "aˣ * ln a"},
                 {"(ln a)`,1/x"},
@@ -149,6 +154,136 @@ public class Theory {
         AddFormulas("Производная","Производные функций",DerivativesOfFunctions,true,40);
         AddFormulas("Производная","Производные тригонометрических функций",DerivativesOfTrigonometricFunctions,false,40);
 
+        String[][] Logarithms = new String[][] {
+                {"lg m","log₁₀m"},
+                {"ln m","logₑm"},
+                {"n^(logₙm)","m"},
+                {"logₙ1","0"},
+                {"logₙn","1"},
+        };
+        String[][] LogarithmsConversion = new String[][] {
+                {"lg m","log₁₀m"},
+                {"ln m","logₑm"},
+                {"n^(logₙm)","m"},
+                {"logₙ1","0"},
+                {"logₙn","1"},
+        };
+        AddFormulas("Логарифмы","Логарифмы",Logarithms,true,40);
+        AddFormulas("Логарифмы","Преобразование логарифмов",LogarithmsConversion,false,40);
+    }
+    private static String GetRandomElementOfSet(Set<String> set) {
+        int randomIndex = new Random().nextInt(set.size());
+        int i = 0;
+        for (String element : set) {
+            if (i == randomIndex) {
+                return element;
+            }
+            i++;
+        }
+        return (String) set.toArray()[0];
+    }
+    private static Integer[] GetRandomArrayList(int start, int length) {
+        Integer[] Array = new Integer[length];
+        for (int i = 0;i < length;i++) {
+            Array[i] = i+start;
+        }
+        List<Integer> IntegerArray = Arrays.asList(Array);
+        Collections.shuffle(IntegerArray);
+        Collections.shuffle(IntegerArray);
+        return IntegerArray.toArray(new Integer[] {});
+    }
+
+    public static void Setup(String Topic) {
+        ArrayList<String> AvailableChapters = new ArrayList<>();
+        for (Map.Entry<String, String[][]> entry : Objects.requireNonNull(Formulas.get(Topic)).entrySet()) {
+            if ((Boolean.TRUE.equals(Objects.requireNonNull(FormulasAvailability.get(Topic)).get(entry.getKey())))) {
+                AvailableChapters.add(entry.getKey());
+            }
+        }
+        SubTopic = AvailableChapters.get((int)(Math.random()*AvailableChapters.size()));
+        String[][] formulas = Objects.requireNonNull(Objects.requireNonNull(Formulas.get(Topic)).get(SubTopic));
+        int RandomQuestion = (int)(Math.random() * formulas.length);
+        if (RandomQuestion == PreviousQuestion && Objects.equals(SubTopic, PreviousSubTopic) && Objects.equals(Topic, PreviousTopic)) {
+            if (RandomQuestion == 0)
+                RandomQuestion = 1;
+            else if (RandomQuestion == (formulas.length-1))
+                RandomQuestion -= 1;
+            else if ((int)(Math.random()*2) == 0)
+                RandomQuestion += 1;
+            else
+                RandomQuestion -= 1;
+        }
+        PreviousQuestion = RandomQuestion;
+        PreviousSubTopic = SubTopic;
+        PreviousTopic = Topic;
+
+        Reward = Objects.requireNonNull(Objects.requireNonNull(FormulasRewards.get(Topic)).get(SubTopic));
+
+        QuestionAndAnswers = new String[LENGTH];
+
+        Integer[] QuestionAndAnswersDirection = GetRandomArrayList(0, formulas[RandomQuestion].length);
+        Integer[] SelectedList = GetRandomArrayList(1,6);
+
+        CorrectAnswersCount = 1+(int)(Math.random()*(formulas[RandomQuestion].length-1));
+        CorrectAnswers = new int[CorrectAnswersCount];
+
+        QuestionAndAnswers[0] = formulas[RandomQuestion][QuestionAndAnswersDirection[0]];
+        for (int i = 0;i < CorrectAnswersCount;i++) {
+            QuestionAndAnswers[SelectedList[i]] = formulas[RandomQuestion][QuestionAndAnswersDirection[i+1]];
+            CorrectAnswers[i] = SelectedList[i];
+        }
+
+        for (int select = 1; select < LENGTH; select++) {
+            if (QuestionAndAnswers[select] != null) {
+                continue;
+            }
+            String formula = null;
+            for (int i = 0; i < formulas.length; i++) {
+                if (RandomQuestion == i) {
+                    continue;
+                }
+                String[] formulas = formulas[i];
+                boolean Break = false;
+                Integer[] randomDirection = GetRandomArrayList(0,formulas.length);
+                for (int formulaDirection : randomDirection) {
+                    boolean contains = false;
+                    for (int selectSearch = 0; selectSearch < LENGTH; selectSearch++) {
+                        if (Objects.equals(QuestionAndAnswers[selectSearch],formulas[formulaDirection])) {
+                            contains = true;
+                            break;
+                        }
+                    }
+                    if (!contains) {
+                        formula = formulas[formulaDirection];
+                        Break = true;
+                        break;
+                    }
+                }
+                if (Break) {
+                    break;
+                }
+            }
+            if (formula == null) {
+                QuestionAndAnswers[select] = "";
+            } else {
+                QuestionAndAnswers[select] = formula;
+            }
+        }
+    }
+    public static String[] GetQuestionAndAnswers() {
+        return QuestionAndAnswers;
+    }
+    public static String GetSubTopic() {
+        return SubTopic;
+    }
+    public static int[] GetCorrectAnswers() {
+        return CorrectAnswers;
+    }
+    public static long GetReward() {
+        return Reward;
+    }
+    public static int GetCorrectAnswersCount() {
+        return CorrectAnswersCount;
     }
     /*public static void Setup(int Topic) {
         Reward = Rewards[Topic];
@@ -163,7 +298,7 @@ public class Theory {
         String[][] formulas1 = AllFormulas[Topic][Chapter];
 
         int RandomQuestion = (int)(Math.random()* formulas1.length);
-        if (RandomQuestion == PreviousQuestion && Chapter == PreviousChapter && Topic == PreviousTopic) {
+        if (RandomQuestion == PreviousQuestion && Chapter == PreviousSubTopic && Topic == PreviousTopic) {
             if (RandomQuestion == 0) {
                 RandomQuestion = 1;
             } else if (RandomQuestion == (formulas1.length-1)) {
@@ -175,7 +310,7 @@ public class Theory {
             }
         }
         PreviousQuestion = RandomQuestion;
-        PreviousChapter = Chapter;
+        PreviousSubTopic = Chapter;
         PreviousTopic = Topic;
 
         QuestionAndAnswers = new String[LENGTH];

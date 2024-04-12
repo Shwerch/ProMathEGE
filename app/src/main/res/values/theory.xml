@@ -219,7 +219,7 @@ c - число\n
 (c * u)` = c * u`\n
 (u + y)` = u` + y`\n
 (u * y)` = u`y + uy`\n
-(u / y)` = (u`*y - u*y`)/y²\n
+(u / y)` = (u`y - uy`)/y²\n
 (xⁿ)` = n * xⁿ⁻¹\n
 (aˣ)` = aˣ * ln a\n
 (eˣ)` = eˣ\n

@@ -46,16 +46,18 @@ public class TheoryTesting extends MyAppCompatActivity {
         Button[] AnswersButtons = new Button[] {Answer1,Answer2,Answer3,Answer4,Answer5,Answer6};
 
         int Topic;
+        String TopicName;
         try {
             //noinspection DataFlowIssue
             Topic = (int) getIntent().getSerializableExtra("Topic");
+            TopicName = (String) getIntent().getSerializableExtra("TopicName");
         } catch (Exception e) {
             Toast.makeText(getBaseContext(), R.string.error_whe_getting_topic, Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             return;
         }
 
-        Theory.Setup(Topic);
+        Theory.Setup(TopicName);
 
         final String[] QuestionAndAnswers = Theory.GetQuestionAndAnswers();
         final int[] CorrectAnswers = Theory.GetCorrectAnswers();
@@ -103,7 +105,7 @@ public class TheoryTesting extends MyAppCompatActivity {
 
         Title.setText(getResources().getStringArray(R.array.TopicsTest)[Topic]);
         super.BackToMainMenu(MainMenu);
-        Next.setOnClickListener(v -> startActivity(new Intent(this, TheoryTesting.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtra("Topic",Topic)));
+        Next.setOnClickListener(v -> startActivity(new Intent(this, TheoryTesting.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtra("Topic",Topic).putExtra("TopicName",TopicName)));
         super.SetSizes(new Button[]{MainMenu,Next,Answer1,Answer2,Answer3,Answer4,Answer5,Answer6},Title);
     }
 }
