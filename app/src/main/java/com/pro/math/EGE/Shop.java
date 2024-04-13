@@ -2,6 +2,7 @@ package com.pro.math.EGE;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -9,25 +10,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Shop extends MyAppCompatActivity {
-    private static ArrayList<String> ShopSubTopicsList = new ArrayList<>();
-    private static ArrayList<Long> ShopIDsList = new ArrayList<>();
     private void BuyEnded() {
         startActivity(new Intent(this,Shop.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-    }
-    public static void AddToShop(String newData,long newID) {
-        ShopSubTopicsList.add(newData);
-        ShopIDsList.add(newID);
-    }
-    public static void RemoveFromShop(long newID) {
-        int index = ShopIDsList.indexOf(newID);
-        ShopSubTopicsList.remove(index);
-        ShopIDsList.remove(index);
-    }
-    public static void ResetShop() {
-        ShopSubTopicsList = new ArrayList<>();
-        ShopIDsList = new ArrayList<>();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,41 +28,14 @@ public class Shop extends MyAppCompatActivity {
         super.SetSizes(new Button[]{MainMenu},Title);
 
         ListView List = findViewById(R.id.list);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ShopSubTopicsList);
-        List.setAdapter(arrayAdapter);
+        List.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ShopDataBase.ShopSubTopicsList.toArray()));
         List.setOnItemClickListener((parent, view, position, id) -> {
-            //Object listItem = List.getItemAtPosition(position);
-            if (Shop.super.BuySubTopic(ShopIDsList.get(position))) {
-                Toast.makeText(getBaseContext(),getResources().getString(R.string.successful_purchase),Toast.LENGTH_SHORT).show();
+            if (Database.BuySubTopic(this,ShopDataBase.ShopTopicsList.get(position),ShopDataBase.ShopSubTopicsList.get(position))) {
+                Toast.makeText(this,getResources().getString(R.string.successful_purchase),Toast.LENGTH_SHORT).show();
                 BuyEnded();
             } else {
-                Toast.makeText(getBaseContext(),getResources().getString(R.string.not_enough_points),Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,getResources().getString(R.string.not_enough_points),Toast.LENGTH_SHORT).show();
             }
         });
     }
 }
-
-/*class dataListAdapter extends BaseAdapter {
-    String[] SubTopicsName;
-    long[] SubTopicsID;
-    @Override
-    public int getCount() {
-        return SubTopicsName.length;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return SubTopicsName[position];
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return SubTopicsID[position];
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        return null;
-    }
-}*/

@@ -1,26 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="BasicFormulas">Basic formulas</string>
+    <string name="Planimetry">Planimetry</string>
+    <string name="Vectors">Vectors</string>
+    <string name="Stereometry">Stereometry</string>
+    <string name="ProbabilityTheory">Probability theory</string>
+    <string name="Derivative">Derivative</string>
+    <string name="Logarithms" >Logarithms</string>
+    <string name="ComplexNumbers">Complex numbers</string>
+
+    <string name="ShortMultiplicationFormulas">Short multiplication formulas</string>
+    <string name="DegreesFormulas">Degrees formulas</string>
+    <string name="ArithmeticProgression">Arithmetic progression</string>
+    <string name="GeometricProgression">Geometric progression</string>
+
+    <string name="Triangle">Triangle</string>
+    <string name="RectangularTriangle">Rectangular triangle</string>
+    <string name="Rhomb">Rhomb</string>
+
+    <string name="RectangularParallelepiped">Rectangular parallelepiped</string>
+    <string name="Cube">Cube</string>
+
+    <string name="DerivativesOfFunctions">Derivatives of functions</string>
+    <string name="DerivativesOfTrigonometricFunctions">Derivatives of trigonometric functions</string>
+
+    <string name="LogarithmsExpressions" >Logarithms Expressions</string>
+    <string name="LogarithmsConversion">Logarithms Conversion</string>
+
     <string-array name="Topics">
-        <item>Базовые формулы</item>
-        <item>Планиметрия</item>
-        <item>Векторы</item>
-        <item>Стереометрия</item>
-        <item>Теория вероятностей</item>
-        <item>Производная</item>
-        <item>Логарифмы</item>
-        <item>Комплексные числа</item>
+        <item>BasicFormulas</item>
+        <item>Planimetry</item>
+        <item>Vectors</item>
+        <item>Stereometry</item>
+        <item>ProbabilityTheory</item>
+        <item>Derivative</item>
+        <item>Logarithms</item>
+        <item>ComplexNumbers</item>
     </string-array>
 
-    <string-array name="TopicsTest">
-        <item>Тест по базовым формулам</item>
-        <item>Тест по планиметрии</item>
-        <item>Тест по векторам</item>
-        <item>Тест по стереометрии</item>
-        <item>Тест по теории вероятностей</item>
-        <item>Тест по производной</item>
-        <item>Тест по логарифмам</item>
-        <item>Тест по комплексным числам</item>
-    </string-array>
+    <string name="BasicFormulasTest">Basic formulas test</string>
+    <string name="PlanimetryTest">Planimetry test</string>
+    <string name="VectorsTest">Vectors test</string>
+    <string name="StereometryTest">Stereometry test</string>
+    <string name="ProbabilityTheoryTest">Probability theory test</string>
+    <string name="DerivativeTest">Derivative test</string>
+    <string name="LogarithmsTest">Logarithms test</string>
+    <string name="ComplexNumbersTest">Complex numbers test</string>
 
     <string-array name="TestAvailable">
         <item>true</item>

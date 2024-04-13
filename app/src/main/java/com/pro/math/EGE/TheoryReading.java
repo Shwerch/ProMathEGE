@@ -19,6 +19,7 @@ public class TheoryReading extends MyAppCompatActivity {
 
         int Topic;
         try {
+            //noinspection DataFlowIssue
             Topic = (int) getIntent().getSerializableExtra("Topic");
         } catch (Exception e) {
             Toast.makeText(getBaseContext(), R.string.error_whe_getting_topic, Toast.LENGTH_LONG).show();
@@ -51,8 +52,6 @@ public class TheoryReading extends MyAppCompatActivity {
         final TextView TheoryTitle = findViewById(R.id.title);
         final TextView List = findViewById(R.id.list);
 
-        String ChapterName = getResources().getStringArray(R.array.Topics)[Topic];
-
         List.setMovementMethod(new ScrollingMovementMethod());
         List.setText(getResources().getStringArray(R.array.Theory)[Topic]);
 
@@ -65,7 +64,7 @@ public class TheoryReading extends MyAppCompatActivity {
         }
         super.BackToMainMenu(MainMenu);
 
-        TheoryTitle.setText(ChapterName);
+        TheoryTitle.setText(Resources.TopicsNames(this)[Topic]);
 
            }
 }

@@ -13,11 +13,10 @@ public class MainActivity extends MyAppCompatActivity {
     private void Close() {
         this.finishAffinity();
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.DefineDataBases();
+        Database.DefineDataBases(this);
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -54,7 +53,7 @@ public class MainActivity extends MyAppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        long points = super.GetPoints();
+        long points = Database.GetPoints(this);
         if (points == -1) {
             PointsButton.setText(getString(R.string.undefined_points));
         } else {

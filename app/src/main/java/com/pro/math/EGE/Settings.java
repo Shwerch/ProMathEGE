@@ -20,7 +20,7 @@ public class Settings extends MyAppCompatActivity {
         super.SetSizes(new Button[]{MainMenu,ResetProgress},Title);
 
         ResetProgress.setOnClickListener(v -> {
-            super.ResetDataBases();
+            Database.ResetDataBases(this);
             startActivity(new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         });
     }

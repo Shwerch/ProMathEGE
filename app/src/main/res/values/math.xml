@@ -74,19 +74,19 @@
         <item>₉</item>
     </string-array>
 
-    <string name="TopUnderline">̅</string>
-    <string name="Root2">√</string>
-    <string name="Root3">∛</string>
-    <string name="Root4">∜</string>
-    <string name="Belongs">∈</string>
-    <string name="NotBelongs">∉</string>
-    <string name="PlusMinus">∓</string>
-    <string name="Infinity">∞</string>
-    <string name="BiggerOrEqual">≧</string>
-    <string name="Bigger">≻</string>
-    <string name="SmallerOrEqual">≤</string>
-    <string name="Smaller">≺</string>
-    <string name="Including">⋃</string>
+    <string name="TopUnderline" translatable="false">̅</string>
+    <string name="Root2" translatable="false">√</string>
+    <string name="Root3" translatable="false">∛</string>
+    <string name="Root4" translatable="false">∜</string>
+    <string name="Belongs" translatable="false">∈</string>
+    <string name="NotBelongs" translatable="false">∉</string>
+    <string name="PlusMinus" translatable="false">∓</string>
+    <string name="Infinity" translatable="false">∞</string>
+    <string name="BiggerOrEqual" translatable="false">≧</string>
+    <string name="Bigger" translatable="false">≻</string>
+    <string name="SmallerOrEqual" translatable="false">≤</string>
+    <string name="Smaller" translatable="false">≺</string>
+    <string name="Including" translatable="false">⋃</string>
 
     <string-array name="minus">
         <item>₋</item>

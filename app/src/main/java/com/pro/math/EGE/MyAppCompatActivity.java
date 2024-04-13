@@ -1,14 +1,10 @@
 package com.pro.math.EGE;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.ViewGroup;
@@ -17,215 +13,19 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Map;
-import java.util.Objects;
-import java.util.TreeMap;
-
 public class MyAppCompatActivity extends AppCompatActivity {
-    private final String storageName = "Storage";
-    private final String pointsTableName = "Points";
-    private final String subTopicsTableName = "SubTopics";
-    private final String tasksTableName = "Tasks";
-    private static TreeMap<String,TreeMap<String,Boolean>> FormulasAvailability = (TreeMap<String, TreeMap<String, Boolean>>) Theory.FormulasAvailability.clone();
     protected void BackToMainMenu(Button button) {
-        button.setOnClickListener(v -> startActivity(new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));/*startActivity(new Intent(this,MainActivity.class))*/
+        button.setOnClickListener(v -> startActivity(new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
     }
-    @SuppressLint("Recycle")
-    protected void DefineDataBases() {
-        SQLiteDatabase db = null;
-        try {
-            db = getBaseContext().openOrCreateDatabase(storageName, MODE_PRIVATE, null);
-            db.execSQL("CREATE TABLE IF NOT EXISTS "+pointsTableName+" (id INTEGER PRIMARY KEY AUTOINCREMENT, points LONG)");
-            db.execSQL("INSERT OR IGNORE INTO "+pointsTableName+" VALUES (1,0);");
-
-            db.execSQL("CREATE TABLE IF NOT EXISTS "+subTopicsTableName+" (topic TEXT PRIMARY KEY ,subTopic TEXT PRIMARY KEY ,availability BIT)");
-
-            db.execSQL("CREATE TABLE IF NOT EXISTS "+tasksTableName+" (topic TEXT PRIMARY KEY ,subTopic TEXT PRIMARY KEY ,availability BIT)");
-
-            for (Map.Entry<String, TreeMap<String, Boolean>> entry : FormulasAvailability.entrySet()) {
-                for (Map.Entry<String, Boolean> entry1 : entry.getValue().entrySet()) {
-                    byte bit = 0;
-                    if (entry1.getValue())
-                        bit = 1;
-                    db.execSQL("INSERT OR IGNORE INTO "+subTopicsTableName+" VALUES ("+entry.getKey()+","+entry1.getKey()+","+bit+");");
-                }
-            }
-            for (Map.Entry<String, TreeMap<String, Boolean>> entry : FormulasAvailability.entrySet()) {
-                for (Map.Entry<String, Boolean> entry1 : entry.getValue().entrySet()) {
-                    Cursor cursorCourses = db.rawQuery("SELECT * FROM " + subTopicsTableName + " WHERE topic = " + entry.getKey() + " AND subTopic = "+ entry1.getKey()+";", null);
-                    cursorCourses.moveToFirst();
-                    Objects.requireNonNull(FormulasAvailability.get(entry.getKey())).put(entry1.getKey(),Objects.equals(cursorCourses.getString(2),"1"));
-                    cursorCourses.close();
-                }
-            }
-
-            Shop.ResetShop();
-            db.close();
-        } catch (Exception e) {
-            try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
-            Log.d("MYLOG","DataBase DefineDataBase: "+e);
-        }
-    }
-    protected void ResetDataBases() {
-        SQLiteDatabase db = null;
-        try {
-            db = getBaseContext().openOrCreateDatabase(storageName, MODE_PRIVATE, null);
-            db.execSQL("DROP TABLE IF EXISTS "+pointsTableName);
-            db.execSQL("DROP TABLE IF EXISTS "+subTopicsTableName);
-            db.execSQL("DROP TABLE IF EXISTS "+tasksTableName);
-            db.close();
-            FormulasAvailability = (TreeMap<String, TreeMap<String, Boolean>>) Theory.FormulasAvailability.clone();
-            DefineDataBases();
-        } catch (Exception e) {
-            try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
-            Log.d("MYLOG","DataBase ResetDataBases: "+e);
-        }
-    }
-    protected boolean BuyTasks(int id) {
-        boolean Successful = false;
-
-        SQLiteDatabase db = null;
-        try {
-            db = getBaseContext().openOrCreateDatabase(storageName, MODE_PRIVATE, null);
-            db.execSQL("INSERT OR IGNORE INTO "+tasksTableName+" VALUES ("+id+",1);");
-        } catch (Exception e) {
-            try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
-            Log.d("MYLOG","DataBase DefineDataBase: "+e);
-        }
-        return Successful;
-    }
-    protected boolean BuySubTopic(long subTopicID) {
-        boolean Successful = false;
-
-        SQLiteDatabase db = null;
-        Cursor query = null;
-        try {
-            db = getBaseContext().openOrCreateDatabase(storageName, MODE_PRIVATE, null);
-
-            query = db.rawQuery("SELECT * FROM "+pointsTableName+";",null);
-            query.moveToFirst();
-            long points = query.getLong(1);
-            if (points >= 100) {
-                db.execSQL("UPDATE "+pointsTableName+" SET points = "+(points-100L)+" WHERE id = 1");
-                query.close();
-                Successful = true;
-            } else {
-                db.close();
-                query.close();
-                throw new Exception("Need 100+ points");
-            }
-
-            query = db.rawQuery("SELECT * FROM "+subTopicsTableName+";",null);
-            query.move((int)subTopicID);
-            if (query.getInt(1) == 0) {
-                db.execSQL("UPDATE "+subTopicsTableName+" SET availability = 1 WHERE id = "+subTopicID);
-                query.close();
-                db.close();
-                Shop.RemoveFromShop(subTopicID);
-                DefineDataBases();
-            } else {
-                query.close();
-                db.close();
-                throw new Exception("Already have this");
-            }
-
-            query = db.rawQuery("SELECT * FROM "+subTopicsTableName+";",null);
-            query.moveToFirst();
-            for (int topic = 0;topic < Theory.FormulasAvailability.length;topic++) {
-                for (int chapter = 0; chapter < Theory.FormulasAvailability[topic].length; chapter++) {
-                    int availability = query.getInt(1);
-                    Theory.FormulasAvailability[topic][chapter] = availability;
-                    query.moveToNext();
-                }
-            }
-            query.close();
-            db.close();
-        } catch (Exception e) {
-            try { Objects.requireNonNull(query).close(); } catch (Exception ignored) {} try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
-            Log.d("MYLOG","DataBase BuySubTopic: "+e);
-        }
-        return Successful;
-    }
-    protected void ChangePoints(long difference) {
-        SQLiteDatabase db = null;
-        Cursor query = null;
-        try {
-            db = getBaseContext().openOrCreateDatabase(storageName, MODE_PRIVATE, null);
-            query = db.rawQuery("SELECT * FROM "+pointsTableName+";",null);
-            if (query.moveToFirst()){
-                long points = query.getLong(1);
-                db.execSQL("UPDATE "+pointsTableName+" SET points = "+(points+difference)+" WHERE id = 1");
-                query.close();
-                db.close();
-            } else {
-                query.close();
-                db.close();
-                throw new Exception();
-            }
-        } catch (Exception e) {
-            try { Objects.requireNonNull(query).close(); } catch (Exception ignored) {} try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
-            Log.d("MYLOG","DataBase ChangePoints: "+e);
-        }
-    }
-
-    protected long GetPoints() {
-        long points;
-        SQLiteDatabase db = null;
-        Cursor query = null;
-        try {
-            db = getBaseContext().openOrCreateDatabase(storageName, MODE_PRIVATE, null);
-            query = db.rawQuery("SELECT * FROM "+pointsTableName+";",null);
-            if (query.moveToFirst()){
-                points = query.getLong(1);
-                query.close();
-                db.close();
-            } else {
-                query.close();
-                db.close();
-                throw new Exception();
-            }
-        } catch (Exception e) {
-            try { Objects.requireNonNull(query).close(); } catch (Exception ignored) {} try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
-            points = -1;
-            Log.d("MYLOG","DataBase GetPoints: "+e);
-        }
-        return points;
-    }
-
-    /*protected void SetPoints(long points) {
-        SQLiteDatabase db = null;
-        Cursor query = null;
-        try {
-            db = getBaseContext().openOrCreateDatabase(storageName, MODE_PRIVATE, null);
-            query = db.rawQuery("SELECT * FROM "+pointsTableName+";",null);
-            if (query.moveToFirst()){
-                db.execSQL("UPDATE "+pointsTableName+" SET points = "+(points)+" WHERE id = 1");
-                query.close();
-                db.close();
-            } else {
-                query.close();
-                db.close();
-                throw new Exception();
-            }
-        } catch (Exception e) {
-            try { Objects.requireNonNull(query).close(); } catch (Exception ignored) {} try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
-            Log.d("MYLOG","DataBase ChangePoints: "+e);
-        }
-    }*/
-
     protected String GetRightPointsEnd(long points) {
         long remainder  = points % 10;
-        String text;
-        if ((points > 9 && points < 20) || remainder == 0 || remainder >= 5) {
-            text = points + " " + getResources().getString(R.string.points1);
-        } else if (remainder == 1) {
-            text = points + " " + getResources().getString(R.string.points2);
-        } else {
-            text = points + " " + getResources().getString(R.string.points3);
-        }
-        return text;
+        if ((points > 9 && points < 20) || remainder == 0 || remainder >= 5)
+            return points + " " + getResources().getString(R.string.points1);
+        else if (remainder == 1)
+            return points + " " + getResources().getString(R.string.points2);
+        else
+            return points + " " + getResources().getString(R.string.points3);
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -245,7 +45,6 @@ public class MyAppCompatActivity extends AppCompatActivity {
         if (Title != null) {
             Title.setTextSize(0,(float)(Title.getTextSize()*multiplier));
         }
-
         for (Button object : Objects) {
             ViewGroup.LayoutParams params = object.getLayoutParams();
             params.width = (int)(params.width * multiplier);

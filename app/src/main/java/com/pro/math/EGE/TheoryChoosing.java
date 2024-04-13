@@ -19,7 +19,7 @@ public class TheoryChoosing extends MyAppCompatActivity {
         super.BackToMainMenu(MainMenu);
         super.SetSizes(new Button[]{MainMenu},Title);
 
-        String[] Chapters = getResources().getStringArray(R.array.Topics);
+        String[] Chapters = Resources.TopicsNames(this);
 
         ListView List = findViewById(R.id.list);
 
@@ -27,7 +27,7 @@ public class TheoryChoosing extends MyAppCompatActivity {
         List.setAdapter(Adapter);
 
         List.setOnItemClickListener((parent, view, position, id) -> {
-            startActivity(new Intent(this, TheoryReading.class).putExtra("Topic",position).putExtra("TopicName",Chapters[position]));
+            startActivity(new Intent(this, TheoryReading.class).putExtra("Topic",position));
         });
     }
 }
