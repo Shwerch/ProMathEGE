@@ -13,6 +13,7 @@ import java.util.TreeSet;
 
 public class Theory {
     private static final int LENGTH = 7;
+    private static boolean Setup = false;
     private static int PreviousQuestion;
     private static String PreviousSubTopic;
     private static String PreviousTopic;
@@ -53,7 +54,10 @@ public class Theory {
         treeMapSubTopic.add(subTopic);
         FormulasSubTopics.put(topic,treeMapSubTopic);
     }
-    static  {
+    public static void Setup() {
+        if (Setup)
+            return;
+        Setup = true;
         String[][] ShortMultiplicationFormulas = new String[][] {
                 {"(a + b)²", "a² + 2ab + b²"},
                 {"(a - b)²", "a² - 2ab + b²"},
