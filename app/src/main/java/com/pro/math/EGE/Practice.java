@@ -51,6 +51,8 @@ public class Practice {
         AddTask(1,R.string.Task_3_5,"75","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=2230",50);
         AddTask(1,R.string.Task_3_6,"23,5","https://www.youtube.com/watch?v=KQUnNOMqJ2w",50);
         AddTask(1,R.string.Task_3_7,"28","https://www.youtube.com/watch?v=RT_alVyhjU8",50);
+
+
         resources = null;
     }
 }

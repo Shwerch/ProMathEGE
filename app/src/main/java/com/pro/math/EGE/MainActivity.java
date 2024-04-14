@@ -43,7 +43,7 @@ public class MainActivity extends MyAppCompatActivity {
 
         PointsButton = Points;
         com.pro.math.EGE.Practice.Setup(this);
-        Music.Play(this,R.raw.v);
+        Music.Play(this);
 
         Exit.setOnClickListener(v -> Close());
         About.setOnClickListener(v -> startActivity(new Intent(this,AboutApp.class)));
