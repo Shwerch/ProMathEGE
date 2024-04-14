@@ -13,7 +13,6 @@ import java.util.TreeSet;
 
 public class Theory {
     private static final int LENGTH = 7;
-    private static boolean Setup = false;
     private static int PreviousQuestion;
     private static String PreviousSubTopic;
     private static String PreviousTopic;
@@ -54,10 +53,7 @@ public class Theory {
         treeMapSubTopic.add(subTopic);
         FormulasSubTopics.put(topic,treeMapSubTopic);
     }
-    public static void Setup() {
-        if (Setup)
-            return;
-        Setup = true;
+    static {
         String[][] ShortMultiplicationFormulas = new String[][] {
                 {"(a + b)²", "a² + 2ab + b²"},
                 {"(a - b)²", "a² - 2ab + b²"},
@@ -180,10 +176,11 @@ public class Theory {
         Collections.shuffle(IntegerList);
         return IntegerList;
     }
-
     public static void Setup(String Topic) {
         ArrayList<String> AvailableChapters = new ArrayList<>();
-        Log.d("GetFormulasAvailability",  Topic+ "\n" + Database.GetFormulasAvailability().get(Topic) + "\n" + Database.GetFormulasAvailability().entrySet());
+        Log.d("DevLog", String.valueOf(Database.GetFormulasAvailability().get(Topic)));
+        Log.d("DevLog", String.valueOf(Database.GetFormulasAvailability().entrySet()));
+        Log.d("DevLog",Topic);
         for (Map.Entry<String, Boolean> entry : Database.GetFormulasAvailability().get(Topic).entrySet()) {
             if (entry.getValue()) {
                 AvailableChapters.add(entry.getKey());

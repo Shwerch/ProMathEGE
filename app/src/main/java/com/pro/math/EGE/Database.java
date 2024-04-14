@@ -58,7 +58,6 @@ public class Database {
                         if (availability == 0) {
                             ShopDataBase.AddToShop(topic,subTopic);
                         }
-                        //Logcat.Log(topic+" "+subTopic+" "+(availability == 1),context.getClass().getName(),"Database");
                     } else
                         throw new Exception("Key '"+subTopic+"' not found in table "+topic);
                 }
@@ -72,22 +71,9 @@ public class Database {
         SQLiteDatabase db = null;
         try {
             context.deleteDatabase(DATABASE);
-            /*db = context.getApplicationContext().openOrCreateDatabase(DATABASE, MODE_PRIVATE, null);
-            SetPoints(context,0);
-            for (int i = 0;i < Resources.Topics.length;i++) {
-                String topic = Resources.Topics[i];
-                for (String subTopic : Resources.SubTopics[i]) {
-                    byte availability = 1;
-                    if (Boolean.FALSE.equals(Theory.FormulasAvailability.get(topic).get(subTopic))) {
-                        availability = 0;
-                    }
-                    db.execSQL("UPDATE "+topic+" SET availability="+availability+" WHERE subTopic='"+subTopic+"';");
-                }
-            }*/
         } catch (Exception e) {
             Logcat.Log("ResetDataBases: "+e,context.getClass().getName(),"Database");
         }
-        //try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
     }
     public static boolean BuySubTopic(Context context, String topic, String subTopic) {
         boolean success = false;

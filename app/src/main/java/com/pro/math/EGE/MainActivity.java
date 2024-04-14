@@ -12,6 +12,7 @@ public class MainActivity extends MyAppCompatActivity {
     private Button PointsButton;
     private void Close() {
         this.finishAffinity();
+        Music.Stop();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +42,8 @@ public class MainActivity extends MyAppCompatActivity {
         super.SetSizes(new Button[]{Points,Settings,Theory,Practice,Shop,Exit,About},Title);
 
         PointsButton = Points;
-        com.pro.math.EGE.Theory.Setup();
         com.pro.math.EGE.Practice.Setup(this);
+        Music.Play(this,R.raw.v);
 
         Exit.setOnClickListener(v -> Close());
         About.setOnClickListener(v -> startActivity(new Intent(this,AboutApp.class)));
