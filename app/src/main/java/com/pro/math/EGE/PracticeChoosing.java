@@ -9,7 +9,7 @@ public class PracticeChoosing extends MyAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.practice);
-
+        Practice.Setup(this);
         final Button MainMenu = findViewById(R.id.mainmenu);
         final TextView Title = findViewById(R.id.title);
         super.BackToMainMenu(MainMenu);
