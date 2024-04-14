@@ -41,6 +41,8 @@ public class MainActivity extends MyAppCompatActivity {
         super.SetSizes(new Button[]{Points,Settings,Theory,Practice,Shop,Exit,About},Title);
 
         PointsButton = Points;
+        com.pro.math.EGE.Theory.Setup();
+        com.pro.math.EGE.Practice.Setup(this);
 
         Exit.setOnClickListener(v -> Close());
         About.setOnClickListener(v -> startActivity(new Intent(this,AboutApp.class)));
