@@ -10,24 +10,34 @@ import java.util.TreeSet;
 
 public class Practice {
     private static final byte TASKS = 19;
-    public static TreeMap<Integer,Integer>[] TasksTexts = new TreeMap[TASKS];
-    public static TreeMap<Integer,String>[] TasksAnswers = new TreeMap[TASKS];
-    public static TreeMap<Integer,String>[] TasksSolutions = new TreeMap[TASKS];
-    public static TreeMap<Integer,Integer>[] TasksRewards = new TreeMap[TASKS];
+    public static TreeMap<Integer,Integer>[] TaskText = new TreeMap[TASKS];
+    public static TreeMap<Integer,String>[] TaskAnswer = new TreeMap[TASKS];
+    public static TreeMap<Integer,String>[] TaskSolution = new TreeMap[TASKS];
+    public static TreeMap<Integer,Integer>[] TaskReward = new TreeMap[TASKS];
+    public static TreeMap<Integer,Integer>[] TaskImage = new TreeMap[TASKS];
     private static final int[] id = new int[TASKS];
     private static void AddTask(int Number,int Text,String Answer,String Solution,int Reward) {
-        TasksTexts[Number].put(id[Number],Text);
-        TasksAnswers[Number].put(id[Number],Answer);
-        TasksSolutions[Number].put(id[Number],Solution);
-        TasksRewards[Number].put(id[Number],Reward);
+        TaskText[Number].put(id[Number],Text);
+        TaskAnswer[Number].put(id[Number],Answer);
+        TaskSolution[Number].put(id[Number],Solution);
+        TaskReward[Number].put(id[Number],Reward);
+        id[Number] += 1;
+    }
+    private static void AddTask(int Number,int Text,String Answer,String Solution,int Reward,int Image) {
+        TaskText[Number].put(id[Number],Text);
+        TaskAnswer[Number].put(id[Number],Answer);
+        TaskSolution[Number].put(id[Number],Solution);
+        TaskReward[Number].put(id[Number],Reward);
+        TaskImage[Number].put(id[Number],Image);
         id[Number] += 1;
     }
     static {
         for (int i = 0;i < TASKS;i++) {
-            TasksTexts[i] = new TreeMap<>();
-            TasksAnswers[i] = new TreeMap<>();
-            TasksSolutions[i] = new TreeMap<>();
-            TasksRewards[i] = new TreeMap<>();
+            TaskText[i] = new TreeMap<>();
+            TaskAnswer[i] = new TreeMap<>();
+            TaskSolution[i] = new TreeMap<>();
+            TaskReward[i] = new TreeMap<>();
+            TaskImage[i] = new TreeMap<>();
         }
     }
     static {
@@ -83,6 +93,9 @@ public class Practice {
         AddTask(7,R.string.Task_7_8,"0","https://www.youtube.com/watch?v=JoKtMsO_Itw",70);
         AddTask(7,R.string.Task_7_9,"10","https://www.youtube.com/watch?v=nwglD_YEndA",70);
 
-
+        AddTask(8,R.string.Task_8_1,"-2","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=4858",70,R.drawable.task_8_1);
+        AddTask(8,R.string.Task_8_2,"4","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=4940",70,R.drawable.task_8_2);
+        AddTask(8,R.string.Task_8_3,"-1","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=4768",70,R.drawable.task_8_3);
+        AddTask(8,R.string.Task_8_4,"-3","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=5037",70,R.drawable.task_8_4);
     }
 }
