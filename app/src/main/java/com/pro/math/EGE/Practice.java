@@ -91,5 +91,11 @@ public class Practice {
         AddTask(8,R.string.Task_8_2,"4","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=4940",70,R.drawable.task_8_2);
         AddTask(8,R.string.Task_8_3,"-1","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=4768",70,R.drawable.task_8_3);
         AddTask(8,R.string.Task_8_4,"-3","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=5037",70,R.drawable.task_8_4);
+
+        AddTask(9,R.string.Task_9_1,"45","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=5368",80);
+        AddTask(9,R.string.Task_9_2,"301","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=5533",80);
+        AddTask(9,R.string.Task_9_3,"4,4","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=5179",80);
+        AddTask(9,R.string.Task_9_4,"5500","https://www.youtube.com/watch?v=JaEvg2vQmqw",80);
+        AddTask(9,R.string.Task_9_5,"5","https://www.youtube.com/watch?v=p__MIao9qFM",80);
     }
 }
