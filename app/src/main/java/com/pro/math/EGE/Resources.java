@@ -2,8 +2,6 @@ package com.pro.math.EGE;
 
 import android.content.Context;
 
-import org.jetbrains.annotations.Contract;
-
 import java.util.Objects;
 
 public class Resources {

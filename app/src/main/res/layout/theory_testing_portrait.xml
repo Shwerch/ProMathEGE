@@ -83,45 +83,51 @@
             <Button
                 android:id="@+id/answer1"
                 style="@style/Buttons"
-                android:layout_width="300dp"
-                android:layout_height="55dp"
+                android:layout_width="330dp"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="12dp"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/answer2"
                 style="@style/Buttons"
-                android:layout_width="300dp"
-                android:layout_height="55dp"
-                android:layout_gravity="center" />
+                android:layout_width="330dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/answer3"
                 style="@style/Buttons"
-                android:layout_width="300dp"
-                android:layout_height="55dp"
-                android:layout_gravity="center" />
+                android:layout_width="330dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/answer4"
                 style="@style/Buttons"
-                android:layout_width="300dp"
-                android:layout_height="55dp"
-                android:layout_gravity="center" />
+                android:layout_width="330dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/answer5"
                 style="@style/Buttons"
-                android:layout_width="300dp"
-                android:layout_height="55dp"
-                android:layout_gravity="center" />
+                android:layout_width="330dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/answer6"
                 style="@style/Buttons"
-                android:layout_width="300dp"
-                android:layout_height="55dp"
-                android:layout_gravity="center" />
+                android:layout_width="330dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/next"

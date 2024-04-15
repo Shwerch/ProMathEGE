@@ -27,11 +27,11 @@ public class Database {
         }
     }
     public static void DefineDataBases(Context context) {
+        SetFormulasAvailability();
+        ShopDataBase.ResetShop();
         SQLiteDatabase db = null;
         Cursor query = null;
         try {
-            SetFormulasAvailability();
-            ShopDataBase.ResetShop();
             db = context.getApplicationContext().openOrCreateDatabase(DATABASE, MODE_PRIVATE, null);
             db.execSQL("CREATE TABLE IF NOT EXISTS "+CURRENCIES+" (id INT PRIMARY KEY, value LONG)");
             db.execSQL("INSERT OR IGNORE INTO "+CURRENCIES+" VALUES (1,0);");

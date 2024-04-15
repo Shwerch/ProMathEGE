@@ -17,7 +17,6 @@ public class MainActivity extends MyAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Database.DefineDataBases(this);
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -43,8 +42,10 @@ public class MainActivity extends MyAppCompatActivity {
 
         PointsButton = Points;
         Resources.Setup(this);
-        Music.Play(this);
 
+        Database.DefineDataBases(this);
+
+        Music.Play(this);
         Exit.setOnClickListener(v -> Close());
         About.setOnClickListener(v -> startActivity(new Intent(this,AboutApp.class)));
         Theory.setOnClickListener(v -> startActivity(new Intent(this, TheoryChoosing.class)));
