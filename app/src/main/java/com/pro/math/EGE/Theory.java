@@ -167,6 +167,32 @@ public class Theory {
         };
         AddFormulas(Resources.Topics[6],"LogarithmsExpressions",Logarithms,true,40);
         AddFormulas(Resources.Topics[6],"LogarithmsConversion",LogarithmsConversion,false,40);
+
+        String[][] BasicTrigonometricFunctions = new String[][] {
+                {"sin²(x) + cos²(x)","1"},
+                {"tg(x)","sin(x) / cos(x)","1 / ctg(x)"},
+                {"ctg(x)","cos(x) / sin(x)","1 / tg(x)"},
+                {""},
+                {""},
+                {""},
+                {""},
+                {""},
+                {""},
+                {""},
+                {""},
+                {""},
+                {""},
+                {""},
+                {""},
+                {""},
+                {""},
+                {""},
+        };
+        String[][] InverseTrigonometricFunctions = new String[][] {
+
+        };
+        AddFormulas(Resources.Topics[7],"BasicTrigonometricFunctions",BasicTrigonometricFunctions,true,40);
+        AddFormulas(Resources.Topics[7],"InverseTrigonometricFunctions",InverseTrigonometricFunctions,false,40);
     }
     private static List<Integer> GetRandomArrayList(int start, int length) {
         List<Integer> IntegerList = new ArrayList<>(length);

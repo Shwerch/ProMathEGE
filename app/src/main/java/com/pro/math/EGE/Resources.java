@@ -19,7 +19,7 @@ public class Resources {
                 resources.getString(R.string.ProbabilityTheoryTest),
                 resources.getString(R.string.DerivativeTest),
                 resources.getString(R.string.LogarithmsTest),
-                context.getResources().getString(R.string.TrigonometryTest),
+                resources.getString(R.string.TrigonometryTest),
                 resources.getString(R.string.ComplexNumbersTest),
         };
     }
@@ -33,7 +33,7 @@ public class Resources {
                 resources.getString(R.string.ProbabilityTheory),
                 resources.getString(R.string.Derivative),
                 resources.getString(R.string.Logarithms),
-                context.getResources().getString(R.string.Trigonometry),
+                resources.getString(R.string.Trigonometry),
                 resources.getString(R.string.ComplexNumbers),
         };
     }
@@ -47,7 +47,7 @@ public class Resources {
                 {},
                 {resources.getString(R.string.DerivativesOfFunctions),resources.getString(R.string.DerivativesOfTrigonometricFunctions)},
                 {resources.getString(R.string.LogarithmsExpressions),resources.getString(R.string.LogarithmsConversion)},
-                {},
+                {resources.getString(R.string.BasicTrigonometricFunctions),resources.getString(R.string.InverseTrigonometricFunctions)},
                 {},
         };
     }

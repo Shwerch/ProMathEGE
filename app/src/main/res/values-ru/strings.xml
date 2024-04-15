@@ -136,4 +136,6 @@
     <string name="Task_12.2">Найдите наименьшее значение функции y = 11 + 7π√3 / 18 − 7√3x / 3 − (14√3 / 3) cos x на отрезке [0; π/2].</string>
     <string name="Task_12.3">Найдите наибольшее значение функции y = 4 cos x − 20x + 7 на отрезке [0; 3π/2].</string>
     <string name="Task_12.4">Найдите точку минимума функции y = 1,5x² − 27x + 42 ln x − 10.</string>
+    <string name="BasicTrigonometricFunctions">Базовые тригонометрические функции</string>
+    <string name="InverseTrigonometricFunctions">Обратные тригонометрические функции</string>
 </resources>

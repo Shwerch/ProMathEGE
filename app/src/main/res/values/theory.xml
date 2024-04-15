@@ -28,6 +28,9 @@
     <string name="LogarithmsExpressions" >Logarithms Expressions</string>
     <string name="LogarithmsConversion">Logarithms Conversion</string>
 
+    <string name="BasicTrigonometricFunctions">Basic trigonometric functions</string>
+    <string name="InverseTrigonometricFunctions">Inverse trigonometric functions</string>
+
     <string-array name="Topics">
         <item>BasicFormulas</item>
         <item>Planimetry</item>
@@ -67,6 +70,8 @@
         <item>LogarithmsConversion</item>
     </string-array>
     <string-array name="Trigonometry">
+        <item>BasicTrigonometricFunctions</item>
+        <item>InverseTrigonometricFunctions</item>
     </string-array>
     <string-array name="ComplexNumbers">
     </string-array>
@@ -89,7 +94,7 @@
         <item>false</item>
         <item>true</item>
         <item>true</item>
-        <item>false</item>
+        <item>true</item>
         <item>false</item>
     </string-array>
 
@@ -317,10 +322,11 @@ logₙm = (logₖm)/(logₖn)\n
 logₙm = 1/(logₘn)\n
         </item>
         <item>
+Базовые тригонометрические функции: синус, косинус, тангенс и котангенс\n
+\n
 sin²(x) + cos²(x) = 1\n
-tg(x) = sin(x) / cos(x)\n
-ctg(x) = cos(x) / sin(x)\n
-ctg(x) = 1 / tg(x)\n
+tg(x) = sin(x) / cos(x) = 1 / ctg(x)\n
+ctg(x) = cos(x) / sin(x) = 1 / tg(x)\n
 \n
 tg²(x) + 1 = 1 / cos²(x)\n
 ctg²(x) + 1 = 1 / sin²(x)\n
@@ -341,7 +347,7 @@ tg(a - b) = (tg(a) - tg(b)) / (1 + tg(a)tg(b))\n
 cos²(x) = (1 + cos(2x)) / 2\n
 sin²(x) = (1 - cos(2x)) / 2\n
 \n
-sin²(x) = (1 - cos(2x)) / 2\n
+Обратные тригонометрические функции: арксинус, арккосинус, арктангенс и арккотангенс:
 \n
 При arcsin(a) = t:\n
 a ∈ [-1; 1]\n
