@@ -2,6 +2,8 @@ package com.pro.math.EGE;
 
 import android.content.Context;
 
+import org.jetbrains.annotations.Contract;
+
 import java.util.Objects;
 
 public class Resources {
@@ -17,6 +19,7 @@ public class Resources {
                 resources.getString(R.string.ProbabilityTheoryTest),
                 resources.getString(R.string.DerivativeTest),
                 resources.getString(R.string.LogarithmsTest),
+                context.getResources().getString(R.string.TrigonometryTest),
                 resources.getString(R.string.ComplexNumbersTest),
         };
     }
@@ -30,6 +33,7 @@ public class Resources {
                 resources.getString(R.string.ProbabilityTheory),
                 resources.getString(R.string.Derivative),
                 resources.getString(R.string.Logarithms),
+                context.getResources().getString(R.string.Trigonometry),
                 resources.getString(R.string.ComplexNumbers),
         };
     }
@@ -44,8 +48,9 @@ public class Resources {
                 {resources.getString(R.string.DerivativesOfFunctions),resources.getString(R.string.DerivativesOfTrigonometricFunctions)},
                 {resources.getString(R.string.LogarithmsExpressions),resources.getString(R.string.LogarithmsConversion)},
                 {},
+                {},
         };
-    };
+    }
     public static String[] RightAnswersTexts(Context context) {
         android.content.res.Resources resources = context.getResources();
         return new String[] {

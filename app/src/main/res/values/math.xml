@@ -74,13 +74,15 @@
         <item>₉</item>
     </string-array>
 
+    <string name="Pi" translatable="false">π</string>
     <string name="TopUnderline" translatable="false">̅</string>
     <string name="Root2" translatable="false">√</string>
     <string name="Root3" translatable="false">∛</string>
     <string name="Root4" translatable="false">∜</string>
     <string name="Belongs" translatable="false">∈</string>
     <string name="NotBelongs" translatable="false">∉</string>
-    <string name="PlusMinus" translatable="false">∓</string>
+    <string name="PlusMinus" translatable="false">±</string>
+    <string name="MinusPlus" translatable="false">∓</string>
     <string name="Infinity" translatable="false">∞</string>
     <string name="BiggerOrEqual" translatable="false">≧</string>
     <string name="Bigger" translatable="false">≻</string>

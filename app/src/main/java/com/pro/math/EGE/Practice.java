@@ -33,8 +33,7 @@ public class Practice {
             TaskReward[i] = new TreeMap<>();
             TaskImage[i] = new TreeMap<>();
         }
-    }
-    static {
+
         AddTask(1,R.string.Task_1_1,"9","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=848",40);
         AddTask(1,R.string.Task_1_2,"134","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=516",40);
         AddTask(1,R.string.Task_1_3,"29","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=692",40);
@@ -110,10 +109,13 @@ public class Practice {
         AddTask(10,R.string.Task_10_10,"35","https://www.youtube.com/watch?v=TWiqE6YAiP0",80);
         AddTask(10,R.string.Task_10_11,"16","https://www.youtube.com/watch?v=AQZ8MqzDJvM",80);
 
-        AddTask(11,R.string.Task_11_1,"6","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=6710",90);
-        AddTask(11,R.string.Task_11_2,"8","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=7002",90);
-        AddTask(11,R.string.Task_11_3,"16","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=6632",90);
+        AddTask(11,R.string.Task_11_1,"6","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=6710",90,R.drawable.task_11_1);
+        AddTask(11,R.string.Task_11_2,"8","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=7002",90,R.drawable.task_11_2);
+        AddTask(11,R.string.Task_11_3,"16","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=6632",90,R.drawable.task_11_3);
 
-        //AddTask(12,R.string.Task_12);
+        AddTask(12,R.string.Task_12_1,"-5","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=7252",90);
+        AddTask(12,R.string.Task_12_2,"4","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=7379",90);
+        AddTask(12,R.string.Task_12_3,"11","https://www.youtube.com/watch?v=EMswyNwDClM",90);
+        AddTask(12,R.string.Task_12_4,"7","https://www.youtube.com/watch?v=kCgMamOd3kI",90);
     }
 }

@@ -60,10 +60,6 @@
     <string name="DerivativesOfTrigonometricFunctions">Производные тригонометрических функций</string>
     <string name="LogarithmsConversion">Преобразование логарифмов</string>
     <string name="LogarithmsExpressions">Логарифмические выражения</string>
-    <string name="EGE">ЕГЭ</string>
-    <string name="EarlyWave">Досрочная волна</string>
-    <string name="MainWave">Основная волна</string>
-    <string name="DemoVersion">Демоверсия</string>
     <string name="Answer">Ответ</string>
     <string name="Solution">Решение</string>
     <string name="Task_1.1">В четырёхугольник ABCD, периметр которого равен 54, вписана окружность, AB = 18. Найдите длину стороны CD.</string>

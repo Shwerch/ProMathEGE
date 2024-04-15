@@ -90,6 +90,7 @@
         <item>true</item>
         <item>true</item>
         <item>false</item>
+        <item>false</item>
     </string-array>
 
     <string-array name="Theory">
@@ -314,6 +315,62 @@ logₙmᵃ = a*logₙm\n
 logₙᵃm = (1/a)*logₙm\n
 logₙm = (logₖm)/(logₖn)\n
 logₙm = 1/(logₘn)\n
+        </item>
+        <item>
+sin²(x) + cos²(x) = 1\n
+tg(x) = sin(x) / cos(x)\n
+ctg(x) = cos(x) / sin(x)\n
+ctg(x) = 1 / tg(x)\n
+\n
+tg²(x) + 1 = 1 / cos²(x)\n
+ctg²(x) + 1 = 1 / sin²(x)\n
+\n
+sin(2x) = 2sin(x)cos(x)\n
+cos(2x) = cos²(x) - sin²(x) = 2cos²(x) - 1 = 1 - 2sin²(x)\n
+\n
+tg(2x) = 2tg(x) / (1 - tg²(x))\n
+\n
+sin(a + b) = sin(a)cos(b) + cos(a)sin(b)\n
+sin(a - b) = sin(a)cos(b) - cos(a)sin(b)\n
+cos(a + b) = cos(a)cos(b) - sin(a)sin(b)\n
+cos(a - b) = cos(a)cos(b) + sin(a)sin(b)\n
+\n
+tg(a + b) = (tg(a) + tg(b)) / (1 - tg(a)tg(b))\n
+tg(a - b) = (tg(a) - tg(b)) / (1 + tg(a)tg(b))\n
+\n
+cos²(x) = (1 + cos(2x)) / 2\n
+sin²(x) = (1 - cos(2x)) / 2\n
+\n
+sin²(x) = (1 - cos(2x)) / 2\n
+\n
+При arcsin(a) = t:\n
+a ∈ [-1; 1]\n
+t ∈ [-π/2; π/2]\n
+sin(t) = a\n
+\n
+При arccos(a) = t:\n
+a ∈ [-1; 1]\n
+t ∈ [0; π]\n
+cos(t) = a\n
+\n
+При arctg(a) = t:\n
+t ∈ [-π/2; π/2]\n
+tg(t) = a\n
+\n
+Если sin(x) = a, то\n
+x1 = arcsin(a) + 2πn, n ∈ Z\n
+x2 = π - arcsin(a) + 2πn, n ∈ Z\n
+\n
+Если cos(x) = a, то\n
+x = ±arccos(a) + 2πn, n ∈ Z\n
+\n
+Если tg(x) = a, то\n
+x = arctg(a) + πn, n ∈ Z\n
+\n
+При отборе корней рекомендуется использовать неравенства, если начало и конец отрезка можно сравнить с корнями - когда они не содержат обратных тригонометрических функций (arcsin, arccos, arctg), а содержат π.\n
+В ином случае придется рисовать окружность и стараться не нарушить строгие правила оформления отбора корней на окружности.
+\n
+(табличные значения функций в таблице)\n
         </item>
         <item>
 Часть задач требует, чтобы корень из отрицательного числа являлся числом, для чего приняли обозначение i = √(-1) - мнимая еденица\n
