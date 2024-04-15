@@ -97,5 +97,23 @@ public class Practice {
         AddTask(9,R.string.Task_9_3,"4,4","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=5179",80);
         AddTask(9,R.string.Task_9_4,"5500","https://www.youtube.com/watch?v=JaEvg2vQmqw",80);
         AddTask(9,R.string.Task_9_5,"5","https://www.youtube.com/watch?v=p__MIao9qFM",80);
+
+        AddTask(10,R.string.Task_10_1,"120","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=6138",80);
+        AddTask(10,R.string.Task_10_2,"10","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=6360",80);
+        AddTask(10,R.string.Task_10_3,"15","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=5647",80);
+        AddTask(10,R.string.Task_10_4,"70","https://www.youtube.com/watch?v=Jihh3QdpE5E",80);
+        AddTask(10,R.string.Task_10_5,"225","https://www.youtube.com/watch?v=5-hwlQAN5no",80);
+        AddTask(10,R.string.Task_10_6,"8","https://www.youtube.com/watch?v=HjMhUh-sso8",80);
+        AddTask(10,R.string.Task_10_7,"18","https://www.youtube.com/watch?v=k5xGa_0ASTI",80);
+        AddTask(10,R.string.Task_10_8,"30","https://www.youtube.com/watch?v=BD2rKkvfzE0",80);
+        AddTask(10,R.string.Task_10_9,"33,6","https://www.youtube.com/watch?v=BD2rKkvfzE0&t=379",80);
+        AddTask(10,R.string.Task_10_10,"35","https://www.youtube.com/watch?v=TWiqE6YAiP0",80);
+        AddTask(10,R.string.Task_10_11,"16","https://www.youtube.com/watch?v=AQZ8MqzDJvM",80);
+
+        AddTask(11,R.string.Task_11_1,"6","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=6710",90);
+        AddTask(11,R.string.Task_11_2,"8","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=7002",90);
+        AddTask(11,R.string.Task_11_3,"16","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=6632",90);
+
+        //AddTask(12,R.string.Task_12);
     }
 }
