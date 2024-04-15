@@ -7,6 +7,7 @@
     <string name="ProbabilityTheory">Probability theory</string>
     <string name="Derivative">Derivative</string>
     <string name="Logarithms" >Logarithms</string>
+    <string name="Trigonometry" >Trigonometry</string>
     <string name="ComplexNumbers">Complex numbers</string>
 
     <string name="ShortMultiplicationFormulas">Short multiplication formulas</string>
@@ -35,7 +36,39 @@
         <item>ProbabilityTheory</item>
         <item>Derivative</item>
         <item>Logarithms</item>
+        <item>Trigonometry</item>
         <item>ComplexNumbers</item>
+    </string-array>
+    <string-array name="BasicFormulas">
+        <item>ShortMultiplicationFormulas</item>
+        <item>DegreesFormulas</item>
+        <item>ArithmeticProgression</item>
+        <item>GeometricProgression</item>
+    </string-array>
+    <string-array name="Planimetry">
+        <item>Triangle</item>
+        <item>RectangularTriangle</item>
+        <item>Rhomb</item>
+    </string-array>
+    <string-array name="Vectors">
+    </string-array>
+    <string-array name="Stereometry">
+        <item>RectangularParallelepiped</item>
+        <item>Cube</item>
+    </string-array>
+    <string-array name="ProbabilityTheory">
+    </string-array>
+    <string-array name="Derivative">
+        <item>DerivativesOfFunctions</item>
+        <item>DerivativesOfTrigonometricFunctions</item>
+    </string-array>
+    <string-array name="Logarithms">
+        <item>LogarithmsExpressions</item>
+        <item>LogarithmsConversion</item>
+    </string-array>
+    <string-array name="Trigonometry">
+    </string-array>
+    <string-array name="ComplexNumbers">
     </string-array>
 
     <string name="BasicFormulasTest">Basic formulas test</string>
@@ -45,6 +78,7 @@
     <string name="ProbabilityTheoryTest">Probability theory test</string>
     <string name="DerivativeTest">Derivative test</string>
     <string name="LogarithmsTest">Logarithms test</string>
+    <string name="TrigonometryTest">Trigonometry test</string>
     <string name="ComplexNumbersTest">Complex numbers test</string>
 
     <string-array name="TestAvailable">
@@ -248,9 +282,9 @@ c - число\n
 (xⁿ)` = n * xⁿ⁻¹\n
 (aˣ)` = aˣ * ln a\n
 (eˣ)` = eˣ\n
-(ln a)` = 1/x
-(logₙa)` = 1/(a * ln n)
-
+(ln a)` = 1/x\n
+(logₙa)` = 1/(a * ln n)\n
+\n
 (sin x)` = cos x\n
 (cos x)` = -sin x\n
 (tg x)` = 1/(cos² x)\n

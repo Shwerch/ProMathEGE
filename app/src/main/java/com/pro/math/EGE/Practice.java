@@ -1,12 +1,6 @@
 package com.pro.math.EGE;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.util.Log;
-
-import java.util.ArrayList;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 public class Practice {
     private static final byte TASKS = 19;

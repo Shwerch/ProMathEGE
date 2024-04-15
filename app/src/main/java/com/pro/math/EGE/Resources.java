@@ -5,26 +5,8 @@ import android.content.Context;
 import java.util.Objects;
 
 public class Resources {
-    public static final String[] Topics = {
-            "BasicFormulas",
-            "Planimetry",
-            "Vectors",
-            "Stereometry",
-            "ProbabilityTheory",
-            "Derivative",
-            "Logarithms",
-            "ComplexNumbers",
-    };
-    public static final String[][] SubTopics = {
-            {"ShortMultiplicationFormulas","DegreesFormulas","ArithmeticProgression","GeometricProgression"},
-            {"Triangle","RectangularTriangle","Rhomb"},
-            {},
-            {"RectangularParallelepiped","Cube"},
-            {},
-            {"DerivativesOfFunctions","DerivativesOfTrigonometricFunctions"},
-            {"LogarithmsExpressions","LogarithmsConversion"},
-            {},
-    };
+    public static String[] Topics;
+    public static String[][] SubTopics;
     public static String[] TopicsTest(Context context) {
         android.content.res.Resources resources = context.getResources();
         return new String[] {
@@ -88,6 +70,25 @@ public class Resources {
                 return i;
         }
         return 0;
+    }
+    private static boolean Setup = false;
+    public static void Setup(Context context) {
+        if (Setup)
+            return;
+        Setup = true;
+        android.content.res.Resources resources = context.getResources();
+        Topics = resources.getStringArray(R.array.Topics);
+        SubTopics = new String[][] {
+                resources.getStringArray(R.array.BasicFormulas),
+                resources.getStringArray(R.array.Planimetry),
+                resources.getStringArray(R.array.Vectors),
+                resources.getStringArray(R.array.Stereometry),
+                resources.getStringArray(R.array.ProbabilityTheory),
+                resources.getStringArray(R.array.Derivative),
+                resources.getStringArray(R.array.Logarithms),
+                resources.getStringArray(R.array.Trigonometry),
+                resources.getStringArray(R.array.ComplexNumbers),
+        };
     }
     public static String GetTopic(int Topic) {
         return Topics[Topic];

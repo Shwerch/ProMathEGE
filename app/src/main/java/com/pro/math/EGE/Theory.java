@@ -82,10 +82,10 @@ public class Theory {
                 {"q", "bₙ / bₙ₋₁"},
                 {"Sₙ", "(b₁ - bₙ₊₁)/(1 - q)", "b₁ * (1 - qⁿ)/(1 - q)"},
         };
-        AddFormulas("BasicFormulas","ShortMultiplicationFormulas",ShortMultiplicationFormulas,true,20);
-        AddFormulas("BasicFormulas","DegreesFormulas",Degrees,true,20);
-        AddFormulas("BasicFormulas","ArithmeticProgression",ArithmeticProgression,false,40);
-        AddFormulas("BasicFormulas","GeometricProgression",GeometricProgression,false,40);
+        AddFormulas(Resources.Topics[0],"ShortMultiplicationFormulas",ShortMultiplicationFormulas,true,20);
+        AddFormulas(Resources.Topics[0],"DegreesFormulas",Degrees,true,20);
+        AddFormulas(Resources.Topics[0],"ArithmeticProgression",ArithmeticProgression,false,40);
+        AddFormulas(Resources.Topics[0],"GeometricProgression",GeometricProgression,false,40);
 
         String[][] Triangle = new String[][] {
                 {"S", "0.5*h*a", "0.5*b*c*sin(α)", "√(p(p - a)(p - b)(p - c))", "p*r"},
@@ -106,9 +106,9 @@ public class Theory {
                 {"d1", "2S/d2",},
                 {"d2", "2S/d1",},
         };
-        AddFormulas("Planimetry","Triangle",Triangle,true,40);
-        AddFormulas("Planimetry","RectangularTriangle",RectangularTriangle,false,40);
-        AddFormulas("Planimetry","Rhomb",Rhomb,false,40);
+        AddFormulas(Resources.Topics[1],"Triangle",Triangle,true,40);
+        AddFormulas(Resources.Topics[1],"RectangularTriangle",RectangularTriangle,false,40);
+        AddFormulas(Resources.Topics[1],"Rhomb",Rhomb,false,40);
 
         String[][] RectangularParallelepiped = new String[][] {
                 {"V", "abc"},
@@ -123,8 +123,8 @@ public class Theory {
                 {"Sбок", "4a²"},
                 {"d", "√(3a²)"},
         };
-        AddFormulas("Stereometry","RectangularParallelepiped",RectangularParallelepiped,true,40);
-        AddFormulas("Stereometry","Cube",Cube,false,40);
+        AddFormulas(Resources.Topics[3],"RectangularParallelepiped",RectangularParallelepiped,true,40);
+        AddFormulas(Resources.Topics[3],"Cube",Cube,false,40);
 
         String[][] DerivativesOfFunctions = new String[][] {
                 {"f`(x)","k","tg(α)"},
@@ -148,8 +148,8 @@ public class Theory {
                 {"(arctg x)`", "1/(1+x²)"},
                 {"(arcctg x)`", "-1/(1+x²)"},
         };
-        AddFormulas("Derivative","DerivativesOfFunctions",DerivativesOfFunctions,true,40);
-        AddFormulas("Derivative","DerivativesOfTrigonometricFunctions",DerivativesOfTrigonometricFunctions,false,40);
+        AddFormulas(Resources.Topics[5],"DerivativesOfFunctions",DerivativesOfFunctions,true,40);
+        AddFormulas(Resources.Topics[5],"DerivativesOfTrigonometricFunctions",DerivativesOfTrigonometricFunctions,false,40);
 
         String[][] Logarithms = new String[][] {
                 {"lg m","log₁₀m"},
@@ -165,8 +165,8 @@ public class Theory {
                 {"logₙ1","0"},
                 {"logₙn","1"},
         };
-        AddFormulas("Logarithms","LogarithmsExpressions",Logarithms,true,40);
-        AddFormulas("Logarithms","LogarithmsConversion",LogarithmsConversion,false,40);
+        AddFormulas(Resources.Topics[6],"LogarithmsExpressions",Logarithms,true,40);
+        AddFormulas(Resources.Topics[6],"LogarithmsConversion",LogarithmsConversion,false,40);
     }
     private static List<Integer> GetRandomArrayList(int start, int length) {
         List<Integer> IntegerList = new ArrayList<>(length);
@@ -178,9 +178,6 @@ public class Theory {
     }
     public static void Setup(String Topic) {
         ArrayList<String> AvailableChapters = new ArrayList<>();
-        Log.d("DevLog", String.valueOf(Database.GetFormulasAvailability().get(Topic)));
-        Log.d("DevLog", String.valueOf(Database.GetFormulasAvailability().entrySet()));
-        Log.d("DevLog",Topic);
         for (Map.Entry<String, Boolean> entry : Database.GetFormulasAvailability().get(Topic).entrySet()) {
             if (entry.getValue()) {
                 AvailableChapters.add(entry.getKey());

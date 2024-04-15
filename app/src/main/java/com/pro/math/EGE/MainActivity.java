@@ -42,6 +42,7 @@ public class MainActivity extends MyAppCompatActivity {
         super.SetSizes(new Button[]{Points,Settings,Theory,Practice,Shop,Exit,About},Title);
 
         PointsButton = Points;
+        Resources.Setup(this);
         Music.Play(this);
 
         Exit.setOnClickListener(v -> Close());
