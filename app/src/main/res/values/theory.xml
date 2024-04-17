@@ -30,6 +30,7 @@
 
     <string name="BasicTrigonometricFunctions">Basic trigonometric functions</string>
     <string name="InverseTrigonometricFunctions">Inverse trigonometric functions</string>
+    <string name="TabularValuesOfTrigonometricFunctions">Tabular values of trigonometric functions</string>
 
     <string-array name="Topics">
         <item>BasicFormulas</item>
@@ -72,6 +73,7 @@
     <string-array name="Trigonometry">
         <item>BasicTrigonometricFunctions</item>
         <item>InverseTrigonometricFunctions</item>
+        <item>TabularValuesOfTrigonometricFunctions</item>
     </string-array>
     <string-array name="ComplexNumbers">
     </string-array>
@@ -323,6 +325,14 @@ logₙm = 1/(logₘn)\n
         </item>
         <item>
 Базовые тригонометрические функции: синус, косинус, тангенс и котангенс\n
+Все тригонометрические функции повторяют свои значения через 2π: sin(229π) = sin(π)
+\n
+sin(-x) = -sin(x)\n
+cos(-x) = cos(x)\n
+tg(-x) = -tg(x)\n
+tg(-x) = -tg(x)\n
+\n
+tg(x) не определен при cos(x) = 0 и ctg(x) не определен при sin(x) = 0\n
 \n
 sin²(x) + cos²(x) = 1\n
 tg(x) = sin(x) / cos(x) = 1 / ctg(x)\n

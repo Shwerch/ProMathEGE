@@ -10,10 +10,6 @@ import android.widget.TextView;
 
 public class MainActivity extends MyAppCompatActivity {
     private Button PointsButton;
-    private void Close() {
-        this.finishAffinity();
-        Music.Stop();
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,12 +53,6 @@ public class MainActivity extends MyAppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        long points = Database.GetPoints(this);
-        if (points == -1) {
-            PointsButton.setText(getString(R.string.undefined_points));
-        } else {
-            PointsButton.setText(super.GetRightPointsEnd(points));
-        }
-
+        super.ChangePoints(PointsButton);
     }
 }

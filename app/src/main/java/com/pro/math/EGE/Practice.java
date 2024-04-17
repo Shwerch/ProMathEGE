@@ -1,37 +1,32 @@
 package com.pro.math.EGE;
 
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class Practice {
-    private static final byte TASKS = 19;
-    public static TreeMap<Integer,Integer>[] TaskText = new TreeMap[TASKS];
-    public static TreeMap<Integer,String>[] TaskAnswer = new TreeMap[TASKS];
-    public static TreeMap<Integer,String>[] TaskSolution = new TreeMap[TASKS];
-    public static TreeMap<Integer,Integer>[] TaskReward = new TreeMap[TASKS];
-    public static TreeMap<Integer,Integer>[] TaskImage = new TreeMap[TASKS];
-    private static final int[] id = new int[TASKS];
+    public static final byte TASKS = 19;
+    public static ArrayList<Integer>[] TaskText = new ArrayList[TASKS];
+    public static ArrayList<String>[] TaskAnswer = new ArrayList[TASKS];
+    public static ArrayList<String>[] TaskSolution = new ArrayList[TASKS];
+    public static ArrayList<Integer>[] TaskReward = new ArrayList[TASKS];
+    public static ArrayList<Integer>[] TaskImage = new ArrayList[TASKS];
     private static void AddTask(int Number,int Text,String Answer,String Solution,int Reward) {
-        TaskText[Number].put(id[Number],Text);
-        TaskAnswer[Number].put(id[Number],Answer);
-        TaskSolution[Number].put(id[Number],Solution);
-        TaskReward[Number].put(id[Number],Reward);
-        id[Number] += 1;
+        TaskText[Number].add(Text);
+        TaskAnswer[Number].add(Answer);
+        TaskSolution[Number].add(Solution);
+        TaskReward[Number].add(Reward);
     }
     private static void AddTask(int Number,int Text,String Answer,String Solution,int Reward,int Image) {
-        TaskText[Number].put(id[Number],Text);
-        TaskAnswer[Number].put(id[Number],Answer);
-        TaskSolution[Number].put(id[Number],Solution);
-        TaskReward[Number].put(id[Number],Reward);
-        TaskImage[Number].put(id[Number],Image);
-        id[Number] += 1;
+        AddTask(Number,Text,Answer,Solution,Reward);
+        TaskImage[Number].add(Image);
     }
     static {
         for (int i = 0;i < TASKS;i++) {
-            TaskText[i] = new TreeMap<>();
-            TaskAnswer[i] = new TreeMap<>();
-            TaskSolution[i] = new TreeMap<>();
-            TaskReward[i] = new TreeMap<>();
-            TaskImage[i] = new TreeMap<>();
+            TaskText[i] = new ArrayList<>();
+            TaskAnswer[i] = new ArrayList<>();
+            TaskSolution[i] = new ArrayList<>();
+            TaskReward[i] = new ArrayList<>();
+            TaskImage[i] = new ArrayList<>();
         }
 
         AddTask(1,R.string.Task_1_1,"9","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=848",40);
@@ -67,14 +62,14 @@ public class Practice {
         AddTask(5,R.string.Task_5_3,"0,0064","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=2696",60);
         AddTask(5,R.string.Task_5_4,"0,4872","https://www.youtube.com/watch?v=48oj7Mg6bMQ",60);
 
-        AddTask(6,R.string.Task_6_1,"","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=3627",60);
-        AddTask(6,R.string.Task_6_2,"","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=3583",60);
-        AddTask(6,R.string.Task_6_3,"","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=3681",60);
-        AddTask(6,R.string.Task_6_4,"","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=3862",60);
-        AddTask(6,R.string.Task_6_5,"","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=3895",60);
-        AddTask(6,R.string.Task_6_6,"","https://www.youtube.com/watch?v=OEz63xGW92k",60);
-        AddTask(6,R.string.Task_6_7,"","https://www.youtube.com/watch?v=okbFQeLR6Wc",60);
-        AddTask(6,R.string.Task_6_8,"","https://www.youtube.com/watch?v=9noT5fwEhOo",60);
+        AddTask(6,R.string.Task_6_1,"-11","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=3627",60);
+        AddTask(6,R.string.Task_6_2,"10","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=3583",60);
+        AddTask(6,R.string.Task_6_3,"-1","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=3681",60);
+        AddTask(6,R.string.Task_6_4,"4","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=3862",60);
+        AddTask(6,R.string.Task_6_5,"10","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=3895",60);
+        AddTask(6,R.string.Task_6_6,"0,2","https://www.youtube.com/watch?v=OEz63xGW92k",60);
+        AddTask(6,R.string.Task_6_7,"-11","https://www.youtube.com/watch?v=okbFQeLR6Wc",60);
+        AddTask(6,R.string.Task_6_8,"-124","https://www.youtube.com/watch?v=9noT5fwEhOo",60);
 
         AddTask(7,R.string.Task_7_1,"196","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=4233",70);
         AddTask(7,R.string.Task_7_2,"-0,5","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=3975",70);
@@ -117,5 +112,36 @@ public class Practice {
         AddTask(12,R.string.Task_12_2,"4","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=7379",90);
         AddTask(12,R.string.Task_12_3,"11","https://www.youtube.com/watch?v=EMswyNwDClM",90);
         AddTask(12,R.string.Task_12_4,"7","https://www.youtube.com/watch?v=kCgMamOd3kI",90);
+    }
+    private static int Text;
+    private static String Answer;
+    private static String Solution;
+    private static int Reward;
+    private static int Image;
+    public static boolean Setup(int Number) {
+        int RandomTask = (int) (Math.random() * TaskText[Number].size());
+        Text = TaskText[Number].get(RandomTask);
+        Answer = TaskAnswer[Number].get(RandomTask);
+        Solution = TaskSolution[Number].get(RandomTask);
+        Reward = TaskReward[Number].get(RandomTask);
+        boolean image = !TaskImage[Number].isEmpty();
+        if (image)
+            Image = TaskImage[Number].get(RandomTask);
+        return image;
+    }
+    public static int GetText() {
+        return Text;
+    }
+    public static String GetAnswer() {
+        return Answer;
+    }
+    public static String GetSolution() {
+        return Solution;
+    }
+    public static int GetReward() {
+        return Reward;
+    }
+    public static int GetImage() {
+        return Image;
     }
 }

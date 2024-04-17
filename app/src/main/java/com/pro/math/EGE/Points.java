@@ -17,6 +17,7 @@ public class Points extends MyAppCompatActivity {
         final Button Points = findViewById(R.id.points);
 
         super.BackToMainMenu(MainMenu);
+        MainMenu.setOnClickListener(v -> finish());
         super.SetSizes(new Button[]{MainMenu,Points},Title);
 
         PointsButton = Points;
@@ -24,13 +25,6 @@ public class Points extends MyAppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(this,"abeba", Toast.LENGTH_LONG).show();
-        long points = Database.GetPoints(this);
-        if (points == -1) {
-            PointsButton.setText(getString(R.string.undefined_points));
-        } else {
-            PointsButton.setText(super.GetRightPointsEnd(points));
-        }
-
+        super.ChangePoints(PointsButton);
     }
 }

@@ -14,14 +14,22 @@ public class Settings extends MyAppCompatActivity {
         final Button MainMenu = findViewById(R.id.mainmenu);
         final TextView Title = findViewById(R.id.title);
 
+        final Button Points = findViewById(R.id.points);
         final Button ResetProgress = findViewById(R.id.reset_progress);
+        final Button AddPoints = findViewById(R.id.add_points);
+
+        super.ChangePoints(Points);
 
         super.BackToMainMenu(MainMenu);
-        super.SetSizes(new Button[]{MainMenu,ResetProgress},Title);
-
+        super.SetSizes(new Button[]{MainMenu,ResetProgress,AddPoints,Points},Title);
         ResetProgress.setOnClickListener(v -> {
             Database.ResetDataBases(this);
-            startActivity(new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            Database.DefineDataBases(this);
+            super.ChangePoints(Points);
+        });
+        AddPoints.setOnClickListener(v -> {
+            Database.ChangePoints(this,1000L);
+            super.ChangePoints(Points);
         });
     }
 }

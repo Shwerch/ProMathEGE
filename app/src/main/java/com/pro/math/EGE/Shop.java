@@ -24,11 +24,14 @@ public class Shop extends MyAppCompatActivity {
 
         final Button MainMenu = findViewById(R.id.mainmenu);
         final TextView Title = findViewById(R.id.title);
+        final Button Points = findViewById(R.id.points);
         super.BackToMainMenu(MainMenu);
-        super.SetSizes(new Button[]{MainMenu},Title);
+        super.SetSizes(new Button[]{MainMenu,Points},Title);
+
+        super.ChangePoints(Points);
 
         ListView List = findViewById(R.id.list);
-        List.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ShopDataBase.ShopSubTopicsList.toArray()));
+        List.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ShopDataBase.ShopVisibleText.toArray()));
         List.setOnItemClickListener((parent, view, position, id) -> {
             if (Database.BuySubTopic(this,ShopDataBase.ShopTopicsList.get(position),ShopDataBase.ShopSubTopicsList.get(position))) {
                 Toast.makeText(this,getResources().getString(R.string.successful_purchase),Toast.LENGTH_SHORT).show();

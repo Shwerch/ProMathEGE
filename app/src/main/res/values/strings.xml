@@ -14,11 +14,12 @@
     <string name="check">Answer</string>
     <string name="theory_test">Theory test</string>
     <string name="question">What is equal to</string>
-    <string name="undefined_points">\\u003F\\u003F\\u003F points</string>
+    <string name="undefined_points">\? points</string>
     <string name="error_whe_getting_topic">The selected partition could not be retrieved</string>
     <string name="reset_progress">Reset progress</string>
     <string name="not_enough_points">Not enough points for this purchase</string>
     <string name="successful_purchase">Successful purchase!</string>
+    <string name="add_points">Only for testing: add 1000 points</string>
     <string name="about_text">Created by Ilya Popov thanks to the Children\'s Education center IT–CUBE, 2023–2024 academic year.</string>
 
     <string name="rightAnswer1">The right answer!</string>

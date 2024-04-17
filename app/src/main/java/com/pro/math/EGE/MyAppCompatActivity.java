@@ -17,14 +17,16 @@ public class MyAppCompatActivity extends AppCompatActivity {
     protected void BackToMainMenu(Button button) {
         button.setOnClickListener(v -> startActivity(new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
     }
-    protected String GetRightPointsEnd(long points) {
-        long remainder  = points % 10;
-        if ((points > 9 && points < 20) || remainder == 0 || remainder >= 5)
-            return points + " " + getResources().getString(R.string.points1);
-        else if (remainder == 1)
-            return points + " " + getResources().getString(R.string.points2);
+    protected void Close() {
+        this.finishAffinity();
+        Music.Stop();
+    }
+    protected void ChangePoints(Button button) {
+        long points = Database.GetPoints(this);
+        if (points == -1)
+            button.setText(getString(R.string.undefined_points));
         else
-            return points + " " + getResources().getString(R.string.points3);
+            button.setText(Resources.GetRightPointsEnd(this,points));
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -14,7 +14,7 @@
     <string name="check">Ответить</string>
     <string name="theory_test">Тест по теории</string>
     <string name="question">Чему равно</string>
-    <string name="undefined_points">\\u003F\\u003F\\u003F баллов</string>
+    <string name="undefined_points">\? баллов</string>
     <string name="error_whe_getting_topic">Не удалось получить выбранный раздел</string>
     <string name="reset_progress">Сбросить прогресс</string>
     <string name="not_enough_points">Недостаточно баллов для этой покупки</string>
@@ -62,6 +62,7 @@
     <string name="LogarithmsExpressions">Логарифмические выражения</string>
     <string name="Answer">Ответ</string>
     <string name="Solution">Решение</string>
+    <string name="Task">Задание</string>
     <string name="Task_1.1">В четырёхугольник ABCD, периметр которого равен 54, вписана окружность, AB = 18. Найдите длину стороны CD.</string>
     <string name="Task_1.2">Найдите центральный угол AOB, если он на 67◦ больше вписанного угла ACB, опирающегося на ту же дугу. Ответ дайте в градусах.</string>
     <string name="Task_1.3">В окружности с центром O: AC и BD – диаметры. Центральный угол AOD равен 122◦ Найдите вписанный угол ACB. Ответ дайте в градусах.</string>
@@ -138,4 +139,6 @@
     <string name="Task_12.4">Найдите точку минимума функции y = 1,5x² − 27x + 42 ln x − 10.</string>
     <string name="BasicTrigonometricFunctions">Базовые тригонометрические функции</string>
     <string name="InverseTrigonometricFunctions">Обратные тригонометрические функции</string>
+    <string name="TabularValuesOfTrigonometricFunctions">Табличные значения тригонометрических функций</string>
+    <string name="add_points">Только для тестирования: добавить 1000 баллов</string>
 </resources>

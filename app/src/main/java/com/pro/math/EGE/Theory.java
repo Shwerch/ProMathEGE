@@ -190,8 +190,20 @@ public class Theory {
                 {"sin(x) = a","x = arcsin(a) + 2πn; π - arcsin(a) + 2πn"},
                 {"cos(x) = a","x = ±arccos(a) + 2πn"},
         };
+        String[][] TabularValuesOfTrigonometricFunctions = new String[][] {
+                {"-1","sin(3π/2)","cos(π)"},
+                {"-√3/2","sin(4π/3)","cos(5π/6)","sin(5π/3)","cos(7π/6)"},
+                {"-√2/2","sin(5π/4)","cos(3π/4)","sin(7π/4)","cos(5π/4)"},
+                {"-1/2","sin(7π/6)","cos(2π/3)","sin(11π/6)","cos(4π/3)"},
+                {"0","sin(0)","sin(π)","cos(π/2)","cos(3π/2)"},
+                {"1/2","sin(π/6)","cos(π/3)","sin(5π/6)","cos(5π/3)"},
+                {"√2/2","sin(π/4)","cos(π/4)","sin(3π/4)","cos(7π/4)"},
+                {"√3/2","sin(π/3)","cos(π/6)","sin(2π/3)","cos(11π/6)"},
+                {"1","sin(π/2)","cos(0)"},
+        };
         AddFormulas(Resources.Topics[7],"BasicTrigonometricFunctions",BasicTrigonometricFunctions,true,40);
         AddFormulas(Resources.Topics[7],"InverseTrigonometricFunctions",InverseTrigonometricFunctions,false,40);
+        AddFormulas(Resources.Topics[7],"TabularValuesOfTrigonometricFunctions",TabularValuesOfTrigonometricFunctions,false,80);
     }
     private static List<Integer> GetRandomArrayList(int start, int length) {
         List<Integer> IntegerList = new ArrayList<>(length);

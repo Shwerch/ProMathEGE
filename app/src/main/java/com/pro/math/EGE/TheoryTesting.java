@@ -62,7 +62,7 @@ public class TheoryTesting extends MyAppCompatActivity {
         final long Reward = Theory.GetReward();
         final int CorrectAnswersCount = Theory.GetCorrectAnswersCount();
         Task.setText(getResources().getString(R.string.question)+" "+QuestionAndAnswers[0]+" ?");
-        TopicText.setText(Theory.GetSubTopic(this));
+        TopicText.setText(Theory.GetSubTopic(this)+" ("+Reward+")");
         for (int i = 0;i < AnswersButtons.length;i++) {
             AnswersButtons[i].setText(QuestionAndAnswers[i+1]);
         }
@@ -86,7 +86,7 @@ public class TheoryTesting extends MyAppCompatActivity {
                         Database.ChangePoints(this,reward);
                         Toast.makeText(this,RightAnswers[(int)(Math.random()*RightAnswers.length)]+
                                 " "+RightRewards[(int)(Math.random()*RightAnswers.length)]+
-                                " "+super.GetRightPointsEnd(reward),Toast.LENGTH_SHORT).show();
+                                " "+Resources.GetRightPointsEnd(this,reward),Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(this,RightAnswers[(int)(Math.random()*RightAnswers.length)],Toast.LENGTH_SHORT).show();
                     }

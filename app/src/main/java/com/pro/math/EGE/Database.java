@@ -56,7 +56,7 @@ public class Database {
                         int availability = query.getInt(1);
                         FormulasAvailability.get(topic).put(subTopic,availability == 1);
                         if (availability == 0) {
-                            ShopDataBase.AddToShop(topic,subTopic);
+                            ShopDataBase.AddToShop(context,topic,subTopic);
                         }
                     } else
                         throw new Exception("Key '"+subTopic+"' not found in table "+topic);

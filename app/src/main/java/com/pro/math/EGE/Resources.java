@@ -45,7 +45,7 @@ public class Resources {
                 {},
                 {resources.getString(R.string.DerivativesOfFunctions),resources.getString(R.string.DerivativesOfTrigonometricFunctions)},
                 {resources.getString(R.string.LogarithmsExpressions),resources.getString(R.string.LogarithmsConversion)},
-                {resources.getString(R.string.BasicTrigonometricFunctions),resources.getString(R.string.InverseTrigonometricFunctions)},
+                {resources.getString(R.string.BasicTrigonometricFunctions),resources.getString(R.string.InverseTrigonometricFunctions),resources.getString(R.string.TabularValuesOfTrigonometricFunctions)},
                 {},
         };
     }
@@ -108,5 +108,14 @@ public class Resources {
     }
     public static String[] GetSubTopic(int Topic,int SubTopic) {
         return new String[] {Topics[Topic],SubTopics[Topic][SubTopic]};
+    }
+    public static String GetRightPointsEnd(Context context,long points) {
+        long remainder  = points % 10;
+        if ((points > 9 && points < 20) || remainder == 0 || remainder >= 5)
+            return points + " " + context.getResources().getString(R.string.points1);
+        else if (remainder == 1)
+            return points + " " + context.getResources().getString(R.string.points2);
+        else
+            return points + " " + context.getResources().getString(R.string.points3);
     }
 }

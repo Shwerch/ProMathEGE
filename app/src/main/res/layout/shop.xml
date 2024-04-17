@@ -18,6 +18,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/points"
+        style="@style/Buttons"
+        android:layout_width="155dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/mainmenu" />
+
     <TextView
         android:id="@+id/title"
         style="@style/Text"
@@ -44,7 +55,7 @@
         android:layout_marginBottom="8dp"
         app:circularflow_defaultRadius="10dp"
         app:circularflow_radiusInDP="10dp"
-        app:layout_constraintBottom_toTopOf="@id/mainmenu"
+        app:layout_constraintBottom_toTopOf="@id/points"
         app:layout_constraintCircleRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
