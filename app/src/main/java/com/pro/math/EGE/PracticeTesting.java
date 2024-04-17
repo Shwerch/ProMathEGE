@@ -2,8 +2,10 @@ package com.pro.math.EGE;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,16 +17,17 @@ public class PracticeTesting extends MyAppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*Display display = getWindowManager().getDefaultDisplay();
+        Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
+        int minSize = Math.min(size.x,size.y)*4/5;
         if (size.x > size.y + 300) {
             setContentView(R.layout.practice_testing_landscape);
         }
         else {
             setContentView(R.layout.practice_testing_portrait);
-        }*/
-        setContentView(R.layout.practice_testing_landscape);
+        }
+        final TextView Title = findViewById(R.id.title);
         final Button MainMenu = findViewById(R.id.mainmenu);
         final Button Next = findViewById(R.id.next);
         final TextView Task = findViewById(R.id.task);
@@ -52,14 +55,19 @@ public class PracticeTesting extends MyAppCompatActivity{
         String answer = Practice.GetAnswer();
         String solution = Practice.GetSolution();
         int reward = Practice.GetReward();
-        if (haveImage)
+        if (haveImage) {
             Image.setImageResource(Practice.GetImage());
+            Image.setMaxHeight(minSize);
+            Image.setMaxWidth(minSize);
+        }
         else {
             Image.setMaxHeight(0);
         }
 
         final boolean[] responseReceived = new boolean[] {false};
         final Context context = this;
+
+        super.SetSizes(new Button[] {MainMenu,Next,Solution},Title);
 
         Task.setText(text);
         Solution.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(solution))));

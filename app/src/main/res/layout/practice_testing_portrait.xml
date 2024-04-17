@@ -7,24 +7,16 @@
     app:autoSizeTextType="uniform"
     tools:targetApi="o">
 
-    <Space
-        android:id="@+id/space"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <Button
         android:id="@+id/mainmenu"
         style="@style/Buttons"
         android:layout_width="170dp"
         android:layout_height="55dp"
-        android:layout_marginEnd="4dp"
         android:layout_marginBottom="8dp"
         android:text="@string/main_menu"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/space" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/title"
@@ -47,11 +39,11 @@
         style="@style/MainButtons"
         android:layout_width="170dp"
         android:layout_height="55dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="2dp"
         android:text="@string/next"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/space" />
+        app:layout_constraintBottom_toTopOf="@id/mainmenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ScrollView
         android:layout_width="0dp"
