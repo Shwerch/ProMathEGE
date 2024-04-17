@@ -49,7 +49,7 @@ public class TheoryTesting extends MyAppCompatActivity {
         try {
             //noinspection DataFlowIssue
             Topic = (int) getIntent().getSerializableExtra("Topic");
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             Toast.makeText(getBaseContext(), R.string.error_whe_getting_topic, Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             return;

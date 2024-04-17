@@ -41,6 +41,9 @@
         <activity
             android:name=".TheoryTesting">
         </activity>
+        <activity
+            android:name=".PracticeTesting">
+        </activity>
     </application>
 
 </manifest>

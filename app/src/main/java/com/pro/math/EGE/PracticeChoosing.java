@@ -1,6 +1,7 @@
 package com.pro.math.EGE;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -31,6 +32,8 @@ public class PracticeChoosing extends MyAppCompatActivity {
 
         for (int i = 0; i < Tasks.length;i++) {
             Tasks[i].setText(getResources().getString(R.string.Task)+" "+(i+1));
+            final int I = i+1;
+            Tasks[i].setOnClickListener(v -> startActivity(new Intent(this,PracticeTesting.class).putExtra("Number",I)));
         }
 
         Button[] buttons = new Button[Tasks.length+1];

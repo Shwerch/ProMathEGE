@@ -113,6 +113,8 @@ public class Practice {
         AddTask(12,R.string.Task_12_3,"11","https://www.youtube.com/watch?v=EMswyNwDClM",90);
         AddTask(12,R.string.Task_12_4,"7","https://www.youtube.com/watch?v=kCgMamOd3kI",90);
     }
+    private static int previousTask = -1;
+    private static int previousNumber = -1;
     private static int Text;
     private static String Answer;
     private static String Solution;
@@ -120,6 +122,12 @@ public class Practice {
     private static int Image;
     public static boolean Setup(int Number) {
         int RandomTask = (int) (Math.random() * TaskText[Number].size());
+        while (previousNumber == Number && RandomTask == previousTask) {
+            RandomTask = (int) (Math.random() * TaskText[Number].size());
+        }
+        previousTask = RandomTask;
+        previousNumber = Number;
+
         Text = TaskText[Number].get(RandomTask);
         Answer = TaskAnswer[Number].get(RandomTask);
         Solution = TaskSolution[Number].get(RandomTask);
