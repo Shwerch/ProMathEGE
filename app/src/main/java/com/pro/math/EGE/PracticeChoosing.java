@@ -48,7 +48,7 @@ public class PracticeChoosing extends MyAppCompatActivity {
                 findViewById(R.id.task_12),
         };
         final TextView Title = findViewById(R.id.title);
-        GridLayout.setColumnCount((int)(size.x/TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,65,getResources().getDisplayMetrics())));
+        GridLayout.setColumnCount((int)(size.x/TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,60,getResources().getDisplayMetrics())));
 
         final ArrayList<Integer>[] Numbers = new ArrayList[] {new ArrayList<>()};
 
