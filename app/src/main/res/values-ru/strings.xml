@@ -19,6 +19,7 @@
     <string name="reset_progress">Сбросить прогресс</string>
     <string name="not_enough_points">Недостаточно баллов для этой покупки</string>
     <string name="successful_purchase">Успешная покупка!</string>
+    <string name="start">Начать</string>
     <string name="about_text">Создано Ильей Поповым благодаря центру образования детей IT–CUBE, 2023–2024 учебный год.</string>
     <string name="points1">баллов</string>
     <string name="points2">балл</string>
@@ -141,4 +142,6 @@
     <string name="InverseTrigonometricFunctions">Обратные тригонометрические функции</string>
     <string name="TabularValuesOfTrigonometricFunctions">Табличные значения тригонометрических функций</string>
     <string name="add_points">Только для тестирования: добавить 1000 баллов</string>
+    <string name="SelectAll">Выбрать все</string>
+    <string name="DropAll">Сбросить все</string>
 </resources>

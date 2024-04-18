@@ -22,4 +22,5 @@
     <color name="MainButtonStrokeColor" tools:ignore="MissingDefaultResource">@color/dark_inscriptions</color>
     <color name="ButtonColor" tools:ignore="MissingDefaultResource">@color/dark_info_icons</color>
     <color name="ButtonStrokeColor" tools:ignore="MissingDefaultResource">@color/dark_standard_icons</color>
+    <color name="Assents" tools:ignore="MissingDefaultResource">@color/dark_accents</color>
 </resources>

@@ -3,6 +3,8 @@
     <string name="Answer">Answer</string>
     <string name="Solution">Solution</string>
     <string name="Task">Task</string>
+    <string name="SelectAll">Select all</string>
+    <string name="DropAll">Drop all</string>
     
     <string name="Task_1.1">В четырёхугольник ABCD, периметр которого равен 54, вписана окружность, AB = 18. Найдите длину стороны CD.</string>
     <string name="Task_1.2">Найдите центральный угол AOB, если он на 67◦ больше вписанного угла ACB, опирающегося на ту же дугу. Ответ дайте в градусах.</string>

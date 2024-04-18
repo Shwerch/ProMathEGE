@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class PracticeTesting extends MyAppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,22 +37,23 @@ public class PracticeTesting extends MyAppCompatActivity{
         final Button Solution = findViewById(R.id.solution);
         final ImageView Image = findViewById(R.id.image);
 
-        final int Number;
+        final ArrayList<Integer> Numbers;
         try {
-            //noinspection DataFlowIssue
-            Number = (int) getIntent().getSerializableExtra("Number");
-        } catch (NullPointerException e) {
+            Numbers = (ArrayList<Integer>) getIntent().getSerializableExtra("Numbers");
+            if (Numbers == null)
+                throw new Exception();
+        } catch (Exception e) {
             Toast.makeText(getBaseContext(), R.string.error_whe_getting_topic, Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             return;
         }
 
         super.BackToMainMenu(MainMenu);
-        Next.setOnClickListener(v -> startActivity(new Intent(this,PracticeTesting.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtra("Number",Number)));
+        Next.setOnClickListener(v -> startActivity(new Intent(this,PracticeTesting.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtra("Numbers",Numbers)));
         final String[] RightAnswers = Resources.RightAnswersTexts(this);
         final String[] RightRewards = Resources.RewardsTexts(this);
 
-        boolean haveImage = Practice.Setup(Number);
+        boolean haveImage = Practice.Setup(Numbers);
         int text = Practice.GetText();
         String answer = Practice.GetAnswer();
         String solution = Practice.GetSolution();

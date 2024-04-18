@@ -120,7 +120,8 @@ public class Practice {
     private static String Solution;
     private static int Reward;
     private static int Image;
-    public static boolean Setup(int Number) {
+    public static boolean Setup(ArrayList<Integer> Numbers) {
+        int Number = Numbers.get((int)(Numbers.size()*Math.random()));
         int RandomTask = (int) (Math.random() * TaskText[Number].size());
         while (previousNumber == Number && RandomTask == previousTask) {
             RandomTask = (int) (Math.random() * TaskText[Number].size());

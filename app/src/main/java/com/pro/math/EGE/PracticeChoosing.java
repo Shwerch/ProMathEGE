@@ -2,6 +2,7 @@ package com.pro.math.EGE;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -9,10 +10,18 @@ import android.view.Display;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class PracticeChoosing extends MyAppCompatActivity {
-    @SuppressLint("SetTextI18n")
+    private void ChooseButton(Button button) {
+        button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.Assents)));
+    }
+    private void UnChooseButton(Button button) {
+        button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.ButtonColor)));
+        button.setTextColor(getResources().getColor(R.color.TextColor));
+    }
+    @SuppressLint({"SetTextI18n", "ResourceAsColor"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +32,8 @@ public class PracticeChoosing extends MyAppCompatActivity {
         display.getSize(size);
 
         final Button MainMenu = findViewById(R.id.mainmenu);
+        final Button Start = findViewById(R.id.start);
+        final Button SelectAll = findViewById(R.id.select_all);
         final GridLayout GridLayout = findViewById(R.id.gridlayout);
         final Button[] Tasks = new Button[] {
                 findViewById(R.id.task_1),
@@ -39,18 +50,54 @@ public class PracticeChoosing extends MyAppCompatActivity {
                 findViewById(R.id.task_12),
         };
         final TextView Title = findViewById(R.id.title);
-
         GridLayout.setColumnCount((int)(size.x/TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,65,getResources().getDisplayMetrics())));
 
-        for (int i = 0; i < Tasks.length;i++) {
-            final int I = i+1;
-            Tasks[i].setText(String.valueOf(I));
-            Tasks[i].setOnClickListener(v -> startActivity(new Intent(this,PracticeTesting.class).putExtra("Number",I)));
-        }
+        final ArrayList<Integer>[] Numbers = new ArrayList[] {new ArrayList<>()};
 
-        Button[] buttons = new Button[Tasks.length+1];
+        for (int i = 0; i < Tasks.length;i++) {
+            final Integer[] I = new Integer[] {i,i+1};
+            Tasks[i].setText(String.valueOf(I[1]));
+            Tasks[i].setOnClickListener(v -> {
+                if (!Numbers[0].contains(I[1])) {
+                    ChooseButton(Tasks[I[0]]);
+                    Numbers[0].add(I[1]);
+                } else {
+                    UnChooseButton(Tasks[I[0]]);
+                    Numbers[0].remove(I[1]);
+                }
+                if (Numbers[0].isEmpty())
+                    SelectAll.setText(R.string.SelectAll);
+                else
+                    SelectAll.setText(R.string.DropAll);
+            });
+        }
+        Start.setOnClickListener(v -> {
+            if (!Numbers[0].isEmpty()) {
+                startActivity(new Intent(this,PracticeTesting.class).putExtra("Numbers", Numbers[0]));
+            }
+        });
+        SelectAll.setOnClickListener(v -> {
+            if (Numbers[0].isEmpty()) {
+                Numbers[0].ensureCapacity(Tasks.length);
+                for (int i = 0;i < Tasks.length;i++) {
+                    Numbers[0].add(i,i + 1);
+                    ChooseButton(Tasks[i]);
+                }
+                SelectAll.setText(R.string.DropAll);
+            } else {
+                Numbers[0] = new ArrayList<>();
+                for (Button task : Tasks) {
+                    UnChooseButton(task);
+                }
+                SelectAll.setText(R.string.SelectAll);
+            }
+        });
+
+        Button[] buttons = new Button[Tasks.length+3];
         buttons[0] = MainMenu;
-        System.arraycopy(Tasks, 0, buttons, 1, Tasks.length);
+        buttons[1] = Start;
+        buttons[2] = SelectAll;
+        System.arraycopy(Tasks, 0, buttons, 3, Tasks.length);
         super.BackToMainMenu(MainMenu);
         super.SetSizes(buttons,Title);
     }

@@ -44,7 +44,65 @@
         <item name="android:textColorHighlightInverse">@color/TextColor</item>
         <item name="android:textColorHintInverse">@color/TextColor</item>
         <item name="android:textColorTertiary">@color/TextColor</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
+
+        <item name="android:shadowColor">@color/Background</item>
+        <item name="android:shadowRadius">3</item>
+        <item name="android:shadowDx">3</item>
+        <item name="android:shadowDy">3</item>
+
+        <item name="android:stateListAnimator">@animator/button_state_list_animator</item>
+        <item name="android:elevation">10dp</item>
+    </style>
+
+    <style name="InfoButtons">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:backgroundTint">@color/void0</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="strokeColor">@color/Assents</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:textColor">@color/Assents</item>
+        <item name="android:textColorHighlight">@color/Assents</item>
+        <item name="android:textColorHint">@color/Assents</item>
+        <item name="android:textColorLink">@color/Assents</item>
+        <item name="android:textColorPrimary">@color/Assents</item>
+        <item name="android:textColorSecondary">@color/Assents</item>
+        <item name="android:textColorAlertDialogListItem">@color/Assents</item>
+        <item name="android:textColorHighlightInverse">@color/Assents</item>
+        <item name="android:textColorHintInverse">@color/Assents</item>
+        <item name="android:textColorTertiary">@color/Assents</item>
+        <item name="android:textSize">16sp</item>
+
+        <item name="android:shadowColor">@color/Background</item>
+        <item name="android:shadowRadius">3</item>
+        <item name="android:shadowDx">3</item>
+        <item name="android:shadowDy">3</item>
+
+        <item name="android:stateListAnimator">@animator/button_state_list_animator</item>
+        <item name="android:elevation">10dp</item>
+    </style>
+
+    <style name="ChoosingButtons">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:backgroundTint">@color/ButtonColor</item>
+        <item name="cornerRadius">10dp</item>
+        <item name="strokeColor">@color/void0</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:textColor">@color/TextColor</item>
+        <item name="android:textColorHighlight">@color/TextColor</item>
+        <item name="android:textColorHint">@color/TextColor</item>
+        <item name="android:textColorLink">@color/TextColor</item>
+        <item name="android:textColorPrimary">@color/TextColor</item>
+        <item name="android:textColorSecondary">@color/TextColor</item>
+        <item name="android:textColorAlertDialogListItem">@color/TextColor</item>
+        <item name="android:textColorHighlightInverse">@color/TextColor</item>
+        <item name="android:textColorHintInverse">@color/TextColor</item>
+        <item name="android:textColorTertiary">@color/TextColor</item>
+        <item name="android:textSize">20sp</item>
+
+        <item name="android:layout_gravity">center</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">centerInside</item>
 
         <item name="android:shadowColor">@color/Background</item>
         <item name="android:shadowRadius">3</item>

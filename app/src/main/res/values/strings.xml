@@ -20,6 +20,7 @@
     <string name="not_enough_points">Not enough points for this purchase</string>
     <string name="successful_purchase">Successful purchase!</string>
     <string name="add_points">Only for testing: add 1000 points</string>
+    <string name="start">Start</string>
     <string name="about_text">Created by Ilya Popov thanks to the Children\'s Education center IT–CUBE, 2023–2024 academic year.</string>
 
     <string name="rightAnswer1">The right answer!</string>
