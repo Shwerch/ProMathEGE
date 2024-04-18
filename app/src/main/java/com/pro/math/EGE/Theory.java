@@ -1,7 +1,6 @@
 package com.pro.math.EGE;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -294,7 +293,7 @@ public class Theory {
         return QuestionAndAnswers;
     }
     public static String GetSubTopic(Context context) {
-        Logcat.Log(SubTopic,context.getClass().getName(),"Theory");
+        Console.L(SubTopic,context.getClass().getName(),"Theory");
         int[] indexes = Resources.GetSubTopic(SubTopic);
         return Resources.SubTopicsNames(context)[indexes[0]][indexes[1]];
     }

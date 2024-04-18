@@ -3,7 +3,6 @@ package com.pro.math.EGE;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class Points extends MyAppCompatActivity {
     private Button PointsButton;

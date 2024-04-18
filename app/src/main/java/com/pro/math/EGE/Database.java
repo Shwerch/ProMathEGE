@@ -63,7 +63,7 @@ public class Database {
                 }
             }
         } catch (Exception e) {
-            Logcat.Log("DefineDataBase: "+e,context.getClass().getName(),"Database");
+            Console.L("DefineDataBase: "+e,context.getClass().getName(),"Database");
         }
         try { Objects.requireNonNull(query).close(); } catch (Exception ignored) {} try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
     }
@@ -72,7 +72,7 @@ public class Database {
         try {
             context.deleteDatabase(DATABASE);
         } catch (Exception e) {
-            Logcat.Log("ResetDataBases: "+e,context.getClass().getName(),"Database");
+            Console.L("ResetDataBases: "+e,context.getClass().getName(),"Database");
         }
     }
     public static boolean BuySubTopic(Context context, String topic, String subTopic) {
@@ -97,7 +97,7 @@ public class Database {
             } else
                 throw new Exception("Key '"+subTopic+"' not found in table "+topic);
         } catch (Exception e) {
-            Logcat.Log("BuySubTopic: "+e,context.getClass().getName(),"Database");
+            Console.L("BuySubTopic: "+e,context.getClass().getName(),"Database");
         }
         try { Objects.requireNonNull(query).close(); } catch (Exception ignored) {} try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
         return success;
@@ -120,7 +120,7 @@ public class Database {
             }
         } catch (Exception e) {
             try { Objects.requireNonNull(query).close(); } catch (Exception ignored) {} try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
-            Logcat.Log("ChangePoints: "+e,context.getClass().getName(),"Database");
+            Console.L("ChangePoints: "+e,context.getClass().getName(),"Database");
         }
     }
     protected static long GetPoints(Context context) {
@@ -142,7 +142,7 @@ public class Database {
             }
         } catch (Exception e) {
             try { Objects.requireNonNull(query).close(); } catch (Exception ignored) {} try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
-            Logcat.Log("GetPoints: "+e,context.getClass().getName(),"Database");
+            Console.L("GetPoints: "+e,context.getClass().getName(),"Database");
             return -1;
         }
     }
@@ -154,7 +154,7 @@ public class Database {
             db.close();
         } catch (Exception e) {
             try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
-            Logcat.Log("SetPoints: "+e,context.getClass().getName(),"Database");
+            Console.L("SetPoints: "+e,context.getClass().getName(),"Database");
         }
     }
 }

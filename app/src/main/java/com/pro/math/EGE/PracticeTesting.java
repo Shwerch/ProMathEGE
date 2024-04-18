@@ -9,6 +9,7 @@ import android.view.Display;
 import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,8 @@ public class PracticeTesting extends MyAppCompatActivity{
         final EditText Answer = findViewById(R.id.answer);
         final Button Solution = findViewById(R.id.solution);
         final ImageView Image = findViewById(R.id.image);
+        final Button draftButton = findViewById(R.id.draftButton);
+        draftButton.setOnClickListener(l -> startActivity(new Intent(this,Draft.class)));
 
         final ArrayList<Integer> Numbers;
         try {
