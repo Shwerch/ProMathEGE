@@ -1,4 +1,4 @@
-package com.pro.math.EGE;
+/*package com.pro.math.EGE;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -107,3 +107,4 @@ class DrawingView extends View {
         return true;
     }
 }
+*/
