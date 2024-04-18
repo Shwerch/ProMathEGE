@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MyAppCompatActivity extends AppCompatActivity {
@@ -38,7 +39,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
             overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE,R.anim.fadeout,R.anim.fadein);
         }
     }
-    protected void SetSizes(Button[] Objects, TextView Title) {
+    protected void SetSizes(Button[] Objects,@Nullable TextView Title) {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);

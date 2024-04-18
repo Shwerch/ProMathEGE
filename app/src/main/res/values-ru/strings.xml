@@ -74,6 +74,6 @@
     <string name="add_points">Только для тестирования: добавить 1000 баллов</string>
     <string name="SelectAll">Выбрать все</string>
     <string name="DropAll">Сбросить все</string>
-    <string name="Save">Сохранить</string>
+    <string name="Clear">Очистить</string>
     <string name="Stroke">Толщина</string>
 </resources>

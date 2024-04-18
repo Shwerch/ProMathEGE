@@ -11,6 +11,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 class Stroke {
     public int color;
@@ -33,10 +35,7 @@ public class DrawView extends View {
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private final Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
-    public DrawView(Context context) {
-        this(context,null);
-    }
-    public DrawView(Context context, AttributeSet attrs) {
+    public DrawView(Context context,@Nullable AttributeSet attrs) {
         super(context, attrs);
         mPaint = new Paint();
 
@@ -50,7 +49,6 @@ public class DrawView extends View {
         mPaint.setAlpha(0xff);
     }
     public void init(int height, int width) {
-
         mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
 
@@ -76,8 +74,7 @@ public class DrawView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.save();
-        int backgroundColor = Color.WHITE;
-        mCanvas.drawColor(backgroundColor);
+        mCanvas.drawColor(getResources().getColor(R.color.Background));
         for (Stroke fp : paths) {
             //mPaint.setColor(fp.color);
             mPaint.setStrokeWidth(fp.strokeWidth);
@@ -104,6 +101,10 @@ public class DrawView extends View {
             mX = x;
             mY = y;
         }
+    }
+    void clearDrawing() {
+        paths.clear();
+        invalidate();
     }
     private void touchUp() {
         mPath.lineTo(mX, mY);

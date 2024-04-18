@@ -19,28 +19,38 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_undo"
+                android:id="@+id/undo"
                 style="@style/InfoButtons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="130dp"
+                android:layout_height="45dp"
                 android:layout_weight="0"
                 android:src="@drawable/ic_launcher_foreground"
                 android:text="@string/Undo" />
 
-            <Button
-                android:id="@+id/btn_save"
-                style="@style/InfoButtons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:src="@drawable/ic_launcher_foreground"
-                android:text="@string/Save" />
+            <View
+                android:layout_width="10dp"
+                android:layout_height="0dp"
+                android:layout_weight="0" />
 
             <Button
-                android:id="@+id/btn_stroke"
+                android:id="@+id/clear"
                 style="@style/InfoButtons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="130dp"
+                android:layout_height="45dp"
+                android:layout_weight="0"
+                android:src="@drawable/ic_launcher_foreground"
+                android:text="@string/Clear" />
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="0dp"
+                android:layout_weight="0" />
+
+            <Button
+                android:id="@+id/stroke"
+                style="@style/InfoButtons"
+                android:layout_width="130dp"
+                android:layout_height="45dp"
                 android:layout_weight="0"
                 android:src="@drawable/ic_launcher_foreground"
                 android:text="@string/Stroke" />
@@ -61,12 +71,13 @@
 
     </LinearLayout>
 
-    <view class="com.pro.math.EGE.DrawView"
+    <view
         android:id="@+id/draw_view"
-        android:background="@color/Background"
+        class="com.pro.math.EGE.DrawView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/linear"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:alpha="1" />
 
 </RelativeLayout>

@@ -3,13 +3,13 @@ package com.pro.math.EGE;
 import android.content.ContentValues;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 
@@ -25,23 +25,25 @@ public class Draft extends MyAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.draft);
-        paint = (DrawView) findViewById(R.id.draw_view);
-        rangeSlider = (RangeSlider) findViewById(R.id.rangebar);
-        Button undo = findViewById(R.id.btn_undo);
-        Button save = findViewById(R.id.btn_save);
-        Button stroke = findViewById(R.id.btn_stroke);
+        paint = findViewById(R.id.draw_view);
+        rangeSlider = findViewById(R.id.rangebar);
+        Button Undo = findViewById(R.id.undo);
+        Button Clear = findViewById(R.id.clear);
+        Button Stroke = findViewById(R.id.stroke);
+        super.SetSizes(new Button[] {Undo,Clear,Stroke},null);
 
         paint.setColor(getResources().getColor(R.color.TextColor));
-        undo.setOnClickListener(new View.OnClickListener() {
+        Undo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 paint.undo();
             }
         });
-        save.setOnClickListener(new View.OnClickListener() {
+        Clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bitmap bmp = paint.save();
+                paint.clearDrawing();
+                /*Bitmap bmp = paint.save();
                 OutputStream imageOutStream;
                 ContentValues cv = new ContentValues();
                 cv.put(MediaStore.Images.Media.DISPLAY_NAME, "draft in Pro Math EGE.png");
@@ -58,10 +60,10 @@ public class Draft extends MyAppCompatActivity {
                     imageOutStream.close();
                 } catch (Exception e) {
                     Console.L(Arrays.toString(e.getStackTrace()));
-                }
+                }*/
             }
         });
-        stroke.setOnClickListener(new View.OnClickListener() {
+        Stroke.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (rangeSlider.getVisibility() == View.VISIBLE)
@@ -71,12 +73,20 @@ public class Draft extends MyAppCompatActivity {
             }
         });
 
-        rangeSlider.setValueFrom(0.0f);
-        rangeSlider.setValueTo(100.0f);
+        rangeSlider.setValueFrom(0);
+        rangeSlider.setValueTo(100);
+        rangeSlider.setBackgroundColor(getResources().getColor(R.color.Background));
+        rangeSlider.setDrawingCacheBackgroundColor(getResources().getColor(R.color.Background));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            rangeSlider.setOutlineSpotShadowColor(getResources().getColor(R.color.Background));
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            rangeSlider.setOutlineAmbientShadowColor(getResources().getColor(R.color.Background));
+        }
         rangeSlider.addOnChangeListener(new RangeSlider.OnChangeListener() {
             @Override
             public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
-                paint.setStrokeWidth((int) value);
+                paint.setStrokeWidth((int)value);
             }
         });
         ViewTreeObserver vto = paint.getViewTreeObserver();
