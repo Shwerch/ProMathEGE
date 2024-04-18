@@ -62,7 +62,7 @@
         android:layout_marginBottom="8dp"
         android:fillViewport="true"
         android:foregroundGravity="center"
-        app:layout_constraintBottom_toTopOf="@id/next"
+        app:layout_constraintBottom_toTopOf="@id/mainmenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
             android:gravity="center"
             android:orientation="vertical"
             android:scrollbars="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/next"
+            app:layout_constraintBottom_toBottomOf="@id/mainmenu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -135,7 +135,7 @@
 
             <Button
                 android:id="@+id/solution"
-                style="@style/MainButtons"
+                style="@style/InfoButtons"
                 android:layout_width="170dp"
                 android:layout_height="55dp"
                 android:layout_marginStart="8dp"

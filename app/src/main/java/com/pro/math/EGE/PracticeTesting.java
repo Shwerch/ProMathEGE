@@ -23,12 +23,7 @@ public class PracticeTesting extends MyAppCompatActivity{
         Point size = new Point();
         display.getSize(size);
         int minSize = Math.min(size.x,size.y)*4/5;
-        if (size.x > size.y + 300) {
-            setContentView(R.layout.practice_testing_landscape);
-        }
-        else {
-            setContentView(R.layout.practice_testing_portrait);
-        }
+        setContentView(R.layout.practice_testing);
         final TextView Title = findViewById(R.id.title);
         final Button MainMenu = findViewById(R.id.mainmenu);
         final Button Next = findViewById(R.id.next);

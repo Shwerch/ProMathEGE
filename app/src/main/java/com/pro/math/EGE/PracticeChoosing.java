@@ -1,6 +1,5 @@
 package com.pro.math.EGE;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Point;
@@ -21,7 +20,6 @@ public class PracticeChoosing extends MyAppCompatActivity {
         button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.ButtonColor)));
         button.setTextColor(getResources().getColor(R.color.TextColor));
     }
-    @SuppressLint({"SetTextI18n", "ResourceAsColor"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

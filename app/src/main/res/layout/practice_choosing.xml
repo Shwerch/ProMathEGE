@@ -80,10 +80,11 @@
                 <Button
                     android:id="@+id/task_1"
                     style="@style/ChoosingButtons"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
+                    android:layout_width="60dp"
+                    android:layout_height="58dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
+                    android:adjustViewBounds="true"
                     android:padding="5dp"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
@@ -91,14 +92,13 @@
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
                     android:paddingBottom="0dp"
-                    android:scaleType="centerInside"
-                    android:adjustViewBounds="true"/>
+                    android:scaleType="centerInside" />
 
                 <Button
                     android:id="@+id/task_2"
                     style="@style/ChoosingButtons"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
+                    android:layout_width="60dp"
+                    android:layout_height="58dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:padding="5dp"
@@ -107,13 +107,13 @@
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp"/>
+                    android:paddingBottom="0dp" />
 
                 <Button
                     android:id="@+id/task_3"
                     style="@style/ChoosingButtons"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
+                    android:layout_width="60dp"
+                    android:layout_height="58dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:padding="5dp"
@@ -122,13 +122,13 @@
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp"/>
+                    android:paddingBottom="0dp" />
 
                 <Button
                     android:id="@+id/task_4"
                     style="@style/ChoosingButtons"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
+                    android:layout_width="60dp"
+                    android:layout_height="58dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:padding="5dp"
@@ -137,13 +137,13 @@
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp"/>
+                    android:paddingBottom="0dp" />
 
                 <Button
                     android:id="@+id/task_5"
                     style="@style/ChoosingButtons"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
+                    android:layout_width="60dp"
+                    android:layout_height="58dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:padding="5dp"
@@ -152,13 +152,13 @@
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp"/>
+                    android:paddingBottom="0dp" />
 
                 <Button
                     android:id="@+id/task_6"
                     style="@style/ChoosingButtons"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
+                    android:layout_width="60dp"
+                    android:layout_height="58dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:padding="5dp"
@@ -167,13 +167,13 @@
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp"/>
+                    android:paddingBottom="0dp" />
 
                 <Button
                     android:id="@+id/task_7"
                     style="@style/ChoosingButtons"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
+                    android:layout_width="60dp"
+                    android:layout_height="58dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:padding="5dp"
@@ -182,13 +182,13 @@
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp"/>
+                    android:paddingBottom="0dp" />
 
                 <Button
                     android:id="@+id/task_8"
                     style="@style/ChoosingButtons"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
+                    android:layout_width="60dp"
+                    android:layout_height="58dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:padding="5dp"
@@ -197,13 +197,13 @@
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp"/>
+                    android:paddingBottom="0dp" />
 
                 <Button
                     android:id="@+id/task_9"
                     style="@style/ChoosingButtons"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
+                    android:layout_width="60dp"
+                    android:layout_height="58dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:padding="5dp"
@@ -212,13 +212,13 @@
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp"/>
+                    android:paddingBottom="0dp" />
 
                 <Button
                     android:id="@+id/task_10"
                     style="@style/ChoosingButtons"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
+                    android:layout_width="60dp"
+                    android:layout_height="58dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:padding="5dp"
@@ -227,13 +227,13 @@
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp"/>
+                    android:paddingBottom="0dp" />
 
                 <Button
                     android:id="@+id/task_11"
                     style="@style/ChoosingButtons"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
+                    android:layout_width="60dp"
+                    android:layout_height="58dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:padding="5dp"
@@ -242,13 +242,13 @@
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp"/>
+                    android:paddingBottom="0dp" />
 
                 <Button
                     android:id="@+id/task_12"
                     style="@style/ChoosingButtons"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
+                    android:layout_width="60dp"
+                    android:layout_height="58dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:padding="5dp"
@@ -257,7 +257,7 @@
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp"/>
+                    android:paddingBottom="0dp" />
             </GridLayout>
             <Button
                 android:id="@+id/start"
