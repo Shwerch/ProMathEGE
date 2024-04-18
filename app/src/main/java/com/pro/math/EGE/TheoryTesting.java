@@ -56,7 +56,6 @@ public class TheoryTesting extends MyAppCompatActivity {
         }
 
         Theory.Setup(Resources.Topics[Topic]);
-
         final String[] QuestionAndAnswers = Theory.GetQuestionAndAnswers();
         final int[] CorrectAnswers = Theory.GetCorrectAnswers();
         final long Reward = Theory.GetReward();
