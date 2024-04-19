@@ -1,8 +1,13 @@
 package com.pro.math.EGE;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.Rect;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Display;
@@ -12,12 +17,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+@SuppressLint("ResourceAsColor")
 public class PracticeChoosing extends MyAppCompatActivity {
     private void ChooseButton(Button button) {
-        button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.Assents)));
+        button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.MiniAssents)));
     }
     private void UnChooseButton(Button button) {
-        button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.ButtonColor)));
+        button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.void0)));
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

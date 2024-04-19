@@ -17,7 +17,12 @@ public class Draft extends MyAppCompatActivity {
         Button Undo = findViewById(R.id.undo);
         Button Clear = findViewById(R.id.clear);
         Button Stroke = findViewById(R.id.stroke);
-        Button Mode = findViewById(R.id.mode);
+        Button Draw = findViewById(R.id.draw);
+        Button Move = findViewById(R.id.move);
+        Button Zoom = findViewById(R.id.zoom);
+
+        final Button[] activeButton = {Draw};
+        Draw.setBackgroundColor(getResources().getColor(R.color.MiniAssents));
 
         Undo.setOnClickListener(v -> paint.undo());
         Clear.setOnClickListener(v -> paint.clearDrawing());
@@ -27,8 +32,28 @@ public class Draft extends MyAppCompatActivity {
             else
                 rangeSlider.setVisibility(View.VISIBLE);
         });
-        Mode.setOnClickListener(v -> paint.ChangeDrawMode(Mode));
-        super.SetSizes(new Button[] {Undo,Clear,Stroke,Mode},null);
+        Draw.setOnClickListener(v -> {
+            if (paint.DrawMode(DrawView.DRAW)) {
+                Draw.setBackgroundColor(getResources().getColor(R.color.MiniAssents));
+                activeButton[0].setBackgroundColor(getResources().getColor(R.color.void0));
+                activeButton[0] = Draw;
+            }
+        });
+        Move.setOnClickListener(v -> {
+            if (paint.DrawMode(DrawView.MOVE)) {
+                Move.setBackgroundColor(getResources().getColor(R.color.MiniAssents));
+                activeButton[0].setBackgroundColor(getResources().getColor(R.color.void0));
+                activeButton[0] = Move;
+            }
+        });
+        Zoom.setOnClickListener(v -> {
+            if (paint.DrawMode(DrawView.ZOOM)) {
+                Zoom.setBackgroundColor(getResources().getColor(R.color.MiniAssents));
+                activeButton[0].setBackgroundColor(getResources().getColor(R.color.void0));
+                activeButton[0] = Zoom;
+            }
+        });
+        super.SetSizes(new Button[] {Undo,Clear,Stroke,Draw,Move,Zoom},null);
 
         rangeSlider.setValueFrom(0);
         rangeSlider.setValueTo(100);

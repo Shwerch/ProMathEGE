@@ -18,8 +18,10 @@ import java.util.ArrayList;
 public class DrawView extends View {
     private static final double TOUCH_RESPONSIVENESS = Math.pow(4,2), MOVE_RESPONSIVENESS = Math.pow(2,2);
     private static final int DEFAULT_STROKE_WIDTH = 4;
+    public static final byte DRAW = 0,MOVE = 1,ZOOM = 2;
     private float touchX, touchY;
-    private boolean drawMode = true,drawing = false;
+    private byte drawMode = DRAW;
+    private boolean working = false;
     private Path myPath;
     private final Paint myPaint;
     private static final ArrayList<Path> strokesPath = new ArrayList<>();
@@ -28,13 +30,10 @@ public class DrawView extends View {
     private Bitmap myBitmap;
     private Canvas myCanvas;
     private final Paint myBitmapPaint = new Paint(Paint.DITHER_FLAG);
-    public void ChangeDrawMode(Button button) {
-        if (drawing) return;
-        if (drawMode)
-            button.setText(R.string.Moving);
-        else
-            button.setText(R.string.Drawing);
-        drawMode = !drawMode;
+    public boolean DrawMode(byte mode) {
+        if (mode == drawMode || working) return false;
+        drawMode = mode;
+        return true;
     }
     public DrawView(Context context,@Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -49,7 +48,7 @@ public class DrawView extends View {
         myPaint.setAlpha(0xff);
     }
     public void init(int height, int width) {
-        myBitmap = Bitmap.createBitmap(width,height,Bitmap.Config.RGB_565);
+        myBitmap = Bitmap.createBitmap(width,height,Bitmap.Config.ARGB_8888);
         myCanvas = new Canvas(myBitmap);
         strokeWidth = DEFAULT_STROKE_WIDTH;
     }
@@ -74,32 +73,34 @@ public class DrawView extends View {
         canvas.drawBitmap(myBitmap, 0, 0, myBitmapPaint);
     }
     private void touchStart(float x, float y) {
-        drawing = true;
-        if (drawMode) {
+        working = true;
+        if (drawMode == DRAW) {
             myPath = new Path();
             strokesPath.add(myPath);
             strokesWidth.add(strokeWidth);
             myPath.reset();
             myPath.moveTo(x,y);
+        } else if (drawMode != MOVE) {
+            return;
         }
         touchX = x;
         touchY = y;
     }
     private void touchMove(float x, float y) {
         final double TOLERANCE = (Math.pow(Math.abs(x - touchX),2) + Math.pow(Math.abs(y - touchY),2));
-        if (!drawMode && TOLERANCE > MOVE_RESPONSIVENESS) {
+        if (drawMode == MOVE && TOLERANCE > MOVE_RESPONSIVENESS) {
             for (Path myPath : strokesPath) {
                 myPath.offset(x - touchX,y - touchY);
             }
-        } else if (TOLERANCE > TOUCH_RESPONSIVENESS) {
+        } else if (drawMode == DRAW && TOLERANCE > TOUCH_RESPONSIVENESS) {
             myPath.quadTo(touchX, touchY, (x + touchX) / 2, (y + touchY) / 2);
         } else {return;}
         touchX = x;
         touchY = y;
     }
     private void touchUp() {
-        drawing = false;
-        if (drawMode) {
+        working = false;
+        if (drawMode == DRAW) {
             myPath.lineTo(touchX, touchY);
         }
     }
@@ -111,21 +112,25 @@ public class DrawView extends View {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        final float x = event.getX(), y = event.getY();
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                touchStart(x, y);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                touchMove(x, y);
-                break;
-            case MotionEvent.ACTION_UP:
-                touchUp();
-                break;
-            default:
-                return true;
+        if (drawMode == ZOOM && event.getPointerCount() > 1) {
+
+        } else {
+            final float x = event.getX(), y = event.getY();
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    touchStart(x, y);
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    touchMove(x, y);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    touchUp();
+                    break;
+                default:
+                    return true;
+            }
+            invalidate();
         }
-        invalidate();
         return true;
     }
 }

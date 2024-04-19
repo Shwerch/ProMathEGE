@@ -42,6 +42,7 @@
     <string name="points1">points</string>
     <string name="points2">point</string>
     <string name="points3">points</string>
+    <string name="Zooming">Zooming</string>
 
     <string-array name="Settings">
         <item>Показывать правильный ответ в случае ошибки</item>
