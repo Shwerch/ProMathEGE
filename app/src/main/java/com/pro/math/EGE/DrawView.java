@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
@@ -22,9 +23,8 @@ import java.util.ArrayList;
     }
 }*/
 public class DrawView extends View {
-    private static final double MAX_TOLERANCE = Math.pow(8,2);
-    private static final double TOUCH_TOLERANCE = Math.pow(4,2);
-    private static final double MOVE_TOLERANCE = Math.pow(2,2);
+    private static final double TOUCH_TOLERANCE = 16; // 4
+    private static final double MOVE_TOLERANCE = 1; // 1
     private static final int DEFAULT_STROKE_WIDTH = 4;
     private float touchX, touchY;
     private boolean drawMode = true;
@@ -70,15 +70,15 @@ public class DrawView extends View {
         }
     }
     @Override
-    protected void onDraw(Canvas canvas) {
-        canvas.save();
+    protected void onDraw(@NonNull Canvas canvas) {
+        //canvas.save();
         mCanvas.drawColor(getResources().getColor(R.color.Background));
         for (int i = 0; i < strokesPath.size();i++) {
             paint.setStrokeWidth(strokesWidth.get(i));
             mCanvas.drawPath(strokesPath.get(i), paint);
         }
         canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
-        canvas.restore();
+        //canvas.restore();
     }
     private void touchStart(float x, float y) {
         drawing = true;
@@ -94,11 +94,11 @@ public class DrawView extends View {
     }
     private void touchMove(float x, float y) {
         final double TOLERANCE = (Math.pow(Math.abs(x - touchX),2) + Math.pow(Math.abs(y - touchY),2));
-        if (!drawMode && TOLERANCE >= MOVE_TOLERANCE) {
+        if (!drawMode && TOLERANCE > MOVE_TOLERANCE) {
             for (Path path : strokesPath) {
                 path.offset(x - touchX,y - touchY);
             }
-        } else if (TOLERANCE >= TOUCH_TOLERANCE) {
+        } else if (TOLERANCE > TOUCH_TOLERANCE) {
             path.quadTo(touchX, touchY, (x + touchX) / 2, (y + touchY) / 2);
         } else {return;}
         touchX = x;

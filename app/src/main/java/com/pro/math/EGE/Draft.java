@@ -22,6 +22,7 @@ public class Draft extends MyAppCompatActivity {
         Button Clear = findViewById(R.id.clear);
         Button Stroke = findViewById(R.id.stroke);
         Button Mode = findViewById(R.id.mode);
+
         Undo.setOnClickListener(v -> paint.undo());
         Clear.setOnClickListener(v -> paint.clearDrawing());
         Stroke.setOnClickListener(v -> {
