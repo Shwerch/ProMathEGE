@@ -25,6 +25,7 @@
     <string name="Undo">Undo</string>
     <string name="Clear">Clear</string>
     <string name="Stroke">Stroke</string>
+    <string name="Mode">Mode</string>
     <string name="about_text">Created by Ilya Popov thanks to the Children\'s Education center IT–CUBE, 2023–2024 academic year.</string>
 
     <string name="rightAnswer1">The right answer!</string>

@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+    <view
+        android:id="@+id/draw_view"
+        class="com.pro.math.EGE.DrawView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/linear"
+        android:layout_centerInParent="true"
+        android:alpha="1" />
+
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
@@ -24,7 +34,6 @@
                 android:layout_width="130dp"
                 android:layout_height="45dp"
                 android:layout_weight="0"
-                android:src="@drawable/ic_launcher_foreground"
                 android:text="@string/Undo" />
 
             <View
@@ -38,7 +47,6 @@
                 android:layout_width="130dp"
                 android:layout_height="45dp"
                 android:layout_weight="0"
-                android:src="@drawable/ic_launcher_foreground"
                 android:text="@string/Clear" />
 
             <View
@@ -52,10 +60,22 @@
                 android:layout_width="130dp"
                 android:layout_height="45dp"
                 android:layout_weight="0"
-                android:src="@drawable/ic_launcher_foreground"
                 android:text="@string/Stroke" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/mode"
+                style="@style/InfoButtons"
+                android:layout_width="130dp"
+                android:layout_height="45dp"
+                android:layout_weight="0"
+                android:text="@string/Mode" />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,14 +90,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <view
-        android:id="@+id/draw_view"
-        class="com.pro.math.EGE.DrawView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/linear"
-        android:layout_centerInParent="true"
-        android:alpha="1" />
 
 </RelativeLayout>

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
@@ -14,121 +13,126 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-class Stroke {
-    public int color;
+/*class Stroke {
     public int strokeWidth;
     public Path path;
-    public Stroke(int color, int strokeWidth, Path path) {
-        this.color = color;
+    public Stroke(int strokeWidth, Path path) {
         this.strokeWidth = strokeWidth;
         this.path = path;
     }
-}
+}*/
 public class DrawView extends View {
-    private static final float TOUCH_TOLERANCE = 4;
-    private float mX, mY;
-    private Path mPath;
-    private final Paint mPaint;
-    private final ArrayList<Stroke> paths = new ArrayList<>();
-    private int currentColor;
+    private static final double MAX_TOLERANCE = Math.pow(8,2);
+    private static final double TOUCH_TOLERANCE = Math.pow(4,2);
+    private static final double MOVE_TOLERANCE = Math.pow(2,2);
+    private static final int DEFAULT_STROKE_WIDTH = 4;
+    private float touchX, touchY;
+    private boolean drawMode = true;
+    private boolean drawing = false;
+    private Path path;
+    private final Paint paint;
+    private static final ArrayList<Path> strokesPath = new ArrayList<>();
+    private static final ArrayList<Integer> strokesWidth = new ArrayList<>();
     private int strokeWidth;
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private final Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
+    public void ChangeDrawMode() {
+        if (!drawing)
+            drawMode = !drawMode;
+    }
     public DrawView(Context context,@Nullable AttributeSet attrs) {
         super(context, attrs);
-        mPaint = new Paint();
-
-        mPaint.setAntiAlias(true);
-        mPaint.setDither(true);
-        mPaint.setColor(getResources().getColor(R.color.TextColor));
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeJoin(Paint.Join.ROUND);
-        mPaint.setStrokeCap(Paint.Cap.ROUND);
-        mPaint.setStrokeWidth(4);
-        mPaint.setAlpha(0xff);
+        paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setDither(true);
+        paint.setColor(getResources().getColor(R.color.TextColor));
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStrokeWidth(DEFAULT_STROKE_WIDTH);
+        paint.setAlpha(0xff);
     }
     public void init(int height, int width) {
-        mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        mBitmap = Bitmap.createBitmap(width,height,Bitmap.Config.RGB_565);
         mCanvas = new Canvas(mBitmap);
-
-        currentColor = Color.GREEN;
-
-        strokeWidth = 20;
-    }
-    public void setColor(int color) {
-        currentColor = color;
+        strokeWidth = DEFAULT_STROKE_WIDTH;
     }
     public void setStrokeWidth(int width) {
         strokeWidth = width;
     }
     public void undo() {
-        if (!paths.isEmpty()) {
-            paths.remove(paths.size() - 1);
+        if (!strokesPath.isEmpty()) {
+            final int i = strokesPath.size() - 1;
+            strokesPath.remove(i);
+            strokesWidth.remove(i);
             invalidate();
         }
-    }
-    public Bitmap save() {
-        return mBitmap;
     }
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.save();
         mCanvas.drawColor(getResources().getColor(R.color.Background));
-        for (Stroke fp : paths) {
-            //mPaint.setColor(fp.color);
-            mPaint.setStrokeWidth(fp.strokeWidth);
-            mCanvas.drawPath(fp.path, mPaint);
+        for (int i = 0; i < strokesPath.size();i++) {
+            paint.setStrokeWidth(strokesWidth.get(i));
+            mCanvas.drawPath(strokesPath.get(i), paint);
         }
         canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
         canvas.restore();
     }
     private void touchStart(float x, float y) {
-        mPath = new Path();
-        Stroke fp = new Stroke(currentColor, strokeWidth, mPath);
-        paths.add(fp);
-        mPath.reset();
-        mPath.moveTo(x, y);
-        mX = x;
-        mY = y;
+        drawing = true;
+        if (drawMode) {
+            path = new Path();
+            strokesPath.add(path);
+            strokesWidth.add(strokeWidth);
+            path.reset();
+            path.moveTo(x,y);
+        }
+        touchX = x;
+        touchY = y;
     }
     private void touchMove(float x, float y) {
-        float dx = Math.abs(x - mX);
-        float dy = Math.abs(y - mY);
-
-        if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-            mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
-            mX = x;
-            mY = y;
+        final double TOLERANCE = (Math.pow(Math.abs(x - touchX),2) + Math.pow(Math.abs(y - touchY),2));
+        if (!drawMode && TOLERANCE >= MOVE_TOLERANCE) {
+            for (Path path : strokesPath) {
+                path.offset(x - touchX,y - touchY);
+            }
+        } else if (TOLERANCE >= TOUCH_TOLERANCE) {
+            path.quadTo(touchX, touchY, (x + touchX) / 2, (y + touchY) / 2);
+        } else {return;}
+        touchX = x;
+        touchY = y;
+    }
+    private void touchUp() {
+        drawing = false;
+        if (drawMode) {
+            path.lineTo(touchX, touchY);
         }
     }
     void clearDrawing() {
-        paths.clear();
+        strokesPath.clear();
+        strokesWidth.clear();
         invalidate();
-    }
-    private void touchUp() {
-        mPath.lineTo(mX, mY);
     }
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        float x = event.getX();
-        float y = event.getY();
-
+        final float x = event.getX(), y = event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 touchStart(x, y);
-                invalidate();
                 break;
             case MotionEvent.ACTION_MOVE:
                 touchMove(x, y);
-                invalidate();
                 break;
             case MotionEvent.ACTION_UP:
                 touchUp();
-                invalidate();
                 break;
+            default:
+                return true;
         }
+        invalidate();
         return true;
     }
 }
