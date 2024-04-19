@@ -7,14 +7,16 @@
     <color name="dark_signatures">#ff6d6f70</color>
     <color name="dark_inscriptions">#ff888b91</color>
     <color name="dark_accents">#6796D5</color>
+    <color name="dark_mini_accents">#A9C7EF</color>
 
-    <color name="light_background">#fff5f7f9</color>
-    <color name="light_text_color">#ff000000</color>
+    <color name="light_background">#E6E8EA</color>
+    <color name="light_text_color">#141414</color>
     <color name="light_info_icons">#ffbec2c5</color>
     <color name="light_standard_icons">#ffa2a6ac</color>
     <color name="light_signatures">#ff888b91</color>
     <color name="light_inscriptions">#ff6d6f70</color>
     <color name="light_accents">#89BEFF</color>
+    <color name="light_mini_accents">#A9C7EF</color>
 
     <color name="void0">#00FFFFFF</color>
 

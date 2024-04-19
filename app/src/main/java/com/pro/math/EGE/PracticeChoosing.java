@@ -18,7 +18,6 @@ public class PracticeChoosing extends MyAppCompatActivity {
     }
     private void UnChooseButton(Button button) {
         button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.ButtonColor)));
-        button.setTextColor(getResources().getColor(R.color.TextColor));
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

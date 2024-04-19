@@ -22,7 +22,7 @@
     <string name="start">Начать</string>
     <string name="draft">Черновик</string>
     <string name="Undo">Отменить</string>
-    <string name="Mode">Режим</string>
+    <string name="Drawing">Рисование</string>
     <string name="about_text">Создано Ильей Поповым благодаря центру образования детей IT–CUBE, 2023–2024 учебный год.</string>
     <string name="points1">баллов</string>
     <string name="points2">балл</string>
@@ -77,4 +77,5 @@
     <string name="DropAll">Сбросить все</string>
     <string name="Clear">Очистить</string>
     <string name="Stroke">Толщина</string>
+    <string name="Moving">Смещение</string>
 </resources>

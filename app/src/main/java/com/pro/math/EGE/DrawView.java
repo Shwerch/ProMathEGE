@@ -9,53 +9,48 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-/*class Stroke {
-    public int strokeWidth;
-    public Path path;
-    public Stroke(int strokeWidth, Path path) {
-        this.strokeWidth = strokeWidth;
-        this.path = path;
-    }
-}*/
 public class DrawView extends View {
-    private static final double TOUCH_TOLERANCE = 16; // 4
-    private static final double MOVE_TOLERANCE = 1; // 1
+    private static final double TOUCH_RESPONSIVENESS = Math.pow(4,2), MOVE_RESPONSIVENESS = Math.pow(2,2);
     private static final int DEFAULT_STROKE_WIDTH = 4;
     private float touchX, touchY;
-    private boolean drawMode = true;
-    private boolean drawing = false;
-    private Path path;
-    private final Paint paint;
+    private boolean drawMode = true,drawing = false;
+    private Path myPath;
+    private final Paint myPaint;
     private static final ArrayList<Path> strokesPath = new ArrayList<>();
     private static final ArrayList<Integer> strokesWidth = new ArrayList<>();
     private int strokeWidth;
-    private Bitmap mBitmap;
-    private Canvas mCanvas;
-    private final Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
-    public void ChangeDrawMode() {
-        if (!drawing)
-            drawMode = !drawMode;
+    private Bitmap myBitmap;
+    private Canvas myCanvas;
+    private final Paint myBitmapPaint = new Paint(Paint.DITHER_FLAG);
+    public void ChangeDrawMode(Button button) {
+        if (drawing) return;
+        if (drawMode)
+            button.setText(R.string.Moving);
+        else
+            button.setText(R.string.Drawing);
+        drawMode = !drawMode;
     }
     public DrawView(Context context,@Nullable AttributeSet attrs) {
         super(context, attrs);
-        paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setDither(true);
-        paint.setColor(getResources().getColor(R.color.TextColor));
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeJoin(Paint.Join.ROUND);
-        paint.setStrokeCap(Paint.Cap.ROUND);
-        paint.setStrokeWidth(DEFAULT_STROKE_WIDTH);
-        paint.setAlpha(0xff);
+        myPaint = new Paint();
+        myPaint.setAntiAlias(true);
+        myPaint.setDither(true);
+        myPaint.setColor(getResources().getColor(R.color.TextColor));
+        myPaint.setStyle(Paint.Style.STROKE);
+        myPaint.setStrokeJoin(Paint.Join.ROUND);
+        myPaint.setStrokeCap(Paint.Cap.ROUND);
+        myPaint.setStrokeWidth(DEFAULT_STROKE_WIDTH);
+        myPaint.setAlpha(0xff);
     }
     public void init(int height, int width) {
-        mBitmap = Bitmap.createBitmap(width,height,Bitmap.Config.RGB_565);
-        mCanvas = new Canvas(mBitmap);
+        myBitmap = Bitmap.createBitmap(width,height,Bitmap.Config.RGB_565);
+        myCanvas = new Canvas(myBitmap);
         strokeWidth = DEFAULT_STROKE_WIDTH;
     }
     public void setStrokeWidth(int width) {
@@ -71,35 +66,33 @@ public class DrawView extends View {
     }
     @Override
     protected void onDraw(@NonNull Canvas canvas) {
-        //canvas.save();
-        mCanvas.drawColor(getResources().getColor(R.color.Background));
+        myCanvas.drawColor(getResources().getColor(R.color.Background));
         for (int i = 0; i < strokesPath.size();i++) {
-            paint.setStrokeWidth(strokesWidth.get(i));
-            mCanvas.drawPath(strokesPath.get(i), paint);
+            myPaint.setStrokeWidth(strokesWidth.get(i));
+            myCanvas.drawPath(strokesPath.get(i), myPaint);
         }
-        canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
-        //canvas.restore();
+        canvas.drawBitmap(myBitmap, 0, 0, myBitmapPaint);
     }
     private void touchStart(float x, float y) {
         drawing = true;
         if (drawMode) {
-            path = new Path();
-            strokesPath.add(path);
+            myPath = new Path();
+            strokesPath.add(myPath);
             strokesWidth.add(strokeWidth);
-            path.reset();
-            path.moveTo(x,y);
+            myPath.reset();
+            myPath.moveTo(x,y);
         }
         touchX = x;
         touchY = y;
     }
     private void touchMove(float x, float y) {
         final double TOLERANCE = (Math.pow(Math.abs(x - touchX),2) + Math.pow(Math.abs(y - touchY),2));
-        if (!drawMode && TOLERANCE > MOVE_TOLERANCE) {
-            for (Path path : strokesPath) {
-                path.offset(x - touchX,y - touchY);
+        if (!drawMode && TOLERANCE > MOVE_RESPONSIVENESS) {
+            for (Path myPath : strokesPath) {
+                myPath.offset(x - touchX,y - touchY);
             }
-        } else if (TOLERANCE > TOUCH_TOLERANCE) {
-            path.quadTo(touchX, touchY, (x + touchX) / 2, (y + touchY) / 2);
+        } else if (TOLERANCE > TOUCH_RESPONSIVENESS) {
+            myPath.quadTo(touchX, touchY, (x + touchX) / 2, (y + touchY) / 2);
         } else {return;}
         touchX = x;
         touchY = y;
@@ -107,7 +100,7 @@ public class DrawView extends View {
     private void touchUp() {
         drawing = false;
         if (drawMode) {
-            path.lineTo(touchX, touchY);
+            myPath.lineTo(touchX, touchY);
         }
     }
     void clearDrawing() {

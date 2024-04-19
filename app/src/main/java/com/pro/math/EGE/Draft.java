@@ -1,23 +1,19 @@
 package com.pro.math.EGE;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.material.slider.RangeSlider;
 
 public class Draft extends MyAppCompatActivity {
-    private DrawView paint;
-    private RangeSlider rangeSlider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.draft);
-        paint = findViewById(R.id.draw_view);
-        rangeSlider = findViewById(R.id.rangebar);
+        DrawView paint = findViewById(R.id.draw_view);
+        RangeSlider rangeSlider = findViewById(R.id.rangebar);
         Button Undo = findViewById(R.id.undo);
         Button Clear = findViewById(R.id.clear);
         Button Stroke = findViewById(R.id.stroke);
@@ -31,19 +27,13 @@ public class Draft extends MyAppCompatActivity {
             else
                 rangeSlider.setVisibility(View.VISIBLE);
         });
-        Mode.setOnClickListener(v -> paint.ChangeDrawMode());
+        Mode.setOnClickListener(v -> paint.ChangeDrawMode(Mode));
         super.SetSizes(new Button[] {Undo,Clear,Stroke,Mode},null);
 
         rangeSlider.setValueFrom(0);
         rangeSlider.setValueTo(100);
-        rangeSlider.setBackgroundColor(getResources().getColor(R.color.Background));
-        rangeSlider.setDrawingCacheBackgroundColor(ContextCompat.getColor(this,R.color.Background));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            rangeSlider.setOutlineSpotShadowColor(ContextCompat.getColor(this,R.color.Background));
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            rangeSlider.setOutlineAmbientShadowColor(getResources().getColor(R.color.Background));
-        }
+        rangeSlider.setMinSeparation(0.25f);
+        rangeSlider.setBackgroundColor(getResources().getColor(R.color.ButtonColor));
         rangeSlider.addOnChangeListener((slider, value, fromUser) -> paint.setStrokeWidth((int)value));
         ViewTreeObserver vto = paint.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

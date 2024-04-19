@@ -23,4 +23,5 @@
     <color name="ButtonColor" tools:ignore="MissingDefaultResource">@color/dark_info_icons</color>
     <color name="ButtonStrokeColor" tools:ignore="MissingDefaultResource">@color/dark_standard_icons</color>
     <color name="Assents" tools:ignore="MissingDefaultResource">@color/dark_accents</color>
+    <color name="MiniAssents" tools:ignore="MissingDefaultResource">@color/dark_mini_accents</color>
 </resources>
