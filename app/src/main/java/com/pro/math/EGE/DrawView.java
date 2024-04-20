@@ -11,18 +11,19 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
+
 public class DrawView extends View {
     private static final double TOUCH_RESPONSIVENESS = Math.pow(4,2), MOVE_RESPONSIVENESS = Math.pow(2,2);
     private static final int DEFAULT_STROKE_WIDTH = 4;
     public static final byte DRAW = 0,MOVE = 1;
     private float touchX, touchY;
-    //private float differenceX = 0, differenceY = 0;
     private byte drawMode = DRAW;
     private boolean working = false;
     private Path myPath;
@@ -33,10 +34,12 @@ public class DrawView extends View {
     private int strokeWidth;
     private Bitmap myBitmap;
     private Canvas myCanvas;
-    private ScaleGestureDetector scaleDetector;
+    //private ScaleGestureDetector scaleDetector;
     private float scaleFactor = 1.f;
-    //private float height, width;
+    private final Matrix matrix = new Matrix();
     private final Paint myBitmapPaint = new Paint(Paint.DITHER_FLAG);
+    private final ArrayList<float[]> eventPosition = new ArrayList<>();
+    private boolean invalidate = false;
     public boolean DrawMode(byte mode) {
         if (mode == drawMode || working) return false;
         drawMode = mode;
@@ -58,7 +61,7 @@ public class DrawView extends View {
         myBitmap = Bitmap.createBitmap(w,h,Bitmap.Config.ARGB_8888);
         myCanvas = new Canvas(myBitmap);
         strokeWidth = DEFAULT_STROKE_WIDTH;
-        scaleDetector = new ScaleGestureDetector(this.getContext(), new ScaleListener());
+        //scaleDetector = new ScaleGestureDetector(this.getContext(), new ScaleListener());
     }
     public void setStrokeWidth(int width) {
         strokeWidth = width;
@@ -82,7 +85,8 @@ public class DrawView extends View {
         //canvas.scale(scaleFactor, scaleFactor);
         canvas.drawBitmap(myBitmap, 0, 0, myBitmapPaint);
     }
-    private void touchStart(float x, float y) {
+    private void touchStart(float[] position) {
+        final float x = eventPosition[leaderPointer][0], y = eventPosition[leaderPointer][1];
         working = true;
         if (drawMode == DRAW) {
             myPath = new Path();
@@ -94,12 +98,13 @@ public class DrawView extends View {
         }
         touchX = x;
         touchY = y;
+        invalidate = true;
     }
-    private void touchMove(float x, float y) {
+    private void touchMove(float[] position) {
+        final float x = eventPosition[leaderPointer][0], y = eventPosition[leaderPointer][1];
         final double TOLERANCE = (Math.pow(Math.abs(x - touchX),2) + Math.pow(Math.abs(y - touchY),2));
         if (drawMode == MOVE && TOLERANCE > MOVE_RESPONSIVENESS) {
             final float diffX = x - touchX,diffY = y - touchY;
-
             for (Path myPath : strokesPath) {
                 myPath.offset(diffX,diffY);
             }
@@ -108,11 +113,13 @@ public class DrawView extends View {
         } else {return;}
         touchX = x;
         touchY = y;
+        invalidate = true;
     }
     private void touchUp() {
         working = false;
         if (drawMode == DRAW) {
             myPath.lineTo(touchX, touchY);
+            invalidate = true;
         }
     }
     void clearDrawing() {
@@ -123,43 +130,76 @@ public class DrawView extends View {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (drawMode == MOVE && event.getPointerCount() > 1) {
-            scaleDetector.onTouchEvent(event);
-        }
-        final float x = event.getX(0), y = event.getY(0);
+        invalidate = false;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                touchStart(x, y);
+                //eventPosition.add(new float[] {event.getX(eventPosition.size()), event.getY(eventPosition.size())});
+                touchStart(new float[] {event.getX(0),event.getY(0)});
+                break;
+            case MotionEvent.ACTION_UP:
+                for (int i = 0;i < eventPosition.size();i++) {
+                    if (!Arrays.equals(eventPosition.get(i),new float[]{event.getX(i),event.getY(i)})) {
+                        if (i == 0) {touchUp();}
+                        for (int i1 = i+1;i1 < eventPosition.size();i1++) {
+                            eventPosition.add(i1-1,eventPosition.get(i1));
+                        }
+                        eventPosition.remove(eventPosition.size()-1);
+                        break;
+                    }
+                }
+                break;
+            case MotionEvent.ACTION_DOWN:
+                touchStart(new float[] {event.getX(0),event.getY(0)});
                 break;
             case MotionEvent.ACTION_MOVE:
-                touchMove(x, y);
+                touchMove(new float[] {event.getX(0),event.getY(0)});
                 break;
             case MotionEvent.ACTION_UP:
                 touchUp();
                 break;
-            default:
-                return true;
         }
-        invalidate();
+        for (int i = 0; i < pointers && i < 2 && leaderPointer != i; i++) {
+            eventPosition[i] = new float[] {event.getX(i),event.getY(i)};
+        }
+        if (invalidate)
+            invalidate();
+        /*boolean invalidate = false;
+        if (drawMode == MOVE) {
+            scaleDetector.onTouchEvent(event);
+            invalidate = true;
+        }
+        if (event.getPointerCount() == 1) {
+            final float x = event.getX(0), y = event.getY(0);
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    touchStart(x, y);
+                    invalidate = true;
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    touchMove(x, y);
+                    invalidate = true;
+                    break;
+                case MotionEvent.ACTION_UP:
+                    touchUp();
+                    invalidate = true;
+                    break;
+            }
+        }
+        if (invalidate)
+            invalidate();*/
         return true;
     }
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-            scaleFactor = Math.max(0.1f, Math.min(scaleFactor * (1f - (1 - detector.getScaleFactor())/2f), 10.0f));
+            scaleFactor = Math.max(0.1f, Math.min(scaleFactor * (1f - (1f - detector.getScaleFactor())/15f), 10f));
             Console.L(scaleFactor+"");
-            Matrix matrix = new Matrix();
             float scale;
             for (int i = 0;i < strokesPath.size();i++) {
                 scale = scaleFactor / pathScale.get(i);
                 matrix.setScale(scale,scale);
                 pathScale.add(i,scale);
                 strokesPath.get(i).transform(matrix);
-                /*positionX = (pathPositions.get(i)[0] - centerX) * scaleFactor + centerX - pathOffsets.get(i)[0];
-                positionY = (pathPositions.get(i)[1] - centerY) * scaleFactor + centerY - pathOffsets.get(i)[1];
-                strokesPath.get(i).offset(positionX,positionY);
-                pathOffsets.get(i)[0] += positionX;
-                pathOffsets.get(i)[1] += positionY;*/
             }
             return true;
         }

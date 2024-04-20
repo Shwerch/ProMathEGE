@@ -8,7 +8,7 @@ public class Music {
     private static boolean Paused = false;
     private static boolean Playing = false;
     private static final boolean Active = false;
-    private static final int[] Music = new int[] {};
+    private static final int[] Music = new int[] {R.raw.v};
     public static void Play(Context context) {
         if (Active && !Playing) {
             mediaPlayer = MediaPlayer.create(context,Music[(int)(Math.random()*Music.length)]);
