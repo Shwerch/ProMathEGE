@@ -19,7 +19,6 @@ public class Draft extends MyAppCompatActivity {
         Button Stroke = findViewById(R.id.stroke);
         Button Draw = findViewById(R.id.draw);
         Button Move = findViewById(R.id.move);
-        Button Zoom = findViewById(R.id.zoom);
 
         final Button[] activeButton = {Draw};
         Draw.setBackgroundColor(getResources().getColor(R.color.MiniAssents));
@@ -46,14 +45,7 @@ public class Draft extends MyAppCompatActivity {
                 activeButton[0] = Move;
             }
         });
-        Zoom.setOnClickListener(v -> {
-            if (paint.DrawMode(DrawView.ZOOM)) {
-                Zoom.setBackgroundColor(getResources().getColor(R.color.MiniAssents));
-                activeButton[0].setBackgroundColor(getResources().getColor(R.color.void0));
-                activeButton[0] = Zoom;
-            }
-        });
-        super.SetSizes(new Button[] {Undo,Clear,Stroke,Draw,Move,Zoom},null);
+        super.SetSizes(new Button[] {Undo,Clear,Stroke,Draw,Move},null);
 
         rangeSlider.setValueFrom(0);
         rangeSlider.setValueTo(100);
