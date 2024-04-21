@@ -122,6 +122,7 @@ public class DrawView extends View {
             invalidate = true;
         }
     }
+
     private void zoomStart(int pointers,MotionEvent event) {
         int Id;
         zooming = true;
