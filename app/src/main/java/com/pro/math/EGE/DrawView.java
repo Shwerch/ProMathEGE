@@ -122,7 +122,6 @@ public class DrawView extends View {
             invalidate = true;
         }
     }
-
     private void zoomStart(int pointers,MotionEvent event) {
         int Id;
         zooming = true;
@@ -141,6 +140,7 @@ public class DrawView extends View {
         zoomDistance = (Math.pow(event.getX(firstIndex) - event.getX(secondIndex),2) + Math.pow(event.getY(firstIndex) - event.getY(secondIndex),2));
     }
     private void zoomMove(MotionEvent event) {
+        Console.L("zoomMove");
         int firstIndex = event.findPointerIndex(firstZoomId);
         int secondIndex = event.findPointerIndex(secondZoomId);
         double newZoomDistance = (Math.pow(event.getX(firstIndex) - event.getX(secondIndex),2) + Math.pow(event.getY(firstIndex) - event.getY(secondIndex),2));
