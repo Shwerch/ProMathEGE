@@ -21,25 +21,22 @@ public class DrawView extends View {
     private static final int DEFAULT_STROKE_WIDTH = 4;
     public static final byte DRAW = 0,MOVE = 1;
     private final int BACKGROUND = getResources().getColor(R.color.Background);
+    private int height, width;
     private float touchX, touchY;
     private byte drawMode = DRAW;
     private Path myPath = null;
     private final Paint myPaint;
     private final Paint myBitmapPaint = new Paint(Paint.DITHER_FLAG);
-    private static final ArrayList<Float> strokesScale = new ArrayList<>();
     private static final ArrayList<Path> strokesPath = new ArrayList<>();
     private static final ArrayList<Integer> strokesWidth = new ArrayList<>();
     private int strokeWidth;
     private Bitmap myBitmap;
     private Canvas myCanvas;
-    private float scaleFactor = 1;
     private final Matrix matrix = new Matrix();
     private int activeId = -1;
     private int firstZoomId, secondZoomId;
     private double zoomDistance = -1;
-    private boolean touching = false;
-    private boolean zooming = false;
-    private boolean invalidate = false;
+    private boolean touching = false, zooming = false, invalidate = false;
     public boolean DrawMode(byte mode) {
         if (mode == drawMode || touching) return false;
         drawMode = mode;
@@ -58,8 +55,10 @@ public class DrawView extends View {
         myPaint.setStrokeWidth(DEFAULT_STROKE_WIDTH);
         myPaint.setAlpha(0xff);
     }
-    public void init(int h, int w) {
-        myBitmap = Bitmap.createBitmap(w,h,Bitmap.Config.ARGB_8888);
+    public void init(int height, int width) {
+        this.height = height/2;
+        this.width = width/2;
+        myBitmap = Bitmap.createBitmap(width,height,Bitmap.Config.ARGB_8888);
         myCanvas = new Canvas(myBitmap);
         strokeWidth = DEFAULT_STROKE_WIDTH;
     }
@@ -69,7 +68,6 @@ public class DrawView extends View {
     public void undo() {
         if (!strokesPath.isEmpty()) {
             final int i = strokesPath.size() - 1;
-            strokesScale.remove(i);
             strokesPath.remove(i);
             strokesWidth.remove(i);
             invalidate();
@@ -82,13 +80,12 @@ public class DrawView extends View {
             myPaint.setStrokeWidth(strokesWidth.get(i));
             myCanvas.drawPath(strokesPath.get(i), myPaint);
         }
-        canvas.drawBitmap(myBitmap, 0, 0, myBitmapPaint);
+        canvas.drawBitmap(myBitmap, 0,0, myBitmapPaint);
     }
     private void touchStart(float x,float y) {
         touching = true;
         if (drawMode == DRAW) {
             myPath = new Path();
-            strokesScale.add(scaleFactor);
             strokesPath.add(myPath);
             strokesWidth.add(strokeWidth);
             myPath.reset();
@@ -106,7 +103,7 @@ public class DrawView extends View {
                 myPath.offset(diffX,diffY);
             }
         } else if (drawMode == DRAW && RESPONSIVENESS > TOUCH_RESPONSIVENESS) {
-            myPath.quadTo(touchX, touchY, (x + touchX) / 2, (y + touchY) / 2);
+            myPath.quadTo(touchX, touchY, x, y); //diffX / 2, diffX / 2);
         } else {
             return;
         }
@@ -121,6 +118,20 @@ public class DrawView extends View {
             myPath.lineTo(touchX, touchY);
             invalidate = true;
         }
+    }
+    private void touchFind(MotionEvent event) {
+        int Id;
+        int minId = Integer.MAX_VALUE;
+        for (int i = 0;i < event.getPointerCount();i++) {
+            Id = event.getPointerId(i);
+            if (Id != activeId)
+                minId = Integer.min(minId,Id);
+        }
+        if (touching)
+            touchUp();
+        activeId = minId;
+        final int index = event.findPointerIndex(activeId);
+        touchStart(event.getX(index),event.getY(index));
     }
     private void zoomStart(int pointers,MotionEvent event) {
         int Id;
@@ -140,18 +151,16 @@ public class DrawView extends View {
         zoomDistance = (Math.pow(event.getX(firstIndex) - event.getX(secondIndex),2) + Math.pow(event.getY(firstIndex) - event.getY(secondIndex),2));
     }
     private void zoomMove(MotionEvent event) {
-        Console.L("zoomMove");
         int firstIndex = event.findPointerIndex(firstZoomId);
         int secondIndex = event.findPointerIndex(secondZoomId);
         double newZoomDistance = (Math.pow(event.getX(firstIndex) - event.getX(secondIndex),2) + Math.pow(event.getY(firstIndex) - event.getY(secondIndex),2));
-        scaleFactor = (float) (newZoomDistance / zoomDistance);
-        scaleFactor = 1f - ((1f - scaleFactor) / 1000f);
-        Console.L(scaleFactor+"");
+        final float scaleFactor = (float) (1 - ((1 - newZoomDistance / zoomDistance) / 75));
+        final float offsetFactor = (1 - scaleFactor) * scaleFactor;
+        matrix.reset();
+        matrix.postScale(scaleFactor,scaleFactor);
         for (int i = 0;i < strokesPath.size();i++) {
-            final float newScaleFactor = scaleFactor / strokesScale.get(i);
-            matrix.postScale(newScaleFactor,newScaleFactor);
-            strokesScale.add(i,newScaleFactor);
             strokesPath.get(i).transform(matrix);
+            strokesPath.get(i).offset(offsetFactor * width,offsetFactor * height);
         }
         invalidate = true;
     }
@@ -165,72 +174,56 @@ public class DrawView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         invalidate = false;
         final int pointers = event.getPointerCount();
-        if (pointers > 2) {
-            if (touching)
-                touchUp();
-            if (zooming) {
-                zoomDistance = -1;
-                zooming = false;
-            }
-        } else if (pointers == 2 && drawMode == MOVE) {
+        if (pointers == 2 && drawMode == MOVE) {
             if (touching)
                 touchUp();
             switch (event.getActionMasked()) {
                 case MotionEvent.ACTION_POINTER_UP:
                 case MotionEvent.ACTION_POINTER_DOWN:
-                    zoomStart(pointers,event);
+                    zoomStart(pointers, event);
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    if (zoomDistance == -1) {
-                        zoomStart(pointers,event);
-                    } else {
+                    if (zoomDistance != -1) {
                         zoomMove(event);
+                    } else {
+                        zoomStart(pointers, event);
                     }
                     break;
             }
-        } else {
-            int Id;
-            final int index;
-            switch (event.getActionMasked()) {
-                case MotionEvent.ACTION_DOWN:
-                    activeId = 0;
-                    touchStart(event.getX(),event.getY());
-                    break;
-                case MotionEvent.ACTION_POINTER_DOWN:
-                    index = event.getActionIndex();
-                    Id = event.getPointerId(index);
-                    if (Id < activeId) {
-                        if (touching)
-                            touchUp();
-                        activeId = Id;
-                        touchStart(event.getX(index),event.getY(index));
-                    }
-                    break;
-                case MotionEvent.ACTION_UP:
-                    touchUp();
-                    break;
-                case MotionEvent.ACTION_POINTER_UP:
-                    if (event.getPointerId(event.getActionIndex()) == activeId) {
-                        int minId = Integer.MAX_VALUE;
-                        for (int i = 0;i < event.getPointerCount();i++) {
-                            Id = event.getPointerId(i);
-                            if (Id != activeId)
-                                minId = Integer.min(minId,Id);
-                        }
-                        if (touching)
-                            touchUp();
-                        activeId = minId;
-                        index = event.findPointerIndex(activeId);
-                        touchStart(event.getX(index),event.getY(index));
-                    }
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    if (activeId != -1) {
-                        index = event.findPointerIndex(activeId);
-                        touchMove(event.getX(index),event.getY(index));
-                        break;
-                    }
-            }
+        }
+        int Id;
+        final int index;
+        switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                activeId = 0;
+                touchStart(event.getX(),event.getY());
+                break;
+            case MotionEvent.ACTION_POINTER_DOWN:
+                index = event.getActionIndex();
+                Id = event.getPointerId(index);
+                if (Id < activeId) {
+                    if (touching)
+                        touchUp();
+                    activeId = Id;
+                    touchStart(event.getX(index),event.getY(index));
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                touchUp();
+                break;
+            case MotionEvent.ACTION_POINTER_UP:
+                if (event.getPointerId(event.getActionIndex()) == activeId) {
+                    touchFind(event);
+                }
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (activeId != -1) {
+                    index = event.findPointerIndex(activeId);
+                    touchMove(event.getX(index),event.getY(index));
+                } else {
+                    touchFind(event);
+                }
+                break;
         }
         if (invalidate)
             invalidate();
