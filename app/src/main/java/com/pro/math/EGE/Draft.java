@@ -49,8 +49,8 @@ public class Draft extends MyAppCompatActivity {
 
         rangeSlider.setValueFrom(0);
         rangeSlider.setValueTo(100);
-        rangeSlider.setMinSeparation(0.25f);
-        rangeSlider.setBackgroundColor(getResources().getColor(R.color.ButtonColor));
+        rangeSlider.setMinSeparation(0.1f);
+        rangeSlider.setBackgroundColor(getResources().getColor(R.color.MiniAssents));
         rangeSlider.addOnChangeListener((slider, value, fromUser) -> paint.setStrokeWidth((int)value));
         ViewTreeObserver vto = paint.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

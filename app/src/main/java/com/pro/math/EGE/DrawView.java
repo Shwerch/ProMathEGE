@@ -17,9 +17,9 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class DrawView extends View {
-    private static final double TOUCH_RESPONSIVENESS = Math.pow(4,2), MOVE_RESPONSIVENESS = Math.pow(2,2);
+    private static final double TOUCH_RESPONSIVENESS = Math.pow(4,2);
     private static final int DEFAULT_STROKE_WIDTH = 4;
-    public static final byte DRAW = 0,MOVE = 1;
+    public static final byte DRAW = 0, MOVE = 1;
     private final int BACKGROUND = getResources().getColor(R.color.Background);
     private int height, width;
     private float touchX, touchY;
@@ -28,7 +28,7 @@ public class DrawView extends View {
     private final Paint myPaint;
     private final Paint myBitmapPaint = new Paint(Paint.DITHER_FLAG);
     private static final ArrayList<Path> strokesPath = new ArrayList<>();
-    private static final ArrayList<Integer> strokesWidth = new ArrayList<>();
+    private static final ArrayList<Float> strokesWidth = new ArrayList<>();
     private int strokeWidth;
     private Bitmap myBitmap;
     private Canvas myCanvas;
@@ -36,7 +36,7 @@ public class DrawView extends View {
     private int activeId = -1;
     private int firstZoomId, secondZoomId;
     private double zoomDistance = -1;
-    private boolean touching = false, zooming = false, invalidate = false;
+    private boolean touching = false, invalidate = false;
     public boolean DrawMode(byte mode) {
         if (mode == drawMode || touching) return false;
         drawMode = mode;
@@ -47,8 +47,7 @@ public class DrawView extends View {
         myPaint = new Paint();
         myPaint.setAntiAlias(true);
         myPaint.setDither(true);
-        int TEXT = getResources().getColor(R.color.TextColor);
-        myPaint.setColor(TEXT);
+        myPaint.setColor(getResources().getColor(R.color.TextColor));
         myPaint.setStyle(Paint.Style.STROKE);
         myPaint.setStrokeJoin(Paint.Join.ROUND);
         myPaint.setStrokeCap(Paint.Cap.ROUND);
@@ -87,7 +86,7 @@ public class DrawView extends View {
         if (drawMode == DRAW) {
             myPath = new Path();
             strokesPath.add(myPath);
-            strokesWidth.add(strokeWidth);
+            strokesWidth.add((float) strokeWidth);
             myPath.reset();
             myPath.moveTo(x,y);
         }
@@ -98,12 +97,12 @@ public class DrawView extends View {
     private void touchMove(float x,float y) {
         final float diffX = x - touchX, diffY = y - touchY;
         final double RESPONSIVENESS = (Math.pow(diffX,2) + Math.pow(diffY,2));
-        if (drawMode == MOVE && RESPONSIVENESS > MOVE_RESPONSIVENESS) {
+        if (drawMode == MOVE) {
             for (Path myPath : strokesPath) {
                 myPath.offset(diffX,diffY);
             }
         } else if (drawMode == DRAW && RESPONSIVENESS > TOUCH_RESPONSIVENESS) {
-            myPath.quadTo(touchX, touchY, x, y); //diffX / 2, diffX / 2);
+            myPath.quadTo(touchX, touchY, (x + touchX) / 2, (y + touchY) / 2);
         } else {
             return;
         }
@@ -135,7 +134,6 @@ public class DrawView extends View {
     }
     private void zoomStart(int pointers,MotionEvent event) {
         int Id;
-        zooming = true;
         firstZoomId = Integer.MAX_VALUE;
         secondZoomId = Integer.MAX_VALUE;
         for (int i = 0;i < pointers;i++) {
@@ -153,12 +151,15 @@ public class DrawView extends View {
     private void zoomMove(MotionEvent event) {
         int firstIndex = event.findPointerIndex(firstZoomId);
         int secondIndex = event.findPointerIndex(secondZoomId);
+        if (firstIndex == -1 || secondIndex == -1)
+            return;
         double newZoomDistance = (Math.pow(event.getX(firstIndex) - event.getX(secondIndex),2) + Math.pow(event.getY(firstIndex) - event.getY(secondIndex),2));
         final float scaleFactor = (float) (1 - ((1 - newZoomDistance / zoomDistance) / 75));
         final float offsetFactor = (1 - scaleFactor) * scaleFactor;
         matrix.reset();
         matrix.postScale(scaleFactor,scaleFactor);
         for (int i = 0;i < strokesPath.size();i++) {
+            strokesWidth.set(i,strokesWidth.get(i) * scaleFactor);
             strokesPath.get(i).transform(matrix);
             strokesPath.get(i).offset(offsetFactor * width,offsetFactor * height);
         }
@@ -230,4 +231,3 @@ public class DrawView extends View {
         return true;
     }
 }
-
