@@ -22,7 +22,6 @@ public class Draft extends MyAppCompatActivity {
 
         final Button[] activeButton = {Draw};
         Draw.setBackgroundColor(getResources().getColor(R.color.MiniAssents));
-
         Undo.setOnClickListener(v -> paint.undo());
         Clear.setOnClickListener(v -> paint.clearDrawing());
         Stroke.setOnClickListener(v -> {
@@ -51,7 +50,7 @@ public class Draft extends MyAppCompatActivity {
         rangeSlider.setValueTo(100);
         rangeSlider.setMinSeparation(0.1f);
         rangeSlider.setBackgroundColor(getResources().getColor(R.color.MiniAssents));
-        rangeSlider.addOnChangeListener((slider, value, fromUser) -> paint.setStrokeWidth((int)value));
+        rangeSlider.addOnChangeListener((slider, value, fromUser) -> paint.setStrokeWidth(value));
         ViewTreeObserver vto = paint.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override

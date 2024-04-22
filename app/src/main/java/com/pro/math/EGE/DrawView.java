@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class DrawView extends View {
     private static final double TOUCH_RESPONSIVENESS = Math.pow(4,2);
-    private static final int DEFAULT_STROKE_WIDTH = 4;
+    private static final float DEFAULT_STROKE_WIDTH = 4;
     public static final byte DRAW = 0, MOVE = 1;
     private final int BACKGROUND = getResources().getColor(R.color.Background);
     private int height, width;
@@ -29,7 +29,7 @@ public class DrawView extends View {
     private final Paint myBitmapPaint = new Paint(Paint.DITHER_FLAG);
     private static final ArrayList<Path> strokesPath = new ArrayList<>();
     private static final ArrayList<Float> strokesWidth = new ArrayList<>();
-    private int strokeWidth;
+    private float strokeWidth;
     private Bitmap myBitmap;
     private Canvas myCanvas;
     private final Matrix matrix = new Matrix();
@@ -61,7 +61,7 @@ public class DrawView extends View {
         myCanvas = new Canvas(myBitmap);
         strokeWidth = DEFAULT_STROKE_WIDTH;
     }
-    public void setStrokeWidth(int width) {
+    public void setStrokeWidth(float width) {
         strokeWidth = width;
     }
     public void undo() {
@@ -86,7 +86,7 @@ public class DrawView extends View {
         if (drawMode == DRAW) {
             myPath = new Path();
             strokesPath.add(myPath);
-            strokesWidth.add((float) strokeWidth);
+            strokesWidth.add(strokeWidth);
             myPath.reset();
             myPath.moveTo(x,y);
         }
