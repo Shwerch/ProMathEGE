@@ -13,7 +13,6 @@ public class MainActivity extends MyAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startActivity(new Intent(this,Draft.class));
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);

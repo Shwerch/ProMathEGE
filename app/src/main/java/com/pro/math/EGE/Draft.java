@@ -1,13 +1,18 @@
 package com.pro.math.EGE;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.slider.RangeSlider;
 
 public class Draft extends MyAppCompatActivity {
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +24,17 @@ public class Draft extends MyAppCompatActivity {
         Button Stroke = findViewById(R.id.stroke);
         Button Draw = findViewById(R.id.draw);
         Button Move = findViewById(R.id.move);
+        TextView textView = findViewById(R.id.text);
+
+        final int Text;
+        try {
+            Text = (int) getIntent().getSerializableExtra("Text");
+        } catch (Exception e) {
+            Toast.makeText(getBaseContext(), R.string.error_whe_getting_topic, Toast.LENGTH_LONG).show();
+            startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            return;
+        }
+        textView.setText(Text);
 
         final Button[] activeButton = {Draw};
         Draw.setBackgroundColor(getResources().getColor(R.color.MiniAssents));

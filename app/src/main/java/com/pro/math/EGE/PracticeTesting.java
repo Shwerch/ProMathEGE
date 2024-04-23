@@ -9,7 +9,6 @@ import android.view.Display;
 import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +32,6 @@ public class PracticeTesting extends MyAppCompatActivity{
         final Button Solution = findViewById(R.id.solution);
         final ImageView Image = findViewById(R.id.image);
         final Button draftButton = findViewById(R.id.draftButton);
-        draftButton.setOnClickListener(l -> startActivity(new Intent(this,Draft.class)));
 
         final ArrayList<Integer> Numbers;
         try {
@@ -69,6 +67,7 @@ public class PracticeTesting extends MyAppCompatActivity{
         final Context context = this;
 
         super.SetSizes(new Button[] {MainMenu,Next,Solution},Title);
+        draftButton.setOnClickListener(l -> startActivity(new Intent(this,Draft.class).putExtra("Text",text)));
 
         Task.setText(text);
         Solution.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(solution))));

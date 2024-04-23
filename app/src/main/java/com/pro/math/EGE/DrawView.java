@@ -186,9 +186,8 @@ public class DrawView extends View {
                 case MotionEvent.ACTION_MOVE:
                     if (zoomDistance != -1) {
                         zoomMove(event);
-                    } else {
+                    } else
                         zoomStart(pointers, event);
-                    }
                     break;
             }
         }
@@ -221,9 +220,8 @@ public class DrawView extends View {
                 if (activeId != -1) {
                     index = event.findPointerIndex(activeId);
                     touchMove(event.getX(index),event.getY(index));
-                } else {
+                } else
                     touchFind(event);
-                }
                 break;
         }
         if (invalidate)
