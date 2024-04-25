@@ -2,6 +2,7 @@ package com.pro.math.EGE;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -10,10 +11,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
+
 import com.google.android.material.slider.RangeSlider;
 
 public class Draft extends MyAppCompatActivity {
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,10 +24,10 @@ public class Draft extends MyAppCompatActivity {
         DrawView paint = findViewById(R.id.draw_view);
         RangeSlider rangeSlider = findViewById(R.id.rangebar);
         ImageButton Undo = findViewById(R.id.undo);
-        Button Clear = findViewById(R.id.clear);
-        Button Stroke = findViewById(R.id.stroke);
-        Button Draw = findViewById(R.id.draw);
-        Button Move = findViewById(R.id.move);
+        ImageButton Clear = findViewById(R.id.clear);
+        ImageButton Stroke = findViewById(R.id.stroke);
+        ImageButton Draw = findViewById(R.id.draw);
+        ImageButton Move = findViewById(R.id.move);
         TextView textView = findViewById(R.id.text);
 
         final int Text;
@@ -37,8 +40,8 @@ public class Draft extends MyAppCompatActivity {
         }
         textView.setText(Text);
 
-        final Button[] activeButton = {Draw};
-        Draw.setBackgroundColor(getResources().getColor(R.color.Assents));
+        final ImageButton[] activeButton = {Draw};
+        Move.setBackgroundTintList(ContextCompat.getColorStateList(this,R.color.ButtonStrokeColor));
         Undo.setOnClickListener(v -> paint.undo());
         Clear.setOnClickListener(v -> paint.clearDrawing());
         Stroke.setOnClickListener(v -> {
@@ -49,15 +52,15 @@ public class Draft extends MyAppCompatActivity {
         });
         Draw.setOnClickListener(v -> {
             if (paint.DrawMode(DrawView.DRAW)) {
-                Draw.setBackgroundColor(getResources().getColor(R.color.Assents));
-                activeButton[0].setBackgroundColor(getResources().getColor(R.color.void0));
+                activeButton[0].setBackgroundTintList(ContextCompat.getColorStateList(this,R.color.ButtonStrokeColor));
+                Draw.setBackgroundTintList(ContextCompat.getColorStateList(this,R.color.TextColor));
                 activeButton[0] = Draw;
             }
         });
         Move.setOnClickListener(v -> {
             if (paint.DrawMode(DrawView.MOVE)) {
-                Move.setBackgroundColor(getResources().getColor(R.color.Assents));
-                activeButton[0].setBackgroundColor(getResources().getColor(R.color.void0));
+                activeButton[0].setBackgroundTintList(ContextCompat.getColorStateList(this,R.color.ButtonStrokeColor));
+                Move.setBackgroundTintList(ContextCompat.getColorStateList(this,R.color.TextColor));
                 activeButton[0] = Move;
             }
         });
@@ -66,7 +69,9 @@ public class Draft extends MyAppCompatActivity {
         rangeSlider.setValueFrom(0);
         rangeSlider.setValueTo(100);
         rangeSlider.setMinSeparation(0.1f);
-        rangeSlider.setBackgroundColor(getResources().getColor(R.color.Assents));
+        rangeSlider.setBackground(getResources().getDrawable(R.drawable.round));
+        rangeSlider.setHaloRadius(35);
+        rangeSlider.setThumbRadius(25);
         rangeSlider.addOnChangeListener((slider, value, fromUser) -> paint.setStrokeWidth(value));
         ViewTreeObserver vto = paint.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

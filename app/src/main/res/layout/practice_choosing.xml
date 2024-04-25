@@ -83,7 +83,7 @@
                     android:layout_height="56dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:alpha="0.5"
+                    android:alpha="0.55"
                     android:padding="5dp"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
@@ -92,7 +92,7 @@
                     android:paddingRight="0dp"
                     android:paddingBottom="0dp"
                     android:scaleType="centerInside"
-                    android:visibility="visible" />
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/task_2"
@@ -101,14 +101,15 @@
                     android:layout_height="56dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:alpha="0.5"
+                    android:alpha="0.55"
                     android:padding="5dp"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp" />
+                    android:paddingBottom="0dp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/task_3"
@@ -117,14 +118,15 @@
                     android:layout_height="56dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:alpha="0.5"
+                    android:alpha="0.55"
                     android:padding="5dp"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp" />
+                    android:paddingBottom="0dp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/task_4"
@@ -133,14 +135,15 @@
                     android:layout_height="56dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:alpha="0.5"
+                    android:alpha="0.55"
                     android:padding="5dp"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp" />
+                    android:paddingBottom="0dp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/task_5"
@@ -149,14 +152,15 @@
                     android:layout_height="56dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:alpha="0.5"
+                    android:alpha="0.55"
                     android:padding="5dp"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp" />
+                    android:paddingBottom="0dp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/task_6"
@@ -165,14 +169,15 @@
                     android:layout_height="56dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:alpha="0.5"
+                    android:alpha="0.55"
                     android:padding="5dp"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp" />
+                    android:paddingBottom="0dp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/task_7"
@@ -181,14 +186,15 @@
                     android:layout_height="56dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:alpha="0.5"
+                    android:alpha="0.55"
                     android:padding="5dp"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp" />
+                    android:paddingBottom="0dp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/task_8"
@@ -197,14 +203,15 @@
                     android:layout_height="56dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:alpha="0.5"
+                    android:alpha="0.55"
                     android:padding="5dp"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp" />
+                    android:paddingBottom="0dp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/task_9"
@@ -213,14 +220,15 @@
                     android:layout_height="56dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:alpha="0.5"
+                    android:alpha="0.55"
                     android:padding="5dp"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp" />
+                    android:paddingBottom="0dp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/task_10"
@@ -229,14 +237,15 @@
                     android:layout_height="56dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:alpha="0.5"
+                    android:alpha="0.55"
                     android:padding="5dp"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp" />
+                    android:paddingBottom="0dp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/task_11"
@@ -245,14 +254,15 @@
                     android:layout_height="56dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:alpha="0.5"
+                    android:alpha="0.55"
                     android:padding="5dp"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp" />
+                    android:paddingBottom="0dp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/task_12"
@@ -261,14 +271,15 @@
                     android:layout_height="56dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:alpha="0.5"
+                    android:alpha="0.55"
                     android:padding="5dp"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:paddingBottom="0dp" />
+                    android:paddingBottom="0dp"
+                    android:textStyle="bold" />
             </com.google.android.flexbox.FlexboxLayout>
             <Button
                 android:id="@+id/start"

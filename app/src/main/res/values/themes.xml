@@ -24,11 +24,4 @@
     <color name="ButtonColor" tools:ignore="MissingDefaultResource">@color/light_info_icons</color>
     <color name="ButtonStrokeColor" tools:ignore="MissingDefaultResource">@color/light_standard_icons</color>
     <color name="Assents" tools:ignore="MissingDefaultResource">@color/light_accents</color>
-
-    <color name="Unchoosed" tools:ignore="MissingDefaultResource">@color/dark_unchoosed</color>
-    <color name="Choosed" tools:ignore="MissingDefaultResource">@color/light_choosed</color>
-    <color name="ChoosedStroke" tools:ignore="MissingDefaultResource">@color/light_choosed_stroke</color>
-
-    <color name="ResetAll" tools:ignore="MissingDefaultResource">@color/light_reset_all</color>
-    <color name="StartSolving" tools:ignore="MissingDefaultResource">@color/light_start_solving</color>
 </resources>

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 @SuppressLint("ResourceAsColor")
 public class PracticeChoosing extends MyAppCompatActivity {
     private void ChooseButton(Button button) { button.setAlpha(1); }
-    private void UnChooseButton(Button button) { button.setAlpha(0.5f); }
+    private void UnChooseButton(Button button) { button.setAlpha(0.55f); }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

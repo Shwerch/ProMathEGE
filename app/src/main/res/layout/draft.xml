@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:alpha="1"
     tools:context=".MainActivity">
-
-
+    
     <view
         android:id="@+id/draw_view"
         class="com.pro.math.EGE.DrawView"
@@ -25,52 +24,59 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:flexDirection="row"
+            android:layout_margin="10dp"
             app:alignContent="center"
             app:alignItems="center"
+            app:dividerDrawable="@drawable/divider"
+            app:flexDirection="row"
             app:flexWrap="nowrap"
             app:justifyContent="center"
-            app:showDivider="beginning|middle"
-            app:dividerDrawable="@drawable/divider">
+            app:showDivider="beginning|middle">
 
             <ImageButton
                 android:id="@+id/undo"
-                style="@style/InfoButtons"
-                android:layout_width="130dp"
-                android:layout_height="45dp"
-                android:contentDescription="@string/Undo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/undo"
+                android:backgroundTint="@color/TextColor"
                 android:scaleType="centerInside"
-                android:src="@drawable/undo" />
+                tools:ignore="ContentDescription" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/clear"
-                style="@style/InfoButtons"
-                android:layout_width="130dp"
-                android:layout_height="45dp"
-                android:layout_weight="0"
-                android:text="@string/Clear" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/reset"
+                android:backgroundTint="@color/TextColor"
+                android:scaleType="centerInside"
+                tools:ignore="ContentDescription" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/stroke"
-                style="@style/InfoButtons"
-                android:layout_width="130dp"
-                android:layout_height="45dp"
-                android:layout_weight="0"
-                android:text="@string/Stroke" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/line"
+                android:backgroundTint="@color/TextColor"
+                android:scaleType="centerInside"
+                tools:ignore="ContentDescription" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/draw"
-                style="@style/InfoButtons"
-                android:layout_width="130dp"
-                android:layout_height="45dp"
-                android:text="@string/Drawing" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/draw"
+                android:backgroundTint="@color/TextColor"
+                android:scaleType="centerInside"
+                tools:ignore="ContentDescription" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/move"
-                style="@style/InfoButtons"
-                android:layout_width="130dp"
-                android:layout_height="45dp"
-                android:text="@string/Moving" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/loupe"
+                android:backgroundTint="@color/TextColor"
+                android:scaleType="centerInside"
+                tools:ignore="ContentDescription" />
         </com.google.android.flexbox.FlexboxLayout>
 
         <LinearLayout
@@ -85,7 +91,8 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:foregroundGravity="center_horizontal"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                android:radius="10dp" />
 
         </LinearLayout>
 

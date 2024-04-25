@@ -41,6 +41,7 @@ public class MainActivity extends MyAppCompatActivity {
 
         Database.DefineDataBases(this);
 
+        startActivity(new Intent(this,Draft.class).putExtra("Text",R.string.Pi));
         Music.Play(this);
         Exit.setOnClickListener(v -> Close());
         About.setOnClickListener(v -> startActivity(new Intent(this,AboutApp.class)));
