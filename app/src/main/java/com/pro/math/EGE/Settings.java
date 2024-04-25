@@ -1,6 +1,9 @@
 package com.pro.math.EGE;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,11 +20,13 @@ public class Settings extends MyAppCompatActivity {
         final Button Points = findViewById(R.id.points);
         final Button ResetProgress = findViewById(R.id.reset_progress);
         final Button AddPoints = findViewById(R.id.add_points);
+        final Button Github = findViewById(R.id.github);
 
+        ResetProgress.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
         super.ChangePoints(Points);
 
         super.BackToMainMenu(MainMenu);
-        super.SetSizes(new Button[]{MainMenu,ResetProgress,AddPoints,Points},Title);
+        super.SetSizes(new Button[]{MainMenu,ResetProgress,AddPoints,Points,Github},Title);
         ResetProgress.setOnClickListener(v -> {
             Database.ResetDataBases(this);
             Database.DefineDataBases(this);
@@ -31,5 +36,6 @@ public class Settings extends MyAppCompatActivity {
             Database.ChangePoints(this,1000L);
             super.ChangePoints(Points);
         });
+        Github.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.github)))));
     }
 }

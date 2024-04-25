@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">Pro Math EGE</string>
+    <string name="github" translatable="false">https://github.com/Shwerch/ProMathEGE</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
     <string name="exit">Exit</string>
@@ -27,6 +28,7 @@
     <string name="Stroke">Stroke</string>
     <string name="Drawing">Drawing</string>
     <string name="Moving">Moving</string>
+    <string name="open_github">Project repository on Github</string>
     <string name="about_text">Created by Ilya Popov thanks to the Children\'s Education center IT–CUBE, 2023–2024 academic year.</string>
 
     <string name="rightAnswer1">The right answer!</string>

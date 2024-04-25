@@ -26,12 +26,11 @@ public class DrawView extends View {
     private byte drawMode = DRAW;
     private Path myPath = null;
     private final Paint myPaint;
-    private final Paint myBitmapPaint = new Paint(Paint.DITHER_FLAG);
-    private static final ArrayList<Path> strokesPath = new ArrayList<>();
-    private static final ArrayList<Float> strokesWidth = new ArrayList<>();
+    private static ArrayList<Path> strokesPath = new ArrayList<>();
+    private static ArrayList<Float> strokesWidth = new ArrayList<>();
+    private static ArrayList<Path> strokesPathBackup = null;
+    private static ArrayList<Float> strokesWidthBackup = null;
     private float strokeWidth;
-    private Bitmap myBitmap;
-    private Canvas myCanvas;
     private final Matrix matrix = new Matrix();
     private int activeId = -1;
     private int firstZoomId, secondZoomId;
@@ -57,8 +56,6 @@ public class DrawView extends View {
     public void init(int height, int width) {
         this.height = height/2;
         this.width = width/2;
-        myBitmap = Bitmap.createBitmap(width,height,Bitmap.Config.ARGB_8888);
-        myCanvas = new Canvas(myBitmap);
         strokeWidth = DEFAULT_STROKE_WIDTH;
     }
     public void setStrokeWidth(float width) {
@@ -69,17 +66,32 @@ public class DrawView extends View {
             final int i = strokesPath.size() - 1;
             strokesPath.remove(i);
             strokesWidth.remove(i);
-            invalidate();
-        }
+        } else if (strokesPathBackup != null) {
+            strokesPath = strokesPathBackup;
+            strokesWidth = strokesWidthBackup;
+            strokesPathBackup = null;
+            strokesWidthBackup = null;
+        } else return;
+        invalidate();
     }
+    void clearDrawing() {
+        strokesPathBackup = strokesPath;
+        strokesWidthBackup = strokesWidth;
+        strokesPath = new ArrayList<>();
+        strokesWidth = new ArrayList<>();
+        invalidate();
+    }
+    private final double e6 = Math.pow(10,6);
     @Override
     protected void onDraw(@NonNull Canvas canvas) {
-        myCanvas.drawColor(BACKGROUND);
+        long time = System.nanoTime();
+        canvas.drawColor(BACKGROUND);
         for (int i = 0; i < strokesPath.size();i++) {
             myPaint.setStrokeWidth(strokesWidth.get(i));
-            myCanvas.drawPath(strokesPath.get(i), myPaint);
+            canvas.drawPath(strokesPath.get(i),myPaint);
         }
-        canvas.drawBitmap(myBitmap, 0,0, myBitmapPaint);
+        time = System.nanoTime() - time;
+        Console.L(time/e6+"");
     }
     private void touchStart(float x,float y) {
         touching = true;
@@ -130,7 +142,8 @@ public class DrawView extends View {
             touchUp();
         activeId = minId;
         final int index = event.findPointerIndex(activeId);
-        touchStart(event.getX(index),event.getY(index));
+        if (index != -1)
+            touchStart(event.getX(index),event.getY(index));
     }
     private void zoomStart(int pointers,MotionEvent event) {
         int Id;
@@ -146,7 +159,8 @@ public class DrawView extends View {
         }
         int firstIndex = event.findPointerIndex(firstZoomId);
         int secondIndex = event.findPointerIndex(secondZoomId);
-        zoomDistance = (Math.pow(event.getX(firstIndex) - event.getX(secondIndex),2) + Math.pow(event.getY(firstIndex) - event.getY(secondIndex),2));
+        if (firstIndex != -1 && secondIndex != -1)
+            zoomDistance = (Math.pow(event.getX(firstIndex) - event.getX(secondIndex),2) + Math.pow(event.getY(firstIndex) - event.getY(secondIndex),2));
     }
     private void zoomMove(MotionEvent event) {
         int firstIndex = event.findPointerIndex(firstZoomId);
@@ -164,11 +178,6 @@ public class DrawView extends View {
             strokesPath.get(i).offset(offsetFactor * width,offsetFactor * height);
         }
         invalidate = true;
-    }
-    void clearDrawing() {
-        strokesPath.clear();
-        strokesWidth.clear();
-        invalidate();
     }
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -217,10 +226,15 @@ public class DrawView extends View {
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
+                boolean findNeeded = true;
                 if (activeId != -1) {
                     index = event.findPointerIndex(activeId);
-                    touchMove(event.getX(index),event.getY(index));
-                } else
+                    if (index != -1) {
+                        touchMove(event.getX(index), event.getY(index));
+                        findNeeded = false;
+                    }
+                }
+                if (findNeeded)
                     touchFind(event);
                 break;
         }

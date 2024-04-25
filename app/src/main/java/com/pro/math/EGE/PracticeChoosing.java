@@ -30,6 +30,14 @@ public class PracticeChoosing extends MyAppCompatActivity {
         button.setTextColor(ColorStateList.valueOf(getResources().getColor(R.color.TextColor)));
         button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.MainButtonColor)));
     }
+    private void ChangeStartButton() {
+        if (Numbers[0].isEmpty())
+            StartButton.setAlpha(0.55f);
+        else
+            StartButton.setAlpha(1);
+    }
+    private final ArrayList<Integer>[] Numbers = new ArrayList[] {new ArrayList<>()};
+    private Button StartButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +62,11 @@ public class PracticeChoosing extends MyAppCompatActivity {
         };
         final TextView Title = findViewById(R.id.title);
 
-        final ArrayList<Integer>[] Numbers = new ArrayList[] {new ArrayList<>()};
-
+        StartButton = Start;
+        ChangeStartButton();
+        for (Button button : Tasks) {
+            UnChooseButton(button);
+        }
         for (int i = 0; i < Tasks.length;i++) {
             final Integer[] I = new Integer[] {i,i+1};
             Tasks[i].setText(String.valueOf(I[1]));
@@ -71,6 +82,7 @@ public class PracticeChoosing extends MyAppCompatActivity {
                     SelectAll.setText(R.string.SelectAll);
                 else
                     SelectAll.setText(R.string.DropAll);
+                ChangeStartButton();
             });
         }
         Start.setOnClickListener(v -> {
@@ -93,6 +105,7 @@ public class PracticeChoosing extends MyAppCompatActivity {
                 }
                 SelectAll.setText(R.string.SelectAll);
             }
+            ChangeStartButton();
         });
 
         Button[] buttons = new Button[Tasks.length+3];

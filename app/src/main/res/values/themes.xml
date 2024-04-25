@@ -15,8 +15,6 @@
     </style>
     <style name="Theme.MyApplication" parent="Base.Theme.MyApplication" />
 
-    <bool name="LightTheme">true</bool>
-
     <color name="Background">@color/light_background</color>
     <color name="TextColor">@color/light_text_color</color>
     <color name="MainButtonColor" tools:ignore="MissingDefaultResource">@color/light_standard_icons</color>
@@ -25,4 +23,5 @@
     <color name="ButtonStrokeColor" tools:ignore="MissingDefaultResource">@color/light_standard_icons</color>
     <color name="Assents" tools:ignore="MissingDefaultResource">@color/light_accents</color>
     <color name="TranslucentAssents" tools:ignore="MissingDefaultResource">@color/light_translucent_accents</color>
+    <color name="ElementBackground" tools:ignore="MissingDefaultResource">@color/light_element_background</color>
 </resources>

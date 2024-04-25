@@ -13,8 +13,7 @@
         <item name="android:windowBackground">@color/dark_background</item>
         <item name="android:navigationIcon">@color/dark_background</item>
     </style>
-
-    <bool name="LightTheme">true</bool>
+    <style name="Theme.MyApplication" parent="Base.Theme.MyApplication" />
 
     <color name="Background">@color/dark_background</color>
     <color name="TextColor">@color/dark_text_color</color>
@@ -24,4 +23,5 @@
     <color name="ButtonStrokeColor" tools:ignore="MissingDefaultResource">@color/dark_standard_icons</color>
     <color name="Assents" tools:ignore="MissingDefaultResource">@color/dark_accents</color>
     <color name="TranslucentAssents" tools:ignore="MissingDefaultResource">@color/dark_translucent_accents</color>
+    <color name="ElementBackground" tools:ignore="MissingDefaultResource">@color/dark_element_background</color>
 </resources>

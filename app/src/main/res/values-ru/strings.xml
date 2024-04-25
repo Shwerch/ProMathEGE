@@ -79,4 +79,5 @@
     <string name="Stroke">Толщина</string>
     <string name="Moving">Смещение</string>
     <string name="Zooming">Масштаб</string>
+    <string name="open_github">Репозиторий проекта на Github</string>
 </resources>

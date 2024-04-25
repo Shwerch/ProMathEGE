@@ -71,7 +71,14 @@
             android:orientation="vertical"
             android:scrollbars="vertical">
 
-
+            <Button
+                android:id="@+id/github"
+                style="@style/Buttons"
+                android:layout_width="300dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:text="@string/open_github"
+                android:textSize="16sp" />
             <Button
                 android:id="@+id/reset_progress"
                 style="@style/Buttons"

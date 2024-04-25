@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:alpha="1"
     tools:context=".MainActivity">
-    
+
     <view
         android:id="@+id/draw_view"
         class="com.pro.math.EGE.DrawView"
@@ -25,18 +25,19 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
+            android:background="@drawable/round"
+            android:padding="7dp"
             app:alignContent="center"
             app:alignItems="center"
-            app:dividerDrawable="@drawable/divider"
             app:flexDirection="row"
             app:flexWrap="nowrap"
-            app:justifyContent="center"
-            app:showDivider="beginning|middle">
+            app:justifyContent="center">
 
             <ImageButton
                 android:id="@+id/undo"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_margin="3dp"
                 android:background="@drawable/undo"
                 android:backgroundTint="@color/TextColor"
                 android:scaleType="centerInside"
@@ -46,6 +47,7 @@
                 android:id="@+id/clear"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_margin="3dp"
                 android:background="@drawable/reset"
                 android:backgroundTint="@color/TextColor"
                 android:scaleType="centerInside"
@@ -55,6 +57,7 @@
                 android:id="@+id/stroke"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_margin="3dp"
                 android:background="@drawable/line"
                 android:backgroundTint="@color/TextColor"
                 android:scaleType="centerInside"
@@ -64,6 +67,7 @@
                 android:id="@+id/draw"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_margin="3dp"
                 android:background="@drawable/draw"
                 android:backgroundTint="@color/TextColor"
                 android:scaleType="centerInside"
@@ -73,6 +77,7 @@
                 android:id="@+id/move"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_margin="3dp"
                 android:background="@drawable/loupe"
                 android:backgroundTint="@color/TextColor"
                 android:scaleType="centerInside"
@@ -100,13 +105,17 @@
 
     <TextView
         android:id="@+id/text"
+        style="@style/Text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
+        android:background="@drawable/round"
         android:gravity="bottom|center"
+        android:padding="7dp"
         android:textAppearance="@style/Text"
         android:textCursorDrawable="@color/Assents"
-        android:textSize="16sp">
+        android:textSize="14sp">
 
     </TextView>
 
