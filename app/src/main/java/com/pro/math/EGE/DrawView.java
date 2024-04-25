@@ -81,17 +81,13 @@ public class DrawView extends View {
         strokesWidth = new ArrayList<>();
         invalidate();
     }
-    private final double e6 = Math.pow(10,6);
     @Override
     protected void onDraw(@NonNull Canvas canvas) {
-        long time = System.nanoTime();
         canvas.drawColor(BACKGROUND);
         for (int i = 0; i < strokesPath.size();i++) {
             myPaint.setStrokeWidth(strokesWidth.get(i));
             canvas.drawPath(strokesPath.get(i),myPaint);
         }
-        time = System.nanoTime() - time;
-        Console.L(time/e6+"");
     }
     private void touchStart(float x,float y) {
         touching = true;
