@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -32,8 +33,10 @@ public class MyAppCompatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setNavigationBarColor(getResources().getColor(R.color.Background));
-        getWindow().setStatusBarColor(getResources().getColor(R.color.Background));
+        Window window = getWindow();
+        window.requestFeature(Window.FEATURE_NO_TITLE);
+        window.setNavigationBarColor(getResources().getColor(R.color.Background));
+        window.setStatusBarColor(getResources().getColor(R.color.Background));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN,R.anim.fadein,R.anim.fadeout);
             overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE,R.anim.fadeout,R.anim.fadein);

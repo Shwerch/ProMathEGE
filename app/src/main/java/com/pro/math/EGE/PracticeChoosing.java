@@ -30,14 +30,9 @@ public class PracticeChoosing extends MyAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.practice_choosing);
 
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-
         final Button MainMenu = findViewById(R.id.mainmenu);
         final Button Start = findViewById(R.id.start);
         final Button SelectAll = findViewById(R.id.select_all);
-        final GridLayout GridLayout = findViewById(R.id.gridlayout);
         final Button[] Tasks = new Button[] {
                 findViewById(R.id.task_1),
                 findViewById(R.id.task_2),
@@ -53,7 +48,6 @@ public class PracticeChoosing extends MyAppCompatActivity {
                 findViewById(R.id.task_12),
         };
         final TextView Title = findViewById(R.id.title);
-        GridLayout.setColumnCount((int)(size.x/TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,60,getResources().getDisplayMetrics())));
 
         final ArrayList<Integer>[] Numbers = new ArrayList[] {new ArrayList<>()};
 

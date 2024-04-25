@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +20,7 @@ public class Draft extends MyAppCompatActivity {
         setContentView(R.layout.draft);
         DrawView paint = findViewById(R.id.draw_view);
         RangeSlider rangeSlider = findViewById(R.id.rangebar);
-        Button Undo = findViewById(R.id.undo);
+        ImageButton Undo = findViewById(R.id.undo);
         Button Clear = findViewById(R.id.clear);
         Button Stroke = findViewById(R.id.stroke);
         Button Draw = findViewById(R.id.draw);
@@ -60,7 +61,7 @@ public class Draft extends MyAppCompatActivity {
                 activeButton[0] = Move;
             }
         });
-        super.SetSizes(new Button[] {Undo,Clear,Stroke,Draw,Move},null);
+        super.SetSizes(new Button[] {},null);
 
         rangeSlider.setValueFrom(0);
         rangeSlider.setValueTo(100);

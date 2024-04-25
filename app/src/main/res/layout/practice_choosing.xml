@@ -67,14 +67,14 @@
                 android:layout_height="55dp"
                 android:text="@string/SelectAll"/>
 
-            <GridLayout
-                android:id="@+id/gridlayout"
+            <com.google.android.flexbox.FlexboxLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:columnCount="6"
-                android:foregroundGravity="center"
-                tools:ignore="UselessParent">
+                app:alignContent="center"
+                app:alignItems="center"
+                app:flexWrap="wrap"
+                app:justifyContent="center">
 
                 <Button
                     android:id="@+id/task_1"
@@ -83,7 +83,6 @@
                     android:layout_height="56dp"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:adjustViewBounds="true"
                     android:padding="5dp"
                     android:paddingStart="0dp"
                     android:paddingLeft="0dp"
@@ -257,7 +256,7 @@
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
                     android:paddingBottom="0dp" />
-            </GridLayout>
+            </com.google.android.flexbox.FlexboxLayout>
             <Button
                 android:id="@+id/start"
                 android:text="@string/start"

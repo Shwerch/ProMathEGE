@@ -21,24 +21,26 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
+        <com.google.android.flexbox.FlexboxLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal">
+            app:flexDirection="row"
+            app:alignContent="center"
+            app:alignItems="center"
+            app:flexWrap="nowrap"
+            app:justifyContent="center"
+            app:showDivider="beginning|middle"
+            app:dividerDrawable="@drawable/divider">
 
-            <Button
+            <ImageButton
                 android:id="@+id/undo"
-                style="@style/InfoButtons"
+                style="@style/MiniButtons"
                 android:layout_width="130dp"
                 android:layout_height="45dp"
-                android:layout_weight="0"
-                android:text="@string/Undo" />
-
-            <View
-                android:layout_width="10dp"
-                android:layout_height="0dp" />
+                android:contentDescription="@string/Undo"
+                android:scaleType="centerInside"
+                android:src="@drawable/undo" />
 
             <Button
                 android:id="@+id/clear"
@@ -48,10 +50,6 @@
                 android:layout_weight="0"
                 android:text="@string/Clear" />
 
-            <View
-                android:layout_width="10dp"
-                android:layout_height="0dp" />
-
             <Button
                 android:id="@+id/stroke"
                 style="@style/InfoButtons"
@@ -59,14 +57,6 @@
                 android:layout_height="45dp"
                 android:layout_weight="0"
                 android:text="@string/Stroke" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/draw"
@@ -75,18 +65,13 @@
                 android:layout_height="45dp"
                 android:text="@string/Drawing" />
 
-            <View
-                android:layout_width="10dp"
-                android:layout_height="0dp"
-                tools:ignore="InefficientWeight" />
-
             <Button
                 android:id="@+id/move"
                 style="@style/InfoButtons"
                 android:layout_width="130dp"
                 android:layout_height="45dp"
                 android:text="@string/Moving" />
-        </LinearLayout>
+        </com.google.android.flexbox.FlexboxLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
