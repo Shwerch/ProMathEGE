@@ -31,7 +31,7 @@ public class PracticeTesting extends MyAppCompatActivity{
         final EditText Answer = findViewById(R.id.answer);
         final Button Solution = findViewById(R.id.solution);
         final ImageView Image = findViewById(R.id.image);
-        final Button draftButton = findViewById(R.id.draftButton);
+        final Button DraftButton = findViewById(R.id.draftButton);
 
         final ArrayList<Integer> Numbers;
         try {
@@ -66,8 +66,8 @@ public class PracticeTesting extends MyAppCompatActivity{
         final boolean[] responseReceived = new boolean[] {false};
         final Context context = this;
 
-        super.SetSizes(new Button[] {MainMenu,Next,Solution},Title);
-        draftButton.setOnClickListener(l -> startActivity(new Intent(this,Draft.class).putExtra("Text",text)));
+        super.SetSizes(new Button[] {MainMenu,Next,Solution,DraftButton},Title);
+        DraftButton.setOnClickListener(l -> startActivity(new Intent(this,Draft.class).putExtra("Text",text)));
 
         Task.setText(text);
         Solution.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(solution))));

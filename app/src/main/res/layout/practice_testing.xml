@@ -135,7 +135,7 @@
 
             <Button
                 android:id="@+id/solution"
-                style="@style/InfoButtons"
+                style="@style/MainButtons"
                 android:layout_width="170dp"
                 android:layout_height="55dp"
                 android:layout_marginStart="8dp"
@@ -144,9 +144,9 @@
 
             <Button
                 android:id="@+id/draftButton"
-                style="@style/MiniButtons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Buttons"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
                 android:text="@string/draft"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -7,7 +7,11 @@
     <color name="dark_signatures">#ff6d6f70</color>
     <color name="dark_inscriptions">#ff888b91</color>
     <color name="dark_accents">#6796D5</color>
-    <color name="dark_mini_accents">#DE758EAF</color>
+    <color name="dark_reset_all">#1c1c1c</color>
+    <color name="dark_start_solving">#0065ff</color>
+    <color name="dark_unchoosed">#1c1c1c</color>
+    <color name="dark_choosed">#4770c8</color>
+    <color name="dark_choosed_stroke">#ffffff</color>
 
     <color name="light_background">#E6E8EA</color>
     <color name="light_text_color">#141414</color>
@@ -16,7 +20,11 @@
     <color name="light_signatures">#ff888b91</color>
     <color name="light_inscriptions">#ff6d6f70</color>
     <color name="light_accents">#89BEFF</color>
-    <color name="light_mini_accents">#DE758EAF</color>
+    <color name="light_reset_all">#ffffff</color>
+    <color name="light_start_solving">#92beff</color>
+    <color name="light_unchoosed">#ffffff</color>
+    <color name="light_choosed">#e4efff</color>
+    <color name="light_choosed_stroke">#2061bd</color>
 
     <color name="void0">#00FFFFFF</color>
 

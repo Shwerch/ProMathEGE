@@ -10,6 +10,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.Display;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -19,12 +20,8 @@ import java.util.ArrayList;
 
 @SuppressLint("ResourceAsColor")
 public class PracticeChoosing extends MyAppCompatActivity {
-    private void ChooseButton(Button button) {
-        button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.MiniAssents)));
-    }
-    private void UnChooseButton(Button button) {
-        button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.void0)));
-    }
+    private void ChooseButton(Button button) { button.setAlpha(1); }
+    private void UnChooseButton(Button button) { button.setAlpha(0.5f); }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

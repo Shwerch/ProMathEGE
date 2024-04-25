@@ -35,7 +35,7 @@
 
             <ImageButton
                 android:id="@+id/undo"
-                style="@style/MiniButtons"
+                style="@style/InfoButtons"
                 android:layout_width="130dp"
                 android:layout_height="45dp"
                 android:contentDescription="@string/Undo"

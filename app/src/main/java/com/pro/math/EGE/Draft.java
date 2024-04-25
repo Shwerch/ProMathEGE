@@ -38,7 +38,7 @@ public class Draft extends MyAppCompatActivity {
         textView.setText(Text);
 
         final Button[] activeButton = {Draw};
-        Draw.setBackgroundColor(getResources().getColor(R.color.MiniAssents));
+        Draw.setBackgroundColor(getResources().getColor(R.color.Assents));
         Undo.setOnClickListener(v -> paint.undo());
         Clear.setOnClickListener(v -> paint.clearDrawing());
         Stroke.setOnClickListener(v -> {
@@ -49,14 +49,14 @@ public class Draft extends MyAppCompatActivity {
         });
         Draw.setOnClickListener(v -> {
             if (paint.DrawMode(DrawView.DRAW)) {
-                Draw.setBackgroundColor(getResources().getColor(R.color.MiniAssents));
+                Draw.setBackgroundColor(getResources().getColor(R.color.Assents));
                 activeButton[0].setBackgroundColor(getResources().getColor(R.color.void0));
                 activeButton[0] = Draw;
             }
         });
         Move.setOnClickListener(v -> {
             if (paint.DrawMode(DrawView.MOVE)) {
-                Move.setBackgroundColor(getResources().getColor(R.color.MiniAssents));
+                Move.setBackgroundColor(getResources().getColor(R.color.Assents));
                 activeButton[0].setBackgroundColor(getResources().getColor(R.color.void0));
                 activeButton[0] = Move;
             }
@@ -66,7 +66,7 @@ public class Draft extends MyAppCompatActivity {
         rangeSlider.setValueFrom(0);
         rangeSlider.setValueTo(100);
         rangeSlider.setMinSeparation(0.1f);
-        rangeSlider.setBackgroundColor(getResources().getColor(R.color.MiniAssents));
+        rangeSlider.setBackgroundColor(getResources().getColor(R.color.Assents));
         rangeSlider.addOnChangeListener((slider, value, fromUser) -> paint.setStrokeWidth(value));
         ViewTreeObserver vto = paint.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
