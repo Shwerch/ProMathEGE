@@ -2,7 +2,6 @@ package com.pro.math.EGE;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -85,17 +84,6 @@ public class Draft extends MyAppCompatActivity {
         });
     }
 }
-
-/*public class Draft extends MyAppCompatActivity {
-    DrawingView drawView;
-    @Override
-    protected void onCreate(android.os.Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (drawView == null)
-            drawView = new DrawingView(this);
-        setContentView(drawView);
-    }
-}*/
 
 /*Bitmap bmp = paint.save();
                 OutputStream imageOutStream;

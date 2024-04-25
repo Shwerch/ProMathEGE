@@ -3,11 +3,13 @@ package com.pro.math.EGE;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
+import android.graphics.drawable.shapes.Shape;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
@@ -20,8 +22,14 @@ import java.util.ArrayList;
 
 @SuppressLint("ResourceAsColor")
 public class PracticeChoosing extends MyAppCompatActivity {
-    private void ChooseButton(Button button) { button.setAlpha(1); }
-    private void UnChooseButton(Button button) { button.setAlpha(0.55f); }
+    private void ChooseButton(Button button) {
+        button.setTextColor(ColorStateList.valueOf(getResources().getColor(R.color.Assents)));
+        button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.TranslucentAssents)));
+    }
+    private void UnChooseButton(Button button) {
+        button.setTextColor(ColorStateList.valueOf(getResources().getColor(R.color.TextColor)));
+        button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.MainButtonColor)));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
