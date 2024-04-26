@@ -134,8 +134,8 @@ public class Theory {
                 {"(u / y)`", "(u`y - uy`)/y²"},
                 {"(xⁿ)`", "n * xⁿ⁻¹"},
                 {"(aˣ)`", "aˣ * ln a"},
-                {"(ln a)`,1/x"},
-                {"(logₙa)`,1/(a * ln n)"}
+                {"(ln a)`","1/x"},
+                {"(logₙa)`","1/(a * ln n)"}
         };
         String[][] DerivativesOfTrigonometricFunctions = new String[][] {
                 {"(sin x)`", "cos x"},

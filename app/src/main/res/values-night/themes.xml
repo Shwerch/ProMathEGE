@@ -1,8 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">@drawable/splashscreen_logo</item>
         <item name="android:windowSplashScreenBackground" tools:targetApi="s">@color/Background</item>
-        <item name="android:windowSplashScreenAnimationDuration" tools:targetApi="s">1000</item>
+        <item name="android:windowSplashScreenAnimationDuration" tools:targetApi="s">2147483647</item>
         <item name="android:windowSplashScreenIconBackgroundColor" tools:targetApi="s">@color/Background</item>
 
         <item name="android:windowLayoutInDisplayCutoutMode" tools:ignore="NewApi">shortEdges</item>
