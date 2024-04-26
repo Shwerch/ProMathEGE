@@ -16,12 +16,10 @@ public class MainActivity extends MyAppCompatActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        if (size.x > size.y + 300) {
+        if (size.x > size.y + 300)
             setContentView(R.layout.main_menu_landscape);
-        }
-        else {
+        else
             setContentView(R.layout.main_menu_portrait);
-        }
         final Button Points = findViewById(R.id.points);
         final Button Settings = findViewById(R.id.settings);
 
