@@ -84,22 +84,3 @@ public class Draft extends MyAppCompatActivity {
         });
     }
 }
-
-/*Bitmap bmp = paint.save();
-                OutputStream imageOutStream;
-                ContentValues cv = new ContentValues();
-                cv.put(MediaStore.Images.Media.DISPLAY_NAME, "draft in Pro Math EGE.png");
-                cv.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
-                cv.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
-                Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
-                try {
-                    if (uri == null)
-                        throw new Exception();
-                    imageOutStream = getContentResolver().openOutputStream(uri);
-                    if (imageOutStream == null)
-                        throw new Exception();
-                    bmp.compress(Bitmap.CompressFormat.PNG, 100, imageOutStream);
-                    imageOutStream.close();
-                } catch (Exception e) {
-                    Console.L(Arrays.toString(e.getStackTrace()));
-                }*/

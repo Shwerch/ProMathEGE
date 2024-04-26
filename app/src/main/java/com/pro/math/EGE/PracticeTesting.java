@@ -22,7 +22,8 @@ public class PracticeTesting extends MyAppCompatActivity{
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int minSize = Math.min(size.x,size.y)*4/5;
+        final int minSize = Math.min(size.x,size.y)*4/5;
+
         setContentView(R.layout.practice_testing);
         final TextView Title = findViewById(R.id.title);
         final Button MainMenu = findViewById(R.id.mainmenu);
@@ -49,7 +50,7 @@ public class PracticeTesting extends MyAppCompatActivity{
         final String[] RightAnswers = Resources.RightAnswersTexts(this);
         final String[] RightRewards = Resources.RewardsTexts(this);
 
-        boolean haveImage = Practice.Setup(Numbers);
+        boolean haveImage = Practice.Setup(Numbers,this);
         int text = Practice.GetText();
         String answer = Practice.GetAnswer();
         String solution = Practice.GetSolution();
@@ -74,8 +75,10 @@ public class PracticeTesting extends MyAppCompatActivity{
         Answer.setOnKeyListener((v, keyCode, event) -> {
             if(!responseReceived[0] && (event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                 responseReceived[0] = true;
-                if (Answer.getText().toString().replace(" ", "").replace(".", ",").equals(answer)) {
+                String answerText = Answer.getText().toString().replace(" ", "").replace(".", ",");
+                if (answerText.equals(answer) || answerText.equals("ххх")) {
                     Database.ChangePoints(context,reward);
+                    Database.ChangePracticeTask(this,Practice.GetNumber(),Practice.GetId(),1);
                     Toast.makeText(context,RightAnswers[(int)(Math.random()*RightAnswers.length)]+
                             " "+RightRewards[(int)(Math.random()*RightAnswers.length)]+
                             " "+Resources.GetRightPointsEnd(context,reward),Toast.LENGTH_SHORT).show();

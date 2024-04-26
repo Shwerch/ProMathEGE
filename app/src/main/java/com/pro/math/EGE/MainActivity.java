@@ -34,10 +34,11 @@ public class MainActivity extends MyAppCompatActivity {
 
         final TextView Title = findViewById(R.id.title);
 
-        super.SetSizes(new Button[]{Points,Settings,Theory,Practice,Shop,Exit,About},Title);
-
         PointsButton = Points;
         Resources.Setup(this);
+        com.pro.math.EGE.Practice.Setup(this);
+
+        super.SetSizes(new Button[]{Points,Settings,Theory,Practice,Shop,Exit,About},Title);
 
         Database.DefineDataBases(this);
         startActivity(new Intent(this,Draft.class).putExtra("Text",R.string.Pi));
