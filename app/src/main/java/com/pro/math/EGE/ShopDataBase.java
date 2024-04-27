@@ -19,7 +19,7 @@ public class ShopDataBase {
         ShopSubTopicsList.add(subTopic);
         ShopVisibleText.add(Sources.SubTopicsNames(context)[Sources.GetTopic(topic)][Sources.GetSubTopic(subTopic)[1]]+" - "+ Sources.GetRightPointsEnd(context,100)+" ("+ Sources.TopicsNames(context)[Sources.GetTopic(topic)]+")");
     }
-    public static void RemoveFromShop(String topic,String subTopic) throws Exception {
+    public static void RemoveFromShop(String topic,String subTopic) {
         for (int i = 0;i < ShopSubTopicsList.size();i++) {
             if (Objects.equals(ShopTopicsList.get(i), topic) && Objects.equals(ShopSubTopicsList.get(i),subTopic)) {
                 ShopTopicsList.remove(i);
