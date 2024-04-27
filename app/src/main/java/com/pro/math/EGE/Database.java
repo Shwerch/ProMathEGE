@@ -90,7 +90,26 @@ public class Database {
     public static ArrayList<String> GetAvailableSubTopics(Context context, String topic) {
         ArrayList<String> arrayList = new ArrayList<>();
         SQLiteDatabase database = context.getApplicationContext().openOrCreateDatabase(DATABASE, MODE_PRIVATE, null);
-
+        Cursor query = database.rawQuery("SELECT topicId FROM TheoryTopics WHERE topic = '"+topic+"';",null);
+        int topicId = -1;
+        if (query.moveToFirst()) {
+            if (query.isFirst() && query.isFirst()) {
+                topicId = query.getInt(0);
+            }
+        }
+        query.close();
+        if (topicId != -1) {
+            query = database.rawQuery("SELECT * FROM TheoryAvailability WHERE topicId = "+topicId+" AND availability = 1;",null);
+            if (query.moveToFirst()) {
+                do {
+                    arrayList.add(query.getString(1));
+                } while (query.isLast());
+            } else
+                Console.L("Error with topicId = "+topicId+" and availability = 1 in TheoryAvailability");
+            query.close();
+        } else
+            Console.L("Error with topic = '"+topic+"' in TheoryTopics");
+        return arrayList;
     }
     public static boolean BuySubTopic(Context context, String topic, String subTopic) {
         boolean success = false;

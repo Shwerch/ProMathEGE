@@ -14,8 +14,9 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Shop extends MyAppCompatActivity {
-    private void BuyEnded() {
-        startActivity(new Intent(this,Shop.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+    private ListView List;
+    private void SetupList() {
+        List.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Database.GetShop(this).toArray()));
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +31,13 @@ public class Shop extends MyAppCompatActivity {
 
         super.ChangePoints(Points);
 
-        ListView List = findViewById(R.id.list);
-        List.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Database.GetShop(this).toArray()));
+        List = findViewById(R.id.list);
+        SetupList();
         List.setOnItemClickListener((parent, view, position, id) -> {
             String[] attributes = Database.ShopAttributes.get(position);
             if (Database.BuySubTopic(this,attributes[0],attributes[1])) {
                 Toast.makeText(this,getResources().getString(R.string.successful_purchase),Toast.LENGTH_SHORT).show();
-                BuyEnded();
+                SetupList();
             } else
                 Toast.makeText(this,getResources().getString(R.string.not_enough_points),Toast.LENGTH_SHORT).show();
         });

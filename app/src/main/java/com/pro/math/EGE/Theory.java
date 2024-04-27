@@ -212,13 +212,8 @@ public class Theory {
         Collections.shuffle(IntegerList);
         return IntegerList;
     }
-    public static void Setup(String Topic) {
-        ArrayList<String> AvailableChapters = new ArrayList<>();
-        for (Map.Entry<String, Boolean> entry : Database.GetFormulasAvailability().get(Topic).entrySet()) {
-            if (entry.getValue()) {
-                AvailableChapters.add(entry.getKey());
-            }
-        }
+    public static void Setup(Context context,String Topic) {
+        ArrayList<String> AvailableChapters = Database.GetAvailableSubTopics(context,Topic);
         SubTopic = AvailableChapters.get((int)(Math.random()*AvailableChapters.size()));
         String[][] formulas = Formulas.get(Topic).get(SubTopic);
         int RandomQuestion = (int)(Math.random() * formulas.length);
