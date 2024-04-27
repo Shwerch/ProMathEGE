@@ -81,10 +81,10 @@ public class Theory {
                 {"q", "bₙ / bₙ₋₁"},
                 {"Sₙ", "(b₁ - bₙ₊₁)/(1 - q)", "b₁ * (1 - qⁿ)/(1 - q)"},
         };
-        AddFormulas(Resources.Topics[0],"ShortMultiplicationFormulas",ShortMultiplicationFormulas,true,20);
-        AddFormulas(Resources.Topics[0],"DegreesFormulas",Degrees,true,20);
-        AddFormulas(Resources.Topics[0],"ArithmeticProgression",ArithmeticProgression,false,40);
-        AddFormulas(Resources.Topics[0],"GeometricProgression",GeometricProgression,false,40);
+        AddFormulas(Sources.Topics[0],"ShortMultiplicationFormulas",ShortMultiplicationFormulas,true,20);
+        AddFormulas(Sources.Topics[0],"DegreesFormulas",Degrees,true,20);
+        AddFormulas(Sources.Topics[0],"ArithmeticProgression",ArithmeticProgression,false,40);
+        AddFormulas(Sources.Topics[0],"GeometricProgression",GeometricProgression,false,40);
 
         String[][] Triangle = new String[][] {
                 {"S", "0.5*h*a", "0.5*b*c*sin(α)", "√(p(p - a)(p - b)(p - c))", "p*r"},
@@ -105,9 +105,9 @@ public class Theory {
                 {"d1", "2S/d2",},
                 {"d2", "2S/d1",},
         };
-        AddFormulas(Resources.Topics[1],"Triangle",Triangle,true,40);
-        AddFormulas(Resources.Topics[1],"RectangularTriangle",RectangularTriangle,false,40);
-        AddFormulas(Resources.Topics[1],"Rhomb",Rhomb,false,40);
+        AddFormulas(Sources.Topics[1],"Triangle",Triangle,true,40);
+        AddFormulas(Sources.Topics[1],"RectangularTriangle",RectangularTriangle,false,40);
+        AddFormulas(Sources.Topics[1],"Rhomb",Rhomb,false,40);
 
         String[][] RectangularParallelepiped = new String[][] {
                 {"V", "abc"},
@@ -122,8 +122,8 @@ public class Theory {
                 {"Sбок", "4a²"},
                 {"d", "√(3a²)"},
         };
-        AddFormulas(Resources.Topics[3],"RectangularParallelepiped",RectangularParallelepiped,true,40);
-        AddFormulas(Resources.Topics[3],"Cube",Cube,false,40);
+        AddFormulas(Sources.Topics[3],"RectangularParallelepiped",RectangularParallelepiped,true,40);
+        AddFormulas(Sources.Topics[3],"Cube",Cube,false,40);
 
         String[][] DerivativesOfFunctions = new String[][] {
                 {"f`(x)","k","tg(α)"},
@@ -147,8 +147,8 @@ public class Theory {
                 {"(arctg x)`", "1/(1+x²)"},
                 {"(arcctg x)`", "-1/(1+x²)"},
         };
-        AddFormulas(Resources.Topics[5],"DerivativesOfFunctions",DerivativesOfFunctions,true,40);
-        AddFormulas(Resources.Topics[5],"DerivativesOfTrigonometricFunctions",DerivativesOfTrigonometricFunctions,false,40);
+        AddFormulas(Sources.Topics[5],"DerivativesOfFunctions",DerivativesOfFunctions,true,40);
+        AddFormulas(Sources.Topics[5],"DerivativesOfTrigonometricFunctions",DerivativesOfTrigonometricFunctions,false,40);
 
         String[][] Logarithms = new String[][] {
                 {"lg m","log₁₀m"},
@@ -164,8 +164,8 @@ public class Theory {
                 {"logₙ1","0"},
                 {"logₙn","1"},
         };
-        AddFormulas(Resources.Topics[6],"LogarithmsExpressions",Logarithms,true,40);
-        AddFormulas(Resources.Topics[6],"LogarithmsConversion",LogarithmsConversion,false,40);
+        AddFormulas(Sources.Topics[6],"LogarithmsExpressions",Logarithms,true,40);
+        AddFormulas(Sources.Topics[6],"LogarithmsConversion",LogarithmsConversion,false,40);
 
         String[][] BasicTrigonometricFunctions = new String[][] {
                 {"sin²(x) + cos²(x)","1"},
@@ -200,9 +200,9 @@ public class Theory {
                 {"√3/2","sin(π/3)","cos(π/6)","sin(2π/3)","cos(11π/6)"},
                 {"1","sin(π/2)","cos(0)"},
         };
-        AddFormulas(Resources.Topics[7],"BasicTrigonometricFunctions",BasicTrigonometricFunctions,true,40);
-        AddFormulas(Resources.Topics[7],"InverseTrigonometricFunctions",InverseTrigonometricFunctions,false,40);
-        AddFormulas(Resources.Topics[7],"TabularValuesOfTrigonometricFunctions",TabularValuesOfTrigonometricFunctions,false,80);
+        AddFormulas(Sources.Topics[7],"BasicTrigonometricFunctions",BasicTrigonometricFunctions,true,40);
+        AddFormulas(Sources.Topics[7],"InverseTrigonometricFunctions",InverseTrigonometricFunctions,false,40);
+        AddFormulas(Sources.Topics[7],"TabularValuesOfTrigonometricFunctions",TabularValuesOfTrigonometricFunctions,false,80);
     }
     private static List<Integer> GetRandomArrayList(int start, int length) {
         List<Integer> IntegerList = new ArrayList<>(length);
@@ -293,9 +293,8 @@ public class Theory {
         return QuestionAndAnswers;
     }
     public static String GetSubTopic(Context context) {
-        Console.L(SubTopic,context.getClass().getName(),"Theory");
-        int[] indexes = Resources.GetSubTopic(SubTopic);
-        return Resources.SubTopicsNames(context)[indexes[0]][indexes[1]];
+        int[] indexes = Sources.GetSubTopic(SubTopic);
+        return Sources.SubTopicsNames(context)[indexes[0]][indexes[1]];
     }
     public static int[] GetCorrectAnswers() {
         return CorrectAnswers;

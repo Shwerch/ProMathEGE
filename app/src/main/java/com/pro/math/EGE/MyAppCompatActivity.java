@@ -25,7 +25,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
         if (points == -1)
             button.setText(getString(R.string.undefined_points));
         else
-            button.setText(Resources.GetRightPointsEnd(this,points));
+            button.setText(Sources.GetRightPointsEnd(this,points));
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

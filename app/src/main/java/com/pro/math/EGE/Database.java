@@ -7,17 +7,112 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.Objects;
-import java.util.TreeMap;
 
 public class Database {
-    private static final String Class = "Database";
     private static final String DATABASE = "Storage";
-    private static final String CURRENCIES = "Currencies";
-    private static final String PRACTICETASKS = "PracticeTasks";
     private static boolean defined = false;
-    private static TreeMap<String,TreeMap<String,Boolean>> FormulasAvailability;
-    public static TreeMap<String,TreeMap<String,Boolean>> GetFormulasAvailability() { return FormulasAvailability; }
-    private static void SetFormulasAvailability() {
+    public static void DefineDataBase(Context context) {
+        if (defined) return;
+        SQLiteDatabase database = context.openOrCreateDatabase(DATABASE,MODE_PRIVATE,null);
+
+        Cursor query;
+        database.execSQL("CREATE TABLE IF NOT EXISTS System (id TEXT PRIMARY KEY, value INT)");
+        database.execSQL("INSERT OR IGNORE INTO Currencies VALUES ('DataBaseDefined',0);");
+        query = database.rawQuery("SELECT value FROM System WHERE id = 'DataBaseDefined';", null);
+        if (query.moveToFirst()) {
+            if (query.isLast() && query.isFirst()) {
+                if (query.getInt(0) == 1)
+                    defined = true;
+                else
+                    database.execSQL("UPDATE System SET value = 1 WHERE id = 'DataBaseDefined'");
+            }
+        }
+        query.close();
+        if (defined) return;
+
+        database.execSQL("CREATE TABLE IF NOT EXISTS Currencies (id INT PRIMARY KEY, value LONG)");
+        database.execSQL("INSERT OR IGNORE INTO Currencies VALUES (0,0);");
+
+        database.execSQL("CREATE TABLE IF NOT EXISTS TheoryTopics (topicId INT PRIMARY KEY, topic TEXT)");
+        database.execSQL("CREATE TABLE IF NOT EXISTS TheoryAvailability (topicId INT PRIMARY KEY, subTopic TEXT PRIMARY KEY, availability BIT)");
+
+        database.execSQL("CREATE TABLE IF NOT EXISTS PracticeSolutions (number INT PRIMARY KEY, taskId INT PRIMARY KEY, solutions INT)");
+
+        for (int i = 0;i < Sources.Topics.length;i++) {
+            String topic = Sources.Topics[i];
+            database.execSQL("INSERT OR IGNORE INTO TheoryTopics VALUES ("+i+","+topic+");");
+            for (String subTopic : Sources.SubTopics[i]) {
+                int availability = (Boolean.TRUE.equals(Objects.requireNonNull(Theory.FormulasAvailability.get(topic)).get(subTopic)) ? 1 : 0);
+                database.execSQL("INSERT OR IGNORE INTO TheoryAvailability VALUES ("+i+","+subTopic+","+availability+");");
+                query = database.rawQuery("SELECT availability FROM TheoryAvailability WHERE topicId = "+i+" AND subTopic = '"+subTopic+"';", null);
+                boolean queryRight = false;
+                if (query.moveToFirst()) {
+                    if (query.isFirst() && query.isLast()) {
+                        queryRight = true;
+                        if (query.getInt(0) == 1)
+                            ShopDataBase.AddToShop(context, topic, subTopic);
+                    }
+                } if (!queryRight)
+                    Console.L("Error with topicId = "+i+" and topicId = '"+subTopic+"' in TheoryAvailability");
+                query.close();
+            }
+        }
+
+        for (int i = 0;i < Practice.TaskId.length;i++) {
+            for (int k : Practice.TaskId[i]) {
+                database.execSQL("INSERT OR IGNORE INTO PracticeSolutions VALUES ("+i+","+k+",0);");
+            }
+        }
+    }
+    public static void ResetDataBases(Context context) {
+        context.deleteDatabase(DATABASE);
+        DefineDataBase(context);
+    }
+    public static void ChangePracticeTask(Context context,int number,int Id,int difference) {
+        SQLiteDatabase database = context.openOrCreateDatabase(DATABASE,MODE_PRIVATE,null);
+        Cursor query = database.rawQuery("SELECT solutions FROM PracticeSolutions WHERE number = "+number+" AND taskId = "+Id+";", null);
+        int solutions = -1;
+        if (query.moveToFirst()) {
+            if (query.isFirst() && query.isLast()) {
+                solutions = query.getInt(0);
+            }
+        } if (solutions != -1)
+            database.execSQL("UPDATE PracticeSolutions SET solutions = "+(solutions + difference)+" WHERE number = "+number+" AND taskId = "+Id+";");
+        else
+            Console.L("Error with number = "+number+" and taskId = "+Id+" in PracticeSolutions");
+        query.close();
+
+        /*SQLiteDatabase db = null;
+        Cursor query = null;
+        try {
+            db = context.getApplicationContext().openOrCreateDatabase(DATABASE, MODE_PRIVATE, null);
+            db.execSQL("CREATE TABLE IF NOT EXISTS "+PRACTICETASKS+"_"+Number+" (id INT PRIMARY KEY, count INT)");
+            query = db.rawQuery("SELECT * FROM "+PRACTICETASKS+"_"+Number+" WHERE id = "+Id+";", null);
+            if (query.moveToFirst()) {
+                int count = query.getInt(1);
+                db.execSQL("UPDATE "+PRACTICETASKS+"_"+Number+" SET count = "+(count+difference)+" WHERE id = "+Id+";");
+            }
+        } catch (Exception e) {
+            Console.L("SetupPracticeTask: "+e,context.getClass().getName(),Class);
+        }
+        try { Objects.requireNonNull(query).close(); Objects.requireNonNull(db).close(); } catch (Exception ignored) {}*/
+    }
+    /*
+    public static void SetupPracticeTask(Context context,int Number,int Id) {
+        if (!defined)
+            DefineDataBases(context);
+        SQLiteDatabase db = null;
+        try {
+            db = context.getApplicationContext().openOrCreateDatabase(DATABASE, MODE_PRIVATE, null);
+            db.execSQL("CREATE TABLE IF NOT EXISTS "+PRACTICETASKS+"_"+Number+" (id INT PRIMARY KEY, count INT)");
+            db.execSQL("INSERT OR IGNORE INTO "+PRACTICETASKS+"_"+Number+" VALUES ("+Id+",0);");
+        } catch (Exception e) {
+            Console.L("SetupPracticeTask: "+e,context.getClass().getName(),Class);
+        }
+        try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
+    }
+
+    public static void DefineDataBases(Context context) {
         FormulasAvailability = new TreeMap<>();
         for (int i = 0;i < Resources.Topics.length;i++) {
             String topic = Resources.Topics[i];
@@ -26,9 +121,6 @@ public class Database {
                 FormulasAvailability.get(topic).put(subTopic,Theory.FormulasAvailability.get(topic).get(subTopic));
             }
         }
-    }
-    public static void DefineDataBases(Context context) {
-        SetFormulasAvailability();
         ShopDataBase.ResetShop();
         SQLiteDatabase db = null;
         Cursor query = null;
@@ -76,19 +168,7 @@ public class Database {
             Console.L("ResetDataBases: "+e,context.getClass().getName(),Class);
         }
     }
-    public static void SetupPracticeTask(Context context,int Number,int Id) {
-        if (!defined)
-            DefineDataBases(context);
-        SQLiteDatabase db = null;
-        try {
-            db = context.getApplicationContext().openOrCreateDatabase(DATABASE, MODE_PRIVATE, null);
-            db.execSQL("CREATE TABLE IF NOT EXISTS "+PRACTICETASKS+"_"+Number+" (id INT PRIMARY KEY, count INT)");
-            db.execSQL("INSERT OR IGNORE INTO "+PRACTICETASKS+"_"+Number+" VALUES ("+Id+",0);");
-        } catch (Exception e) {
-            Console.L("SetupPracticeTask: "+e,context.getClass().getName(),Class);
-        }
-        try { Objects.requireNonNull(db).close(); } catch (Exception ignored) {}
-    }
+
     public static void ChangePracticeTask(Context context,int Number,int Id,int difference) {
         if (!defined)
             DefineDataBases(context);
@@ -189,5 +269,5 @@ public class Database {
             Console.L("GetPoints: "+e,context.getClass().getName(),Class);
             return -1;
         }
-    }
+    }*/
 }

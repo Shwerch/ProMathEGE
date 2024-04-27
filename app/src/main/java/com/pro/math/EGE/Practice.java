@@ -8,9 +8,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Practice {
-    static final byte TASKS = 19;
-    @SuppressLint("StaticFieldLeak")
-    private static Context context;
+    static final byte TASKS = 12; // 19
     static ArrayList<Integer>[] TaskId = new ArrayList[TASKS];
     static ArrayList<Integer>[] TaskText = new ArrayList[TASKS];
     static ArrayList<String>[] TaskAnswer = new ArrayList[TASKS];
@@ -23,13 +21,12 @@ public class Practice {
         TaskSolution[Number].add(Solution);
         TaskReward[Number].add(Reward);
         TaskId[Number].add(Id);
-        Database.SetupPracticeTask(context,Number,Id);
     }
     private static void Task(int Number,int Id,int Text,String Answer,String Solution,int Reward,int Image) {
         Task(Number,Id,Text,Answer,Solution,Reward);
         TaskImage[Number].add(Image);
     }
-    static void Setup(Context c) {
+    static void Setup() {
         for (int i = 0;i < TASKS;i++) {
             TaskId[i] = new ArrayList<>();
             TaskText[i] = new ArrayList<>();
@@ -38,7 +35,6 @@ public class Practice {
             TaskReward[i] = new ArrayList<>();
             TaskImage[i] = new ArrayList<>();
         }
-        context = c;
         Task(1,1,R.string.Task_1_1,"9","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=848",40);
         Task(1,2,R.string.Task_1_2,"134","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=516",40);
         Task(1,3,R.string.Task_1_3,"29","https://www.youtube.com/watch?v=XWRMLZ-c3mY&t=692",40);
@@ -133,7 +129,6 @@ public class Practice {
         Task(12,3,R.string.Task_12_3,"11","https://www.youtube.com/watch?v=EMswyNwDClM",90);
         Task(12,4,R.string.Task_12_4,"7","https://www.youtube.com/watch?v=kCgMamOd3kI",90);
         Task(12,5,R.string.Task_12_5,"−49","https://www.youtube.com/watch?v=jR6x5PmBL2I&t=2557",90);
-        context = null;
     }
     private static int Number;
     private static int Id;

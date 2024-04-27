@@ -42,8 +42,8 @@ public class TheoryTesting extends MyAppCompatActivity {
         final Button Answer6 = findViewById(R.id.answer6);
         Button[] AnswersButtons = new Button[] {Answer1,Answer2,Answer3,Answer4,Answer5,Answer6};
 
-        final String[] RightAnswers = Resources.RightAnswersTexts(this);
-        final String[] RightRewards = Resources.RewardsTexts(this);
+        final String[] RightAnswers = Sources.RightAnswersTexts(this);
+        final String[] RightRewards = Sources.RewardsTexts(this);
         
         int Topic;
         try {
@@ -55,7 +55,7 @@ public class TheoryTesting extends MyAppCompatActivity {
             return;
         }
 
-        Theory.Setup(Resources.Topics[Topic]);
+        Theory.Setup(Sources.Topics[Topic]);
         final String[] QuestionAndAnswers = Theory.GetQuestionAndAnswers();
         final int[] CorrectAnswers = Theory.GetCorrectAnswers();
         final long Reward = Theory.GetReward();
@@ -85,7 +85,7 @@ public class TheoryTesting extends MyAppCompatActivity {
                         Database.ChangePoints(this,reward);
                         Toast.makeText(this,RightAnswers[(int)(Math.random()*RightAnswers.length)]+
                                 " "+RightRewards[(int)(Math.random()*RightAnswers.length)]+
-                                " "+Resources.GetRightPointsEnd(this,reward),Toast.LENGTH_SHORT).show();
+                                " "+ Sources.GetRightPointsEnd(this,reward),Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(this,RightAnswers[(int)(Math.random()*RightAnswers.length)],Toast.LENGTH_SHORT).show();
                     }
@@ -98,7 +98,7 @@ public class TheoryTesting extends MyAppCompatActivity {
                 }
             });
         }
-        Title.setText(Resources.TopicsTest(this)[Topic]);
+        Title.setText(Sources.TopicsTest(this)[Topic]);
         super.BackToMainMenu(MainMenu);
         Next.setOnClickListener(v -> startActivity(new Intent(this, TheoryTesting.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtra("Topic",Topic)));
         super.SetSizes(new Button[]{MainMenu,Next,Answer1,Answer2,Answer3,Answer4,Answer5,Answer6},Title);

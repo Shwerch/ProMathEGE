@@ -1,6 +1,5 @@
 package com.pro.math.EGE;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.net.Uri;
@@ -29,7 +28,7 @@ public class Settings extends MyAppCompatActivity {
         super.SetSizes(new Button[]{MainMenu,ResetProgress,AddPoints,Points,Github},Title);
         ResetProgress.setOnClickListener(v -> {
             Database.ResetDataBases(this);
-            Database.DefineDataBases(this);
+            Database.DefineDataBase(this);
             super.ChangePoints(Points);
         });
         AddPoints.setOnClickListener(v -> {

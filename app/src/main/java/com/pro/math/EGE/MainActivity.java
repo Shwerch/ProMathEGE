@@ -34,12 +34,11 @@ public class MainActivity extends MyAppCompatActivity {
         final TextView Title = findViewById(R.id.title);
 
         PointsButton = Points;
-        Resources.Setup(this);
-        com.pro.math.EGE.Practice.Setup(this);
+        Sources.Setup(this);
 
         super.SetSizes(new Button[]{Points,Settings,Theory,Practice,Shop,Exit,About},Title);
 
-        Database.DefineDataBases(this);
+        Database.DefineDataBase(this);
         Exit.setOnClickListener(v -> Close());
         About.setOnClickListener(v -> startActivity(new Intent(this,AboutApp.class)));
         Theory.setOnClickListener(v -> startActivity(new Intent(this, TheoryChoosing.class)));

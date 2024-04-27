@@ -47,8 +47,8 @@ public class PracticeTesting extends MyAppCompatActivity{
 
         super.BackToMainMenu(MainMenu);
         Next.setOnClickListener(v -> startActivity(new Intent(this,PracticeTesting.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtra("Numbers",Numbers)));
-        final String[] RightAnswers = Resources.RightAnswersTexts(this);
-        final String[] RightRewards = Resources.RewardsTexts(this);
+        final String[] RightAnswers = Sources.RightAnswersTexts(this);
+        final String[] RightRewards = Sources.RewardsTexts(this);
 
         boolean haveImage = Practice.Setup(Numbers,this);
         int text = Practice.GetText();
@@ -81,7 +81,7 @@ public class PracticeTesting extends MyAppCompatActivity{
                     Database.ChangePracticeTask(this,Practice.GetNumber(),Practice.GetId(),1);
                     Toast.makeText(context,RightAnswers[(int)(Math.random()*RightAnswers.length)]+
                             " "+RightRewards[(int)(Math.random()*RightAnswers.length)]+
-                            " "+Resources.GetRightPointsEnd(context,reward),Toast.LENGTH_SHORT).show();
+                            " "+ Sources.GetRightPointsEnd(context,reward),Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context,answer,Toast.LENGTH_SHORT).show();
                 }

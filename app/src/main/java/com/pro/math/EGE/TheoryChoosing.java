@@ -18,7 +18,7 @@ public class TheoryChoosing extends MyAppCompatActivity {
         super.BackToMainMenu(MainMenu);
         super.SetSizes(new Button[]{MainMenu},Title);
 
-        String[] Chapters = Resources.TopicsNames(this);
+        String[] Chapters = Sources.TopicsNames(this);
 
         ListView List = findViewById(R.id.list);
 

@@ -4,7 +4,7 @@ import android.content.Context;
 
 import java.util.Objects;
 
-public class Resources {
+public class Sources {
     public static String[] Topics;
     public static String[][] SubTopics;
     public static String[] TopicsTest(Context context) {
@@ -103,7 +103,7 @@ public class Resources {
                     return new int[] {i,i1};
             }
         }
-        Console.L("GetSubTopic: can't find sub topic "+SubTopic,"Resources");
+        Console.L("GetSubTopic: can't find sub topic "+SubTopic);
         return new int[] {0, 0};
     }
     public static String[] GetSubTopic(int Topic,int SubTopic) {
