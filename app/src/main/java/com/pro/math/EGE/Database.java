@@ -36,7 +36,7 @@ public class Database {
         ArrayList<String> arrayList = new ArrayList<>(ShopAttributes.size());
         for (String[] attributes : ShopAttributes) {
             arrayList.add(Sources.SubTopicsNames(context)[Sources.GetTopic(attributes[0])][Sources.GetSubTopic(attributes[1])[1]]+
-                    " - "+Sources.GetRightPointsEnd(context,100)+" ("+Sources.TopicsNames(context)[Sources.GetTopic(attributes[0])]+")");
+                    " - "+Sources.GetRightPointsEnd(context,100)+" ("+Sources.TopicsAttributes[Sources.GetTopic(attributes[0])][1]+")");
         }
         return arrayList;
     }
@@ -52,22 +52,22 @@ public class Database {
         database.execSQL("INSERT OR IGNORE INTO Currencies VALUES (0,0);");
 
         database.execSQL("CREATE TABLE IF NOT EXISTS TheoryTopics (topicId INT PRIMARY KEY, topic TEXT)");
-        database.execSQL("CREATE TABLE IF NOT EXISTS TheoryAvailability (topicId INT PRIMARY KEY, subTopic TEXT PRIMARY KEY, availability BIT)");
+        database.execSQL("CREATE TABLE IF NOT EXISTS TheoryAvailability (topicId INT, subTopic TEXT, availability BIT, PRIMARY KEY (topicId, subTopic))");
 
-        database.execSQL("CREATE TABLE IF NOT EXISTS PracticeSolutions (number INT PRIMARY KEY, taskId INT PRIMARY KEY, solutions INT)");
+        database.execSQL("CREATE TABLE IF NOT EXISTS PracticeSolutions (number INT, taskId INT, solutions INT, PRIMARY KEY (number, taskId))");
 
         for (int i = 0;i < Sources.Topics.length;i++) {
             String topic = Sources.Topics[i];
-            database.execSQL("INSERT OR IGNORE INTO TheoryTopics VALUES ("+i+","+topic+");");
+            database.execSQL("INSERT OR IGNORE INTO TheoryTopics VALUES ("+i+",'"+topic+"');");
             for (String subTopic : Sources.SubTopics[i]) {
                 int availability = (Boolean.TRUE.equals(Objects.requireNonNull(Theory.FormulasAvailability.get(topic)).get(subTopic)) ? 1 : 0);
-                database.execSQL("INSERT OR IGNORE INTO TheoryAvailability VALUES ("+i+","+subTopic+","+availability+");");
+                database.execSQL("INSERT OR IGNORE INTO TheoryAvailability VALUES ("+i+",'"+subTopic+"',"+availability+");");
                 query = database.rawQuery("SELECT availability FROM TheoryAvailability WHERE topicId = "+i+" AND subTopic = '"+subTopic+"';", null);
                 boolean queryCorrect = false;
                 if (query.moveToFirst()) {
                     if (query.isFirst() && query.isLast()) {
                         queryCorrect = true;
-                        if (query.getInt(0) == 1)
+                        if (query.getInt(0) == 0)
                             AddToShop(topic, subTopic);
                     }
                 } if (!queryCorrect)
@@ -76,15 +76,16 @@ public class Database {
             }
         }
 
-        for (int i = 0;i < Practice.TaskId.length;i++) {
-            for (int k : Practice.TaskId[i]) {
-                database.execSQL("INSERT OR IGNORE INTO PracticeSolutions VALUES ("+i+","+k+",0);");
+        for (int j = 0;j < Practice.TaskId.length;j++) {
+            for (int k : Practice.TaskId[j]) {
+                database.execSQL("INSERT OR IGNORE INTO PracticeSolutions VALUES ("+j+","+k+",0);");
             }
         }
         database.close();
     }
     public static void ResetDataBases(Context context) {
         context.deleteDatabase(DATABASE);
+        dataBaseDefined = false;
         DefineDataBase(context);
     }
     public static ArrayList<String> GetAvailableSubTopics(Context context, String topic) {
@@ -190,7 +191,7 @@ public class Database {
                 points = query.getLong(0);
             }
         } if (points != -1)
-            database.execSQL("UPDATE Currencies SET value = "+(points+difference)+" WHERE id = 0",null);
+            database.execSQL("UPDATE Currencies SET value = "+(points+difference)+" WHERE id = 0;");
         else
             Console.L("Error with points in Currencies");
         query.close();

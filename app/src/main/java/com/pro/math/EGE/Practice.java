@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Practice {
-    static final byte TASKS = 12; // 19
+    static final byte TASKS = 12 + 1; // 19 + 1
     static ArrayList<Integer>[] TaskId = new ArrayList[TASKS];
     static ArrayList<Integer>[] TaskText = new ArrayList[TASKS];
     static ArrayList<String>[] TaskAnswer = new ArrayList[TASKS];
@@ -26,7 +26,7 @@ public class Practice {
         Task(Number,Id,Text,Answer,Solution,Reward);
         TaskImage[Number].add(Image);
     }
-    static void Setup() {
+    static {
         for (int i = 0;i < TASKS;i++) {
             TaskId[i] = new ArrayList<>();
             TaskText[i] = new ArrayList<>();

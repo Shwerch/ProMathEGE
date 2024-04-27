@@ -5,7 +5,6 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -215,7 +214,8 @@ public class Theory {
     public static void Setup(Context context,String Topic) {
         ArrayList<String> AvailableChapters = Database.GetAvailableSubTopics(context,Topic);
         SubTopic = AvailableChapters.get((int)(Math.random()*AvailableChapters.size()));
-        String[][] formulas = Formulas.get(Topic).get(SubTopic);
+        String[][] formulas = Objects.requireNonNull(Formulas.get(Topic)).get(SubTopic);
+        assert formulas != null;
         int RandomQuestion = (int)(Math.random() * formulas.length);
         if (RandomQuestion == PreviousQuestion && Objects.equals(SubTopic, PreviousSubTopic) && Objects.equals(Topic, PreviousTopic)) {
             if (RandomQuestion == 0)

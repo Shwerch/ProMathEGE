@@ -35,10 +35,10 @@ public class MainActivity extends MyAppCompatActivity {
 
         PointsButton = Points;
         Sources.Setup(this);
+        Database.DefineDataBase(this);
 
         super.SetSizes(new Button[]{Points,Settings,Theory,Practice,Shop,Exit,About},Title);
 
-        Database.DefineDataBase(this);
         Exit.setOnClickListener(v -> Close());
         About.setOnClickListener(v -> startActivity(new Intent(this,AboutApp.class)));
         Theory.setOnClickListener(v -> startActivity(new Intent(this, TheoryChoosing.class)));

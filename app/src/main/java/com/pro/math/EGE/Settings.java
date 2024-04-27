@@ -28,7 +28,6 @@ public class Settings extends MyAppCompatActivity {
         super.SetSizes(new Button[]{MainMenu,ResetProgress,AddPoints,Points,Github},Title);
         ResetProgress.setOnClickListener(v -> {
             Database.ResetDataBases(this);
-            Database.DefineDataBase(this);
             super.ChangePoints(Points);
         });
         AddPoints.setOnClickListener(v -> {

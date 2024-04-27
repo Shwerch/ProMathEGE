@@ -18,11 +18,13 @@ public class TheoryChoosing extends MyAppCompatActivity {
         super.BackToMainMenu(MainMenu);
         super.SetSizes(new Button[]{MainMenu},Title);
 
-        String[] Chapters = Sources.TopicsNames(this);
+        String[] RealTopics = new String[Sources.TopicsAttributes.length];
+        for (int i = 0;i < Sources.TopicsAttributes.length;i++)
+            RealTopics[i] = getResources().getString(Sources.TopicsAttributes[i][1]);
 
         ListView List = findViewById(R.id.list);
 
-        ArrayAdapter<String> Adapter = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, Chapters);
+        ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, RealTopics);
         List.setAdapter(Adapter);
 
         List.setOnItemClickListener((parent, view, position, id) -> startActivity(new Intent(this, TheoryReading.class).putExtra("Topic",position)));

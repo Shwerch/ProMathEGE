@@ -5,36 +5,17 @@ import android.content.Context;
 import java.util.Objects;
 
 public class Sources {
-    public static String[] Topics;
-    public static String[][] SubTopics;
-    public static String[] TopicsTest(Context context) {
-        android.content.res.Resources resources = context.getResources();
-        return new String[] {
-                resources.getString(R.string.BasicFormulasTest),
-                resources.getString(R.string.PlanimetryTest),
-                resources.getString(R.string.VectorsTest),
-                resources.getString(R.string.StereometryTest),
-                resources.getString(R.string.ProbabilityTheoryTest),
-                resources.getString(R.string.DerivativeTest),
-                resources.getString(R.string.LogarithmsTest),
-                resources.getString(R.string.TrigonometryTest),
-                resources.getString(R.string.ComplexNumbersTest),
-        };
-    }
-    public static String[] TopicsNames(Context context) {
-        android.content.res.Resources resources = context.getResources();
-        return new String[] {
-                resources.getString(R.string.BasicFormulas),
-                resources.getString(R.string.Planimetry),
-                resources.getString(R.string.Vectors),
-                resources.getString(R.string.Stereometry),
-                resources.getString(R.string.ProbabilityTheory),
-                resources.getString(R.string.Derivative),
-                resources.getString(R.string.Logarithms),
-                resources.getString(R.string.Trigonometry),
-                resources.getString(R.string.ComplexNumbers),
-        };
-    }
+    public static final int[][] TopicsAttributes = new int[][] {
+            {R.string.BasicFormulasTest,R.string.BasicFormulas},
+            {R.string.PlanimetryTest,R.string.Planimetry},
+            {R.string.VectorsTest,R.string.Vectors},
+            {R.string.StereometryTest,R.string.Stereometry},
+            {R.string.ProbabilityTheoryTest,R.string.ProbabilityTheory},
+            {R.string.DerivativeTest,R.string.Derivative},
+            {R.string.LogarithmsTest,R.string.Logarithms},
+            {R.string.TrigonometryTest,R.string.Trigonometry},
+            {R.string.ComplexNumbersTest,R.string.ComplexNumbers},
+    };
     public static String[][] SubTopicsNames(Context context) {
         android.content.res.Resources resources = context.getResources();
         return new String[][] {
@@ -67,6 +48,8 @@ public class Sources {
                 resources.getString(R.string.rightReward4),
         };
     }
+    public static String[] Topics;
+    public static String[][] SubTopics;
     public static int GetTopic(String Topic) {
         for (int i = 0;i < Topics.length;i++) {
             if (Objects.equals(Topics[i], Topic))
@@ -92,9 +75,6 @@ public class Sources {
                 resources.getStringArray(R.array.Trigonometry),
                 resources.getStringArray(R.array.ComplexNumbers),
         };
-    }
-    public static String GetTopic(int Topic) {
-        return Topics[Topic];
     }
     public static int[] GetSubTopic(String SubTopic) {
         for (int i = 0;i < Topics.length;i++) {

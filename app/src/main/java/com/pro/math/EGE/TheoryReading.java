@@ -64,7 +64,7 @@ public class TheoryReading extends MyAppCompatActivity {
         }
         super.BackToMainMenu(MainMenu);
 
-        TheoryTitle.setText(Sources.TopicsNames(this)[Topic]);
+        TheoryTitle.setText(Sources.TopicsAttributes[Topic][1]);
 
            }
 }
