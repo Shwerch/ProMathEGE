@@ -1,9 +1,7 @@
 package com.pro.math.EGE;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Display;
@@ -17,11 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MyAppCompatActivity extends AppCompatActivity {
     protected void BackToMainMenu(Button button) {
-        button.setOnClickListener(v -> startActivity(new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
+        button.setOnClickListener(v -> startActivity(new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)));
     }
     protected void Close() {
         this.finishAffinity();
-        Music.Stop();
     }
     protected void ChangePoints(Button button) {
         long points = Database.GetPoints(this);
@@ -34,13 +31,13 @@ public class MyAppCompatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Window window = getWindow();
-        window.requestFeature(Window.FEATURE_NO_TITLE);
         window.setNavigationBarColor(getResources().getColor(R.color.Background));
         window.setStatusBarColor(getResources().getColor(R.color.Background));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN,R.anim.fadein,R.anim.fadeout);
-            overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE,R.anim.fadeout,R.anim.fadein);
-        }
+    }
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        overridePendingTransition(R.anim.fadein,R.anim.fadeout);
     }
     protected void SetSizes(Button[] Objects,@Nullable TextView Title) {
         Display display = getWindowManager().getDefaultDisplay();
