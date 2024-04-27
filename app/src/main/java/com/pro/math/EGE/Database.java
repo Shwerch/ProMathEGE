@@ -6,29 +6,47 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Database {
     private static final String DATABASE = "Storage";
-    private static boolean defined = false;
+    private static boolean dataBaseDefined = false;
+    public static ArrayList<String[]> ShopAttributes = new ArrayList<>();
+    public static void AddToShop(String topic, String subTopic) {
+        for (int i = 0;i < ShopAttributes.size();i++) {
+            if (Objects.equals(ShopAttributes.get(i)[0],topic) && Objects.equals(ShopAttributes.get(i)[1],subTopic)) {
+                return;
+            }
+        }
+        ShopAttributes.add(new String[]{topic,subTopic});
+    }
+    public static void RemoveFromShop(String topic,String subTopic) {
+        for (int i = 0;i < ShopAttributes.size();i++) {
+            if (Objects.equals(ShopAttributes.get(i)[0],topic) && Objects.equals(ShopAttributes.get(i)[1],subTopic)) {
+                ShopAttributes.remove(i);
+                return;
+            }
+        }
+    }
+    public static void ResetShop() {
+        ShopAttributes.clear();
+    }
+    public static ArrayList<String> GetShop(Context context) {
+        ArrayList<String> arrayList = new ArrayList<>(ShopAttributes.size());
+        for (String[] attributes : ShopAttributes) {
+            arrayList.add(Sources.SubTopicsNames(context)[Sources.GetTopic(attributes[0])][Sources.GetSubTopic(attributes[1])[1]]+
+                    " - "+Sources.GetRightPointsEnd(context,100)+" ("+Sources.TopicsNames(context)[Sources.GetTopic(attributes[0])]+")");
+        }
+        return arrayList;
+    }
     public static void DefineDataBase(Context context) {
-        if (defined) return;
-        defined = true;
+        if (dataBaseDefined) return;
+        dataBaseDefined = true;
+        ResetShop();
         SQLiteDatabase database = context.openOrCreateDatabase(DATABASE,MODE_PRIVATE,null);
 
         Cursor query;
-        /*database.execSQL("CREATE TABLE IF NOT EXISTS System (id TEXT PRIMARY KEY, value INT)");
-        database.execSQL("INSERT OR IGNORE INTO Currencies VALUES ('DataBaseDefined',0);");
-        query = database.rawQuery("SELECT value FROM System WHERE id = 'DataBaseDefined';", null);
-        if (query.moveToFirst()) {
-            if (query.isLast() && query.isFirst()) {
-                if (query.getInt(0) == 1)
-                else
-                    database.execSQL("UPDATE System SET value = 1 WHERE id = 'DataBaseDefined'");
-            }
-        }
-        query.close();
-        if (defined) return;*/
 
         database.execSQL("CREATE TABLE IF NOT EXISTS Currencies (id INT PRIMARY KEY, value LONG)");
         database.execSQL("INSERT OR IGNORE INTO Currencies VALUES (0,0);");
@@ -50,7 +68,7 @@ public class Database {
                     if (query.isFirst() && query.isLast()) {
                         queryCorrect = true;
                         if (query.getInt(0) == 1)
-                            ShopDataBase.AddToShop(context, topic, subTopic);
+                            AddToShop(topic, subTopic);
                     }
                 } if (!queryCorrect)
                     Console.L("Error with topicId = "+i+" and topicId = '"+subTopic+"' in TheoryAvailability");
@@ -69,49 +87,10 @@ public class Database {
         context.deleteDatabase(DATABASE);
         DefineDataBase(context);
     }
-    public static void ChangePracticeTask(Context context,int number,int Id,int difference) {
-        SQLiteDatabase database = context.openOrCreateDatabase(DATABASE,MODE_PRIVATE,null);
-        Cursor query = database.rawQuery("SELECT solutions FROM PracticeSolutions WHERE number = "+number+" AND taskId = "+Id+";", null);
-        int solutions = -1;
-        if (query.moveToFirst()) {
-            if (query.isFirst() && query.isLast()) {
-                solutions = query.getInt(0);
-            }
-        } if (solutions != -1)
-            database.execSQL("UPDATE PracticeSolutions SET solutions = "+(solutions + difference)+" WHERE number = "+number+" AND taskId = "+Id+";");
-        else
-            Console.L("Error with number = "+number+" and taskId = "+Id+" in PracticeSolutions");
-        query.close();
-        database.close();
-    }
-    public static void ChangePoints(Context context, long difference) {
+    public static ArrayList<String> GetAvailableSubTopics(Context context, String topic) {
+        ArrayList<String> arrayList = new ArrayList<>();
         SQLiteDatabase database = context.getApplicationContext().openOrCreateDatabase(DATABASE, MODE_PRIVATE, null);
-        Cursor query = database.rawQuery("SELECT value FROM Currencies WHERE id = 0",null);
-        long points = -1;
-        if (query.moveToFirst()) {
-            if (query.isFirst() && query.isLast()) {
-                points = query.getLong(0);
-            }
-        } if (points != -1)
-            database.execSQL("UPDATE Currencies SET value = "+(points + difference)+" WHERE id = 0",null);
-        else
-            Console.L("Error with points in Currencies");
-        query.close();
-        database.close();
-    }
-    public static long GetPoints(Context context) {
-        SQLiteDatabase database = context.getApplicationContext().openOrCreateDatabase(DATABASE, MODE_PRIVATE, null);
-        Cursor query = database.rawQuery("SELECT value FROM Currencies WHERE id = 0",null);
-        long points = -1;
-        if (query.moveToFirst()) {
-            if (query.isFirst() && query.isLast()) {
-                points = query.getLong(0);
-            }
-        } if (points == -1)
-            Console.L("Error with points in Currencies");
-        query.close();
-        database.close();
-        return points;
+
     }
     public static boolean BuySubTopic(Context context, String topic, String subTopic) {
         boolean success = false;
@@ -142,7 +121,7 @@ public class Database {
                     success = true;
                     ChangePoints(context,-100);
                     database.execSQL("UPDATE TheoryAvailability SET availability = 1 WHERE topicId = "+topicId+" AND subTopic = '"+subTopic+"';");
-                    ShopDataBase.RemoveFromShop(topic,subTopic);
+                    RemoveFromShop(topic,subTopic);
                 }
             } else
                 Console.L("Error with topicId = "+topicId+" AND subTopic = '"+subTopic+"' in TheoryAvailability");
@@ -152,4 +131,78 @@ public class Database {
         database.close();
         return success;
     }
+    public static int GetPracticeTask(Context context,int number,int Id) {
+        SQLiteDatabase database = context.openOrCreateDatabase(DATABASE,MODE_PRIVATE,null);
+        Cursor query = database.rawQuery("SELECT solutions FROM PracticeSolutions WHERE number = "+number+" AND taskId = "+Id+";", null);
+        int solutions = -1;
+        if (query.moveToFirst()) {
+            if (query.isFirst() && query.isLast()) {
+                solutions = query.getInt(0);
+            }
+        } if (solutions == -1) {
+            solutions = 0;
+            Console.L("Error with number = "+number+" and taskId = "+Id+" in PracticeSolutions");
+        }
+        query.close();
+        database.close();
+        return solutions;
+    }
+    public static void ChangePracticeTask(Context context,int number,int Id,int difference) {
+        SQLiteDatabase database = context.openOrCreateDatabase(DATABASE,MODE_PRIVATE,null);
+        Cursor query = database.rawQuery("SELECT solutions FROM PracticeSolutions WHERE number = "+number+" AND taskId = "+Id+";", null);
+        int solutions = -1;
+        if (query.moveToFirst()) {
+            if (query.isFirst() && query.isLast()) {
+                solutions = query.getInt(0);
+            }
+        } if (solutions != -1)
+            database.execSQL("UPDATE PracticeSolutions SET solutions = "+(solutions+difference)+" WHERE number = "+number+" AND taskId = "+Id+";");
+        else
+            Console.L("Error with number = "+number+" and taskId = "+Id+" in PracticeSolutions");
+        query.close();
+        database.close();
+    }
+    public static void ChangePoints(Context context, long difference) {
+        SQLiteDatabase database = context.getApplicationContext().openOrCreateDatabase(DATABASE, MODE_PRIVATE, null);
+        Cursor query = database.rawQuery("SELECT value FROM Currencies WHERE id = 0",null);
+        long points = -1;
+        if (query.moveToFirst()) {
+            if (query.isFirst() && query.isLast()) {
+                points = query.getLong(0);
+            }
+        } if (points != -1)
+            database.execSQL("UPDATE Currencies SET value = "+(points+difference)+" WHERE id = 0",null);
+        else
+            Console.L("Error with points in Currencies");
+        query.close();
+        database.close();
+    }
+    public static long GetPoints(Context context) {
+        SQLiteDatabase database = context.getApplicationContext().openOrCreateDatabase(DATABASE, MODE_PRIVATE, null);
+        Cursor query = database.rawQuery("SELECT value FROM Currencies WHERE id = 0",null);
+        long points = -1;
+        if (query.moveToFirst()) {
+            if (query.isFirst() && query.isLast()) {
+                points = query.getLong(0);
+            }
+        } if (points == -1)
+            Console.L("Error with points in Currencies");
+        query.close();
+        database.close();
+        return points;
+    }
 }
+
+
+        /*database.execSQL("CREATE TABLE IF NOT EXISTS System (id TEXT PRIMARY KEY, value INT)");
+        database.execSQL("INSERT OR IGNORE INTO Currencies VALUES ('DataBaseDefined',0);");
+        query = database.rawQuery("SELECT value FROM System WHERE id = 'DataBaseDefined';", null);
+        if (query.moveToFirst()) {
+            if (query.isLast() && query.isFirst()) {
+                if (query.getInt(0) == 1)
+                else
+                    database.execSQL("UPDATE System SET value = 1 WHERE id = 'DataBaseDefined'");
+            }
+        }
+        query.close();
+        if (dataBaseDefined) return;*/

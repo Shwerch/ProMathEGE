@@ -31,14 +31,14 @@ public class Shop extends MyAppCompatActivity {
         super.ChangePoints(Points);
 
         ListView List = findViewById(R.id.list);
-        List.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ShopDataBase.ShopVisibleText.toArray()));
+        List.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Database.GetShop(this).toArray()));
         List.setOnItemClickListener((parent, view, position, id) -> {
-            if (Database.BuySubTopic(this,ShopDataBase.ShopTopicsList.get(position),ShopDataBase.ShopSubTopicsList.get(position))) {
+            String[] attributes = Database.ShopAttributes.get(position);
+            if (Database.BuySubTopic(this,attributes[0],attributes[1])) {
                 Toast.makeText(this,getResources().getString(R.string.successful_purchase),Toast.LENGTH_SHORT).show();
                 BuyEnded();
-            } else {
+            } else
                 Toast.makeText(this,getResources().getString(R.string.not_enough_points),Toast.LENGTH_SHORT).show();
-            }
         });
     }
 }

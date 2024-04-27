@@ -1,4 +1,4 @@
-package com.pro.math.EGE;
+/*package com.pro.math.EGE;
 
 import android.content.Context;
 
@@ -35,4 +35,4 @@ public class ShopDataBase {
         ShopVisibleText = new ArrayList<>();
     }
 
-}
+}*/
