@@ -98,7 +98,7 @@ public class TheoryTesting extends MyAppCompatActivity {
                 }
             });
         }
-        Title.setText(getResources().getString(Sources.TopicsAttributes[Topic][0]));
+        Title.setText(Sources.TopicsAttributes[Topic * 2 + 1]);
         super.BackToMainMenu(MainMenu);
         Next.setOnClickListener(v -> startActivity(new Intent(this, TheoryTesting.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtra("Topic",Topic)));
         super.SetSizes(new Button[]{MainMenu,Next,Answer1,Answer2,Answer3,Answer4,Answer5,Answer6},Title);

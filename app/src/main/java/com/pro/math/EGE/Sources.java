@@ -1,21 +1,16 @@
 package com.pro.math.EGE;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 
+import androidx.annotation.NonNull;
+
+import java.util.Locale;
 import java.util.Objects;
 
 public class Sources {
-    public static final int[][] TopicsAttributes = new int[][] {
-            {R.string.BasicFormulasTest,R.string.BasicFormulas},
-            {R.string.PlanimetryTest,R.string.Planimetry},
-            {R.string.VectorsTest,R.string.Vectors},
-            {R.string.StereometryTest,R.string.Stereometry},
-            {R.string.ProbabilityTheoryTest,R.string.ProbabilityTheory},
-            {R.string.DerivativeTest,R.string.Derivative},
-            {R.string.LogarithmsTest,R.string.Logarithms},
-            {R.string.TrigonometryTest,R.string.Trigonometry},
-            {R.string.ComplexNumbersTest,R.string.ComplexNumbers},
-    };
+    /*public static String[] TopicsAttributes;
     public static String[][] SubTopicsNames(Context context) {
         android.content.res.Resources resources = context.getResources();
         return new String[][] {
@@ -75,6 +70,7 @@ public class Sources {
                 resources.getStringArray(R.array.Trigonometry),
                 resources.getStringArray(R.array.ComplexNumbers),
         };
+        TopicsAttributes = resources.getStringArray(R.array.TopicsAttributes);
     }
     public static int[] GetSubTopic(String SubTopic) {
         for (int i = 0;i < Topics.length;i++) {
@@ -88,14 +84,46 @@ public class Sources {
     }
     public static String[] GetSubTopic(int Topic,int SubTopic) {
         return new String[] {Topics[Topic],SubTopics[Topic][SubTopic]};
+    }*/
+    static String[][] SubTopics(Resources resources) {
+        return new String[][] {
+                resources.getStringArray(R.array.BasicFormulas),
+                resources.getStringArray(R.array.Planimetry),
+                resources.getStringArray(R.array.Vectors),
+                resources.getStringArray(R.array.Stereometry),
+                resources.getStringArray(R.array.ProbabilityTheory),
+                resources.getStringArray(R.array.Derivative),
+                resources.getStringArray(R.array.Logarithms),
+                resources.getStringArray(R.array.Trigonometry),
+                resources.getStringArray(R.array.ComplexNumbers),
+        };
     }
-    public static String GetRightPointsEnd(Context context,long points) {
-        long remainder  = points % 10;
+    static final int[] SubTopicsResources = new int[] {
+                R.array.BasicFormulas,
+                R.array.Planimetry,
+                R.array.Vectors,
+                R.array.Stereometry,
+                R.array.ProbabilityTheory,
+                R.array.Derivative,
+                R.array.Logarithms,
+                R.array.Trigonometry,
+                R.array.ComplexNumbers,
+    };
+    static String GetRightPointsEnd(Context context,long points) {
+        final long remainder  = points % 10;
+        final int index;
         if ((points > 9 && points < 20) || remainder == 0 || remainder >= 5)
-            return points + " " + context.getResources().getString(R.string.points1);
+            index = 0;
         else if (remainder == 1)
-            return points + " " + context.getResources().getString(R.string.points2);
+            index = 1;
         else
-            return points + " " + context.getResources().getString(R.string.points3);
+            index = 2;
+        return points + " " + context.getResources().getStringArray(R.array.points)[index];
+    }
+    static Resources GetLocaleResources(Context context, Locale locale) {
+        Configuration configuration = context.getResources().getConfiguration();
+        configuration = new Configuration(configuration);
+        configuration.setLocale(locale);
+        return context.createConfigurationContext(configuration).getResources();
     }
 }

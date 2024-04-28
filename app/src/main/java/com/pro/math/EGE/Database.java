@@ -3,16 +3,20 @@ package com.pro.math.EGE;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Database {
     private static final String DATABASE = "Storage";
     private static boolean dataBaseDefined = false;
-    public static ArrayList<String[]> ShopAttributes = new ArrayList<>();
+    public static ArrayList<int[]> ShopAttributes = new ArrayList<>();
     public static void DefineDataBase(Context context) {
         if (dataBaseDefined) return;
         dataBaseDefined = true;
@@ -25,94 +29,66 @@ public class Database {
         database.execSQL("INSERT OR IGNORE INTO Currencies VALUES (0,0);");
 
         database.execSQL("CREATE TABLE IF NOT EXISTS TheoryTopics (topicId INT PRIMARY KEY, topic TEXT)");
-        database.execSQL("CREATE TABLE IF NOT EXISTS TheoryAvailability (topicId INT, subTopic TEXT, availability BIT, PRIMARY KEY (topicId, subTopic))");
+        database.execSQL("CREATE TABLE IF NOT EXISTS TheorySubTopics (topicId INT, subTopicId INT, subTopic TEXT, PRIMARY KEY (topicId, subTopicId))");
+        database.execSQL("CREATE TABLE IF NOT EXISTS TheoryAvailability (topicId INT, subTopicId INT, availability BIT, PRIMARY KEY (topicId, subTopicId))");
 
-        //database.execSQL("CREATE TABLE IF NOT EXISTS PracticeSolutions (number INT, taskId INT, solutions INT, PRIMARY KEY (number, taskId))");
-
-        for (int i = 0;i < Sources.Topics.length;i++) {
-            String topic = Sources.Topics[i];
-            database.execSQL("INSERT OR IGNORE INTO TheoryTopics VALUES ("+i+",'"+topic+"');");
-            for (String subTopic : Sources.SubTopics[i]) {
+        Resources LocaleResources = Sources.GetLocaleResources(context,new Locale("ru"));
+        String[] TopicsAttributes = LocaleResources.getStringArray(R.array.TopicsAttributes);
+        for (int i = 0;i < TopicsAttributes.length;i += 2) {
+            final int I = i / 2;
+            String topic = TopicsAttributes[i];
+            database.execSQL("INSERT OR IGNORE INTO TheoryTopics VALUES ("+I+",'"+topic.replace(" ","_")+"');");
+            for (int k = 0;k < Sources.SubTopics(LocaleResources)[I].length;k++) {
+                String subTopic = Sources.SubTopics(LocaleResources)[I][k];
+                database.execSQL("INSERT OR IGNORE INTO TheorySubTopics VALUES ("+I+","+k+",'"+subTopic.replace(" ","_")+"');");
                 int availability = (Boolean.TRUE.equals(Objects.requireNonNull(Theory.FormulasAvailability.get(topic)).get(subTopic)) ? 1 : 0);
-                database.execSQL("INSERT OR IGNORE INTO TheoryAvailability VALUES ("+i+",'"+subTopic+"',"+availability+");");
-                query = database.rawQuery("SELECT availability FROM TheoryAvailability WHERE topicId = "+i+" AND subTopic = '"+subTopic+"';", null);
-                boolean queryCorrect = false;
+                database.execSQL("INSERT OR IGNORE INTO TheoryAvailability VALUES ("+I+",'"+k+"',"+availability+");");
+                query = database.rawQuery("SELECT availability FROM TheoryAvailability WHERE topicId = "+I+" AND subTopicId = "+k+";", null);
                 if (query.moveToFirst()) {
-                    if (query.isFirst() && query.isLast()) {
-                        queryCorrect = true;
-                        if (query.getInt(0) == 0)
-                            AddToShop(topic, subTopic);
+                    if (query.isFirst() && query.isLast() && query.getInt(0) == 0) {
+                        AddToShop(i, k);
                     }
-                } if (!queryCorrect)
-                    Console.L("Error with topicId = "+i+" and topicId = '"+subTopic+"' in TheoryAvailability");
+                }
                 query.close();
             }
         }
-
-        /*for (int j = 0;j < Practice.TaskId.length;j++) {
-            for (int k : Practice.TaskId[j]) {
-                database.execSQL("INSERT OR IGNORE INTO PracticeSolutions VALUES ("+j+","+k+",0);");
-            }
-        }*/
         database.close();
     }
-    public static void AddToShop(String topic, String subTopic) {
-        for (int i = 0;i < ShopAttributes.size();i++) {
-            if (Objects.equals(ShopAttributes.get(i)[0],topic) && Objects.equals(ShopAttributes.get(i)[1],subTopic)) {
+    public static void ResetShop() {
+        ShopAttributes.clear();
+    }
+    public static void AddToShop(int topicIndex, int subTopicIndex) {
+        final int[] newAttribute = new int[] {topicIndex,subTopicIndex};
+        for (int[] attributes : ShopAttributes) {
+            if (attributes == newAttribute) {
                 return;
             }
         }
-        ShopAttributes.add(new String[]{topic,subTopic});
+        ShopAttributes.add(newAttribute);
     }
-    public static void RemoveFromShop(String topic,String subTopic) {
+    public static void RemoveFromShop(int topicIndex, int subTopicIndex) {
+        final int[] newAttribute = new int[] {topicIndex,subTopicIndex};
         for (int i = 0;i < ShopAttributes.size();i++) {
-            if (Objects.equals(ShopAttributes.get(i)[0],topic) && Objects.equals(ShopAttributes.get(i)[1],subTopic)) {
+            if (ShopAttributes.get(i) == newAttribute) {
                 ShopAttributes.remove(i);
                 return;
             }
         }
     }
-    public static void ResetShop() {
-        ShopAttributes.clear();
-    }
+    @NonNull
     public static ArrayList<String> GetShop(Context context) {
         ArrayList<String> arrayList = new ArrayList<>(ShopAttributes.size());
-        for (String[] attributes : ShopAttributes) {
-            arrayList.add(Sources.SubTopicsNames(context)[Sources.GetTopic(attributes[0])][Sources.GetSubTopic(attributes[1])[1]]+
-                    " - "+Sources.GetRightPointsEnd(context,100)+" ("+Sources.TopicsAttributes[Sources.GetTopic(attributes[0])][1]+")");
+        for (int[] attributes : ShopAttributes) {
+            arrayList.add(
+                    Sources.SubTopics(context.getResources())[attributes[0]][attributes[1]]+" - "+
+                            Sources.GetRightPointsEnd(context,100)+" )"+
+                            context.getResources().getStringArray(R.array.TopicsAttributes)[attributes[0] / 2]+")"
+            );
         }
         return arrayList;
     }
-    public static void ResetDataBases(Context context) {
-        context.deleteDatabase(DATABASE);
-        dataBaseDefined = false;
-        DefineDataBase(context);
-    }
-    public static ArrayList<String> GetAvailableSubTopics(Context context, String topic) {
-        ArrayList<String> arrayList = new ArrayList<>();
-        SQLiteDatabase database = context.getApplicationContext().openOrCreateDatabase(DATABASE, MODE_PRIVATE, null);
-        Cursor query = database.rawQuery("SELECT topicId FROM TheoryTopics WHERE topic = '"+topic+"';",null);
-        int topicId = -1;
-        if (query.moveToFirst()) {
-            if (query.isFirst() && query.isFirst()) {
-                topicId = query.getInt(0);
-            }
-        }
-        query.close();
-        if (topicId != -1) {
-            query = database.rawQuery("SELECT * FROM TheoryAvailability WHERE topicId = "+topicId+" AND availability = 1;",null);
-            if (query.moveToFirst()) {
-                do {
-                    arrayList.add(query.getString(1));
-                } while (query.isLast());
-            } else
-                Console.L("Error with topicId = "+topicId+" and availability = 1 in TheoryAvailability");
-            query.close();
-        } else
-            Console.L("Error with topic = '"+topic+"' in TheoryTopics");
-        return arrayList;
-    }
-    public static boolean BuySubTopic(Context context, String topic, String subTopic) {
+    // working
+    public static boolean BuySubTopic(Context context, int topicIndex, int subTopicIndex) {
         boolean success = false;
         long points = GetPoints(context);
         if (points < 100)
@@ -150,6 +126,35 @@ public class Database {
             Console.L("Error with topic = '"+topic+"' in TheoryTopics");
         database.close();
         return success;
+    }
+    public static void ResetDataBases(Context context) {
+        context.deleteDatabase(DATABASE);
+        dataBaseDefined = false;
+        DefineDataBase(context);
+    }
+    public static ArrayList<String> GetAvailableSubTopics(Context context, String topic) {
+        ArrayList<String> arrayList = new ArrayList<>();
+        SQLiteDatabase database = context.getApplicationContext().openOrCreateDatabase(DATABASE, MODE_PRIVATE, null);
+        Cursor query = database.rawQuery("SELECT topicId FROM TheoryTopics WHERE topic = '"+topic+"';",null);
+        int topicId = -1;
+        if (query.moveToFirst()) {
+            if (query.isFirst() && query.isFirst()) {
+                topicId = query.getInt(0);
+            }
+        }
+        query.close();
+        if (topicId != -1) {
+            query = database.rawQuery("SELECT * FROM TheoryAvailability WHERE topicId = "+topicId+" AND availability = 1;",null);
+            if (query.moveToFirst()) {
+                do {
+                    arrayList.add(query.getString(1));
+                } while (query.isLast());
+            } else
+                Console.L("Error with topicId = "+topicId+" and availability = 1 in TheoryAvailability");
+            query.close();
+        } else
+            Console.L("Error with topic = '"+topic+"' in TheoryTopics");
+        return arrayList;
     }
     /*public static int GetPracticeTask(Context context,int number,int Id) {
         SQLiteDatabase database = context.openOrCreateDatabase(DATABASE,MODE_PRIVATE,null);
@@ -213,6 +218,12 @@ public class Database {
     }
 }
 
+//database.execSQL("CREATE TABLE IF NOT EXISTS PracticeSolutions (number INT, taskId INT, solutions INT, PRIMARY KEY (number, taskId))");
+        /*for (int j = 0;j < Practice.TaskId.length;j++) {
+            for (int k : Practice.TaskId[j]) {
+                database.execSQL("INSERT OR IGNORE INTO PracticeSolutions VALUES ("+j+","+k+",0);");
+            }
+        }*/
 
         /*database.execSQL("CREATE TABLE IF NOT EXISTS System (id TEXT PRIMARY KEY, value TEXT)");
         database.execSQL("INSERT OR IGNORE INTO System VALUES ('AppVersion','-');");

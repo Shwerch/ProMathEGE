@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="TopicsAttributes">
+        <item>Базовые формулы</item> <item>Тест по базовым формулам</item>
+        <item>Планиметрия</item> <item>Тест по планиметрии</item>
+        <item>Векторы</item> <item>Тест по векторам</item>
+        <item>Стереометрия</item> <item> Тест по стереометрии</item>
+        <item>Теория вероятностей</item> <item> Тест по теории вероятностей</item>
+        <item>Производная</item> <item>Тест по производной</item>
+        <item>Логарифмы</item> <item>Тест по логарифмам</item>
+        <item>Тригонометрия</item> <item>Тест по тригонометрии</item>
+        <item>Комплексные числа</item> <item>Тест по комплексным числам</item>
+    </string-array>
+
+    <string-array name="BasicFormulas">
+        <item>Формулы сокращенного умножения</item>
+        <item>Формулы степеней</item>
+        <item>Арифметическая прогрессия</item>
+        <item>Геометрическая прогрессия</item>
+    </string-array>
+    <string-array name="Planimetry">
+        <item>Треугольник</item>
+        <item>Прямоугольный треугольник</item>
+        <item>Ромб</item>
+    </string-array>
+    <string-array name="Vectors">
+    </string-array>
+    <string-array name="Stereometry">
+        <item>Прямоугольный параллелепипед</item>
+        <item>Куб</item>
+    </string-array>
+    <string-array name="ProbabilityTheory">
+    </string-array>
+    <string-array name="Derivative">
+        <item>Производные функций</item>
+        <item>Производные тригонометрических функций</item>
+    </string-array>
+    <string-array name="Logarithms">
+        <item>Логарифмические выражения</item>
+        <item>Преобразование логарифмов</item>
+    </string-array>
+    <string-array name="Trigonometry">
+        <item>Основные тригонометрические функции</item>
+        <item>Обратные тригонометрические функции</item>
+        <item>Табличные значения тригонометрических функций</item>
+    </string-array>
+    <string-array name="ComplexNumbers">
+    </string-array>
+</resources>

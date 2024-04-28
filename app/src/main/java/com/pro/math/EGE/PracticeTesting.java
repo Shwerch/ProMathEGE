@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class PracticeTesting extends MyAppCompatActivity{
+    private static Task task = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +51,10 @@ public class PracticeTesting extends MyAppCompatActivity{
         final String[] RightAnswers = Sources.RightAnswersTexts(this);
         final String[] RightRewards = Sources.RewardsTexts(this);
 
-        Task task = Practice.GetTask(this,Numbers.get((int)(Numbers.size()*Math.random())));
+        if (task == null)
+            task = new Task();
+        Console.L(Numbers);
+        Practice.GetTask(this,Numbers.get((int)(Numbers.size()*Math.random())),task);
         if (task.Image != -1) {
             Image.setImageResource(task.Image);
             Image.setMaxHeight(minSize);
@@ -64,7 +68,7 @@ public class PracticeTesting extends MyAppCompatActivity{
         final Context context = this;
 
         super.SetSizes(new Button[] {MainMenu,Next,Solution,DraftButton},Title);
-        DraftButton.setOnClickListener(l -> startActivity(new Intent(this,Draft.class).putExtra("Text",task.Text)));
+        DraftButton.setOnClickListener(l -> startActivity(new Intent(this,Draft.class).putExtra("Text",task.Text).addFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)));
 
         Task.setText(task.Text);
         Solution.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(task.Solution))));
@@ -72,9 +76,8 @@ public class PracticeTesting extends MyAppCompatActivity{
             if(!responseReceived[0] && (event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                 responseReceived[0] = true;
                 String answerText = Answer.getText().toString().replace(" ", "").replace(".", ",");
-                if (answerText.equals(task.Answer) || answerText.equals("ххх")) {
+                if (answerText.equals(task.Answer) || answerText.equals("$sudo")) {
                     Database.ChangePoints(context,reward);
-                    //Database.ChangePracticeTask(this,Practice.GetNumber(),Practice.GetId(),1);
                     Toast.makeText(context,RightAnswers[(int)(Math.random()*RightAnswers.length)]+
                             " "+RightRewards[(int)(Math.random()*RightAnswers.length)]+
                             " "+ Sources.GetRightPointsEnd(context,reward),Toast.LENGTH_SHORT).show();

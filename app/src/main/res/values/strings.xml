@@ -28,23 +28,29 @@
     <string name="Stroke">Stroke</string>
     <string name="Drawing">Drawing</string>
     <string name="Moving">Moving</string>
+    <string name="Zooming">Zooming</string>
     <string name="open_github">Project repository on Github</string>
     <string name="about_text">Created by Ilya Popov thanks to the Children\'s Education center IT–CUBE, 2023–2024 academic year.</string>
 
-    <string name="rightAnswer1">The right answer!</string>
-    <string name="rightAnswer2">Great.</string>
-    <string name="rightAnswer3">Right!</string>
-    <string name="rightAnswer4">Wonderful.</string>
 
-    <string name="rightReward1">You get</string>
-    <string name="rightReward2">Your reward:</string>
-    <string name="rightReward3">Added</string>
-    <string name="rightReward4">You receive</string>
+    <string-array name="rightAnswers">
+        <item>The right answer!</item>
+        <item>Great.</item>
+        <item>Right!</item>
+        <item>Wonderful.</item>
+    </string-array>
+    <string-array name="rightRewards">
+        <item>You get</item>
+        <item>Your reward:</item>
+        <item>Added</item>
+        <item>You receive</item>
+    </string-array>
 
-    <string name="points1">points</string>
-    <string name="points2">point</string>
-    <string name="points3">points</string>
-    <string name="Zooming">Zooming</string>
+    <string-array name="points">
+        <item>points</item>
+        <item>point</item>
+        <item>points</item>
+    </string-array>
 
     <string-array name="Settings">
         <item>Показывать правильный ответ в случае ошибки</item>

@@ -1,107 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="BasicFormulas">Basic formulas</string>
-    <string name="Planimetry">Planimetry</string>
-    <string name="Vectors">Vectors</string>
-    <string name="Stereometry">Stereometry</string>
-    <string name="ProbabilityTheory">Probability theory</string>
-    <string name="Derivative">Derivative</string>
-    <string name="Logarithms" >Logarithms</string>
-    <string name="Trigonometry" >Trigonometry</string>
-    <string name="ComplexNumbers">Complex numbers</string>
-
-    <string name="ShortMultiplicationFormulas">Short multiplication formulas</string>
-    <string name="DegreesFormulas">Degrees formulas</string>
-    <string name="ArithmeticProgression">Arithmetic progression</string>
-    <string name="GeometricProgression">Geometric progression</string>
-
-    <string name="Triangle">Triangle</string>
-    <string name="RectangularTriangle">Rectangular triangle</string>
-    <string name="Rhomb">Rhomb</string>
-
-    <string name="RectangularParallelepiped">Rectangular parallelepiped</string>
-    <string name="Cube">Cube</string>
-
-    <string name="DerivativesOfFunctions">Derivatives of functions</string>
-    <string name="DerivativesOfTrigonometricFunctions">Derivatives of trigonometric functions</string>
-
-    <string name="LogarithmsExpressions" >Logarithms Expressions</string>
-    <string name="LogarithmsConversion">Logarithms Conversion</string>
-
-    <string name="BasicTrigonometricFunctions">Basic trigonometric functions</string>
-    <string name="InverseTrigonometricFunctions">Inverse trigonometric functions</string>
-    <string name="TabularValuesOfTrigonometricFunctions">Tabular values of trigonometric functions</string>
-
-    <string-array name="Topics">
-        <item>BasicFormulas</item>
-        <item>Planimetry</item>
-        <item>Vectors</item>
-        <item>Stereometry</item>
-        <item>ProbabilityTheory</item>
-        <item>Derivative</item>
-        <item>Logarithms</item>
-        <item>Trigonometry</item>
-        <item>ComplexNumbers</item>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:locale="es">
+    <string-array name="TopicsAttributes">
+        <item>Basic formulas</item> <item>Basic formulas test</item>
+        <item>Planimetry</item> <item>Planimetry test</item>
+        <item>Vectors</item> <item>Vectors test</item>
+        <item>Stereometry</item> <item>Stereometry test</item>
+        <item>Probability theory</item> <item>Probability theory test</item>
+        <item>Derivative</item> <item>Derivative test</item>
+        <item>Logarithms</item> <item>Logarithms test</item>
+        <item>Trigonometry</item> <item>Trigonometry test</item>
+        <item>Complex numbers</item> <item>Complex numbers test</item>
     </string-array>
+
     <string-array name="BasicFormulas">
-        <item>ShortMultiplicationFormulas</item>
-        <item>DegreesFormulas</item>
-        <item>ArithmeticProgression</item>
-        <item>GeometricProgression</item>
+        <item>Short multiplication formulas</item>
+        <item>Degrees formulas</item>
+        <item>Arithmetic progression</item>
+        <item>Geometric progression</item>
     </string-array>
     <string-array name="Planimetry">
         <item>Triangle</item>
-        <item>RectangularTriangle</item>
+        <item>Rectangular triangle</item>
         <item>Rhomb</item>
     </string-array>
     <string-array name="Vectors">
     </string-array>
     <string-array name="Stereometry">
-        <item>RectangularParallelepiped</item>
+        <item>Rectangular parallelepiped</item>
         <item>Cube</item>
     </string-array>
     <string-array name="ProbabilityTheory">
     </string-array>
     <string-array name="Derivative">
-        <item>DerivativesOfFunctions</item>
-        <item>DerivativesOfTrigonometricFunctions</item>
+        <item>Derivatives of functions</item>
+        <item>Derivatives of trigonometric functions</item>
     </string-array>
     <string-array name="Logarithms">
-        <item>LogarithmsExpressions</item>
-        <item>LogarithmsConversion</item>
+        <item>Logarithms expressions</item>
+        <item>Logarithms conversion</item>
     </string-array>
     <string-array name="Trigonometry">
-        <item>BasicTrigonometricFunctions</item>
-        <item>InverseTrigonometricFunctions</item>
-        <item>TabularValuesOfTrigonometricFunctions</item>
+        <item>Basic trigonometric functions</item>
+        <item>Inverse trigonometric functions</item>
+        <item>Tabular values of trigonometric functions</item>
     </string-array>
     <string-array name="ComplexNumbers">
     </string-array>
 
-    <string name="BasicFormulasTest">Basic formulas test</string>
-    <string name="PlanimetryTest">Planimetry test</string>
-    <string name="VectorsTest">Vectors test</string>
-    <string name="StereometryTest">Stereometry test</string>
-    <string name="ProbabilityTheoryTest">Probability theory test</string>
-    <string name="DerivativeTest">Derivative test</string>
-    <string name="LogarithmsTest">Logarithms test</string>
-    <string name="TrigonometryTest">Trigonometry test</string>
-    <string name="ComplexNumbersTest">Complex numbers test</string>
-
-    <string-array name="TestAvailable">
-        <item>true</item>
-        <item>true</item>
-        <item>false</item>
-        <item>true</item>
-        <item>false</item>
-        <item>true</item>
-        <item>true</item>
-        <item>true</item>
-        <item>false</item>
-    </string-array>
-
     <string-array name="Theory">
-
         <item>
 Формулы сокращенного умножения:\n
 (a + b)² = a² + 2ab + b²\n

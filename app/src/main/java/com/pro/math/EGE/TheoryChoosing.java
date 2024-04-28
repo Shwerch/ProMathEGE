@@ -20,7 +20,7 @@ public class TheoryChoosing extends MyAppCompatActivity {
 
         String[] RealTopics = new String[Sources.TopicsAttributes.length];
         for (int i = 0;i < Sources.TopicsAttributes.length;i++)
-            RealTopics[i] = getResources().getString(Sources.TopicsAttributes[i][1]);
+            RealTopics[i] = Sources.TopicsAttributes[i * 2];
 
         ListView List = findViewById(R.id.list);
 

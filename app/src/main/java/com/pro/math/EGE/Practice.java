@@ -9,36 +9,32 @@ import java.util.ArrayList;
 public class Practice {
     private static int LastTaskNumber = -1;
     private static int LastTaskIndex = -1;
+    private static String[] ResTasks;
+    private static int step;
     @SuppressLint("DiscouragedApi")
-    public static Task GetTask(Context context,int Number) {
-        Resources res = context.getResources();
-        String[] ResTasks;
-        try {
-            ResTasks = res.getStringArray((int) R.array.class.getField("Task_"+Number).get(null));
-        } catch (Exception e) {
-            Console.L(e);
-            throw new RuntimeException();
-        }
-        final int len = ResTasks.length;
-        final int step;
-        if (ResTasks[3].startsWith("task"))
-            step = 4;
-        else
-            step = 3;
-        final int k;
+    public static void GetTask(Context context, int Number, Task task) {
+        int k;
         if (Number != LastTaskNumber) {
-            ArrayList<Integer> indexes = new ArrayList<>(len - 1);
-            for (int i = 0;i < len;i++) {
-                if (i != LastTaskIndex) {
-                    indexes.add(i);
-                }
+            try {
+                Console.L("ResTasks");
+                ResTasks = context.getResources().getStringArray((int) R.array.class.getField("Task_"+Number).get(null));
+            } catch (Exception e) {
+                Console.L(e);
+                throw new RuntimeException();
             }
-            k = step * (indexes.get((int)((len - 1) * Math.random())));
-        } else
-            k = step * (int)(len * Math.random());
+            if (ResTasks[3].startsWith("task"))
+                step = 4;
+            else
+                step = 3;
+            k = step * (int)((ResTasks.length / step) * Math.random());
+        } else {
+            k = step * (int)((ResTasks.length / step - 1) * Math.random());
+            if (k >= LastTaskIndex)
+                k += step;
+        }
         LastTaskNumber = Number;
-        LastTaskIndex = k / step;
-        return new Task(ResTasks[k], ResTasks[k + 1], ResTasks[k + 2], step == 4 ? context.getResources().getIdentifier(ResTasks[k + 3], "drawable", context.getPackageName()) : -1);
+        LastTaskIndex = k;
+        task.Change(ResTasks[k], ResTasks[k + 1], ResTasks[k + 2], step == 4 ? context.getResources().getIdentifier(ResTasks[k + 3], "drawable", context.getPackageName()) : -1);
     }
 }
 
