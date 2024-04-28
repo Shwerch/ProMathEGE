@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Answer">Ответ</string>
+    <string name="Solution">Решение</string>
+    <string name="Task">Задание</string>
+    <string name="SelectAll">Выбрать все</string>
+    <string name="DropAll">Сбросить все</string>
+
+</resources>

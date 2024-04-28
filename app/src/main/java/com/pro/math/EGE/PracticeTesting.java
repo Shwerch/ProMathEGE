@@ -50,40 +50,36 @@ public class PracticeTesting extends MyAppCompatActivity{
         final String[] RightAnswers = Sources.RightAnswersTexts(this);
         final String[] RightRewards = Sources.RewardsTexts(this);
 
-        boolean haveImage = Practice.Setup(Numbers,this);
-        int text = Practice.GetText();
-        String answer = Practice.GetAnswer();
-        String solution = Practice.GetSolution();
-        int reward = Practice.GetReward();
-        if (haveImage) {
-            Image.setImageResource(Practice.GetImage());
+        Task task = Practice.GetTask(this,Numbers.get((int)(Numbers.size()*Math.random())));
+        if (task.Image != -1) {
+            Image.setImageResource(task.Image);
             Image.setMaxHeight(minSize);
             Image.setMaxWidth(minSize);
         }
         else {
             Image.setMaxHeight(0);
         }
-
+        final long reward = 60;
         final boolean[] responseReceived = new boolean[] {false};
         final Context context = this;
 
         super.SetSizes(new Button[] {MainMenu,Next,Solution,DraftButton},Title);
-        DraftButton.setOnClickListener(l -> startActivity(new Intent(this,Draft.class).putExtra("Text",text)));
+        DraftButton.setOnClickListener(l -> startActivity(new Intent(this,Draft.class).putExtra("Text",task.Text)));
 
-        Task.setText(text);
-        Solution.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(solution))));
+        Task.setText(task.Text);
+        Solution.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(task.Solution))));
         Answer.setOnKeyListener((v, keyCode, event) -> {
             if(!responseReceived[0] && (event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                 responseReceived[0] = true;
                 String answerText = Answer.getText().toString().replace(" ", "").replace(".", ",");
-                if (answerText.equals(answer) || answerText.equals("ххх")) {
+                if (answerText.equals(task.Answer) || answerText.equals("ххх")) {
                     Database.ChangePoints(context,reward);
-                    Database.ChangePracticeTask(this,Practice.GetNumber(),Practice.GetId(),1);
+                    //Database.ChangePracticeTask(this,Practice.GetNumber(),Practice.GetId(),1);
                     Toast.makeText(context,RightAnswers[(int)(Math.random()*RightAnswers.length)]+
                             " "+RightRewards[(int)(Math.random()*RightAnswers.length)]+
                             " "+ Sources.GetRightPointsEnd(context,reward),Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context,answer,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"Correct: "+task.Answer,Toast.LENGTH_SHORT).show();
                 }
                 return true;
             }

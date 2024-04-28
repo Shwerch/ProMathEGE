@@ -64,17 +64,12 @@
     <string name="DerivativesOfTrigonometricFunctions">Производные тригонометрических функций</string>
     <string name="LogarithmsConversion">Преобразование логарифмов</string>
     <string name="LogarithmsExpressions">Логарифмические выражения</string>
-    <string name="Answer">Ответ</string>
-    <string name="Solution">Решение</string>
-    <string name="Task">Задание</string>
     <string name="Trigonometry">Тригонометрия</string>
     <string name="TrigonometryTest">Тест по тригонометрии</string>
     <string name="BasicTrigonometricFunctions">Базовые тригонометрические функции</string>
     <string name="InverseTrigonometricFunctions">Обратные тригонометрические функции</string>
     <string name="TabularValuesOfTrigonometricFunctions">Табличные значения тригонометрических функций</string>
     <string name="add_points">Только для тестирования: добавить 1000 баллов</string>
-    <string name="SelectAll">Выбрать все</string>
-    <string name="DropAll">Сбросить все</string>
     <string name="Clear">Очистить</string>
     <string name="Stroke">Толщина</string>
     <string name="Moving">Смещение</string>

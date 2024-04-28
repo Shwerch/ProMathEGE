@@ -36,7 +36,6 @@ public class MainActivity extends MyAppCompatActivity {
         PointsButton = Points;
         Sources.Setup(this);
         Database.DefineDataBase(this);
-
         super.SetSizes(new Button[]{Points,Settings,Theory,Practice,Shop,Exit,About},Title);
 
         Exit.setOnClickListener(v -> Close());

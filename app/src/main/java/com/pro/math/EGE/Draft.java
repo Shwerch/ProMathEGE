@@ -29,9 +29,9 @@ public class Draft extends MyAppCompatActivity {
         ImageButton Move = findViewById(R.id.move);
         TextView textView = findViewById(R.id.text);
 
-        final int Text;
+        final String Text;
         try {
-            Text = (int) getIntent().getSerializableExtra("Text");
+            Text = (String) getIntent().getSerializableExtra("Text");
         } catch (Exception e) {
             Toast.makeText(getBaseContext(), R.string.error_whe_getting_topic, Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
