@@ -48,8 +48,8 @@ public class PracticeTesting extends MyAppCompatActivity{
 
         super.BackToMainMenu(MainMenu);
         Next.setOnClickListener(v -> startActivity(new Intent(this,PracticeTesting.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtra("Numbers",Numbers)));
-        final String[] RightAnswers = Sources.RightAnswersTexts(this);
-        final String[] RightRewards = Sources.RewardsTexts(this);
+        final String[] RightAnswers = getResources().getStringArray(R.array.rightAnswers);
+        final String[] RightRewards =getResources().getStringArray(R.array.rightRewards);
 
         if (task == null)
             task = new Task();

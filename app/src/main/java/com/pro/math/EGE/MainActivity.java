@@ -34,7 +34,6 @@ public class MainActivity extends MyAppCompatActivity {
         final TextView Title = findViewById(R.id.title);
 
         PointsButton = Points;
-        Sources.Setup(this);
         Database.DefineDataBase(this);
         super.SetSizes(new Button[]{Points,Settings,Theory,Practice,Shop,Exit,About},Title);
 

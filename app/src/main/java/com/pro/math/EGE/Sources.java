@@ -7,9 +7,42 @@ import android.content.res.Resources;
 import androidx.annotation.NonNull;
 
 import java.util.Locale;
-import java.util.Objects;
 
 public class Sources {
+    static String GetRightPointsEnd(Context context,long points) {
+        final long remainder  = points % 10;
+        final int index;
+        if ((points > 9 && points < 20) || remainder == 0 || remainder >= 5)
+            index = 0;
+        else if (remainder == 1)
+            index = 1;
+        else
+            index = 2;
+        return points + " " + context.getResources().getStringArray(R.array.points)[index];
+    }
+    static Resources GetLocaleResources(@NonNull Context context) {
+        Configuration configuration = new Configuration(context.getResources().getConfiguration());
+        configuration.setLocale(Locale.US);
+        return context.createConfigurationContext(configuration).getResources();
+    }
+    static String[] GetStringArray(@NonNull Resources resources,String name) {
+        try {
+            return resources.getStringArray((int) R.array.class.getField(name.replace(" ","_")).get(null));
+        } catch (Exception e) {
+            Console.L(e);
+            throw new RuntimeException();
+        }
+    }
+    static int GetInteger(@NonNull Resources resources,String name) {
+        try {
+            return resources.getInteger((int) R.integer.class.getField(name.replace(" ","_")).get(null));
+        } catch (Exception e) {
+            Console.L(e);
+            throw new RuntimeException();
+        }
+    }
+}
+
     /*static String[][] SubTopics(Resources resources) {
         return new String[][] {
                 resources.getStringArray(R.array.BasicFormulas),
@@ -34,31 +67,6 @@ public class Sources {
                 R.array.Trigonometry,
                 R.array.ComplexNumbers,
     };*/
-    static String GetRightPointsEnd(Context context,long points) {
-        final long remainder  = points % 10;
-        final int index;
-        if ((points > 9 && points < 20) || remainder == 0 || remainder >= 5)
-            index = 0;
-        else if (remainder == 1)
-            index = 1;
-        else
-            index = 2;
-        return points + " " + context.getResources().getStringArray(R.array.points)[index];
-    }
-    static Resources GetLocaleResources(@NonNull Context context, Locale locale) {
-        Configuration configuration = new Configuration(context.getResources().getConfiguration());
-        configuration.setLocale(locale);
-        return context.createConfigurationContext(configuration).getResources();
-    }
-    static String[] GetStringArray(@NonNull Resources resources,String name) {
-        try {
-            return resources.getStringArray((int) R.array.class.getField(name).get(null));
-        } catch (Exception e) {
-            Console.L(e);
-            throw new RuntimeException();
-        }
-    }
-}
 
     /*public static String[] TopicsAttributes;
     public static String[][] SubTopicsNames(Context context) {

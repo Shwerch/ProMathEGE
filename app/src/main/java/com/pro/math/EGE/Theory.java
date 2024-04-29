@@ -1,5 +1,123 @@
 package com.pro.math.EGE;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.res.Resources;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Theory {
+    private static int LastTaskNumber = -1;
+    private static int LastTaskIndex = -1;
+    private static String[] TopicsAttributes = null;
+    private static String[] TopicSubTopcis = null;
+    private static String[] ResTasks = null;
+    private static ArrayList<Integer> GetRandomArrayList(int start, int length) {
+        ArrayList<Integer> IntegerList = new ArrayList<>(length);
+        for (int i = 0;i < length;i++) {
+            IntegerList.add(i+start);
+        }
+        Collections.shuffle(IntegerList);
+        return IntegerList;
+    }
+    @SuppressLint("DiscouragedApi")
+    public static void GetTask(Context context, int Number, Question question) {
+        ArrayList<Integer> AvailableChapters = Database.GetAvailableSubTopics(context,Number);
+        Resources LocaleResources = Sources.GetLocaleResources(context);
+        if (TopicsAttributes == null)
+            TopicsAttributes = LocaleResources.getStringArray(R.array.TopicsAttributes);
+        if (TopicSubTopcis == null || Number != LastTaskNumber)
+            TopicSubTopcis = Sources.GetStringArray(LocaleResources, TopicsAttributes[Number].replace(" ", "_"));
+            //ResTasks = Sources.GetStringArray(LocaleResources,"");
+
+    }
+}
+
+/*
+private static List<Integer> GetRandomArrayList(int start, int length) {
+        List<Integer> IntegerList = new ArrayList<>(length);
+        for (int i = 0;i < length;i++) {
+            IntegerList.add(i+start);
+        }
+        Collections.shuffle(IntegerList);
+        return IntegerList;
+    }
+    public static void Setup(Context context,String Topic) {
+        ArrayList<String> AvailableChapters = Database.GetAvailableSubTopics(context,Topic);
+        SubTopic = AvailableChapters.get((int)(Math.random()*AvailableChapters.size()));
+        String[][] formulas = Objects.requireNonNull(Formulas.get(Topic)).get(SubTopic);
+        assert formulas != null;
+        int RandomQuestion = (int)(Math.random() * formulas.length);
+        if (RandomQuestion == PreviousQuestion && Objects.equals(SubTopic, PreviousSubTopic) && Objects.equals(Topic, PreviousTopic)) {
+            if (RandomQuestion == 0)
+                RandomQuestion = 1;
+            else if (RandomQuestion == (formulas.length-1))
+                RandomQuestion -= 1;
+            else if ((int)(Math.random()*2) == 0)
+                RandomQuestion += 1;
+            else
+                RandomQuestion -= 1;
+        }
+        PreviousQuestion = RandomQuestion;
+        PreviousSubTopic = SubTopic;
+        PreviousTopic = Topic;
+
+        Reward = FormulasRewards.get(Topic).get(SubTopic);
+
+        QuestionAndAnswers = new String[LENGTH];
+
+        List<Integer> QuestionAndAnswersDirection = GetRandomArrayList(0, formulas[RandomQuestion].length);
+        List<Integer> SelectedList = GetRandomArrayList(1,6);
+
+        CorrectAnswersCount = 1+(int)(Math.random()*(formulas[RandomQuestion].length-1));
+        CorrectAnswers = new int[CorrectAnswersCount];
+
+        QuestionAndAnswers[0] = formulas[RandomQuestion][QuestionAndAnswersDirection.get(0)];
+        for (int i = 0;i < CorrectAnswersCount;i++) {
+            QuestionAndAnswers[SelectedList.get(i)] = formulas[RandomQuestion][QuestionAndAnswersDirection.get(i + 1)];
+            CorrectAnswers[i] = SelectedList.get(i);
+        }
+
+        for (int select = 1; select < LENGTH; select++) {
+            if (QuestionAndAnswers[select] != null) {
+                continue;
+            }
+            String formula = null;
+            for (int i = 0; i < formulas.length; i++) {
+                if (RandomQuestion == i) {
+                    continue;
+                }
+                String[] formulas1 = formulas[i];
+                boolean Break = false;
+                Integer[] randomDirection = GetRandomArrayList(0, formulas1.length).toArray(new Integer[0]);
+                for (int formulaDirection : randomDirection) {
+                    boolean contains = false;
+                    for (int selectSearch = 0; selectSearch < LENGTH; selectSearch++) {
+                        if (Objects.equals(QuestionAndAnswers[selectSearch],formulas1[formulaDirection])) {
+                            contains = true;
+                            break;
+                        }
+                    }
+                    if (!contains) {
+                        formula = formulas1[formulaDirection];
+                        Break = true;
+                        break;
+                    }
+                }
+                if (Break) {
+                    break;
+                }
+            }
+            if (formula == null) {
+                QuestionAndAnswers[select] = "";
+            } else {
+                QuestionAndAnswers[select] = formula;
+            }
+        }
+    }
+
+
 import android.content.Context;
 
 import java.util.ArrayList;
@@ -51,7 +169,7 @@ public class Theory {
         treeMapSubTopic.add(subTopic);
         FormulasSubTopics.put(topic,treeMapSubTopic);
     }
-    static {
+    /static {
         String[][] ShortMultiplicationFormulas = new String[][] {
                 {"(a + b)²", "a² + 2ab + b²"},
                 {"(a - b)²", "a² - 2ab + b²"},
@@ -202,89 +320,9 @@ public class Theory {
         AddFormulas(Sources.Topics[7],"BasicTrigonometricFunctions",BasicTrigonometricFunctions,true,40);
         AddFormulas(Sources.Topics[7],"InverseTrigonometricFunctions",InverseTrigonometricFunctions,false,40);
         AddFormulas(Sources.Topics[7],"TabularValuesOfTrigonometricFunctions",TabularValuesOfTrigonometricFunctions,false,80);
-    }
-    private static List<Integer> GetRandomArrayList(int start, int length) {
-        List<Integer> IntegerList = new ArrayList<>(length);
-        for (int i = 0;i < length;i++) {
-            IntegerList.add(i+start);
-        }
-        Collections.shuffle(IntegerList);
-        return IntegerList;
-    }
-    public static void Setup(Context context,String Topic) {
-        ArrayList<String> AvailableChapters = Database.GetAvailableSubTopics(context,Topic);
-        SubTopic = AvailableChapters.get((int)(Math.random()*AvailableChapters.size()));
-        String[][] formulas = Objects.requireNonNull(Formulas.get(Topic)).get(SubTopic);
-        assert formulas != null;
-        int RandomQuestion = (int)(Math.random() * formulas.length);
-        if (RandomQuestion == PreviousQuestion && Objects.equals(SubTopic, PreviousSubTopic) && Objects.equals(Topic, PreviousTopic)) {
-            if (RandomQuestion == 0)
-                RandomQuestion = 1;
-            else if (RandomQuestion == (formulas.length-1))
-                RandomQuestion -= 1;
-            else if ((int)(Math.random()*2) == 0)
-                RandomQuestion += 1;
-            else
-                RandomQuestion -= 1;
-        }
-        PreviousQuestion = RandomQuestion;
-        PreviousSubTopic = SubTopic;
-        PreviousTopic = Topic;
+    }/
 
-        Reward = FormulasRewards.get(Topic).get(SubTopic);
-
-        QuestionAndAnswers = new String[LENGTH];
-
-        List<Integer> QuestionAndAnswersDirection = GetRandomArrayList(0, formulas[RandomQuestion].length);
-        List<Integer> SelectedList = GetRandomArrayList(1,6);
-
-        CorrectAnswersCount = 1+(int)(Math.random()*(formulas[RandomQuestion].length-1));
-        CorrectAnswers = new int[CorrectAnswersCount];
-
-        QuestionAndAnswers[0] = formulas[RandomQuestion][QuestionAndAnswersDirection.get(0)];
-        for (int i = 0;i < CorrectAnswersCount;i++) {
-            QuestionAndAnswers[SelectedList.get(i)] = formulas[RandomQuestion][QuestionAndAnswersDirection.get(i + 1)];
-            CorrectAnswers[i] = SelectedList.get(i);
-        }
-
-        for (int select = 1; select < LENGTH; select++) {
-            if (QuestionAndAnswers[select] != null) {
-                continue;
-            }
-            String formula = null;
-            for (int i = 0; i < formulas.length; i++) {
-                if (RandomQuestion == i) {
-                    continue;
-                }
-                String[] formulas1 = formulas[i];
-                boolean Break = false;
-                Integer[] randomDirection = GetRandomArrayList(0, formulas1.length).toArray(new Integer[0]);
-                for (int formulaDirection : randomDirection) {
-                    boolean contains = false;
-                    for (int selectSearch = 0; selectSearch < LENGTH; selectSearch++) {
-                        if (Objects.equals(QuestionAndAnswers[selectSearch],formulas1[formulaDirection])) {
-                            contains = true;
-                            break;
-                        }
-                    }
-                    if (!contains) {
-                        formula = formulas1[formulaDirection];
-                        Break = true;
-                        break;
-                    }
-                }
-                if (Break) {
-                    break;
-                }
-            }
-            if (formula == null) {
-                QuestionAndAnswers[select] = "";
-            } else {
-                QuestionAndAnswers[select] = formula;
-            }
-        }
-    }
-    public static String[] GetQuestionAndAnswers() {
+    /public static String[] GetQuestionAndAnswers() {
         return QuestionAndAnswers;
     }
     public static String GetSubTopic(Context context) {
@@ -299,5 +337,5 @@ public class Theory {
     }
     public static int GetCorrectAnswersCount() {
         return CorrectAnswersCount;
-    }
-}
+    }/
+}*/

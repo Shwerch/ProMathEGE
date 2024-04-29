@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 
-import java.util.ArrayList;
-
 public class Practice {
     private static int LastTaskNumber = -1;
     private static int LastTaskIndex = -1;
@@ -13,15 +11,10 @@ public class Practice {
     private static int step;
     @SuppressLint("DiscouragedApi")
     public static void GetTask(Context context, int Number, Task task) {
+        Resources LocaleResources = Sources.GetLocaleResources(context);
         int k;
         if (Number != LastTaskNumber) {
-            try {
-                Console.L("ResTasks");
-                ResTasks = context.getResources().getStringArray((int) R.array.class.getField("Task_"+Number).get(null));
-            } catch (Exception e) {
-                Console.L(e);
-                throw new RuntimeException();
-            }
+            ResTasks = Sources.GetStringArray(LocaleResources,"Task_"+Number);
             if (ResTasks[3].startsWith("task"))
                 step = 4;
             else

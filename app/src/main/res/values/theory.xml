@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyOther">
 
     <string-array name="TopicsAttributes">
         <item>Basic formulas</item> <item>Basic formulas test</item>
@@ -13,47 +13,206 @@
         <item>Complex numbers</item> <item>Complex numbers test</item>
     </string-array>
 
-    <string-array name="Basic_formulas" tools:ignore="InconsistentArrays">
-        <item>Short multiplication formulas</item> <item>0</item>
-        <item>Degrees formulas</item> <item>0</item>
-        <item>Arithmetic progression</item> <item>100</item>
-        <item>Geometric progression</item> <item>100</item>
+    <string-array name="Basic_formulas">
+        <item>Short multiplication formulas</item>
+        <item>Degrees formulas</item>
+        <item>Arithmetic progression</item>
+        <item>Geometric progression</item>
+    </string-array>
+    <integer name="Basic_formulas_reward">20</integer>
+    
+    <integer name="Basic_formulas_Short_multiplication_formulas_cost">0</integer>
+    <string-array name="Basic_formulas_Short_multiplication_formulas">
+        <item>(a + b)² = a² + 2ab + b²</item>
+        <item>(a - b)² = a² - 2ab + b²</item>
+        <item>a² - b² = (a - b)(a + b)</item>
+        <item>(a + b)³ = a³ + 3a²b + 3ab² + b³</item>
+        <item>(a - b)³ = a³ - 3a²b + 3ab² - b³</item>
+        <item>a³ + b³ = (a + b)(a² - ab + b²)</item>
+        <item>a³ - b³ = (a - b)(a² + ab + b²)</item>
+    </string-array>
+    <integer name="Basic_formulas_Degrees_formulas_cost">0</integer>
+    <string-array name="Basic_formulas_Degrees_formulas">
+        <item>a⁰ = 1</item>
+        <item>a¹ = a</item>
+        <item>aⁿ * aᵐ = aⁿ⁺ᵐ</item>
+        <item>(aⁿ)ᵐ = aⁿᵐ</item>
+        <item>aⁿbⁿ = (ab)ⁿ</item>
+        <item>a⁻ⁿ = 1/aⁿ</item>
+        <item>aⁿ/aᵐ = aⁿ⁻ᵐ</item>
+    </string-array>
+    <integer name="Basic_formulas_Arithmetic_progression_cost">100</integer>
+    <string-array name="Basic_formulas_Arithmetic_progression">
+        <item>aₙ = a₁ + (n - 1)d = aₙ₋₁ + d = (aₙ₊₁ + aₙ₋₁)/2</item>
+        <item>d = aₙ - aₙ₋₁</item>
+        <item>Sₙ = ((a₁ + aₙ) * n)/2 = n(2a₁ + (n - 1)d)/2</item>
+    </string-array>
+    <integer name="Basic_formulas_Geometric_progression_cost">100</integer>
+    <string-array name="Basic_formulas_Geometric_progression">
+        <item>bₙ = b₁ * qⁿ⁻¹ = bₙ₋₁ * q</item>
+        <item>q = bₙ / bₙ₋₁</item>
+        <item>Sₙ = (b₁ - bₙ₊₁)/(1 - q) = b₁ * (1 - qⁿ)/(1 - q)</item>
     </string-array>
 
-    <string-array name="Planimetry" tools:ignore="InconsistentArrays">
-        <item>Triangle</item> <item>0</item>
-        <item>Rectangular triangle</item> <item>125</item>
-        <item>Rhomb</item> <item>125</item>
+    
+    <string-array name="Planimetry">
+        <item>Triangle</item>
+        <item>Rectangular triangle</item>
+        <item>Rhomb</item>
+    </string-array>
+    <integer name="Planimetry_reward">40</integer>
+    
+    <integer name="Planimetry_Triangle_cost">0</integer>
+    <string-array name="Planimetry_Triangle">
+        <item>S = 0.5*h*a = 0.5*b*c*sin(α) = √(p(p - a)(p - b)(p - c)) = p*r</item>
+        <item>R = (a*b*c)/4S</item>
+        <item>2R = a/sin(a) = b/sin(b) = c/sin(c)</item>
+        <item>c² = b² + c² - 2ab*cos(α)</item>
+    </string-array>
+    <integer name="Planimetry_Rectangular_triangle_cost">125</integer>
+    <string-array name="Planimetry_Rectangular_triangle">
+        <item>S = 0.5*a*b = 0.5*c*h</item>
+        <item>c² = b² + c²</item>
+        <item>r = (a + b - c)/2</item>
+        <item>R = c/2</item>
+    </string-array>
+    <integer name="Planimetry_Rhomb_cost">125</integer>
+    <string-array name="Planimetry_Rhomb">
+        <item>S = a*hₒ = a² * sin a = 0.5*d1*d2</item>
+        <item>r = h/2 = S/2a</item>
+        <item>a = S/h = S/2r = P/4</item>
+        <item>d1 = 2S/d2</item>
+        <item>d2 = 2S/d1</item>
     </string-array>
 
-    <string-array name="Vectors" tools:ignore="InconsistentArrays">
+    <string-array name="Vectors">
     </string-array>
 
-    <string-array name="Stereometry" tools:ignore="InconsistentArrays">
-        <item>Rectangular parallelepiped</item> <item>0</item>
-        <item>Cube</item> <item>125</item>
+    <string-array name="Stereometry">
+        <item>Rectangular parallelepiped</item>
+        <item>Cube</item>
+    </string-array>
+    <integer name="Stereometry_reward">40</integer>
+
+    <integer name="Stereometryy_Rectangular_parallelepiped_cost">0</integer>
+    <string-array name="Stereometryy_Rectangular_parallelepiped">
+        <item>V = abc</item>
+        <item>S = 2(ab + bc + ca)</item>
+        <item>Sбок = 2c(a + b)</item>
+        <item>d = √(a² + b² + c²)</item>
+    </string-array>
+    <integer name="Stereometryy_Cube_cost">125</integer>
+    <string-array name="Stereometryy_Cube">
+        <item>a = b = c</item>
+        <item>V = a³</item>
+        <item>S = 6a²</item>
+        <item>Sбок = 4a²</item>
+        <item>d = √(3a²)</item>
     </string-array>
 
-    <string-array name="Probability_theory" tools:ignore="InconsistentArrays">
+    <string-array name="Probability_theory">
     </string-array>
 
-    <string-array name="Derivative" tools:ignore="InconsistentArrays">
-        <item>Derivatives of functions</item> <item>0</item>
-        <item>Derivatives of trigonometric functions</item> <item>150</item>
+    <string-array name="Derivative">
+        <item>Derivatives of functions</item>
+        <item>Derivatives of trigonometric functions</item>
+    </string-array>
+    <integer name="Derivative_reward">50</integer>
+
+    <integer name="Derivative_Derivatives_of_functions_cost">0</integer>
+    <string-array name="Derivative_Derivatives_of_functions">
+        <item>f`(x) = k = tg(α)</item>
+        <item>с` = 0</item>
+        <item>(c * u)` = c * u`</item>
+        <item>(u + y)` = u` + y`</item>
+        <item>(u * y)` = u`y + uy`</item>
+        <item>(u / y)` = (u`y - uy`)/y²</item>
+        <item>(xⁿ)` = n * xⁿ⁻¹</item>
+        <item>(aˣ)` = aˣ * ln a</item>
+        <item>(ln a)` = 1/x</item>
+        <item>(logₙa)` = 1/(a * ln n)</item>
+    </string-array>
+    <integer name="Derivatives_of_trigonometric_functions_cost">150</integer>
+    <string-array name="Derivatives_of_trigonometric_functions">
+        <item>(sin x)` = cos x</item>
+        <item>(cos x)` = -sin x</item>
+        <item>(tg x)` = 1/(cos² x)</item>
+        <item>(ctg x)` = -1/(cos² x)</item>
+        <item>(arcsin x)` = 1/√(1-x²)</item>
+        <item>(arccos x)` = -1/√(1-x²)</item>
+        <item>(arctg x)` = 1/(1+x²)</item>
+        <item>(arcctg x)` = -1/(1+x²)</item>
     </string-array>
 
-    <string-array name="Logarithms" tools:ignore="InconsistentArrays">
-        <item>Logarithms expressions</item> <item>0</item>
-        <item>Logarithms conversion</item> <item>175</item>
+    <string-array name="Logarithms">
+        <item>Logarithms expressions</item>
+        <item>Logarithms conversion</item>
+    </string-array>
+    <integer name="Logarithms_reward">50</integer>
+
+    <integer name="Logarithms_Logarithms_expressions_cost">0</integer>
+    <string-array name="Logarithms_Logarithms_expressions">
+        <item>lg m = log₁₀m</item>
+        <item>ln m = logₑm</item>
+        <item>n^(logₙm) = m</item>
+        <item>logₙ1 = 0</item>
+        <item>logₙn = 1</item>
+    </string-array>
+    <integer name="Logarithms_Logarithms_conversion_cost">175</integer>
+    <string-array name="Logarithms_Logarithms_conversion">
+        <item>lg m = log₁₀m</item>
+        <item>ln m = logₑm</item>
+        <item>n^(logₙm) = m</item>
+        <item>logₙ1 = 0</item>
+        <item>logₙn = 1</item>
     </string-array>
 
-    <string-array name="Trigonometry" tools:ignore="InconsistentArrays">
-        <item>Basic trigonometric functions</item> <item>0</item>
-        <item>Inverse trigonometric functions</item> <item>175</item>
-        <item>Tabular values of trigonometric functions</item> <item>200</item>
+    <string-array name="Trigonometry">
+        <item>Basic trigonometric functions</item>
+        <item>Inverse trigonometric functions</item>
+        <item>Tabular values of trigonometric functions</item>
+    </string-array>
+    <integer name="Trigonometry_reward">60</integer>
+
+    <integer name="Trigonometry_Basic_trigonometric_functions_cost">0</integer>
+    <string-array name="Trigonometry_Basic_trigonometric_functions" tools:ignore="TypographyDashes">
+        <item>sin²(x) + cos²(x) = 1</item>
+        <item>tg(x) = sin(x) / cos(x) = 1 / ctg(x)</item>
+        <item>ctg(x) = cos(x) / sin(x) = 1 / tg(x)</item>
+        <item>tg²(x) + 1 = 1 / cos²(x)</item>
+        <item>ctg²(x) + 1 = 1 / sin²(x)</item>
+        <item>sin(2x) = 2sin(x)cos(x)</item>
+        <item>cos(2x) = cos²(x) - sin²(x) = 2cos²(x) - 1 = 1 - 2sin²(x)</item>
+        <item>tg(2x) = 2tg(x) / (1 - tg²(x))</item>
+        <item>sin(a ± b) = sin(a)cos(b) ± cos(a)sin(b)</item>
+        <item>cos(a ± b) = cos(a)cos(b) ∓ sin(a)sin(b)</item>
+        <item>tg(a ± b) = (tg(a) ± tg(b)) / (1 ∓ tg(a)tg(b))</item>
+        <item>cos²(x) = (1 + cos(2x)) / 2</item>
+        <item>sin²(x) = (1 - cos(2x)) / 2</item>
+    </string-array>
+    <integer name="Trigonometry_Inverse_trigonometric_functions_cost">175</integer>
+    <string-array name="Trigonometry_Inverse_trigonometric_functions">
+        <item>arcsin(a) = t, a ∈ [-1; 1] = sin(t) = a, t ∈ [-π/2; π/2]</item>
+        <item>arccos(a) = t, a ∈ [-1; 1] = cos(t) = a, t ∈ [0; π]</item>
+        <item>arctg(a) = t = tg(t) = a,t ∈ [-π/2; π/2]</item>
+        <item>sin(x) = a = x = arcsin(a) + 2πn; π - arcsin(a) + 2πn</item>
+        <item>cos(x) = a = x = ±arccos(a) + 2πn</item>
+    </string-array>
+    <integer name="Trigonometry_Tabular_values_of_trigonometric_functions_cost">175</integer>
+    <string-array name="Trigonometry_Tabular_values_of_trigonometric_functions">
+        <item>-1 = sin(3π/2) = cos(π)</item>
+        <item>-√3/2 = sin(4π/3) = cos(5π/6) = sin(5π/3) = cos(7π/6)</item>
+        <item>-√2/2 = sin(5π/4) = cos(3π/4) = sin(7π/4) = cos(5π/4)</item>
+        <item>-½ = sin(7π/6) = cos(2π/3) = sin(11π/6) = cos(4π/3)</item>
+        <item>0 = sin(0) = sin(π) = cos(π/2) = cos(3π/2)</item>
+        <item>½ = sin(π/6) = cos(π/3) = sin(5π/6) = cos(5π/3)</item>
+        <item>√2/2 = sin(π/4) = cos(π/4) = sin(3π/4) = cos(7π/4)</item>
+        <item>√3/2 = sin(π/3) = cos(π/6) = sin(2π/3) = cos(11π/6)</item>
+        <item>1 = sin(π/2) = cos(0)</item>
     </string-array>
 
-    <string-array name="Complex_numbers" tools:ignore="InconsistentArrays">
+
+    <string-array name="Complex_numbers">
     </string-array>
 
     <string-array name="Theory">
