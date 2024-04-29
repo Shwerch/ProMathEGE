@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class Theory {
@@ -12,6 +13,13 @@ public class Theory {
     private static int LastTaskIndex = -1;
     private static String[] TopicsAttributes = null;
     private static String[] SubTopics = null;
+    private static ArrayList<Integer> GetShuffledArrayList(int start, int length) {
+        ArrayList<Integer> arrayList = new ArrayList<>(length);
+        for (int i = 0;i < length;i++)
+            arrayList.add(i + start);
+        Collections.shuffle(arrayList);
+        return arrayList;
+    }
     @SuppressLint("DiscouragedApi")
     public static void GetTask(Context context, int topicId, Question question) {
         ArrayList<Integer> AvailableSubTopics = Database.GetAvailableSubTopics(context,topicId);
@@ -29,7 +37,26 @@ public class Theory {
             taskIndex += 1;
         Database.CloseDatabase();
         String[] Task = Tasks[taskIndex].split(" = ");
-        question.Change(Task[taskIndex],new String[] {},new boolean[] {});
+        final int rightAnswer = (int) (Task.length * Math.random());
+        final int correctAnswersCount = (int)((Task.length - 1) * Math.random()) + 1;
+        ArrayList<Integer> correctAnswers = new ArrayList<>(correctAnswersCount);
+        for (int i = 0;i < Task.length;i++) {
+            if (correctAnswers.size() >= correctAnswersCount) break;
+            else if (i != rightAnswer) {
+                correctAnswers.add(i);
+            }
+        }
+        Collections.shuffle(correctAnswers);
+        ArrayList<Integer> ShuffledArrayList = GetShuffledArrayList(0,6);
+        String[] Answers = new String[6];
+        ArrayList<Integer> AnswersIndexes = new ArrayList<>(correctAnswersCount);
+        /*for (int i = 0;i < 6;i++) {
+            final int index = ShuffledArrayList.get(i);
+            Answers[index] = "";
+            if (i < correctAnswers.size())
+                AnswersIndexes.add(index);
+        }*/
+        question.Change(Task[taskIndex],Answers,AnswersIndexes);
         LastTaskIndex = taskIndex;
         LastSubTopic = subTopicId;
     }
