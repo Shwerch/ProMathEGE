@@ -12,38 +12,38 @@
         <item>Комплексные числа</item> <item>Тест по комплексным числам</item>
     </string-array>
 
-    <string-array name="Basic_formulas" tools:ignore="InconsistentArrays">
+    <string-array name="Basic_formulas">
         <item>Формулы сокращенного умножения</item>
         <item>Формулы степеней</item>
         <item>Арифметическая прогрессия</item>
         <item>Геометрическая прогрессия</item>
     </string-array>
-    <string-array name="Planimetry" tools:ignore="InconsistentArrays">
+    <string-array name="Planimetry">
         <item>Треугольник</item>
         <item>Прямоугольный треугольник</item>
         <item>Ромб</item>
     </string-array>
-    <string-array name="Vectors" tools:ignore="InconsistentArrays">
+    <string-array name="Vectors">
     </string-array>
-    <string-array name="Stereometry" tools:ignore="InconsistentArrays">
+    <string-array name="Stereometry">
         <item>Прямоугольный параллелепипед</item>
         <item>Куб</item>
     </string-array>
-    <string-array name="Probability_theory" tools:ignore="InconsistentArrays">
+    <string-array name="Probability_theory">
     </string-array>
-    <string-array name="Derivative" tools:ignore="InconsistentArrays">
+    <string-array name="Derivative">
         <item>Производные функций</item>
         <item>Производные тригонометрических функций</item>
     </string-array>
-    <string-array name="Logarithms" tools:ignore="InconsistentArrays">
+    <string-array name="Logarithms">
         <item>Логарифмические выражения</item>
         <item>Преобразование логарифмов</item>
     </string-array>
-    <string-array name="Trigonometry" tools:ignore="InconsistentArrays">
+    <string-array name="Trigonometry">
         <item>Основные тригонометрические функции</item>
         <item>Обратные тригонометрические функции</item>
         <item>Табличные значения тригонометрических функций</item>
     </string-array>
-    <string-array name="Complex_numbers" tools:ignore="InconsistentArrays">
+    <string-array name="Complex_numbers">
     </string-array>
 </resources>

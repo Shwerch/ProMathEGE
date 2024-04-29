@@ -13,17 +13,17 @@ import java.util.ArrayList;
 
 public class Database {
     private static SQLiteDatabase database = null;
-    private static class Currencies {
-        public static void Create() {
+    static class Currencies {
+        static void Create() {
             database.execSQL("CREATE TABLE IF NOT EXISTS Currencies (currencyId INT PRIMARY KEY, value LONG)");
         }
-        public static void Insert(int currencyId, long value) {
+        static void Insert(int currencyId, long value) {
             database.execSQL("INSERT OR IGNORE INTO Currencies VALUES ("+currencyId+", "+value+");");
         }
-        public static void Update(int currencyId,long value) {
+        static void Update(int currencyId,long value) {
             database.execSQL("UPDATE Currencies SET value = "+value+" WHERE currencyId = "+currencyId+";");
         }
-        public static long Get(int currencyId) {
+        static long Get(int currencyId) {
             final Cursor cursor = database.rawQuery("SELECT value FROM Currencies WHERE currencyId = "+currencyId+";",null);
             cursor.moveToFirst();
             final long value = cursor.getLong(0);
@@ -31,22 +31,22 @@ public class Database {
             return value;
         }
     }
-    private static class TheoryTopics {
-        public static void Create() {
+    static class TheoryTopics {
+        static void Create() {
             database.execSQL("CREATE TABLE IF NOT EXISTS TheoryTopics (topicId INT PRIMARY KEY AUTOINCREMENT, topic TEXT)");
         }
-        public static int Insert(String topic) {
+        static int Insert(String topic) {
             database.execSQL("INSERT OR IGNORE INTO TheoryTopics VALUES ('"+topic+"');");
             return TheoryTopics.Get(topic);
         }
-        public static int Get(String topic) {
+        static int Get(String topic) {
             final Cursor cursor = database.rawQuery("SELECT topicId FROM TheoryTopics WHERE topic = '"+topic+"';",null);
             cursor.moveToLast();
             final int id = cursor.getInt(0);
             cursor.close();
             return id;
         }
-        public static String Get(int topicId) {
+        static String Get(int topicId) {
             final Cursor cursor = database.rawQuery("SELECT topic FROM TheoryTopics WHERE topicId = "+topicId+";",null);
             cursor.moveToLast();
             final String topic = cursor.getString(0);
@@ -54,22 +54,22 @@ public class Database {
             return topic;
         }
     }
-    private static class TheorySubTopics {
-        public static void Create() {
+    static class TheorySubTopics {
+        static void Create() {
             database.execSQL("CREATE TABLE IF NOT EXISTS TheorySubTopics (subTopicId INT PRIMARY KEY AUTOINCREMENT, topicId INT, subTopic TEXT)");
         }
-        public static int Insert(int topicId, String topic) {
+        static int Insert(int topicId, String topic) {
             database.execSQL("INSERT OR IGNORE INTO TheorySubTopics VALUES ("+topicId+", '"+topic+"');");
             return TheorySubTopics.Get(topicId,topic);
         }
-        public static int Get(int topicId, String topic) {
+        static int Get(int topicId, String topic) {
             final Cursor cursor = database.rawQuery("SELECT subTopicId FROM TheorySubTopics WHERE topicId = "+topicId+" AND topic = '"+topic+"';",null);
             cursor.moveToLast();
             final int id = cursor.getInt(0);
             cursor.close();
             return id;
         }
-        public static String Get(int topicId, int subTopicId) {
+        static String Get(int topicId, int subTopicId) {
             final Cursor cursor = database.rawQuery("SELECT topic FROM TheorySubTopics WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId+";",null);
             cursor.moveToLast();
             final String topic = cursor.getString(0);
@@ -77,29 +77,29 @@ public class Database {
             return topic;
         }
     }
-    private static class TheoryAvailability {
-        public static void Create() {
+    static class TheoryAvailability {
+        static void Create() {
             database.execSQL("CREATE TABLE IF NOT EXISTS TheoryAvailability (topicId INT, subTopicId INT, availability BIT, PRIMARY KEY (topicId, subTopicId))");
         }
-        public static boolean Insert(int topicId, int subTopicId, boolean availability) {
+        static boolean Insert(int topicId, int subTopicId, boolean availability) {
             database.execSQL("INSERT OR IGNORE INTO TheoryAvailability VALUES ("+topicId+", "+subTopicId+","+(availability ? 1 : 0)+");");
             return TheoryAvailability.Get(topicId,subTopicId);
         }
-        public static void Update(int topicId, int subTopicId, boolean availability) {
+        static void Update(int topicId, int subTopicId, boolean availability) {
             database.execSQL("UPDATE TheoryAvailability SET availability = "+(availability ? 1 : 0)+" WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId+";");
         }
-        public static boolean Get(int topicId, int subTopicId) {
+        static boolean Get(int topicId, int subTopicId) {
             final Cursor cursor = database.rawQuery("SELECT availability FROM TheoryAvailability WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId+";",null);
             cursor.moveToLast();
             final boolean availability = cursor.getInt(0) == 1;
             cursor.close();
             return availability;
         }
-        public static Cursor Select(Integer topicId) {
+        static Cursor Select(Integer topicId) {
             return database.rawQuery("SELECT * FROM TheoryAvailability WHERE topicId = "+topicId+";",null);
         }
     }
-    private static void OpenOrCreateDatabase(Context context) {
+    static void OpenOrCreateDatabase(Context context) {
         boolean create = false;
         if (database == null)
             create = true;
@@ -108,18 +108,18 @@ public class Database {
         } if (create)
             database = context.openOrCreateDatabase(DATABASE,MODE_PRIVATE,null);
     }
-    private static void Close(Context context) {
+    static void CloseDatabase() {
         boolean close = true;
         if (database == null)
             close = false;
         else if (!database.isOpen()) {
             close = false;
         } if (close)
-            database = context.openOrCreateDatabase(DATABASE,MODE_PRIVATE,null);
+            database.close();
     }
     private static final String DATABASE = "Storage";
-    public static ArrayList<int[]> ShopAttributes = new ArrayList<>();
-    public static void DefineDataBase(Context context) {
+    static ArrayList<int[]> ShopAttributes = new ArrayList<>();
+    static void DefineDataBase(Context context) {
         OpenOrCreateDatabase(context);
 
         ResetShop();
@@ -143,21 +143,21 @@ public class Database {
                     AddToShop(topicId, subTopicId);
             }
         }
-        Close(context);
+        CloseDatabase();
     }
-    public static void ResetShop() {
+    static void ResetShop() {
         ShopAttributes.clear();
     }
-    public static void AddToShop(int topicId, int subTopicId) {
+    static void AddToShop(int topicId, int subTopicId) {
         final int[] newAttribute = new int[] {topicId,subTopicId};
         if (!ShopAttributes.contains(newAttribute))
             ShopAttributes.add(newAttribute);
     }
-    public static void RemoveFromShop(int topicId, int subTopicId) {
+    static void RemoveFromShop(int topicId, int subTopicId) {
         ShopAttributes.remove(new int[] {topicId,subTopicId});
     }
     @NonNull
-    public static ArrayList<String> GetShop(Context context) {
+    static ArrayList<String> GetShop(Context context) {
         ArrayList<String> arrayList = new ArrayList<>(ShopAttributes.size());
         Resources EngRes = Sources.GetLocaleResources(context);
         String[] TopicsAttributes = EngRes.getStringArray(R.array.TopicsAttributes);
@@ -170,7 +170,7 @@ public class Database {
         }
         return arrayList;
     }
-    public static boolean BuySubTopic(Context context, int topicId, int subTopicId) {
+    static boolean BuySubTopic(Context context, int topicId, int subTopicId) {
         boolean success = false;
         Resources EngRes = Sources.GetLocaleResources(context);
         String topic = TheoryTopics.Get(topicId);
@@ -187,15 +187,16 @@ public class Database {
             TheoryAvailability.Update(topicId,subTopicId,true);
             RemoveFromShop(topicId,subTopicId);
         }
-        Close(context);
+        CloseDatabase();
         return success;
     }
-    public static void ResetDataBases(Context context) {
+    static void ResetDataBases(@NonNull Context context) {
         context.deleteDatabase(DATABASE);
         database = null;
         DefineDataBase(context);
     }
-    public static ArrayList<Integer> GetAvailableSubTopics(Context context, int topicId) {
+    @NonNull
+    static ArrayList<Integer> GetAvailableSubTopics(Context context, int topicId) {
         ArrayList<Integer> arrayList = new ArrayList<>();
         OpenOrCreateDatabase(context);
         Cursor cursor = TheoryAvailability.Select(topicId);
@@ -205,15 +206,15 @@ public class Database {
                 arrayList.add(cursor.getInt(1));
             }
         } while (cursor.move(1));
-        Close(context);
+        CloseDatabase();
         return arrayList;
     }
-    public static void ChangePoints(@NonNull Context context, long difference) {
+    static void ChangePoints(@NonNull Context context, long difference) {
         OpenOrCreateDatabase(context);
         Currencies.Update(1,Currencies.Get(1) + difference);
-        Close(context);
+        CloseDatabase();
     }
-    public static long GetPoints(@NonNull Context context) {
+    static long GetPoints(@NonNull Context context) {
         OpenOrCreateDatabase(context);
         return Currencies.Get(1);
     }

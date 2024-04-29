@@ -8,41 +8,34 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Theory {
-    private static int LastTaskNumber = -1;
+    private static int LastSubTopic = -1;
     private static int LastTaskIndex = -1;
     private static String[] TopicsAttributes = null;
-    private static String[] TopicSubTopcis = null;
-    private static String[] ResTasks = null;
-    private static ArrayList<Integer> GetRandomArrayList(int start, int length) {
-        ArrayList<Integer> IntegerList = new ArrayList<>(length);
-        for (int i = 0;i < length;i++) {
-            IntegerList.add(i+start);
-        }
-        Collections.shuffle(IntegerList);
-        return IntegerList;
-    }
+    private static String[] SubTopics = null;
     @SuppressLint("DiscouragedApi")
-    public static void GetTask(Context context, int Number, Question question) {
-        ArrayList<Integer> AvailableChapters = Database.GetAvailableSubTopics(context,Number);
-        Resources LocaleResources = Sources.GetLocaleResources(context);
+    public static void GetTask(Context context, int topicId, Question question) {
+        ArrayList<Integer> AvailableSubTopics = Database.GetAvailableSubTopics(context,topicId);
+        Resources EngRes = Sources.GetLocaleResources(context);
         if (TopicsAttributes == null)
-            TopicsAttributes = LocaleResources.getStringArray(R.array.TopicsAttributes);
-        if (TopicSubTopcis == null || Number != LastTaskNumber)
-            TopicSubTopcis = Sources.GetStringArray(LocaleResources, TopicsAttributes[Number].replace(" ", "_"));
-            //ResTasks = Sources.GetStringArray(LocaleResources,"");
-
+            TopicsAttributes = EngRes.getStringArray(R.array.TopicsAttributes);
+        if (SubTopics == null)
+            SubTopics = Sources.GetStringArray(EngRes, TopicsAttributes[topicId]);
+        final int subTopicId = AvailableSubTopics.get((int)(AvailableSubTopics.size() * Math.random()));
+        Database.OpenOrCreateDatabase(context);
+        String[] Tasks = Sources.GetStringArray(EngRes,Database.TheoryTopics.Get(topicId)
+                +" "+Database.TheorySubTopics.Get(topicId,subTopicId));
+        int taskIndex = (int)((Tasks.length - 1) * Math.random());
+        if (taskIndex >= LastTaskIndex && subTopicId == LastSubTopic)
+            taskIndex += 1;
+        Database.CloseDatabase();
+        String[] Task = Tasks[taskIndex].split(" = ");
+        question.Change(Task[taskIndex],new String[] {},new boolean[] {});
+        LastTaskIndex = taskIndex;
+        LastSubTopic = subTopicId;
     }
 }
 
 /*
-private static List<Integer> GetRandomArrayList(int start, int length) {
-        List<Integer> IntegerList = new ArrayList<>(length);
-        for (int i = 0;i < length;i++) {
-            IntegerList.add(i+start);
-        }
-        Collections.shuffle(IntegerList);
-        return IntegerList;
-    }
     public static void Setup(Context context,String Topic) {
         ArrayList<String> AvailableChapters = Database.GetAvailableSubTopics(context,Topic);
         SubTopic = AvailableChapters.get((int)(Math.random()*AvailableChapters.size()));
