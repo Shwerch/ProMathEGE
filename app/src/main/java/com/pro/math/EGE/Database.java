@@ -32,18 +32,15 @@ public class Database {
         database.execSQL("CREATE TABLE IF NOT EXISTS TheorySubTopics (topicId INT, subTopicId INT, subTopic TEXT, PRIMARY KEY (topicId, subTopicId))");
         database.execSQL("CREATE TABLE IF NOT EXISTS TheoryAvailability (topicId INT, subTopicId INT, availability BIT, PRIMARY KEY (topicId, subTopicId))");
 
-        Resources LocaleResources = Sources.GetLocaleResources(context,new Locale("ru"));
+        Resources LocaleResources = Sources.GetLocaleResources(context,new Locale(Locale.ENGLISH.getLanguage()));
         String[] TopicsAttributes = LocaleResources.getStringArray(R.array.TopicsAttributes);
         for (int i = 0;i < TopicsAttributes.length;i += 2) {
-            final int I = i / 2;
-            String topic = TopicsAttributes[i];
-            database.execSQL("INSERT OR IGNORE INTO TheoryTopics VALUES ("+I+",'"+topic.replace(" ","_")+"');");
-            for (int k = 0;k < Sources.SubTopics(LocaleResources)[I].length;k++) {
-                String subTopic = Sources.SubTopics(LocaleResources)[I][k];
-                database.execSQL("INSERT OR IGNORE INTO TheorySubTopics VALUES ("+I+","+k+",'"+subTopic.replace(" ","_")+"');");
-                int availability = (Boolean.TRUE.equals(Objects.requireNonNull(Theory.FormulasAvailability.get(topic)).get(subTopic)) ? 1 : 0);
-                database.execSQL("INSERT OR IGNORE INTO TheoryAvailability VALUES ("+I+",'"+k+"',"+availability+");");
-                query = database.rawQuery("SELECT availability FROM TheoryAvailability WHERE topicId = "+I+" AND subTopicId = "+k+";", null);
+            database.execSQL("INSERT OR IGNORE INTO TheoryTopics VALUES ("+i+",'"+TopicsAttributes[i].replace(" ","_")+"');");
+            String[] SubTopicsAttributes = Sources.GetStringArray(LocaleResources,TopicsAttributes[i].replace(" ","_"));
+            for (int k = 0;k < SubTopicsAttributes.length;k += 2) {
+                database.execSQL("INSERT OR IGNORE INTO TheorySubTopics VALUES ("+i+","+k+",'"+SubTopicsAttributes[k].replace(" ","_")+"');");
+                database.execSQL("INSERT OR IGNORE INTO TheoryAvailability VALUES ("+i+",'"+k+"',"+((Objects.equals(SubTopicsAttributes[k + 1], "0")) ? 1 : 0)+");");
+                query = database.rawQuery("SELECT availability FROM TheoryAvailability WHERE topicId = "+i+" AND subTopicId = "+k+";", null);
                 if (query.moveToFirst()) {
                     if (query.isFirst() && query.isLast() && query.getInt(0) == 0) {
                         AddToShop(i, k);
@@ -78,11 +75,14 @@ public class Database {
     @NonNull
     public static ArrayList<String> GetShop(Context context) {
         ArrayList<String> arrayList = new ArrayList<>(ShopAttributes.size());
+        Resources LocaleResources = Sources.GetLocaleResources(context,new Locale(Locale.ENGLISH.getLanguage()));
+        String[] TopicsAttributes = LocaleResources.getStringArray(R.array.TopicsAttributes);
         for (int[] attributes : ShopAttributes) {
+            String[] SubTopicsAttributes = Sources.GetStringArray(LocaleResources,TopicsAttributes[attributes[0]].replace(" ","_"));
             arrayList.add(
-                    Sources.SubTopics(context.getResources())[attributes[0]][attributes[1]]+" - "+
-                            Sources.GetRightPointsEnd(context,100)+" )"+
-                            context.getResources().getStringArray(R.array.TopicsAttributes)[attributes[0] / 2]+")"
+                    SubTopicsAttributes[attributes[1]]+" - "
+                            +Sources.GetRightPointsEnd(context, Long.parseLong(SubTopicsAttributes[attributes[1] + 1]))+
+                            " ("+TopicsAttributes[attributes[0]]+")"
             );
         }
         return arrayList;
@@ -90,40 +90,31 @@ public class Database {
     // working
     public static boolean BuySubTopic(Context context, int topicIndex, int subTopicIndex) {
         boolean success = false;
+        Resources LocaleResources = Sources.GetLocaleResources(context,new Locale(Locale.ENGLISH.getLanguage()));
+        long price = Long.parseLong(Sources.GetStringArray(LocaleResources,
+                LocaleResources.getStringArray(R.array.TopicsAttributes)[topicIndex].replace(" ","_"))[subTopicIndex + 1]);
         long points = GetPoints(context);
-        if (points < 100)
+        if (points < price)
             return false;
         SQLiteDatabase database = context.getApplicationContext().openOrCreateDatabase(DATABASE, MODE_PRIVATE, null);
-
-        Cursor query = database.rawQuery("SELECT topicId FROM TheoryTopics WHERE topic = '"+topic+"';",null);
-        int topicId = -1;
+        Cursor query = database.rawQuery("SELECT availability FROM TheoryAvailability WHERE topicId = "+topicIndex+" AND subTopicId = "+subTopicIndex+";",null);
+        boolean availabilityCorrect = false;
+        boolean availability = false;
         if (query.moveToFirst()) {
             if (query.isFirst() && query.isFirst()) {
-                topicId = query.getInt(0);
+                availabilityCorrect = true;
+                availability = query.getInt(0) == 1;
             }
-        }
-        query.close();
-        if (topicId != -1) {
-            query = database.rawQuery("SELECT availability FROM TheoryAvailability WHERE topicId = "+topicId+" AND subTopic = '"+subTopic+"';",null);
-            boolean availabilityCorrect = false;
-            boolean availability = false;
-            if (query.moveToFirst()) {
-                if (query.isFirst() && query.isFirst()) {
-                    availabilityCorrect = true;
-                    availability = query.getInt(0) == 1;
-                }
-            } if (availabilityCorrect) {
-                if (!availability) {
-                    success = true;
-                    ChangePoints(context,-100);
-                    database.execSQL("UPDATE TheoryAvailability SET availability = 1 WHERE topicId = "+topicId+" AND subTopic = '"+subTopic+"';");
-                    RemoveFromShop(topic,subTopic);
-                }
-            } else
-                Console.L("Error with topicId = "+topicId+" AND subTopic = '"+subTopic+"' in TheoryAvailability");
-            query.close();
+        } if (availabilityCorrect) {
+            if (!availability) {
+                success = true;
+                ChangePoints(context,-price);
+                database.execSQL("UPDATE TheoryAvailability SET availability = 1 WHERE topicId = "+topicIndex+" AND subTopicId = '"+subTopicIndex+"';");
+                RemoveFromShop(topicIndex,subTopicIndex);
+            }
         } else
-            Console.L("Error with topic = '"+topic+"' in TheoryTopics");
+            Console.L("Error with topicId = "+topicIndex+" AND subTopicId = "+subTopicIndex+" in TheoryAvailability");
+        query.close();
         database.close();
         return success;
     }

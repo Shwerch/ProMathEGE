@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools"
-    tools:locale="es">
+<resources xmlns:tools="http://schemas.android.com/tools">
+
     <string-array name="TopicsAttributes">
         <item>Basic formulas</item> <item>Basic formulas test</item>
         <item>Planimetry</item> <item>Planimetry test</item>
@@ -13,39 +13,47 @@
         <item>Complex numbers</item> <item>Complex numbers test</item>
     </string-array>
 
-    <string-array name="BasicFormulas">
-        <item>Short multiplication formulas</item>
-        <item>Degrees formulas</item>
-        <item>Arithmetic progression</item>
-        <item>Geometric progression</item>
+    <string-array name="Basic_formulas" tools:ignore="InconsistentArrays">
+        <item>Short multiplication formulas</item> <item>0</item>
+        <item>Degrees formulas</item> <item>0</item>
+        <item>Arithmetic progression</item> <item>100</item>
+        <item>Geometric progression</item> <item>100</item>
     </string-array>
-    <string-array name="Planimetry">
-        <item>Triangle</item>
-        <item>Rectangular triangle</item>
-        <item>Rhomb</item>
+
+    <string-array name="Planimetry" tools:ignore="InconsistentArrays">
+        <item>Triangle</item> <item>0</item>
+        <item>Rectangular triangle</item> <item>125</item>
+        <item>Rhomb</item> <item>125</item>
     </string-array>
-    <string-array name="Vectors">
+
+    <string-array name="Vectors" tools:ignore="InconsistentArrays">
     </string-array>
-    <string-array name="Stereometry">
-        <item>Rectangular parallelepiped</item>
-        <item>Cube</item>
+
+    <string-array name="Stereometry" tools:ignore="InconsistentArrays">
+        <item>Rectangular parallelepiped</item> <item>0</item>
+        <item>Cube</item> <item>125</item>
     </string-array>
-    <string-array name="ProbabilityTheory">
+
+    <string-array name="Probability_theory" tools:ignore="InconsistentArrays">
     </string-array>
-    <string-array name="Derivative">
-        <item>Derivatives of functions</item>
-        <item>Derivatives of trigonometric functions</item>
+
+    <string-array name="Derivative" tools:ignore="InconsistentArrays">
+        <item>Derivatives of functions</item> <item>0</item>
+        <item>Derivatives of trigonometric functions</item> <item>150</item>
     </string-array>
-    <string-array name="Logarithms">
-        <item>Logarithms expressions</item>
-        <item>Logarithms conversion</item>
+
+    <string-array name="Logarithms" tools:ignore="InconsistentArrays">
+        <item>Logarithms expressions</item> <item>0</item>
+        <item>Logarithms conversion</item> <item>175</item>
     </string-array>
-    <string-array name="Trigonometry">
-        <item>Basic trigonometric functions</item>
-        <item>Inverse trigonometric functions</item>
-        <item>Tabular values of trigonometric functions</item>
+
+    <string-array name="Trigonometry" tools:ignore="InconsistentArrays">
+        <item>Basic trigonometric functions</item> <item>0</item>
+        <item>Inverse trigonometric functions</item> <item>175</item>
+        <item>Tabular values of trigonometric functions</item> <item>200</item>
     </string-array>
-    <string-array name="ComplexNumbers">
+
+    <string-array name="Complex_numbers" tools:ignore="InconsistentArrays">
     </string-array>
 
     <string-array name="Theory">

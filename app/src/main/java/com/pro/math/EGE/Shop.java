@@ -28,7 +28,7 @@ public class Shop extends MyAppCompatActivity {
         List = findViewById(R.id.list);
         SetupList();
         List.setOnItemClickListener((parent, view, position, id) -> {
-            String[] attributes = Database.ShopAttributes.get(position);
+            int[] attributes = Database.ShopAttributes.get(position);
             if (Database.BuySubTopic(this,attributes[0],attributes[1])) {
                 Toast.makeText(this,getResources().getString(R.string.successful_purchase),Toast.LENGTH_SHORT).show();
                 SetupList();

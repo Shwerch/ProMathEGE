@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string-array name="TopicsAttributes">
         <item>Базовые формулы</item> <item>Тест по базовым формулам</item>
         <item>Планиметрия</item> <item>Тест по планиметрии</item>
@@ -12,38 +12,38 @@
         <item>Комплексные числа</item> <item>Тест по комплексным числам</item>
     </string-array>
 
-    <string-array name="BasicFormulas">
+    <string-array name="Basic_formulas" tools:ignore="InconsistentArrays">
         <item>Формулы сокращенного умножения</item>
         <item>Формулы степеней</item>
         <item>Арифметическая прогрессия</item>
         <item>Геометрическая прогрессия</item>
     </string-array>
-    <string-array name="Planimetry">
+    <string-array name="Planimetry" tools:ignore="InconsistentArrays">
         <item>Треугольник</item>
         <item>Прямоугольный треугольник</item>
         <item>Ромб</item>
     </string-array>
-    <string-array name="Vectors">
+    <string-array name="Vectors" tools:ignore="InconsistentArrays">
     </string-array>
-    <string-array name="Stereometry">
+    <string-array name="Stereometry" tools:ignore="InconsistentArrays">
         <item>Прямоугольный параллелепипед</item>
         <item>Куб</item>
     </string-array>
-    <string-array name="ProbabilityTheory">
+    <string-array name="Probability_theory" tools:ignore="InconsistentArrays">
     </string-array>
-    <string-array name="Derivative">
+    <string-array name="Derivative" tools:ignore="InconsistentArrays">
         <item>Производные функций</item>
         <item>Производные тригонометрических функций</item>
     </string-array>
-    <string-array name="Logarithms">
+    <string-array name="Logarithms" tools:ignore="InconsistentArrays">
         <item>Логарифмические выражения</item>
         <item>Преобразование логарифмов</item>
     </string-array>
-    <string-array name="Trigonometry">
+    <string-array name="Trigonometry" tools:ignore="InconsistentArrays">
         <item>Основные тригонометрические функции</item>
         <item>Обратные тригонометрические функции</item>
         <item>Табличные значения тригонометрических функций</item>
     </string-array>
-    <string-array name="ComplexNumbers">
+    <string-array name="Complex_numbers" tools:ignore="InconsistentArrays">
     </string-array>
 </resources>
