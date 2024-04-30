@@ -36,8 +36,8 @@ public class Sources {
     static int GetInteger(@NonNull Resources resources,String name) {
         try {
             return resources.getInteger((int) R.integer.class.getField(name.replace(" ","_")).get(null));
-        } catch (Exception e) {
-            Console.L(e);
+        } catch (Exception ignored) {
+            Console.L(name.replace(" ","_"));
             throw new RuntimeException();
         }
     }

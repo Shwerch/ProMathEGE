@@ -10,21 +10,23 @@ import android.database.sqlite.SQLiteDatabase;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Database {
     private static SQLiteDatabase database = null;
     static class Currencies {
+        private static final String Table = Currencies.class.getSimpleName();
         static void Create() {
-            database.execSQL("CREATE TABLE IF NOT EXISTS Currencies (currencyId INT PRIMARY KEY, value LONG)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (currencyId INTEGER PRIMARY KEY, value LONG)");
         }
         static void Insert(int currencyId, long value) {
-            database.execSQL("INSERT OR IGNORE INTO Currencies VALUES ("+currencyId+", "+value+");");
+            database.execSQL("INSERT OR IGNORE INTO "+Table+" VALUES ("+currencyId+", "+value+")");
         }
         static void Update(int currencyId,long value) {
-            database.execSQL("UPDATE Currencies SET value = "+value+" WHERE currencyId = "+currencyId+";");
+            database.execSQL("UPDATE "+Table+" SET value = "+value+" WHERE currencyId = "+currencyId);
         }
         static long Get(int currencyId) {
-            final Cursor cursor = database.rawQuery("SELECT value FROM Currencies WHERE currencyId = "+currencyId+";",null);
+            final Cursor cursor = database.rawQuery("SELECT value FROM "+Table+" WHERE currencyId = "+currencyId,null);
             cursor.moveToFirst();
             final long value = cursor.getLong(0);
             cursor.close();
@@ -32,22 +34,23 @@ public class Database {
         }
     }
     static class TheoryTopics {
+        private static final String Table = TheoryTopics.class.getSimpleName();
         static void Create() {
-            database.execSQL("CREATE TABLE IF NOT EXISTS TheoryTopics (topicId INT PRIMARY KEY AUTOINCREMENT, topic TEXT)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (topicId INTEGER PRIMARY KEY AUTOINCREMENT, topic TEXT)");
         }
         static int Insert(String topic) {
-            database.execSQL("INSERT OR IGNORE INTO TheoryTopics VALUES ('"+topic+"');");
+            database.execSQL("INSERT OR IGNORE INTO "+Table+" (topic) VALUES ('"+topic+"');");
             return TheoryTopics.Get(topic);
         }
         static int Get(String topic) {
-            final Cursor cursor = database.rawQuery("SELECT topicId FROM TheoryTopics WHERE topic = '"+topic+"';",null);
+            final Cursor cursor = database.rawQuery("SELECT topicId FROM "+Table+" WHERE topic = '"+topic+"'",null);
             cursor.moveToLast();
             final int id = cursor.getInt(0);
             cursor.close();
             return id;
         }
         static String Get(int topicId) {
-            final Cursor cursor = database.rawQuery("SELECT topic FROM TheoryTopics WHERE topicId = "+topicId+";",null);
+            final Cursor cursor = database.rawQuery("SELECT topic FROM "+Table+" WHERE topicId = "+topicId,null);
             cursor.moveToLast();
             final String topic = cursor.getString(0);
             cursor.close();
@@ -55,22 +58,23 @@ public class Database {
         }
     }
     static class TheorySubTopics {
+        private static final String Table = TheorySubTopics.class.getSimpleName();
         static void Create() {
-            database.execSQL("CREATE TABLE IF NOT EXISTS TheorySubTopics (subTopicId INT PRIMARY KEY AUTOINCREMENT, topicId INT, subTopic TEXT)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (subTopicId INTEGER PRIMARY KEY AUTOINCREMENT, topicId INTEGER, subTopic TEXT)");
         }
-        static int Insert(int topicId, String topic) {
-            database.execSQL("INSERT OR IGNORE INTO TheorySubTopics VALUES ("+topicId+", '"+topic+"');");
-            return TheorySubTopics.Get(topicId,topic);
+        static int Insert(int topicId, String subTopic) {
+            database.execSQL("INSERT OR IGNORE INTO "+Table+" (topicId, subTopic) VALUES ("+topicId+", '"+subTopic+"')");
+            return TheorySubTopics.Get(topicId,subTopic);
         }
-        static int Get(int topicId, String topic) {
-            final Cursor cursor = database.rawQuery("SELECT subTopicId FROM TheorySubTopics WHERE topicId = "+topicId+" AND topic = '"+topic+"';",null);
+        static int Get(int topicId, String subTopic) {
+            final Cursor cursor = database.rawQuery("SELECT subTopicId FROM "+Table+" WHERE topicId = "+topicId+" AND subTopic = '"+subTopic+"'",null);
             cursor.moveToLast();
             final int id = cursor.getInt(0);
             cursor.close();
             return id;
         }
         static String Get(int topicId, int subTopicId) {
-            final Cursor cursor = database.rawQuery("SELECT topic FROM TheorySubTopics WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId+";",null);
+            final Cursor cursor = database.rawQuery("SELECT topic FROM "+Table+" WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId+";",null);
             cursor.moveToLast();
             final String topic = cursor.getString(0);
             cursor.close();
@@ -78,25 +82,26 @@ public class Database {
         }
     }
     static class TheoryAvailability {
+        private static final String Table = TheoryAvailability.class.getSimpleName();
         static void Create() {
-            database.execSQL("CREATE TABLE IF NOT EXISTS TheoryAvailability (topicId INT, subTopicId INT, availability BIT, PRIMARY KEY (topicId, subTopicId))");
+            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (topicId INTEGER, subTopicId INTEGER, availability BIT, PRIMARY KEY (topicId, subTopicId))");
         }
         static boolean Insert(int topicId, int subTopicId, boolean availability) {
-            database.execSQL("INSERT OR IGNORE INTO TheoryAvailability VALUES ("+topicId+", "+subTopicId+","+(availability ? 1 : 0)+");");
+            database.execSQL("INSERT OR IGNORE INTO "+Table+" VALUES ("+topicId+", "+subTopicId+","+(availability ? 1 : 0)+")");
             return TheoryAvailability.Get(topicId,subTopicId);
         }
         static void Update(int topicId, int subTopicId, boolean availability) {
-            database.execSQL("UPDATE TheoryAvailability SET availability = "+(availability ? 1 : 0)+" WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId+";");
+            database.execSQL("UPDATE "+Table+" SET availability = "+(availability ? 1 : 0)+" WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId);
         }
         static boolean Get(int topicId, int subTopicId) {
-            final Cursor cursor = database.rawQuery("SELECT availability FROM TheoryAvailability WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId+";",null);
+            final Cursor cursor = database.rawQuery("SELECT availability FROM "+Table+" WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId,null);
             cursor.moveToLast();
             final boolean availability = cursor.getInt(0) == 1;
             cursor.close();
             return availability;
         }
-        static Cursor Select(Integer topicId) {
-            return database.rawQuery("SELECT * FROM TheoryAvailability WHERE topicId = "+topicId+";",null);
+        static Cursor Select(int topicId) {
+            return database.rawQuery("SELECT * FROM "+Table+" WHERE topicId = "+topicId,null);
         }
     }
     private static final String DATABASE = "Storage";
@@ -246,7 +251,7 @@ public class Database {
         database.close();
     }*/
 
-//database.execSQL("CREATE TABLE IF NOT EXISTS PracticeSolutions (number INT, taskId INT, solutions INT, PRIMARY KEY (number, taskId))");
+//database.execSQL("CREATE TABLE IF NOT EXISTS PracticeSolutions (number INTEGER, taskId INTEGER, solutions INTEGER, PRIMARY KEY (number, taskId))");
         /*for (int j = 0;j < Practice.TaskId.length;j++) {
             for (int k : Practice.TaskId[j]) {
                 database.execSQL("INSERT OR IGNORE INTO PracticeSolutions VALUES ("+j+","+k+",0);");

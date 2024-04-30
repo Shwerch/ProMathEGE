@@ -188,9 +188,9 @@ public class DrawView extends View {
                     zoomStart(pointers, event);
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    if (zoomDistance != -1) {
+                    if (zoomDistance != -1)
                         zoomMove(event);
-                    } else
+                    else
                         zoomStart(pointers, event);
                     break;
             }

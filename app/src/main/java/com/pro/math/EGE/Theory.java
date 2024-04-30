@@ -8,22 +8,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Theory {
+    private static int LastTopic = -1;
     private static int LastSubTopic = -1;
     private static int LastTaskIndex = -1;
     private static String[] TopicsAttributes = null;
     private static String[] SubTopics = null;
     @SuppressLint("DiscouragedApi")
     public static void GetTask(Context context, int topicId, Question question) {
+        Console.L(topicId);
+        String topic = Database.TheoryTopics.Get(topicId);
         ArrayList<Integer> AvailableSubTopics = Database.GetAvailableSubTopics(topicId);
         Resources EngRes = Sources.GetLocaleResources(context);
         if (TopicsAttributes == null)
             TopicsAttributes = EngRes.getStringArray(R.array.TopicsAttributes);
-        if (SubTopics == null)
-            SubTopics = Sources.GetStringArray(EngRes, TopicsAttributes[topicId]);
+        if (SubTopics == null || LastTopic != topicId)
+            SubTopics = Sources.GetStringArray(EngRes, topic);
 
         final int subTopicId = AvailableSubTopics.get((int)(AvailableSubTopics.size() * Math.random()));
-        String[] Tasks = Sources.GetStringArray(EngRes,Database.TheoryTopics.Get(topicId)
-                +" "+Database.TheorySubTopics.Get(topicId,subTopicId));
+        String subTopic = Database.TheorySubTopics.Get(topicId,subTopicId);
+        String[] Tasks = Sources.GetStringArray(EngRes,topic
+                +" "+subTopic);
         int taskIndex = (int)((Tasks.length - 1) * Math.random());
         if (taskIndex >= LastTaskIndex && subTopicId == LastSubTopic)
             taskIndex += 1;
@@ -45,11 +49,10 @@ public class Theory {
 
         ArrayList<int[]> allAnswers = new ArrayList<>(Task.length - 1);
         for (int i = 0;i < Task.length;i++) {
-            if (i != rightAnswer) {
-                final String[] task = Task[i].split(" = ");
-                for (int k = 0;k < task.length;k++) {
-                    allAnswers.add(new int[] {i,k});
-                }
+            if (i == rightAnswer) continue;
+            final String[] task = Task[i].split(" = ");
+            for (int k = 0;k < task.length;k++) {
+                allAnswers.add(new int[] {i,k});
             }
         }
         Collections.shuffle(allAnswers);
@@ -73,7 +76,8 @@ public class Theory {
         }
 
 
-        question.Change(Task[taskIndex],RealAnswersArray,AnswersRight);
+        question.Change(Task[taskIndex],RealAnswersArray,AnswersRight,Sources.GetInteger(EngRes,subTopic+" reward"),correctAnswersCount);
+        LastTopic = topicId;
         LastTaskIndex = taskIndex;
         LastSubTopic = subTopicId;
     }
