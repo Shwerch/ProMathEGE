@@ -31,7 +31,7 @@ public class Settings extends MyAppCompatActivity {
             super.ChangePoints(Points);
         });
         AddPoints.setOnClickListener(v -> {
-            Database.ChangePoints(this,1000L);
+            Database.ChangePoints(1000L);
             super.ChangePoints(Points);
         });
         Github.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.github)))));

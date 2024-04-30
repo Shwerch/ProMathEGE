@@ -99,28 +99,10 @@ public class Database {
             return database.rawQuery("SELECT * FROM TheoryAvailability WHERE topicId = "+topicId+";",null);
         }
     }
-    static void OpenOrCreateDatabase(Context context) {
-        boolean create = false;
-        if (database == null)
-            create = true;
-        else if (!database.isOpen()) {
-            create = true;
-        } if (create)
-            database = context.openOrCreateDatabase(DATABASE,MODE_PRIVATE,null);
-    }
-    static void CloseDatabase() {
-        boolean close = true;
-        if (database == null)
-            close = false;
-        else if (!database.isOpen()) {
-            close = false;
-        } if (close)
-            database.close();
-    }
     private static final String DATABASE = "Storage";
     static ArrayList<int[]> ShopAttributes = new ArrayList<>();
     static void DefineDataBase(Context context) {
-        OpenOrCreateDatabase(context);
+        database = context.openOrCreateDatabase(DATABASE,MODE_PRIVATE,null);
 
         ResetShop();
 
@@ -143,7 +125,6 @@ public class Database {
                     AddToShop(topicId, subTopicId);
             }
         }
-        CloseDatabase();
     }
     static void ResetShop() {
         ShopAttributes.clear();
@@ -176,18 +157,16 @@ public class Database {
         String topic = TheoryTopics.Get(topicId);
         String subTopic = TheorySubTopics.Get(topicId,subTopicId);
         long price = Sources.GetInteger(EngRes, topic+" "+subTopic+" cost");
-        long points = GetPoints(context);
+        long points = GetPoints();
         if (points < price)
             return false;
-        OpenOrCreateDatabase(context);
         boolean availability = TheoryAvailability.Get(topicId,subTopicId);
         if (!availability) {
             success = true;
-            ChangePoints(context,-price);
+            ChangePoints(-price);
             TheoryAvailability.Update(topicId,subTopicId,true);
             RemoveFromShop(topicId,subTopicId);
         }
-        CloseDatabase();
         return success;
     }
     static void ResetDataBases(@NonNull Context context) {
@@ -196,9 +175,8 @@ public class Database {
         DefineDataBase(context);
     }
     @NonNull
-    static ArrayList<Integer> GetAvailableSubTopics(Context context, int topicId) {
+    static ArrayList<Integer> GetAvailableSubTopics(int topicId) {
         ArrayList<Integer> arrayList = new ArrayList<>();
-        OpenOrCreateDatabase(context);
         Cursor cursor = TheoryAvailability.Select(topicId);
         cursor.moveToFirst();
         do {
@@ -206,19 +184,35 @@ public class Database {
                 arrayList.add(cursor.getInt(1));
             }
         } while (cursor.move(1));
-        CloseDatabase();
         return arrayList;
     }
-    static void ChangePoints(@NonNull Context context, long difference) {
-        OpenOrCreateDatabase(context);
+    static void ChangePoints(long difference) {
         Currencies.Update(1,Currencies.Get(1) + difference);
-        CloseDatabase();
     }
-    static long GetPoints(@NonNull Context context) {
-        OpenOrCreateDatabase(context);
+    static long GetPoints() {
+        //OpenOrCreateDatabase(context);
         return Currencies.Get(1);
     }
 }
+
+    /*static void OpenOrCreateDatabase(Context context) {
+        boolean create = false;
+        if (database == null)
+            create = true;
+        else if (!database.isOpen()) {
+            create = true;
+        } if (create)
+            database = context.openOrCreateDatabase(DATABASE,MODE_PRIVATE,null);
+    }
+    static void CloseDatabase() {
+        boolean close = true;
+        if (database == null)
+            close = false;
+        else if (!database.isOpen()) {
+            close = false;
+        } if (close)
+            database.close();
+    }*/
 
     /*public static int GetPracticeTask(Context context,int number,int Id) {
         SQLiteDatabase database = context.openOrCreateDatabase(DATABASE,MODE_PRIVATE,null);

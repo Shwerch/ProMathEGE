@@ -77,7 +77,7 @@ public class PracticeTesting extends MyAppCompatActivity{
                 responseReceived[0] = true;
                 String answerText = Answer.getText().toString().replace(" ", "").replace(".", ",");
                 if (answerText.equals(task.Answer) || answerText.equals("$sudo")) {
-                    Database.ChangePoints(context,reward);
+                    Database.ChangePoints(reward);
                     Toast.makeText(context,RightAnswers[(int)(Math.random()*RightAnswers.length)]+
                             " "+RightRewards[(int)(Math.random()*RightAnswers.length)]+
                             " "+ Sources.GetRightPointsEnd(context,reward),Toast.LENGTH_SHORT).show();

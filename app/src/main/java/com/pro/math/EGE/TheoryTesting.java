@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 
 public class TheoryTesting extends MyAppCompatActivity {
+    private static Question question = null;
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +43,8 @@ public class TheoryTesting extends MyAppCompatActivity {
         final Button Answer6 = findViewById(R.id.answer6);
         Button[] AnswersButtons = new Button[] {Answer1,Answer2,Answer3,Answer4,Answer5,Answer6};
 
-        final String[] RightAnswers = Sources.RightAnswersTexts(this);
-        final String[] RightRewards = Sources.RewardsTexts(this);
+        //final String[] RightAnswers = Sources.RightAnswersTexts(this);
+        //final String[] RightRewards = Sources.RewardsTexts(this);
         
         int Topic;
         try {
@@ -54,35 +55,36 @@ public class TheoryTesting extends MyAppCompatActivity {
             startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             return;
         }
+        if (question == null)
+            question = new Question();
+        Theory.GetTask(this,Topic,question);
 
-        Theory.Setup(this,Sources.Topics[Topic]);
-        final String[] QuestionAndAnswers = Theory.GetQuestionAndAnswers();
+        /*final String[] QuestionAndAnswers = Theory.GetQuestionAndAnswers();
         final int[] CorrectAnswers = Theory.GetCorrectAnswers();
         final long Reward = Theory.GetReward();
-        final int CorrectAnswersCount = Theory.GetCorrectAnswersCount();
-        Task.setText(getResources().getString(R.string.question)+" "+QuestionAndAnswers[0]+" ?");
-        TopicText.setText(Theory.GetSubTopic(this)+" ("+Reward+")");
+        final int CorrectAnswersCount = Theory.GetCorrectAnswersCount();*/
+        Task.setText(getResources().getString(R.string.question)+" "+question.Question+" ?");
+        //TopicText.setText(Theory.GetSubTopic(this)+" ("+Reward+")");
         for (int i = 0;i < AnswersButtons.length;i++) {
-            AnswersButtons[i].setText(QuestionAndAnswers[i+1]);
+            AnswersButtons[i].setText(question.Answers[i]);
         }
 
         final float[] RewardMultiplier = {1f};
         final byte[] AnswersCountIsGiven = {0};
         for (int i = 0;i < AnswersButtons.length;i++) {
-            final int k = i+1;
             AnswersButtons[i].setOnClickListener(v -> {
                 boolean correct = false;
-                for (int correctAnswer : CorrectAnswers) {
-                    if (k == correctAnswer) {
+                for (int correctAnswer : question.CorrectAnswers) {
+                    if (i == correctAnswer) {
                         correct = true;
                         break;
                     }
                 }
                 if (correct) {
-                    AnswersButtons[k-1].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
+                    AnswersButtons[i].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
                     if (RewardMultiplier[0] != 0) {
                         long reward = (long)(Reward*RewardMultiplier[0]/CorrectAnswersCount);
-                        Database.ChangePoints(this,reward);
+                        Database.ChangePoints(reward);
                         Toast.makeText(this,RightAnswers[(int)(Math.random()*RightAnswers.length)]+
                                 " "+RightRewards[(int)(Math.random()*RightAnswers.length)]+
                                 " "+ Sources.GetRightPointsEnd(this,reward),Toast.LENGTH_SHORT).show();
@@ -91,7 +93,7 @@ public class TheoryTesting extends MyAppCompatActivity {
                     }
                     AnswersCountIsGiven[0] += 1;
                 } else if (AnswersCountIsGiven[0] < CorrectAnswersCount) {
-                    AnswersButtons[k-1].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.red));
+                    AnswersButtons[i].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.red));
                     if (RewardMultiplier[0] != 0) {
                         RewardMultiplier[0] -= 0.5f;
                     }

@@ -32,7 +32,7 @@ public class TheoryReading extends MyAppCompatActivity {
         Point size = new Point();
         display.getSize(size);
         if (size.x > size.y + 300) {
-            if (Objects.equals(getResources().getStringArray(R.array.TestAvailable)[Topic],"true")) {
+            if (true) {
                 setContentView(R.layout.theory_reading_landscape);
             } else {
                 setContentView(R.layout.theory_reading_landscape_without_start_test);
@@ -40,7 +40,7 @@ public class TheoryReading extends MyAppCompatActivity {
             }
         }
         else {
-            if (Objects.equals(getResources().getStringArray(R.array.TestAvailable)[Topic],"true")) {
+            if (true) {
                 setContentView(R.layout.theory_reading_portrait);
             } else {
                 setContentView(R.layout.theory_reading_portrait_without_start_test);
@@ -64,8 +64,7 @@ public class TheoryReading extends MyAppCompatActivity {
         }
         super.BackToMainMenu(MainMenu);
 
-        TheoryTitle.setText(Sources.TopicsAttributes[Topic * 2]);
-
-           }
+        TheoryTitle.setText(getResources().getStringArray(R.array.TopicsAttributes)[Topic + 1]);
+    }
 }
 

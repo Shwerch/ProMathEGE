@@ -21,7 +21,7 @@ public class MyAppCompatActivity extends AppCompatActivity {
         this.finishAffinity();
     }
     protected void ChangePoints(Button button) {
-        long points = Database.GetPoints(this);
+        long points = Database.GetPoints();
         if (points == -1)
             button.setText(getString(R.string.undefined_points));
         else

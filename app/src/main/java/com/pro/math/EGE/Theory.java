@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.Resources;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class Theory {
@@ -13,54 +12,125 @@ public class Theory {
     private static int LastTaskIndex = -1;
     private static String[] TopicsAttributes = null;
     private static String[] SubTopics = null;
-    private static ArrayList<Integer> GetShuffledArrayList(int start, int length) {
-        ArrayList<Integer> arrayList = new ArrayList<>(length);
-        for (int i = 0;i < length;i++)
-            arrayList.add(i + start);
-        Collections.shuffle(arrayList);
-        return arrayList;
-    }
     @SuppressLint("DiscouragedApi")
     public static void GetTask(Context context, int topicId, Question question) {
-        ArrayList<Integer> AvailableSubTopics = Database.GetAvailableSubTopics(context,topicId);
+        ArrayList<Integer> AvailableSubTopics = Database.GetAvailableSubTopics(topicId);
         Resources EngRes = Sources.GetLocaleResources(context);
         if (TopicsAttributes == null)
             TopicsAttributes = EngRes.getStringArray(R.array.TopicsAttributes);
         if (SubTopics == null)
             SubTopics = Sources.GetStringArray(EngRes, TopicsAttributes[topicId]);
+
         final int subTopicId = AvailableSubTopics.get((int)(AvailableSubTopics.size() * Math.random()));
-        Database.OpenOrCreateDatabase(context);
         String[] Tasks = Sources.GetStringArray(EngRes,Database.TheoryTopics.Get(topicId)
                 +" "+Database.TheorySubTopics.Get(topicId,subTopicId));
         int taskIndex = (int)((Tasks.length - 1) * Math.random());
         if (taskIndex >= LastTaskIndex && subTopicId == LastSubTopic)
             taskIndex += 1;
-        Database.CloseDatabase();
+
+
+        ArrayList<int[]> Answers = new ArrayList<>();
+        for (int i = 0;i < Tasks.length;i++) {
+            if (i == taskIndex) continue;
+            for (int k = 0;k < Tasks[i].split(" = ").length;k++) {
+                Answers.add(new int[] {i,k});
+            }
+        }
+        Collections.shuffle(Answers);
+
+
         String[] Task = Tasks[taskIndex].split(" = ");
         final int rightAnswer = (int) (Task.length * Math.random());
         final int correctAnswersCount = (int)((Task.length - 1) * Math.random()) + 1;
-        ArrayList<Integer> correctAnswers = new ArrayList<>(correctAnswersCount);
+
+        ArrayList<int[]> allAnswers = new ArrayList<>(Task.length - 1);
         for (int i = 0;i < Task.length;i++) {
-            if (correctAnswers.size() >= correctAnswersCount) break;
-            else if (i != rightAnswer) {
-                correctAnswers.add(i);
+            if (i != rightAnswer) {
+                final String[] task = Task[i].split(" = ");
+                for (int k = 0;k < task.length;k++) {
+                    allAnswers.add(new int[] {i,k});
+                }
             }
         }
-        Collections.shuffle(correctAnswers);
-        ArrayList<Integer> ShuffledArrayList = GetShuffledArrayList(0,6);
-        String[] Answers = new String[6];
-        ArrayList<Integer> AnswersIndexes = new ArrayList<>(correctAnswersCount);
+        Collections.shuffle(allAnswers);
+
+
+        ArrayList<int[]> RealAnswers = new ArrayList<>(6);
+        for (int i = 0;i < correctAnswersCount;i++) {
+            RealAnswers.add(Answers.get(i));
+        } for (int i = correctAnswersCount;i < 6;i++) {
+            RealAnswers.add(allAnswers.get(i - correctAnswersCount));
+        }
+        Collections.shuffle(RealAnswers);
+
+
+        ArrayList<Integer> AnswersRight = new ArrayList<>();
+        final String[] RealAnswersArray = new String[6];
+        for (int i = 0;i < 6;i++) {
+            if (Answers.contains(RealAnswers.get(i)))
+                AnswersRight.add(i);
+            RealAnswersArray[i] = Tasks[RealAnswers.get(i)[0]].split(" = ")[RealAnswers.get(i)[1]];
+        }
+
+
+        question.Change(Task[taskIndex],RealAnswersArray,AnswersRight);
+        LastTaskIndex = taskIndex;
+        LastSubTopic = subTopicId;
+    }
+}
+
+
+        /*ArrayList<Integer> allAnswers = new ArrayList<>(Task.length - 1);
+        for (int i = 0;i < Task.length;i++) {
+            if (i != rightAnswer) {
+                allAnswers.add(i);
+            }
+        }
+        Collections.shuffle(allAnswers);
+        ArrayList<int[]> Answers = new ArrayList<>();
+        for (int i = 0;i < correctAnswersCount;i++) {
+            Answers.add(new int[] {taskIndex,allAnswers.get(i)});
+        }
+        while (Answers.size() < 6) {
+            ArrayList<Integer> freeIndexes = new ArrayList<>();
+            for (int k = 0;k < Tasks.length;k++) {
+                if (k == taskIndex)
+                    continue;
+                boolean free = true;
+                for (int[] answer : Answers) {
+                    if (answer[0] == k) {
+                        free = false;
+                        break;
+                    }
+                }
+                if (free)
+                    freeIndexes.add(k);
+            }
+            final int falseAnswerIndex = freeIndexes.get((int)(freeIndexes.size() * Math.random()));
+
+            Answers.add(new int[] {});
+        }
+        Collections.shuffle(Answers);*/
+
+        /*for (int i = correctAnswersCount;i < 6;i++) {
+            ArrayList<Integer> arrayList = new ArrayList<>();
+            for (int k = 0;k < Tasks.length;k++) {
+                if (k != taskIndex && !Answers.contains(k)) {
+                    arrayList.add(k);
+                }
+            }
+            int falseTaskIndex = arrayList.get((int)(arrayList.size() * Math.random()));
+
+        }*/
+
+        /*ArrayList<Integer> ShuffledArrayList = GetShuffledArrayList(0,6);
+        ArrayList<Integer> AnswersIndexes = new ArrayList<>(correctAnswersCount);*/
         /*for (int i = 0;i < 6;i++) {
             final int index = ShuffledArrayList.get(i);
             Answers[index] = "";
             if (i < correctAnswers.size())
                 AnswersIndexes.add(index);
         }*/
-        question.Change(Task[taskIndex],Answers,AnswersIndexes);
-        LastTaskIndex = taskIndex;
-        LastSubTopic = subTopicId;
-    }
-}
 
 /*
     public static void Setup(Context context,String Topic) {
