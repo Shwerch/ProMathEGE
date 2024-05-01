@@ -6,7 +6,7 @@
     <string name="SelectAll">Select all</string>
     <string name="DropAll">Drop All</string>
 
-    <string name="Tasks" translatable="false">12</string>
+    <integer name="Tasks" translatable="false">12</integer>
 
     <string-array name="Task_1">
         <item>В четырёхугольник ABCD, периметр которого равен 54, вписана окружность, AB = 18. Найдите длину стороны CD.</item> <item>9</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=848</item>

@@ -13,10 +13,9 @@ public class Practice {
     private static int step;
     @SuppressLint("DiscouragedApi")
     public static void GetTask(Context context, int Number, Task task) {
-        Resources LocaleResources = Sources.GetLocaleResources(context);
         int k;
         if (Number != LastTaskNumber) {
-            ResTasks = Sources.GetStringArray(LocaleResources,"Task_"+Number);
+            ResTasks = Sources.GetStringArray(context,"Task_"+Number);
             if (ResTasks[3].startsWith("task"))
                 step = 4;
             else

@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.pro.math.EGE.Products.AbstractProduct;
 import com.pro.math.EGE.Products.Product;
 import com.pro.math.EGE.Products.SubTopic;
+import com.pro.math.EGE.Tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -197,8 +198,29 @@ public class Database {
             return database.rawQuery("SELECT * FROM "+Table,null);
         }
     }
+    static class PracticeTasks {
+        private static final String Table = TheoryAttributes.class.getSimpleName();
+        static void Create(Context context) {
+            database.execSQL("DROP TABLE IF EXISTS "+Table);
+            Resources resources = Sources.GetLocaleResources(context);
+            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (tasksGroupNumber INTEGER, taskIndex INTEGER, reward INTEGER, solution TEXT, image TEXT PRIMARY KEY (tasksGroupNumber,taskIndex))");
+            for (int i = 1;i <= resources.getInteger(R.integer.Tasks);i++) {
+                String[] tasks = Sources.GetStringArray(context,"Task_"+i);
+                final int step;
+                if (tasks[3].startsWith("task_"))
+                    step = 4;
+                else
+                    step = 3;
+                for (int k = 0;k < tasks.length;k += step) {
+                    database.execSQL("INSERT OR IGNORE INTO "+Table+" VALUES ("+i+", "+(k/step)+", "+tasks[k+1]+", '"+tasks[k+2]+"', "+(step == 4 ? tasks[k+3] : "NULL")+")");
+                }
+            }
+        }
+        static Cursor Select() {
+            return database.rawQuery("SELECT * FROM "+Table,null);
+        }
+    }
     private static final String DATABASE = "Storage";
-    static ArrayList<AbstractProduct> ShopAttributes = new ArrayList<>();
     static void DefineDataBase(Context context) {
         database = context.openOrCreateDatabase(DATABASE,MODE_PRIVATE,null);
 
@@ -212,13 +234,17 @@ public class Database {
         TheoryAttributes.Create(context);
         TheoryTasks.Create(context);
 
+        PracticeTasks.Create(context);
+
         Cursor cursor = TheoryAttributes.Select();
         cursor.moveToFirst();
+
         do {
             if (cursor.getInt(2) == 0)
                 AddToShop(new Product(cursor.getInt(0),cursor.getInt(1)));
         } while (cursor.moveToNext());
     }
+    static ArrayList<AbstractProduct> ShopAttributes = new ArrayList<>();
     static void ResetShop() {
         ShopAttributes.clear();
     }
