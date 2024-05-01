@@ -7,6 +7,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pro.math.EGE.Products.AbstractProduct;
+
 public class Shop extends MyAppCompatActivity {
     private ListView List;
     private void SetupList() {
@@ -28,8 +30,8 @@ public class Shop extends MyAppCompatActivity {
         List = findViewById(R.id.list);
         SetupList();
         List.setOnItemClickListener((parent, view, position, id) -> {
-            int[] attributes = Database.ShopAttributes.get(position);
-            if (Database.BuySubTopic(this,attributes[0],attributes[1])) {
+            AbstractProduct product = Database.ShopAttributes.get(position);
+            if (Database.BuySubTopic(product)) {
                 Toast.makeText(this,getResources().getString(R.string.successful_purchase),Toast.LENGTH_SHORT).show();
                 SetupList();
             } else

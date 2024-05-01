@@ -1,10 +1,10 @@
-package com.pro.math.EGE;
+package com.pro.math.EGE.Tasks;
 
 public class Task {
     int Hash, Image;
-    String Text, Answer, Solution;
-    Task() {}
-    void Change(String Text, String Answer, String Solution, int Image) {
+    public String Text, Answer, Solution;
+    public Task() {}
+    public void Change(String Text, String Answer, String Solution, int Image) {
         this.Hash = (Text + Answer + Solution).hashCode();
         this.Text = Text;
         this.Answer = Answer;

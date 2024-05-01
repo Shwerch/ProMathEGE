@@ -33,6 +33,9 @@ public class Sources {
             throw new RuntimeException();
         }
     }
+    static String[] GetStringArray(@NonNull Context context,String name) {
+        return GetStringArray(GetLocaleResources(context),name);
+    }
     static int GetInteger(@NonNull Resources resources,String name) {
         try {
             return resources.getInteger((int) R.integer.class.getField(name.replace(" ","_")).get(null));
@@ -40,6 +43,9 @@ public class Sources {
             Console.L(name.replace(" ","_"));
             throw new RuntimeException();
         }
+    }
+    static int GetInteger(@NonNull Context context,String name) {
+        return GetInteger(GetLocaleResources(context),name);
     }
 }
 

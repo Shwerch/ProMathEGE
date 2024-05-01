@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 
+import com.pro.math.EGE.Tasks.Task;
+
 public class Practice {
     private static int LastTaskNumber = -1;
     private static int LastTaskIndex = -1;

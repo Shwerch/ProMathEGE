@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
+import com.pro.math.EGE.Tasks.Question;
+
 public class TheoryTesting extends MyAppCompatActivity {
     private static Question question = null;
     @SuppressLint("SetTextI18n")
