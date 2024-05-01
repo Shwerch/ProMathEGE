@@ -3,8 +3,7 @@ package com.pro.math.EGE.Products;
 import androidx.annotation.NonNull;
 
 public abstract class AbstractProduct implements Comparable<Product> {
-    public int topicId;
-    public int subTopicId;
+    public int topicId, subTopicId;
     @Override
     public int compareTo(@NonNull Product product) {
         if (this.topicId > product.topicId)

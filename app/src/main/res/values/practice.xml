@@ -8,6 +8,7 @@
 
     <integer name="Tasks" translatable="false">12</integer>
 
+    <integer name="Task_1_reward">60</integer>
     <string-array name="Task_1">
         <item>В четырёхугольник ABCD, периметр которого равен 54, вписана окружность, AB = 18. Найдите длину стороны CD.</item> <item>9</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=848</item>
         <item>Найдите центральный угол AOB, если он на 67◦ больше вписанного угла ACB, опирающегося на ту же дугу. Ответ дайте в градусах.</item> <item>134</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=516</item>
@@ -18,11 +19,15 @@
         <item>Периметр прямоугольной трапеции, описанной около окружности, равен 22, ее большая боковая сторона равна 7. Найдите радиус окружности.</item> <item>2</item> <item>https://www.youtube.com/watch?v=4Ob4-F3pIeU</item>
         <item>Около трапеции описана окружность. Периметр трапеции равен 38, длина средней линии равна 11. Найдите длину боковой стороны трапеции.</item> <item>11</item> <item>https://www.youtube.com/watch?v=jR6x5PmBL2I&amp;t=201</item>
     </string-array>
+
+    <integer name="Task_2_reward">60</integer>
     <string-array name="Task_2">
         <item>Даны векторы ~a = (1; 2),~b = (−3; 6) и ~c = (4; −2). Найдите длину вектора ~a − ~b + ~c.</item> <item>10</item> <item>https://www.youtube.com/watch?v=wKDv6LWJGIk&amp;t=894</item>
         <item>Найдите длину вектора ~a = (6; 8).</item> <item>10</item> <item>https://www.youtube.com/watch?v=fQaW-WtuNEs&amp;t=1571</item>
         <item>Даны векторы ~a = (3; 4) и ~b = (8; 6). Найдите косинус угла между ними.</item> <item>0,96</item> <item>https://www.youtube.com/watch?v=fQaW-WtuNEs&amp;t=2013</item>
     </string-array>
+
+    <integer name="Task_3_reward">60</integer>
     <string-array name="Task_3">
         <item>Через среднюю линию основания правильной треугольной призмы, объём которой равен 84, проведена плоскость, параллельная боковому ребру. Найдите объём отсечённой треугольной призмы.</item> <item>21</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=1841</item>
         <item>Площадь боковой поверхности треугольной призмы равна 24. Через среднюю линию основания призмы проведена плоскость, параллельная боковому ребру. Найдите площадь боковой поверхности отсечённой треугольной призмы.</item> <item>12</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=1993</item>
@@ -33,6 +38,8 @@
         <item>Шар вписан в цилиндр объемом 42. Найдите объем шара.</item> <item>28</item> <item>https://www.youtube.com/watch?v=RT_alVyhjU8</item>
         <item>Цилиндр и конус имеют общие основание и высоту. Объём цилиндра равен 162. Найдите объём конуса.</item> <item>54</item> <item>https://www.youtube.com/watch?v=jR6x5PmBL2I&amp;t=348</item>
     </string-array>
+
+    <integer name="Task_4_reward">60</integer>
     <string-array name="Task_4">
         <item>В соревнованиях по толканию ядра участвуют спортсмены из четырёх стран: 9 из Швейцарии, 7 из Чехии, 8 из Словакии и 11 из Австрии. Порядок, в котором выступают спортсмены, определяется жребием. Найдите вероятность того, что спортсмен, выступающий первым, окажется из Чехии.</item> <item>21</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=1841</item>
         <item>На чемпионате по прыжкам к поду выступают 70 спортсменов, среди них 20 прыгунов из Голландии и 36 прыгунов из Колумбии, и 14 из Сербии. Порядок выступлений определяется жеребьёвкой. Найдите вероятность того, что шестым будет выступать прыгун из Сербии.</item> <item>12</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=1993</item>
@@ -43,6 +50,8 @@
         <item>За круглый стол на 5 стульев в случайном порядке рассаживаются 3 мальчика и 2 девочки. Найдите вероятность того, что обе девочки будут сидеть рядом.</item> <item>28</item> <item>https://www.youtube.com/watch?v=RT_alVyhjU8</item>
         <item>В чемпионате по гимнастике участвуют 50 спортсменок: 17 из России, 22 из США, остальные – из Китая. Порядок, в котором выступают гимнастки, определяется жребием. Найдите вероятность того, что спортсменка, выступающая первой, окажется из Китая.</item> <item>54</item> <item>https://www.youtube.com/watch?v=jR6x5PmBL2I&amp;t=348</item>
     </string-array>
+
+    <integer name="Task_5_reward">70</integer>
     <string-array name="Task_5">
         <item>Биатлонист четыре раза стреляет по мишеням. Вероятность попадания в мишень при одном выстреле равна 0,8. Найдите вероятность того, что биатлонист первые два раза попал в мишени, а последние два промахнулся. Результат округлите до сотых.</item> <item>0,03</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=2953</item>
         <item>Автоматическая линия изготавливает батарейки. Вероятность того, что готовая батарейка неисправна, равна 0,05. Перед упаковкой каждая батарейка проходит систему контроля качества. Вероятность того, что система забракует неисправную батарейку, равна 0,99. Вероятность того, что система по ошибке забракует исправную батарейку, равна 0,01. Найдите вероятность того, что случайно выбранная изготовленная батарейка будет забракована системой контроля.</item> <item>0,059</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=3218</item>
@@ -50,6 +59,8 @@
         <item>В Волшебной стране бывает два типа погоды: хорошая и отличная, причем погода, установившись утром, держится неизменной весь день. Известно, что с вероятностью 0,7 погода завтра будет такой же, как и сегодня. Сегодня 28 марта, погода в Волшебной стране хорошая. Найдите вероятность того, что 1 апреля в Волшебной стране будет отличная погода.</item> <item>0,4872</item> <item>https://www.youtube.com/watch?v=48oj7Mg6bMQ</item>
         <item>Стрелок стреляет по одному разу в каждую из четырёх мишеней. Вероятность попадания в мишень при каждом отдельном выстреле равна 0,9. Найдите вероятность того, что стрелок попадёт в первую мишень и не попадёт в три последние.</item> <item>0,0009</item> <item>https://www.youtube.com/watch?v=jR6x5PmBL2I&amp;t=548</item>
     </string-array>
+
+    <integer name="Task_6_reward">70</integer>
     <string-array name="Task_6">
         <item>Найдите корень уравнения log₄(5 − x) = 2.</item> <item>-11</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=3627</item>
         <item>Найдите корень уравнения √(5x − 1) = 7.</item> <item>10</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=3583</item>
@@ -61,6 +72,8 @@
         <item>Найдите корень уравнения log₂(4 − x) = 7.</item> <item>-124</item> <item>https://www.youtube.com/watch?v=9noT5fwEhOo</item>
         <item>Найдите корень уравнения 7⁻⁶⁻ˣ = 343</item> <item>-9</item> <item>https://www.youtube.com/watch?v=jR6x5PmBL2I&amp;t=957</item>
     </string-array>
+
+    <integer name="Task_7_reward">70</integer>
     <string-array name="Task_7">
         <item>Найдите значение выражения 4^2,4 * 7^3,4 / 28^1,4 .</item> <item>196</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=4233</item>
         <item>Найдите значение выражения √2sin(7π/8)cos(7π/8) .</item> <item>-0,5</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=3975</item>
@@ -73,6 +86,8 @@
         <item>Найдите значение выражения 5sin 74◦ / (cos 37◦ * cos 53◦).</item> <item>10</item> <item>https://www.youtube.com/watch?v=nwglD_YEndA</item>
         <item>Найдите значение выражения (log₁₂10 / log₁₂2) + log₂(8 / 5) .</item> <item>4</item> <item>https://www.youtube.com/watch?v=jR6x5PmBL2I&amp;t=1040</item>
     </string-array>
+
+    <integer name="Task_8_reward">70</integer>
     <string-array name="Task_8">
         <item>На рисунке изображён график функции y = f(x), определённой на интервале (−5; 4). Найдите корень уравнения f`(x) = 0.</item> <item>-2</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=4858</item> <item>task_8_1</item>
         <item>На рисунке изображён график функции y = f`(x) – производной функции f(x), определенной на интервале (−5; 5). Найдите точку минимума функции f(x).</item> <item>4</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=4940</item> <item>task_8_2</item>
@@ -80,6 +95,8 @@
         <item>На рисунке изображён график y = f`(x) – производной функции f(x), определенной на интервале (−8; 3). В какой точке отрезка [−3; 2] функция f(x) принимает наибольшее значение?</item> <item>-3</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=5037</item> <item>task_8_4</item>
         <item>На рисунке изображён график y = f`(x) – производной функции f(x). На оси абсцисс отмечены шесть точек x1, x2, x3, x4, x5, x6. Сколько из этих точек лежит на промежутках возрастания функции f(x)?</item> <item>3</item> <item>https://www.youtube.com/watch?v=jR6x5PmBL2I&amp;t=1200</item> <item>task_8_5</item>
     </string-array>
+
+    <integer name="Task_9_reward">80</integer>
     <string-array name="Task_9">
         <item>В розетку электросети подключены приборы, общее сопротивление которых составляет R1 = 36 Ом. Параллельно с ними в розетку предполагается подключить электрообогреватель. Определите наименьшее возможное сопротивление R2 этого электрообогревателя, если известно, что при параллельном соединении двух проводников с сопротивлениями R1 Ом и R2 Ом их общее сопротивление задаётся формулой Rобщ = R1*R2 / (R1 + R2) (Ом), а для нормального функционирования электросети общее сопротивление в ней должно быть не меньше 20 Ом. Ответ выразите в омах.</item> <item>45</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=5368</item>
         <item>Локатор батискафа, равномерно погружающегося вертикально вниз, испускает ультразвуковые импульсы частотой 299 МГц. Скорость погружения батискафа v (в м/с) вычисляется по формуле v = c * (f − f0) / (f + f0) , где c = 1500 м/с – скорость звука в воде, f0 – частота испускаемых импульсов (в МГц), f – частота отражённого от дна сигнала (в МГц), регистрируемая приёмником. Определите частоту отражённого сигнала, если скорость погружения батискафа равна 5 м/с. Ответ дайте в МГц.</item> <item>301</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=5533</item>
@@ -88,6 +105,8 @@
         <item>Для нагревательного элемента некоторого прибора экспериментально была получена зависимость температуры (в кельвинах) от времени работы: T = T0 + bt + at² , где t – время (в мин.), T0 = 680 К, a = −16 К/мин² , b = 224 К/мин. Известно, что при температуре нагревательного элемента свыше 1400 К прибор может испортиться, поэтому его нужно отключить. Найдите, через какое наибольшее время после начала работы нужно отключить прибор. Ответ дайте в минутах.</item> <item>5</item> <item>https://www.youtube.com/watch?v=p__MIao9qFM</item>
         <item>Для получения на экране увеличенного изображения лампочки используется линза с фокусным расстоянием f, равным 20 см. Расстояние d1 от линзы до лампочки может изменяться в пределах от 20 до 50 см, а расстояние d2 от линзы до экрана – в пределах от 100 до 120 см. Изображение на экране будет чётким, если выполнено соотношение 1 / d1 + 1 / d2 = 1 / f . На каком наименьшем расстоянии d1 (в см) от линзы можно поместить лампочку, чтобы её изображение на экране было чётким.</item> <item>24</item> <item>https://www.youtube.com/watch?v=jR6x5PmBL2I&amp;t=1346</item>
     </string-array>
+
+    <integer name="Task_10_reward">80</integer>
     <string-array name="Task_10">
         <item>Имеется два сплава. Первый сплав содержит 35% меди, второй – 5% меди. Масса первого сплава больше массы второго на 80 кг. Из этих двух сплавов получили третий сплав, содержащий 30% меди. Найдите массу третьего сплава. Ответ дайте в килограммах.</item> <item>120</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=6138</item>
         <item>Имеется два сосуда. Первый содержит 40 кг, а второй – 25 кг растворов кислоты различной концентрации. Если эти растворы смешать, то получится раствор, содержащий 30% кислоты. Если же смешать равные массы этих растворов, то получится раствор, содержащий 36% кислоты. Сколько процентов кислоты содержится в первом сосуде?</item> <item>10</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=6360</item>
@@ -102,12 +121,16 @@
         <item>Игорь и Паша красят забор за 20 часов. Паша и Володя красят этот же забор за 24 часа, а Володя и Игорь – за 30 часов. За сколько часов мальчики покрасят забор, работая втроём?</item> <item>16</item> <item>https://www.youtube.com/watch?v=AQZ8MqzDJvM</item>
         <item>Первая труба пропускает на 6 литров воды в минуту меньше, чем вторая. Сколько литров воды в минуту пропускает вторая труба, если резервуар объёмом 112 литров она заполняет на 6 минут быстрее, чем первая труба?</item> <item>14</item> <item>https://www.youtube.com/watch?v=jR6x5PmBL2I&amp;t=1618</item>
     </string-array>
+
+    <integer name="Task_11_reward">80</integer>
     <string-array name="Task_11">
         <item>На рисунке изображены графики функций f(x) = 5x и g(x) = ax²+bx+c, которые пересекаются в точках A и B. Найдите абсциссу точки B.</item> <item>6</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=6710</item> <item>task_11_1</item>
         <item>На рисунке изображены графики функций f(x) = k/x и g(x) = ax + b, пересекающиеся в точках A и B. Найдите абсциссу точки B.</item> <item>8</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=7002</item> <item>task_11_2</item>
         <item>На рисунке изображён график функции f(x) = aˣ. Найдите значение f(−4).</item> <item>16</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=6632</item> <item>task_11_3</item>
         <item>На рисунке изображены графики функций f(x) = ax²+bx+c и g(x) = kx + d, которые пересекаются в точках A и B. Найдите абсциссу точки B.</item> <item>2,5</item> <item>https://www.youtube.com/watch?v=jR6x5PmBL2I&amp;t=2154</item> <item>task_11_4</item>
     </string-array>
+
+    <integer name="Task_12_reward">80</integer>
     <string-array name="Task_12">
         <item>Найдите точку максимума функции y = x³ − 75x + 19.</item> <item>-5</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=7252</item>
         <item>Найдите наименьшее значение функции y = 11 + 7π√3 / 18 − 7√3x / 3 − (14√3 / 3) cos x на отрезке [0; π/2].</item> <item>4</item> <item>https://www.youtube.com/watch?v=XWRMLZ-c3mY&amp;t=7379</item>

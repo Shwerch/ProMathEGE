@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.pro.math.EGE.Products.AbstractProduct;
 import com.pro.math.EGE.Products.Product;
 import com.pro.math.EGE.Products.SubTopic;
-import com.pro.math.EGE.Tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,12 +80,12 @@ public class Database {
             cursor.close();
             return id;
         }
-        static String Get(int topicId) {
-            final Cursor cursor = database.rawQuery("SELECT topic FROM "+Table+" WHERE topicId = "+topicId,null);
+        static String[] Get(int topicId) {
+            final Cursor cursor = database.rawQuery("SELECT topic, topicText FROM "+Table+" WHERE topicId = "+topicId,null);
             cursor.moveToLast();
-            final String topic = cursor.getString(0);
+            final String[] topicInfo = new String[] {cursor.getString(0),cursor.getString(1)};
             cursor.close();
-            return topic;
+            return topicInfo;
         }
         static Cursor Select() {
             return database.rawQuery("SELECT * FROM "+Table,null);
@@ -132,16 +131,16 @@ public class Database {
         static void Create(Context context) {
             database.execSQL("DROP TABLE IF EXISTS "+Table);
             Resources resources = Sources.GetLocaleResources(context);
-            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (topicId INTEGER, subTopicId INTEGER, availability BIT, cost INTEGER, PRIMARY KEY (topicId, subTopicId))");
+            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (topicId INTEGER, subTopicId INTEGER, availability BIT, cost INTEGER, tasksCount INTEGER, PRIMARY KEY (topicId, subTopicId))");
             String[] TopicsAttributes = resources.getStringArray(R.array.TopicsAttributes);
             for (String topic : TopicsAttributes) {
                 final int topicId = TheoryTopics.Get(topic);
                 String[] SubTopicsAttributes = Sources.GetStringArray(resources, topic);
                 for (String subTopic : SubTopicsAttributes) {
+                    final int tasksCount = Sources.GetStringArray(resources,topic+" "+subTopic).length;
                     final int subTopicId = TheorySubTopics.Get(topicId,subTopic);
                     final int cost = Sources.GetInteger(resources, topic+" "+subTopic+" cost");
-                    database.execSQL("INSERT OR IGNORE INTO "+Table+" VALUES ("+topicId+", "+subTopicId+", "+(cost == 0 ? 1 : 0)+", "+cost+")");
-                    database.execSQL("UPDATE "+Table+" SET availability = "+(cost == 0 ? 1 : 0)+", cost = "+cost+" WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId);
+                    database.execSQL("INSERT OR IGNORE INTO "+Table+" VALUES ("+topicId+", "+subTopicId+", "+(cost == 0 ? 1 : 0)+", "+cost+", "+tasksCount+")");
                 }
             }
         }
@@ -149,9 +148,9 @@ public class Database {
             database.execSQL("UPDATE "+Table+" SET availability = "+(availability ? 1 : 0)+" WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId);
         }
         static SubTopic Get(int topicId, int subTopicId) {
-            final Cursor cursor = database.rawQuery("SELECT availability, cost FROM "+Table+" WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId,null);
+            final Cursor cursor = database.rawQuery("SELECT availability, cost, tasksCount FROM "+Table+" WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId,null);
             cursor.moveToLast();
-            SubTopic subTopic = new SubTopic(topicId,subTopicId,cursor.getInt(0) == 1,cursor.getInt(1));
+            SubTopic subTopic = new SubTopic(topicId,subTopicId,cursor.getInt(0) == 1,cursor.getInt(1),cursor.getInt(2));
             cursor.close();
             return subTopic;
         }
@@ -203,18 +202,53 @@ public class Database {
         static void Create(Context context) {
             database.execSQL("DROP TABLE IF EXISTS "+Table);
             Resources resources = Sources.GetLocaleResources(context);
-            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (tasksGroupNumber INTEGER, taskIndex INTEGER, reward INTEGER, solution TEXT, image TEXT PRIMARY KEY (tasksGroupNumber,taskIndex))");
+            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (tasksGroupNumber INTEGER, taskIndex INTEGER, answer TEXT, solution TEXT, image TEXT , PRIMARY KEY (tasksGroupNumber,taskIndex))");
             for (int i = 1;i <= resources.getInteger(R.integer.Tasks);i++) {
-                String[] tasks = Sources.GetStringArray(context,"Task_"+i);
+                String[] tasks = Sources.GetStringArray(context,"Task "+i);
                 final int step;
                 if (tasks[3].startsWith("task_"))
                     step = 4;
                 else
                     step = 3;
+                PracticeTasksAttributes.Insert(i,tasks.length,Sources.GetInteger(context,"Task "+i+" reward"));
                 for (int k = 0;k < tasks.length;k += step) {
-                    database.execSQL("INSERT OR IGNORE INTO "+Table+" VALUES ("+i+", "+(k/step)+", "+tasks[k+1]+", '"+tasks[k+2]+"', "+(step == 4 ? tasks[k+3] : "NULL")+")");
+                    database.execSQL("INSERT OR IGNORE INTO "+Table+" VALUES ("+i+", "+(k/step)+", "+tasks[k+1]+", '"+tasks[k+2]+"', "+(step == 4 ? "'"+tasks[k+3]+"'" : "NULL")+")");
                 }
             }
+        }
+        static String[] Get(int tasksGroupNumber,int taskIndex) {
+            Cursor cursor = database.rawQuery("SELECT answer, solution, image FROM "+Table+" WHERE tasksGroupNumber = "+tasksGroupNumber+" AND taskIndex = "+taskIndex,null);
+            cursor.moveToFirst();
+            String[] taskInfo = new String[] {cursor.getString(0),cursor.getString(1),cursor.isNull(2) ? null : cursor.getString(2)};
+            cursor.close();
+            return taskInfo;
+        }
+        static boolean Image(int tasksGroupNumber) {
+            Cursor cursor = database.rawQuery("SELECT image FROM "+Table+" WHERE tasksGroupNumber = "+tasksGroupNumber,null);
+            cursor.moveToFirst();
+            boolean image = !cursor.getString(0).isEmpty();
+            cursor.close();
+            return image;
+        }
+        static Cursor Select() {
+            return database.rawQuery("SELECT * FROM "+Table,null);
+        }
+    }
+    static class PracticeTasksAttributes {
+        private static final String Table = TheoryAttributes.class.getSimpleName();
+        static void Create() {
+            database.execSQL("DROP TABLE IF EXISTS "+Table);
+            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (tasksGroupNumber INTEGER PRIMARY KEY, tasksCount INTEGER, reward INTEGER)");
+        }
+        static void Insert(int tasksGroupNumber,int tasksCount,int reward) {
+            database.execSQL("INSERT OR IGNORE INTO "+Table+" VALUES ("+tasksGroupNumber+", "+tasksCount+", "+reward+")");
+        }
+        static int[] Get(int tasksGroupNumber) {
+            Cursor cursor = database.rawQuery("SELECT tasksCount, reward  FROM "+Table+" WHERE tasksGroupNumber = "+tasksGroupNumber,null);
+            cursor.moveToFirst();
+            int[] task = new int[] {cursor.getInt(0),cursor.getInt(1)};
+            cursor.close();
+            return task;
         }
         static Cursor Select() {
             return database.rawQuery("SELECT * FROM "+Table,null);
@@ -234,15 +268,16 @@ public class Database {
         TheoryAttributes.Create(context);
         TheoryTasks.Create(context);
 
+        PracticeTasksAttributes.Create();
         PracticeTasks.Create(context);
 
         Cursor cursor = TheoryAttributes.Select();
         cursor.moveToFirst();
-
         do {
             if (cursor.getInt(2) == 0)
                 AddToShop(new Product(cursor.getInt(0),cursor.getInt(1)));
         } while (cursor.moveToNext());
+        cursor.close();
     }
     static ArrayList<AbstractProduct> ShopAttributes = new ArrayList<>();
     static void ResetShop() {
@@ -262,7 +297,7 @@ public class Database {
         ArrayList<String> arrayList = new ArrayList<>(ShopAttributes.size());
         for (int i = 0;i < ShopAttributes.size();i++) {
             AbstractProduct product = ShopAttributes.get(i);
-            arrayList.set(i,Sources.GetStringArray(context.getResources(),TheoryTopics.Get(product.topicId))[product.subTopicId]
+            arrayList.set(i,Sources.GetStringArray(context.getResources(),TheoryTopics.Get(product.topicId)[0])[product.subTopicId]
                     +" - "+Sources.GetRightPointsEnd(context,TheoryAttributes.Get(product.topicId, product.subTopicId).cost)+
                     " ("+context.getResources().getStringArray(R.array.TopicsAttributes)[product.topicId]+")");
         }
@@ -302,6 +337,8 @@ public class Database {
         return CurrencyValues.Get(1);
     }
 }
+
+
 
     /*static void OpenOrCreateDatabase(Context context) {
         boolean create = false;

@@ -20,10 +20,12 @@ public class PracticeChoosing extends MyAppCompatActivity {
         button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.MainButtonColor)));
     }
     private void ChangeStartButton() {
+        final float alpha;
         if (Numbers[0].isEmpty())
-            StartButton.setAlpha(0.55f);
+            alpha = 0.55f;
         else
-            StartButton.setAlpha(1);
+            alpha = 1;
+        StartButton.setAlpha(alpha);
     }
     private final ArrayList<Integer>[] Numbers = new ArrayList[] {new ArrayList<>()};
     private Button StartButton;

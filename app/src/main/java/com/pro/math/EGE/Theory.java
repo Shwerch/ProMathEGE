@@ -3,6 +3,7 @@ package com.pro.math.EGE;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.Cursor;
 
 import com.pro.math.EGE.Tasks.Question;
 
@@ -10,14 +11,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Theory {
-    private static int LastTopic = -1;
-    private static int LastSubTopic = -1;
+    private static int LastTopicId = -1;
+    private static int LastSubTopicId = -1;
     private static int LastTaskIndex = -1;
-    private static String[] TopicsAttributes = null;
-    private static String[] SubTopics = null;
     @SuppressLint("DiscouragedApi")
     public static void GetTask(Context context, int topicId, Question question) {
-        Console.L(topicId);
+        ArrayList<Integer> AvailableSubTopics = Database.GetAvailableSubTopics(topicId);
+        final int subTopicId = AvailableSubTopics.get((int)(AvailableSubTopics.size() * Math.random()));
+        int taskIndex;
+        if (LastTopicId == topicId && LastSubTopicId == subTopicId) {
+            taskIndex = (int) ((Database.TheoryAttributes.Get(topicId,subTopicId).tasksCount - 1) * Math.random());
+            if (taskIndex >= LastTaskIndex)
+                taskIndex++;
+        } else
+            taskIndex = (int) (Database.TheoryAttributes.Get(topicId,subTopicId).tasksCount * Math.random());
+
+
+
+        LastTopicId = topicId;
+        LastSubTopicId = subTopicId;
+        LastTaskIndex = taskIndex;
+        /*Console.L(topicId);
         String topic = Database.TheoryTopics.Get(topicId);
         ArrayList<Integer> AvailableSubTopics = Database.GetAvailableSubTopics(topicId);
         Resources EngRes = Sources.GetLocaleResources(context);
@@ -81,7 +95,7 @@ public class Theory {
         question.Change(Task[taskIndex],RealAnswersArray,AnswersRight,Sources.GetInteger(EngRes,subTopic+" reward"),correctAnswersCount);
         LastTopic = topicId;
         LastTaskIndex = taskIndex;
-        LastSubTopic = subTopicId;
+        LastSubTopic = subTopicId;*/
     }
 }
 

@@ -1,34 +1,26 @@
 package com.pro.math.EGE;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
 
 import com.pro.math.EGE.Tasks.Task;
 
 public class Practice {
-    private static int LastTaskNumber = -1;
+    private static int LastTasksGroupNumber = -1;
     private static int LastTaskIndex = -1;
-    private static String[] ResTasks;
-    private static int step;
-    @SuppressLint("DiscouragedApi")
-    public static void GetTask(Context context, int Number, Task task) {
-        int k;
-        if (Number != LastTaskNumber) {
-            ResTasks = Sources.GetStringArray(context,"Task_"+Number);
-            if (ResTasks[3].startsWith("task"))
-                step = 4;
-            else
-                step = 3;
-            k = step * (int)((ResTasks.length / step) * Math.random());
-        } else {
-            k = step * (int)((ResTasks.length / step - 1) * Math.random());
-            if (k >= LastTaskIndex)
-                k += step;
-        }
-        LastTaskNumber = Number;
-        LastTaskIndex = k;
-        task.Change(ResTasks[k], ResTasks[k + 1], ResTasks[k + 2], step == 4 ? context.getResources().getIdentifier(ResTasks[k + 3], "drawable", context.getPackageName()) : -1);
+    public static void GetTask(Context context,int tasksGroupNumber,Task task) {
+        int taskIndex;
+        if (tasksGroupNumber == LastTasksGroupNumber) {
+            taskIndex = (int) ((Database.PracticeTasksAttributes.Get(tasksGroupNumber)[0] - 1) * Math.random());
+            if (taskIndex >= LastTaskIndex)
+                taskIndex++;
+        } else
+            taskIndex = (int) (Database.PracticeTasksAttributes.Get(tasksGroupNumber)[0] * Math.random());
+
+        LastTasksGroupNumber = tasksGroupNumber;
+        LastTaskIndex = taskIndex;
+
+        String[] taskInfo = Database.PracticeTasks.Get(tasksGroupNumber,taskIndex);
+        task.Change(Sources.GetStringArray(context.getResources(),"Task "+tasksGroupNumber)[taskIndex],taskInfo[0],taskInfo[1],taskInfo[2] != null ? Sources.GetImage(taskInfo[2]) : null);
     }
 }
 

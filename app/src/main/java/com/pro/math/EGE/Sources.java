@@ -1,5 +1,6 @@
 package com.pro.math.EGE;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -29,8 +30,7 @@ public class Sources {
         try {
             return resources.getStringArray((int) R.array.class.getField(name.replace(" ","_")).get(null));
         } catch (Exception e) {
-            Console.L(e);
-            throw new RuntimeException();
+            throw new RuntimeException("string-array "+name+" not found");
         }
     }
     static String[] GetStringArray(@NonNull Context context,String name) {
@@ -40,12 +40,20 @@ public class Sources {
         try {
             return resources.getInteger((int) R.integer.class.getField(name.replace(" ","_")).get(null));
         } catch (Exception ignored) {
-            Console.L(name.replace(" ","_"));
-            throw new RuntimeException();
+            throw new RuntimeException("integer "+name+" not found");
         }
     }
     static int GetInteger(@NonNull Context context,String name) {
         return GetInteger(GetLocaleResources(context),name);
+    }
+    @SuppressLint("DiscouragedApi")
+    static int GetImage(String name) {
+        try {
+            return (int) R.drawable.class.getField(name.replace(" ","_")).get(null);
+        } catch (Exception e) {
+            throw new RuntimeException("drawable "+name+" not found");
+        }
+        //return context.getResources().getIdentifier(name, "drawable", context.getPackageName());
     }
 }
 

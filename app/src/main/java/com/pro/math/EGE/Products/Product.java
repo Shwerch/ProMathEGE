@@ -1,8 +1,7 @@
 package com.pro.math.EGE.Products;
 
 public class Product extends AbstractProduct {
-    public int topicId;
-    public int subTopicId;
+    public int topicId, subTopicId;
     public void Change(int topicId,int subTopicId) {
         this.topicId = topicId;
         this.subTopicId = subTopicId;
