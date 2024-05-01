@@ -55,7 +55,7 @@ public class Theory {
             else
                 Answers.set(i,allQuestions.remove(0));
         }
-        String subTopic = context.getResources().getStringArray(R.array.TopicsAttributes)[topicId];
+        String subTopic = Sources.GetStringArray(context.getResources(),Sources.GetLocaleResources(context).getStringArray(R.array.TopicsAttributes)[topicId * 2])[Database.theorySubTopics.GetIndex(topicId,subTopicId)];
         question.Change(tasks[taskIndex][questionIndex],subTopic,Answers,correctAnswersIndexes,Reward,correctAnswersCount);
         LastTopicId = topicId;
         LastSubTopicId = subTopicId;

@@ -78,11 +78,11 @@ public class Database {
                 theoryTopics = this;
             database.execSQL("DROP TABLE IF EXISTS "+Table);
             Resources resources = Sources.GetLocaleResources(context);
-            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (topicId INTEGER PRIMARY KEY AUTOINCREMENT, topic TEXT NOT NULL UNIQUE, topicText TEXT NOT NULL UNIQUE, testAvailable BIT)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (topicId INTEGER PRIMARY KEY AUTOINCREMENT, topic TEXT NOT NULL UNIQUE, testAvailable BIT)");
             String[] TopicsAttributes = resources.getStringArray(R.array.TopicsAttributes);
             for (int i = 0;i < TopicsAttributes.length;i += 2) {
                 final boolean testAvailable = Sources.GetStringArray(resources,TopicsAttributes[i]).length != 0;
-                database.execSQL("INSERT OR IGNORE INTO "+Table+" (topic, topicText, testAvailable) VALUES ('"+TopicsAttributes[i]+"', '"+TopicsAttributes[i+1]+"',"+(testAvailable ? 1 : 0)+")");
+                database.execSQL("INSERT OR IGNORE INTO "+Table+" (topic, testAvailable) VALUES ('"+TopicsAttributes[i]+"',"+(testAvailable ? 1 : 0)+")");
             }
         }
         public int Get(String topic) {
@@ -92,10 +92,10 @@ public class Database {
             cursor.close();
             return id;
         }
-        public String[] Get(int topicId) {
-            final Cursor cursor = database.rawQuery("SELECT topic, topicText FROM "+Table+" WHERE topicId = "+topicId,null);
+        public String Get(int topicId) {
+            final Cursor cursor = database.rawQuery("SELECT topic FROM "+Table+" WHERE topicId = "+topicId,null);
             cursor.moveToFirst();
-            final String[] topicInfo = new String[] {cursor.getString(0),cursor.getString(1)};
+            final String topicInfo = cursor.getString(0);
             cursor.close();
             return topicInfo;
         }
@@ -118,12 +118,13 @@ public class Database {
                 theorySubTopics = this;
             database.execSQL("DROP TABLE IF EXISTS "+Table);
             Resources resources = Sources.GetLocaleResources(context);
-            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (subTopicId INTEGER PRIMARY KEY AUTOINCREMENT, topicId INTEGER, subTopic TEXT NOT NULL UNIQUE)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (subTopicId INTEGER PRIMARY KEY AUTOINCREMENT, topicIndex INTEGER, topicId INTEGER, subTopic TEXT NOT NULL UNIQUE)");
             String[] TopicsAttributes = resources.getStringArray(R.array.TopicsAttributes);
             for (int i = 0;i < TopicsAttributes.length;i += 2) {
                 String[] SubTopicsAttributes = Sources.GetStringArray(resources, TopicsAttributes[i]);
-                for (String subTopic : SubTopicsAttributes) {
-                    database.execSQL("INSERT OR IGNORE INTO "+Table+" (topicId, subTopic) VALUES ("+ theoryTopics.Get(TopicsAttributes[i])+", '"+subTopic+"')");
+                for (int k = 0;k < SubTopicsAttributes.length;k++) {
+                    String subTopic = SubTopicsAttributes[k];
+                    database.execSQL("INSERT OR IGNORE INTO "+Table+" (topicIndex, topicId, subTopic) VALUES ("+k+", "+theoryTopics.Get(TopicsAttributes[i])+", '"+subTopic+"')");
                 }
             }
         }
@@ -134,12 +135,12 @@ public class Database {
             cursor.close();
             return id;
         }
-        public String Get(int topicId, int subTopicId) {
-            final Cursor cursor = database.rawQuery("SELECT topic FROM "+Table+" WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId,null);
+        public int GetIndex(int topicId, int subTopicId) {
+            final Cursor cursor = database.rawQuery("SELECT topicIndex FROM "+Table+" WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId,null);
             cursor.moveToFirst();
-            final String topic = cursor.getString(0);
+            final int topicIndex = cursor.getInt(0);
             cursor.close();
-            return topic;
+            return topicIndex;
         }
         public Cursor Select(int topicId) {
             return database.rawQuery("SELECT * FROM "+Table+" WHERE topicId = "+topicId,null);
@@ -154,7 +155,6 @@ public class Database {
         private TheoryAttributes(Context context) {
             if (theoryAttributes != this)
                 theoryAttributes = this;
-            database.execSQL("DROP TABLE IF EXISTS "+Table);
             Resources resources = Sources.GetLocaleResources(context);
             database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (topicId INTEGER, subTopicId INTEGER, availability BIT, cost INTEGER, tasksCount INTEGER, reward INTEGER, PRIMARY KEY (topicId, subTopicId))");
             String[] TopicsAttributes = resources.getStringArray(R.array.TopicsAttributes);
@@ -303,41 +303,53 @@ public class Database {
         Cursor cursor = theoryAttributes.Select();
         cursor.moveToFirst();
         do {
-            if (cursor.getInt(2) == 0)
-                AddToShop(new Product(cursor.getInt(0),cursor.getInt(1)));
+            if (cursor.getInt(2) == 0) {
+                AddToShop(cursor.getInt(0), cursor.getInt(1));
+            }
         } while (cursor.moveToNext());
         cursor.close();
     }
-    static ArrayList<AbstractProduct> ShopAttributes = new ArrayList<>();
+    static ArrayList<int[]> ShopAttributes = new ArrayList<>();
     static void ResetShop() {
         ShopAttributes.clear();
     }
-    static void AddToShop(AbstractProduct product) {
-        if (!ContainsShop(product))
+    static void AddToShop(int topicId, int subTopicId) {
+        int[] product = new int[] {topicId,subTopicId};
+        if (!ShopAttributes.contains(product))
             ShopAttributes.add(product);
     }
-    static void RemoveFromShop(AbstractProduct product) {
-        ShopAttributes.remove(product);
-    }
-    static boolean ContainsShop(AbstractProduct product) {
-        return ShopAttributes.contains(product);
+    static void RemoveFromShop(int position) {
+        ShopAttributes.remove(position);
     }
     static ArrayList<String> GetShop(Context context) {
+        Console.L("ShopAttributes");
+        for (int[] product : ShopAttributes)
+            Console.L(product[0]+" "+product[1]);
         ArrayList<String> arrayList = new ArrayList<>(ShopAttributes.size());
         for (int i = 0;i < ShopAttributes.size();i++) {
-            AbstractProduct product = ShopAttributes.get(i);
-            arrayList.set(i,Sources.GetStringArray(context.getResources(), theoryTopics.Get(product.topicId)[0])[product.subTopicId]
-                    +" - "+Sources.GetRightPointsEnd(context, theoryAttributes.Get(product.topicId, product.subTopicId).cost)+
-                    " ("+context.getResources().getStringArray(R.array.TopicsAttributes)[product.topicId]+")");
+            int[] product = ShopAttributes.get(i);
+            final int topicId = product[0];
+            final int subTopicId = product[1];
+            Console.L(theoryTopics.Get(topicId));
+            Console.L(Sources.GetStringArray(context.getResources(), theoryTopics.Get(topicId)));
+            Console.L(subTopicId - 1);
+            Console.L(Sources.GetStringArray(context.getResources(), theoryTopics.Get(topicId))[theorySubTopics.GetIndex(topicId,subTopicId)]);
+            arrayList.add(Sources.GetStringArray(context.getResources(), theoryTopics.Get(topicId))[theorySubTopics.GetIndex(topicId,subTopicId)]+
+                    " - "+Sources.GetRightPointsEnd(context, theoryAttributes.Get(topicId, subTopicId).cost)+
+                    " ("+context.getResources().getStringArray(R.array.TopicsAttributes)[topicId]+")");
         }
+        Console.L("ShopAttributes");
+        for (int[] product : ShopAttributes)
+            Console.L(product[0]+" "+product[1]);
         return arrayList;
     }
-    static boolean BuySubTopic(AbstractProduct product) {
-        SubTopic subTopic = theoryAttributes.Get(product.topicId, product.subTopicId);
-        if (subTopic.cost >= GetPoints() && !subTopic.availability) {
+    static boolean BuySubTopic(int topicId, int subTopicId, int position) {
+        SubTopic subTopic = theoryAttributes.Get(topicId, subTopicId);
+        Console.L(subTopic.cost+" "+GetPoints()+" "+subTopic.availability);
+        if (subTopic.cost <= GetPoints() && !subTopic.availability) {
             ChangePoints(subTopic.cost);
             theoryAttributes.Update(subTopic.topicId,subTopic.subTopicId,true);
-            RemoveFromShop(subTopic);
+            RemoveFromShop(position);
             return true;
         }
         return false;
