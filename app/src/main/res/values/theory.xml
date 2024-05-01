@@ -133,7 +133,7 @@
         <item>(logₙa)` = 1/(a * ln n)</item>
     </string-array>
     <integer name="Derivative_Derivatives_of_trigonometric_functions_cost">150</integer>
-    <string-array name="Derivatives_of_trigonometric_functions">
+    <string-array name="Derivative_Derivatives_of_trigonometric_functions">
         <item>(sin x)` = cos x</item>
         <item>(cos x)` = -sin x</item>
         <item>(tg x)` = 1/(cos² x)</item>

@@ -59,16 +59,16 @@ public class TheoryTesting extends MyAppCompatActivity {
         }
         if (question == null)
             question = new Question();
-        Theory.GetTask(Topic,question);
+        Theory.GetTask(this,Topic,question);
 
         /*final String[] QuestionAndAnswers = Theory.GetQuestionAndAnswers();
         final int[] CorrectAnswers = Theory.GetCorrectAnswers();
         final long Reward = Theory.GetReward();
         final int CorrectAnswersCount = Theory.GetCorrectAnswersCount();*/
         Task.setText(getResources().getString(R.string.question)+" "+question.Question+" ?");
-        //TopicText.setText(Theory.GetSubTopic(this)+" ("+Reward+")");
+        TopicText.setText(question.SubTopic+" ("+question.Reward+")");
         for (int i = 0;i < AnswersButtons.length;i++) {
-            AnswersButtons[i].setText(question.Answers[i]);
+            AnswersButtons[i].setText(question.Answers.get(i));
         }
 
         final float[] RewardMultiplier = {1f};

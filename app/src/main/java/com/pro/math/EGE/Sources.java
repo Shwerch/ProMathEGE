@@ -27,8 +27,9 @@ public class Sources {
         return context.createConfigurationContext(configuration).getResources();
     }
     static String[] GetStringArray(@NonNull Resources resources,String name) {
+        name = name.replace(" ","_");
         try {
-            return resources.getStringArray((int) R.array.class.getField(name.replace(" ","_")).get(null));
+            return resources.getStringArray((int) R.array.class.getField(name).get(null));
         } catch (Exception e) {
             throw new RuntimeException("string-array "+name+" not found");
         }
@@ -37,8 +38,9 @@ public class Sources {
         return GetStringArray(GetLocaleResources(context),name);
     }
     static int GetInteger(@NonNull Resources resources,String name) {
+        name = name.replace(" ","_");
         try {
-            return resources.getInteger((int) R.integer.class.getField(name.replace(" ","_")).get(null));
+            return resources.getInteger((int) R.integer.class.getField(name).get(null));
         } catch (Exception ignored) {
             throw new RuntimeException("integer "+name+" not found");
         }
@@ -48,8 +50,9 @@ public class Sources {
     }
     @SuppressLint("DiscouragedApi")
     static int GetImage(String name) {
+        name = name.replace(" ","_");
         try {
-            return (int) R.drawable.class.getField(name.replace(" ","_")).get(null);
+            return (int) R.drawable.class.getField(name).get(null);
         } catch (Exception e) {
             throw new RuntimeException("drawable "+name+" not found");
         }

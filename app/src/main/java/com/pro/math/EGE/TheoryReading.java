@@ -9,15 +9,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Objects;
-
 public class TheoryReading extends MyAppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        int Topic;
+        final int Topic;
         try {
             //noinspection DataFlowIssue
             Topic = (int) getIntent().getSerializableExtra("Topic");
@@ -59,9 +57,8 @@ public class TheoryReading extends MyAppCompatActivity {
             final Button StartTest = findViewById(R.id.start_test);
             StartTest.setOnClickListener(v -> startActivity(new Intent(this, TheoryTesting.class).putExtra("Topic", Topic)));
             super.SetSizes(new Button[]{MainMenu, StartTest}, TheoryTitle);
-        } else {
+        } else
             super.SetSizes(new Button[]{MainMenu}, TheoryTitle);
-        }
         super.BackToMainMenu(MainMenu);
 
         TheoryTitle.setText(getResources().getStringArray(R.array.TopicsAttributes)[Topic + 1]);

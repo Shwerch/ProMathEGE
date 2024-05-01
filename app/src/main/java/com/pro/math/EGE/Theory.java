@@ -17,7 +17,7 @@ public class Theory {
     private static int LastSubTopicId = -1;
     private static int LastTaskIndex = -1;
     @SuppressLint("DiscouragedApi")
-    public static void GetTask(int topicId, Question question) {
+    public static void GetTask(Context context, int topicId, Question question) {
         ArrayList<Integer> AvailableSubTopics = Database.GetAvailableSubTopics(topicId);
         final int subTopicId = AvailableSubTopics.get((int)(AvailableSubTopics.size() * Math.random()));
         int taskIndex;
@@ -59,7 +59,8 @@ public class Theory {
             else
                 Answers.set(i,allQuestions.remove(0));
         }
-        question.Change(tasks[taskIndex][questionIndex],Answers,correctAnswersIndexes,Reward,correctAnswersCount);
+        String subTopic = context.getResources().getStringArray(R.array.TopicsAttributes)[topicId];
+        question.Change(tasks[taskIndex][questionIndex],subTopic,Answers,correctAnswersIndexes,Reward,correctAnswersCount);
         LastTopicId = topicId;
         LastSubTopicId = subTopicId;
         LastTaskIndex = taskIndex;
