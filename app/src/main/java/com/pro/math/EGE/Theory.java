@@ -6,8 +6,10 @@ import android.content.res.Resources;
 import android.database.Cursor;
 
 import com.pro.math.EGE.Tasks.Question;
+import com.pro.math.EGE.Tasks.Task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class Theory {
@@ -15,7 +17,7 @@ public class Theory {
     private static int LastSubTopicId = -1;
     private static int LastTaskIndex = -1;
     @SuppressLint("DiscouragedApi")
-    public static void GetTask(Context context, int topicId, Question question) {
+    public static void GetTask(int topicId, Question question) {
         ArrayList<Integer> AvailableSubTopics = Database.GetAvailableSubTopics(topicId);
         final int subTopicId = AvailableSubTopics.get((int)(AvailableSubTopics.size() * Math.random()));
         int taskIndex;
@@ -26,11 +28,44 @@ public class Theory {
         } else
             taskIndex = (int) (Database.TheoryAttributes.Get(topicId,subTopicId).tasksCount * Math.random());
 
+        String[][] tasks = Database.TheoryTasks.Get(topicId,subTopicId);
+        ArrayList<Integer> questionTask = new ArrayList<>(tasks[taskIndex].length - 1);
+        final int questionIndex = (int) (tasks[taskIndex].length * Math.random());
+        for (int i = 0;i < tasks[taskIndex].length;i++) {
+            if (i != questionIndex)
+                questionTask.add(i);
+        }
 
+        final int correctAnswersCount = (int)(questionTask.size() * Math.random()) + 1;
+        ArrayList<String> Answers = new ArrayList<>(Collections.nCopies(6,null));
+        for (int i = 0;i < correctAnswersCount;i++) {
+            final int index = (int)(questionTask.size() * Math.random());
+            Answers.set(i, tasks[taskIndex][questionTask.remove(index)]);
+        }
+        Collections.shuffle(Answers);
 
+        final int Reward = Database.TheoryAttributes.Get(topicId,subTopicId).reward;
+        ArrayList<String> allQuestions = new ArrayList<>();
+        for (int i = 0;i < tasks.length;i++) {
+            if (i != taskIndex)
+                Collections.addAll(allQuestions,tasks[i]);
+        }
+        Collections.shuffle(allQuestions);
+
+        ArrayList<Integer> correctAnswersIndexes = new ArrayList<>(correctAnswersCount);
+        for (int i = 0;i < 6;i++) {
+            if (Answers.get(i) != null)
+                correctAnswersIndexes.add(i);
+            else
+                Answers.set(i,allQuestions.remove(0));
+        }
+        question.Change(tasks[taskIndex][questionIndex],Answers,correctAnswersIndexes,Reward,correctAnswersCount);
         LastTopicId = topicId;
         LastSubTopicId = subTopicId;
         LastTaskIndex = taskIndex;
+    }
+}
+
         /*Console.L(topicId);
         String topic = Database.TheoryTopics.Get(topicId);
         ArrayList<Integer> AvailableSubTopics = Database.GetAvailableSubTopics(topicId);
@@ -96,9 +131,6 @@ public class Theory {
         LastTopic = topicId;
         LastTaskIndex = taskIndex;
         LastSubTopic = subTopicId;*/
-    }
-}
-
 
         /*ArrayList<Integer> allAnswers = new ArrayList<>(Task.length - 1);
         for (int i = 0;i < Task.length;i++) {

@@ -131,7 +131,7 @@ public class Database {
         static void Create(Context context) {
             database.execSQL("DROP TABLE IF EXISTS "+Table);
             Resources resources = Sources.GetLocaleResources(context);
-            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (topicId INTEGER, subTopicId INTEGER, availability BIT, cost INTEGER, tasksCount INTEGER, PRIMARY KEY (topicId, subTopicId))");
+            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (topicId INTEGER, subTopicId INTEGER, availability BIT, cost INTEGER, tasksCount INTEGER, reward INTEGER, PRIMARY KEY (topicId, subTopicId))");
             String[] TopicsAttributes = resources.getStringArray(R.array.TopicsAttributes);
             for (String topic : TopicsAttributes) {
                 final int topicId = TheoryTopics.Get(topic);
@@ -140,7 +140,8 @@ public class Database {
                     final int tasksCount = Sources.GetStringArray(resources,topic+" "+subTopic).length;
                     final int subTopicId = TheorySubTopics.Get(topicId,subTopic);
                     final int cost = Sources.GetInteger(resources, topic+" "+subTopic+" cost");
-                    database.execSQL("INSERT OR IGNORE INTO "+Table+" VALUES ("+topicId+", "+subTopicId+", "+(cost == 0 ? 1 : 0)+", "+cost+", "+tasksCount+")");
+                    final int reward = Sources.GetInteger(resources, topic+" reward");
+                    database.execSQL("INSERT OR IGNORE INTO "+Table+" VALUES ("+topicId+", "+subTopicId+", "+(cost == 0 ? 1 : 0)+", "+cost+", "+tasksCount+", "+reward+")");
                 }
             }
         }
@@ -148,9 +149,9 @@ public class Database {
             database.execSQL("UPDATE "+Table+" SET availability = "+(availability ? 1 : 0)+" WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId);
         }
         static SubTopic Get(int topicId, int subTopicId) {
-            final Cursor cursor = database.rawQuery("SELECT availability, cost, tasksCount FROM "+Table+" WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId,null);
+            final Cursor cursor = database.rawQuery("SELECT availability, cost, tasksCount, reward FROM "+Table+" WHERE topicId = "+topicId+" AND subTopicId = "+subTopicId,null);
             cursor.moveToLast();
-            SubTopic subTopic = new SubTopic(topicId,subTopicId,cursor.getInt(0) == 1,cursor.getInt(1),cursor.getInt(2));
+            SubTopic subTopic = new SubTopic(topicId,subTopicId,cursor.getInt(0) == 1,cursor.getInt(1),cursor.getInt(2),cursor.getInt(3));
             cursor.close();
             return subTopic;
         }

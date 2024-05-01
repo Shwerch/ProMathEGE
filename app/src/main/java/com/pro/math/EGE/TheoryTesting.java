@@ -59,7 +59,7 @@ public class TheoryTesting extends MyAppCompatActivity {
         }
         if (question == null)
             question = new Question();
-        Theory.GetTask(this,Topic,question);
+        Theory.GetTask(Topic,question);
 
         /*final String[] QuestionAndAnswers = Theory.GetQuestionAndAnswers();
         final int[] CorrectAnswers = Theory.GetCorrectAnswers();
