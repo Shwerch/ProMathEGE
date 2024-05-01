@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
 public class TheoryReading extends MyAppCompatActivity {
 
     @Override
@@ -25,25 +27,21 @@ public class TheoryReading extends MyAppCompatActivity {
             return;
         }
 
-        boolean startTest = true;
+        boolean startTest = Database.theoryTopics.TestAvailable(Topic);
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         if (size.x > size.y + 300) {
-            if (true) {
+            if (startTest)
                 setContentView(R.layout.theory_reading_landscape);
-            } else {
+            else
                 setContentView(R.layout.theory_reading_landscape_without_start_test);
-                startTest = false;
-            }
         }
         else {
-            if (true) {
+            if (startTest)
                 setContentView(R.layout.theory_reading_portrait);
-            } else {
+            else
                 setContentView(R.layout.theory_reading_portrait_without_start_test);
-                startTest = false;
-            }
         }
 
         final Button MainMenu = findViewById(R.id.mainmenu);
@@ -51,7 +49,7 @@ public class TheoryReading extends MyAppCompatActivity {
         final TextView List = findViewById(R.id.list);
 
         List.setMovementMethod(new ScrollingMovementMethod());
-        List.setText(getResources().getStringArray(R.array.Theory)[Topic]);
+        List.setText(getResources().getStringArray(R.array.Theory)[Topic - 1]);
 
         if (startTest) {
             final Button StartTest = findViewById(R.id.start_test);
@@ -60,8 +58,8 @@ public class TheoryReading extends MyAppCompatActivity {
         } else
             super.SetSizes(new Button[]{MainMenu}, TheoryTitle);
         super.BackToMainMenu(MainMenu);
-
-        TheoryTitle.setText(getResources().getStringArray(R.array.TopicsAttributes)[Topic + 1]);
+        Console.L(Topic+" "+Arrays.toString(getResources().getStringArray(R.array.TopicsAttributes)));
+        TheoryTitle.setText(getResources().getStringArray(R.array.TopicsAttributes)[(Topic - 1) * 2]);
     }
 }
 

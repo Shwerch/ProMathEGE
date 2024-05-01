@@ -2,14 +2,10 @@ package com.pro.math.EGE;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
-import android.database.Cursor;
 
 import com.pro.math.EGE.Tasks.Question;
-import com.pro.math.EGE.Tasks.Task;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class Theory {
@@ -22,13 +18,13 @@ public class Theory {
         final int subTopicId = AvailableSubTopics.get((int)(AvailableSubTopics.size() * Math.random()));
         int taskIndex;
         if (LastTopicId == topicId && LastSubTopicId == subTopicId) {
-            taskIndex = (int) ((Database.TheoryAttributes.Get(topicId,subTopicId).tasksCount - 1) * Math.random());
+            taskIndex = (int) ((Database.theoryAttributes.Get(topicId,subTopicId).tasksCount - 1) * Math.random());
             if (taskIndex >= LastTaskIndex)
                 taskIndex++;
         } else
-            taskIndex = (int) (Database.TheoryAttributes.Get(topicId,subTopicId).tasksCount * Math.random());
+            taskIndex = (int) (Database.theoryAttributes.Get(topicId,subTopicId).tasksCount * Math.random());
 
-        String[][] tasks = Database.TheoryTasks.Get(topicId,subTopicId);
+        String[][] tasks = Database.theoryTasks.Get(topicId,subTopicId);
         ArrayList<Integer> questionTask = new ArrayList<>(tasks[taskIndex].length - 1);
         final int questionIndex = (int) (tasks[taskIndex].length * Math.random());
         for (int i = 0;i < tasks[taskIndex].length;i++) {
@@ -44,7 +40,7 @@ public class Theory {
         }
         Collections.shuffle(Answers);
 
-        final int Reward = Database.TheoryAttributes.Get(topicId,subTopicId).reward;
+        final int Reward = Database.theoryAttributes.Get(topicId,subTopicId).reward;
         ArrayList<String> allQuestions = new ArrayList<>();
         for (int i = 0;i < tasks.length;i++) {
             if (i != taskIndex)

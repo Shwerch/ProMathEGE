@@ -10,17 +10,19 @@ public class Practice {
     public static void GetTask(Context context,int tasksGroupNumber,Task task) {
         int taskIndex;
         if (tasksGroupNumber == LastTasksGroupNumber) {
-            taskIndex = (int) ((Database.PracticeTasksAttributes.Get(tasksGroupNumber)[0] - 1) * Math.random());
+            taskIndex = (int) ((Database.practiceTasksAttributes.Get(tasksGroupNumber)[0] - 1) * Math.random());
             if (taskIndex >= LastTaskIndex)
                 taskIndex++;
         } else
-            taskIndex = (int) (Database.PracticeTasksAttributes.Get(tasksGroupNumber)[0] * Math.random());
+            taskIndex = (int) (Database.practiceTasksAttributes.Get(tasksGroupNumber)[0] * Math.random());
 
         LastTasksGroupNumber = tasksGroupNumber;
         LastTaskIndex = taskIndex;
 
-        String[] taskInfo = Database.PracticeTasks.Get(tasksGroupNumber,taskIndex);
-        task.Change(Sources.GetStringArray(context.getResources(),"Task "+tasksGroupNumber)[taskIndex],taskInfo[0],taskInfo[1],taskInfo[2] != null ? Sources.GetImage(taskInfo[2]) : null);
+        String[] taskInfo = Database.practiceTasks.Get(tasksGroupNumber,taskIndex);
+        boolean image = taskInfo[2] != null;
+        task.Change(Sources.GetStringArray(context.getResources(),"Task "+tasksGroupNumber)[taskIndex * (!image ? 3 : 4)],taskInfo[0],taskInfo[1],image ? Sources.GetImage(taskInfo[2]) : null);
+        Console.L("Text: %s\nAnswer: %s\nSolution: %s\nImage: %s",task.Text,task.Answer,task.Solution,task.Image);
     }
 }
 
