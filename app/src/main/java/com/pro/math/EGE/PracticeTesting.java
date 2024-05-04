@@ -56,7 +56,7 @@ public class PracticeTesting extends MyAppCompatActivity{
         if (task == null)
             task = new Task();
         Console.L(Numbers);
-        Practice.GetTask(this,Numbers.get((int)(Numbers.size()*Math.random())),task);
+        Practice.GetTask(Numbers.get((int)(Numbers.size()*Math.random())),task);
         if (task.Image != null) {
             Image.setImageResource(task.Image);
             Image.setMaxHeight(minSize);

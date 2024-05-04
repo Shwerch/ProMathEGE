@@ -7,8 +7,6 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.pro.math.EGE.Products.AbstractProduct;
-import com.pro.math.EGE.Products.Product;
 import com.pro.math.EGE.Products.SubTopic;
 
 import java.util.ArrayList;
@@ -33,13 +31,6 @@ public class Database {
             final int value = cursor.getInt(0);
             cursor.close();
             return value;
-        }
-        public String Get(int currencyId) {
-            final Cursor cursor = database.rawQuery("SELECT name FROM "+Table+" WHERE currencyId = "+currencyId,null);
-            cursor.moveToFirst();
-            final String name = cursor.getString(0);
-            cursor.close();
-            return name;
         }
         public Cursor Select() {
             return database.rawQuery("SELECT * FROM "+Table,null);
@@ -106,9 +97,6 @@ public class Database {
             cursor.close();
             return testAvailable;
         }
-        public Cursor Select() {
-            return database.rawQuery("SELECT * FROM "+Table,null);
-        }
     }
     public static TheorySubTopics theorySubTopics;
     public static class TheorySubTopics {
@@ -141,12 +129,6 @@ public class Database {
             final int topicIndex = cursor.getInt(0);
             cursor.close();
             return topicIndex;
-        }
-        public Cursor Select(int topicId) {
-            return database.rawQuery("SELECT * FROM "+Table+" WHERE topicId = "+topicId,null);
-        }
-        public Cursor Select() {
-            return database.rawQuery("SELECT * FROM "+Table,null);
         }
     }
     public static TheoryAttributes theoryAttributes;
@@ -224,9 +206,6 @@ public class Database {
             cursor.close();
             return tasks;
         }
-        public Cursor Select() {
-            return database.rawQuery("SELECT * FROM "+Table,null);
-        }
     }
     public static PracticeTasks practiceTasks;
     public static class PracticeTasks {
@@ -236,7 +215,7 @@ public class Database {
                 practiceTasks = this;
             database.execSQL("DROP TABLE IF EXISTS "+Table);
             Resources resources = Sources.GetLocaleResources(context);
-            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (tasksGroupNumber INTEGER, taskIndex INTEGER, answer TEXT, solution TEXT, image TEXT, PRIMARY KEY (tasksGroupNumber,taskIndex))");
+            database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (tasksGroupNumber INTEGER, taskIndex INTEGER, task TEXT, answer TEXT, solution TEXT, image TEXT, PRIMARY KEY (tasksGroupNumber,taskIndex))");
             for (int i = 1;i <= resources.getInteger(R.integer.Tasks);i++) {
                 String[] tasks = Sources.GetStringArray(context,"Task "+i);
                 final int step;
@@ -246,19 +225,16 @@ public class Database {
                     step = 3;
                 practiceTasksAttributes.Insert(i,tasks.length / step,Sources.GetInteger(context,"Task "+i+" reward"));
                 for (int k = 0;k < tasks.length;k += step) {
-                    database.execSQL("INSERT OR IGNORE INTO "+Table+" VALUES ("+i+", "+(k/step)+", '"+tasks[k+1]+"', '"+tasks[k+2]+"', "+(step == 4 ? "'"+tasks[k+3]+"'" : "NULL")+")");
+                    database.execSQL("INSERT OR IGNORE INTO "+Table+" VALUES ("+i+", "+(k/step)+", '"+tasks[k]+"', '"+tasks[k+1]+"', '"+tasks[k+2]+"', "+(step == 4 ? "'"+tasks[k+3]+"'" : "NULL")+")");
                 }
             }
         }
         public String[] Get(int tasksGroupNumber,int taskIndex) {
-            Cursor cursor = database.rawQuery("SELECT answer, solution, image FROM "+Table+" WHERE tasksGroupNumber = "+tasksGroupNumber+" AND taskIndex = "+taskIndex,null);
+            Cursor cursor = database.rawQuery("SELECT task, answer, solution, image FROM "+Table+" WHERE tasksGroupNumber = "+tasksGroupNumber+" AND taskIndex = "+taskIndex,null);
             cursor.moveToFirst();
-            String[] taskInfo = new String[] {cursor.getString(0),cursor.getString(1),cursor.isNull(2) ? null : cursor.getString(2)};
+            String[] taskInfo = new String[] {cursor.getString(0),cursor.getString(1),cursor.getString(2),!cursor.isNull(3) ? cursor.getString(3) : null};
             cursor.close();
             return taskInfo;
-        }
-        public Cursor Select() {
-            return database.rawQuery("SELECT * FROM "+Table,null);
         }
     }
     public static PracticeTasksAttributes practiceTasksAttributes;
@@ -279,9 +255,6 @@ public class Database {
             int[] task = new int[] {cursor.getInt(0),cursor.getInt(1)};
             cursor.close();
             return task;
-        }
-        public Cursor Select() {
-            return database.rawQuery("SELECT * FROM "+Table,null);
         }
     }
     static void DefineDataBase(Context context) {
@@ -322,7 +295,6 @@ public class Database {
         ShopAttributes.remove(position);
     }
     static ArrayList<String> GetShop(Context context) {
-        Console.L("ShopAttributes");
         for (int[] product : ShopAttributes)
             Console.L(product[0]+" "+product[1]);
         ArrayList<String> arrayList = new ArrayList<>(ShopAttributes.size());
@@ -330,22 +302,16 @@ public class Database {
             int[] product = ShopAttributes.get(i);
             final int topicId = product[0];
             final int subTopicId = product[1];
-            Console.L(theoryTopics.Get(topicId));
-            Console.L(Sources.GetStringArray(context.getResources(), theoryTopics.Get(topicId)));
-            Console.L(subTopicId - 1);
-            Console.L(Sources.GetStringArray(context.getResources(), theoryTopics.Get(topicId))[theorySubTopics.GetIndex(topicId,subTopicId)]);
             arrayList.add(Sources.GetStringArray(context.getResources(), theoryTopics.Get(topicId))[theorySubTopics.GetIndex(topicId,subTopicId)]+
                     " - "+Sources.GetRightPointsEnd(context, theoryAttributes.Get(topicId, subTopicId).cost)+
                     " ("+context.getResources().getStringArray(R.array.TopicsAttributes)[topicId]+")");
         }
-        Console.L("ShopAttributes");
         for (int[] product : ShopAttributes)
             Console.L(product[0]+" "+product[1]);
         return arrayList;
     }
     static boolean BuySubTopic(int topicId, int subTopicId, int position) {
         SubTopic subTopic = theoryAttributes.Get(topicId, subTopicId);
-        Console.L(subTopic.cost+" "+GetPoints()+" "+subTopic.availability);
         if (subTopic.cost <= GetPoints() && !subTopic.availability) {
             ChangePoints(subTopic.cost);
             theoryAttributes.Update(subTopic.topicId,subTopic.subTopicId,true);

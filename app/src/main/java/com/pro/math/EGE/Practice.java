@@ -7,7 +7,7 @@ import com.pro.math.EGE.Tasks.Task;
 public class Practice {
     private static int LastTasksGroupNumber = -1;
     private static int LastTaskIndex = -1;
-    public static void GetTask(Context context,int tasksGroupNumber,Task task) {
+    public static void GetTask(int tasksGroupNumber,Task task) {
         int taskIndex;
         if (tasksGroupNumber == LastTasksGroupNumber) {
             taskIndex = (int) ((Database.practiceTasksAttributes.Get(tasksGroupNumber)[0] - 1) * Math.random());
@@ -20,8 +20,7 @@ public class Practice {
         LastTaskIndex = taskIndex;
 
         String[] taskInfo = Database.practiceTasks.Get(tasksGroupNumber,taskIndex);
-        boolean image = taskInfo[2] != null;
-        task.Change(Sources.GetStringArray(context.getResources(),"Task "+tasksGroupNumber)[taskIndex * (!image ? 3 : 4)],taskInfo[0],taskInfo[1],image ? Sources.GetImage(taskInfo[2]) : null);
+        task.Change(taskInfo[0],taskInfo[1],taskInfo[2],taskInfo[3] != null ? Sources.GetImage(taskInfo[3]) : null);
         Console.L("Text: %s\nAnswer: %s\nSolution: %s\nImage: %s",task.Text,task.Answer,task.Solution,task.Image);
     }
 }
