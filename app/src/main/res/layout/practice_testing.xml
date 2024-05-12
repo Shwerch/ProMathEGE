@@ -133,15 +133,18 @@
                 android:inputType="text"
                 tools:ignore="LabelFor" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/solution"
                 style="@style/MainButtons"
                 android:layout_width="170dp"
                 android:layout_height="55dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="@string/Solution" />
-
+                android:text="@string/Solution"
+                app:icon="@drawable/link"
+                app:iconTint="@color/TextColor"
+                app:iconGravity="textEnd"
+                />
             <Button
                 android:id="@+id/draftButton"
                 style="@style/Buttons"

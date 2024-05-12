@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Arrays;
-
 public class TheoryReading extends MyAppCompatActivity {
 
     @Override
@@ -58,7 +56,6 @@ public class TheoryReading extends MyAppCompatActivity {
         } else
             super.SetSizes(new Button[]{MainMenu}, TheoryTitle);
         super.BackToMainMenu(MainMenu);
-        Console.L(Topic+" "+Arrays.toString(getResources().getStringArray(R.array.TopicsAttributes)));
         TheoryTitle.setText(getResources().getStringArray(R.array.TopicsAttributes)[(Topic - 1) * 2]);
     }
 }

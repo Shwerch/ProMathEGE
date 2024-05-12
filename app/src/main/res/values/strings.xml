@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Pro Math EGE</string>
     <string name="github" translatable="false">https://github.com/Shwerch/ProMathEGE</string>
+    <string name="trushin" translatable="false">https://www.youtube.com/@trushinbv</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
     <string name="exit">Exit</string>
@@ -52,9 +53,6 @@
         <item>points</item>
     </string-array>
 
-    <string-array name="Settings">
-        <item>Показывать правильный ответ в случае ошибки</item>
-        <item>Переходить на следующее задание автоматически</item>
-    </string-array>
+    <string name="youtuber">Thanks to Boris Trushin for the tasks from the EGE</string>
 
 </resources>

@@ -20,12 +20,13 @@ public class Settings extends MyAppCompatActivity {
         final Button ResetProgress = findViewById(R.id.reset_progress);
         final Button AddPoints = findViewById(R.id.add_points);
         final Button Github = findViewById(R.id.github);
+        final Button YouTuber = findViewById(R.id.youtuber);
 
         ResetProgress.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
         super.ChangePoints(Points);
 
         super.BackToMainMenu(MainMenu);
-        super.SetSizes(new Button[]{MainMenu,ResetProgress,AddPoints,Points,Github},Title);
+        super.SetSizes(new Button[]{MainMenu,ResetProgress,AddPoints,Points,Github,YouTuber},Title);
         ResetProgress.setOnClickListener(v -> {
             Database.ResetDataBases(this);
             super.ChangePoints(Points);
@@ -35,5 +36,6 @@ public class Settings extends MyAppCompatActivity {
             super.ChangePoints(Points);
         });
         Github.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.github)))));
+        YouTuber.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.trushin)))));
     }
 }

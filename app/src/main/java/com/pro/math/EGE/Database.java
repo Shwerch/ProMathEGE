@@ -295,8 +295,6 @@ public class Database {
         ShopAttributes.remove(position);
     }
     static ArrayList<String> GetShop(Context context) {
-        for (int[] product : ShopAttributes)
-            Console.L(product[0]+" "+product[1]);
         ArrayList<String> arrayList = new ArrayList<>(ShopAttributes.size());
         for (int i = 0;i < ShopAttributes.size();i++) {
             int[] product = ShopAttributes.get(i);
@@ -306,8 +304,6 @@ public class Database {
                     " - "+Sources.GetRightPointsEnd(context, theoryAttributes.Get(topicId, subTopicId).cost)+
                     " ("+context.getResources().getStringArray(R.array.TopicsAttributes)[topicId]+")");
         }
-        for (int[] product : ShopAttributes)
-            Console.L(product[0]+" "+product[1]);
         return arrayList;
     }
     static boolean BuySubTopic(int topicId, int subTopicId, int position) {

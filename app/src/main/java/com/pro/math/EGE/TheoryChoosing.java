@@ -7,8 +7,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.Arrays;
-
 public class TheoryChoosing extends MyAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +30,6 @@ public class TheoryChoosing extends MyAppCompatActivity {
 
         ArrayAdapter<String> Adapter = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, RealTopics);
         List.setAdapter(Adapter);
-        Console.L(Arrays.toString(TopicsIds));
         List.setOnItemClickListener((parent, view, position, id) -> startActivity(new Intent(this, TheoryReading.class).putExtra("Topic",TopicsIds[position])));
     }
 }
