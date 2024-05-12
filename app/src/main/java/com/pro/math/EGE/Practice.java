@@ -19,7 +19,6 @@ public class Practice {
 
         String[] taskInfo = Database.practiceTasks.Get(tasksGroupNumber,taskIndex);
         task.Change(taskInfo[0],taskInfo[1],taskInfo[2],taskInfo[3] != null ? Sources.GetImage(taskInfo[3]) : null);
-        //Console.L("Text: %s\nAnswer: %s\nSolution: %s\nImage: %s",task.Text,task.Answer,task.Solution,task.Image);
     }
 }
 

@@ -49,7 +49,9 @@
         <item>Добавлено</item>
         <item>Вам начисляется</item>
     </string-array>
+    <string name="version">Версия</string>
     <string name="youtuber">Благодарность Борису Трушину за задания из ЕГЭ</string>
+    <string name="by">от</string>
 
 
 </resources>

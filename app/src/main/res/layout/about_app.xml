@@ -44,6 +44,26 @@
         app:layout_constraintTop_toBottomOf="@id/title"
         tools:layout="@android:layout/list_content" />
 
+    <TextView
+        android:id="@+id/app_version"
+        style="@style/Text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="bottom|center"
+        android:scrollbars="vertical"
+        app:circularflow_defaultRadius="10dp"
+        app:circularflow_radiusInDP="10dp"
+        app:layout_constraintBottom_toTopOf="@id/mainmenu"
+        app:layout_constraintCircleRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:layout="@android:layout/list_content" />
+
     <Button
         android:id="@+id/mainmenu"
         style="@style/Buttons"

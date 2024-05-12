@@ -1,12 +1,13 @@
 package com.pro.math.EGE;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-
 public class Settings extends MyAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +24,8 @@ public class Settings extends MyAppCompatActivity {
         final Button YouTuber = findViewById(R.id.youtuber);
 
         ResetProgress.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-        super.ChangePoints(Points);
 
+        super.ChangePoints(Points);
         super.BackToMainMenu(MainMenu);
         super.SetSizes(new Button[]{MainMenu,ResetProgress,AddPoints,Points,Github,YouTuber},Title);
         ResetProgress.setOnClickListener(v -> {
