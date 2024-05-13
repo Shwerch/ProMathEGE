@@ -56,7 +56,18 @@ public class Sources {
         } catch (Exception e) {
             throw new RuntimeException("drawable "+name+" not found");
         }
-        //return context.getResources().getIdentifier(name, "drawable", context.getPackageName());
+    }
+    static String GetAppVersion(Context context) {
+        Resources resources = context.getResources();
+        try {
+            return resources.getString(R.string.version)+" "+
+                    context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName+" "+
+                    resources.getString(R.string.by)+" "+
+                    resources.getString(R.string.build);
+        } catch (Exception e) {
+            Console.L(e);
+            return "";
+        }
     }
 }
 

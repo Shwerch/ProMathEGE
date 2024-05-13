@@ -72,6 +72,17 @@
             android:scrollbars="vertical">
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/release"
+                style="@style/Buttons"
+                android:layout_width="300dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:text="@string/release"
+                android:textSize="16sp"
+                app:icon="@drawable/link"
+                app:iconTint="@color/TextColor"
+                app:iconGravity="textEnd" />
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/github"
                 style="@style/Buttons"
                 android:layout_width="300dp"
@@ -112,7 +123,25 @@
 
         </LinearLayout>
 
-
     </ScrollView>
 
+    <TextView
+        android:id="@+id/app_version"
+        style="@style/Text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="bottom|center"
+        android:scrollbars="vertical"
+        app:circularflow_defaultRadius="10dp"
+        app:circularflow_radiusInDP="10dp"
+        app:layout_constraintBottom_toTopOf="@id/mainmenu"
+        app:layout_constraintCircleRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:layout="@android:layout/list_content" />
 </androidx.constraintlayout.widget.ConstraintLayout>

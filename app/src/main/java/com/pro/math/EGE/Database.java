@@ -19,8 +19,7 @@ public class Database {
     public static class CurrencyNames {
         private final String Table = this.getClass().getSimpleName();
         private CurrencyNames() {
-            if (currencyNames != this)
-                currencyNames = this;
+            currencyNames = this;
             database.execSQL("DROP TABLE IF EXISTS "+Table);
             database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (currencyId INTEGER PRIMARY KEY AUTOINCREMENT, defaultValue LONG, name TEXT NOT NULL UNIQUE)");
             database.execSQL("INSERT OR IGNORE INTO "+Table+" (defaultValue, name) VALUES (0, 'Points')");
@@ -40,8 +39,7 @@ public class Database {
     public static class CurrencyValues {
         private final String Table = this.getClass().getSimpleName();
         private CurrencyValues() {
-            if (currencyValues != this)
-                currencyValues = this;
+            currencyValues = this;
             database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (currencyId INTEGER PRIMARY KEY, value LONG)");
             Cursor cursor = currencyNames.Select();
             cursor.moveToFirst();
@@ -65,8 +63,7 @@ public class Database {
     public static class TheoryTopics {
         private final String Table = this.getClass().getSimpleName();
         private TheoryTopics(Context context) {
-            if (theoryTopics != this)
-                theoryTopics = this;
+            theoryTopics = this;
             database.execSQL("DROP TABLE IF EXISTS "+Table);
             Resources resources = Sources.GetLocaleResources(context);
             database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (topicId INTEGER PRIMARY KEY AUTOINCREMENT, topic TEXT NOT NULL UNIQUE, testAvailable BIT)");
@@ -102,8 +99,7 @@ public class Database {
     public static class TheorySubTopics {
         private final String Table = this.getClass().getSimpleName();
         private TheorySubTopics(Context context) {
-            if (theorySubTopics != this)
-                theorySubTopics = this;
+            theorySubTopics = this;
             database.execSQL("DROP TABLE IF EXISTS "+Table);
             Resources resources = Sources.GetLocaleResources(context);
             database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (subTopicId INTEGER PRIMARY KEY AUTOINCREMENT, topicIndex INTEGER, topicId INTEGER, subTopic TEXT NOT NULL UNIQUE)");
@@ -135,8 +131,7 @@ public class Database {
     public static class TheoryAttributes {
         private final String Table = this.getClass().getSimpleName();
         private TheoryAttributes(Context context) {
-            if (theoryAttributes != this)
-                theoryAttributes = this;
+            theoryAttributes = this;
             Resources resources = Sources.GetLocaleResources(context);
             database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (topicId INTEGER, subTopicId INTEGER, availability BIT, cost INTEGER, tasksCount INTEGER, reward INTEGER, PRIMARY KEY (topicId, subTopicId))");
             String[] TopicsAttributes = resources.getStringArray(R.array.TopicsAttributes);
@@ -174,8 +169,7 @@ public class Database {
     public static class TheoryTasks {
         private final String Table = this.getClass().getSimpleName();
         private TheoryTasks(Context context) {
-            if (theoryTasks != this)
-                theoryTasks = this;
+            theoryTasks = this;
             database.execSQL("DROP TABLE IF EXISTS "+Table);
             Resources resources = Sources.GetLocaleResources(context);
             database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (topicId INTEGER, subTopicId INTEGER, task TEXT NOT NULL UNIQUE, PRIMARY KEY (topicId, subTopicId, task))");
@@ -211,8 +205,7 @@ public class Database {
     public static class PracticeTasks {
         private final String Table = this.getClass().getSimpleName();
         private PracticeTasks(Context context) {
-            if (practiceTasks != this)
-                practiceTasks = this;
+            practiceTasks = this;
             database.execSQL("DROP TABLE IF EXISTS "+Table);
             Resources resources = Sources.GetLocaleResources(context);
             database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (tasksGroupNumber INTEGER, taskIndex INTEGER, task TEXT, answer TEXT, solution TEXT, image TEXT, PRIMARY KEY (tasksGroupNumber,taskIndex))");
@@ -241,8 +234,7 @@ public class Database {
     public static class PracticeTasksAttributes {
         private final String Table = this.getClass().getSimpleName();
         private PracticeTasksAttributes() {
-            if (practiceTasksAttributes != this)
-                practiceTasksAttributes = this;
+            practiceTasksAttributes = this;
             database.execSQL("DROP TABLE IF EXISTS "+Table);
             database.execSQL("CREATE TABLE IF NOT EXISTS "+Table+" (tasksGroupNumber INTEGER PRIMARY KEY, tasksCount INTEGER, reward INTEGER)");
         }

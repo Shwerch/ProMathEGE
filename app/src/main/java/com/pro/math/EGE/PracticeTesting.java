@@ -82,9 +82,8 @@ public class PracticeTesting extends MyAppCompatActivity{
                     Toast.makeText(context,RightAnswers[(int)(Math.random()*RightAnswers.length)]+
                             " "+RightRewards[(int)(Math.random()*RightAnswers.length)]+
                             " "+ Sources.GetRightPointsEnd(context,reward),Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(context,"Correct: "+task.Answer,Toast.LENGTH_SHORT).show();
-                }
+                } else
+                    Toast.makeText(context,getString(R.string.rightAnswer)+": "+task.Answer,Toast.LENGTH_SHORT).show();
                 return true;
             }
             return false;

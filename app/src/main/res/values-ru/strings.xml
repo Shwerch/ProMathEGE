@@ -36,7 +36,8 @@
         <item>балл</item>
         <item>балла</item>
     </string-array>
-
+    
+    <string name="rightAnswer">Правильный ответ</string>
     <string-array name="rightAnswers">
         <item>Правильный ответ!</item>
         <item>Отлично.</item>
@@ -52,6 +53,5 @@
     <string name="version">Версия</string>
     <string name="youtuber">Благодарность Борису Трушину за задания из ЕГЭ</string>
     <string name="by">от</string>
-
-
+    <string name="release">Открыть последний релиз на Github</string>
 </resources>

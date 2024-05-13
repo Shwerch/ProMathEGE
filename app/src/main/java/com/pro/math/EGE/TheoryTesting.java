@@ -61,10 +61,6 @@ public class TheoryTesting extends MyAppCompatActivity {
             question = new Question();
         Theory.GetTask(this,Topic,question);
 
-        /*final String[] QuestionAndAnswers = Theory.GetQuestionAndAnswers();
-        final int[] CorrectAnswers = Theory.GetCorrectAnswers();
-        final long Reward = Theory.GetReward();
-        final int CorrectAnswersCount = Theory.GetCorrectAnswersCount();*/
         Task.setText(getResources().getString(R.string.question)+" "+question.Question+" ?");
         TopicText.setText(question.SubTopic+" ("+question.Reward+")");
         for (int i = 0;i < AnswersButtons.length;i++) {

@@ -10,12 +10,10 @@ public abstract class AbstractProduct implements Comparable<Product> {
             return 1;
         else if (this.topicId < product.topicId)
             return -1;
-
-        if (this.subTopicId > product.subTopicId)
+        else if (this.subTopicId > product.subTopicId)
             return 1;
         else if (this.subTopicId < product.subTopicId)
             return -1;
-
         return 0;
     }
 }

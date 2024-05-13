@@ -18,12 +18,7 @@ public class AboutApp extends MyAppCompatActivity {
         final TextView About = findViewById(R.id.about_text);
         final TextView Title = findViewById(R.id.title);
         final TextView Version = findViewById(R.id.app_version);
-        try {
-            Version.setText(getResources().getString(R.string.version)+" "+
-                    this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName+" "+
-                    getResources().getString(R.string.by)+" "+
-                    getResources().getString(R.string.build));
-        } catch (Exception ignored) {}
+        Version.setText(Sources.GetAppVersion(this));
         About.setMovementMethod(new ScrollingMovementMethod());
         super.BackToMainMenu(Back);
         super.SetSizes(new Button[]{Back},Title);

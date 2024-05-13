@@ -7,8 +7,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pro.math.EGE.Products.AbstractProduct;
-
 public class Shop extends MyAppCompatActivity {
     private ListView List;
     private void SetupList() {

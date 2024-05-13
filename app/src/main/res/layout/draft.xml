@@ -115,7 +115,7 @@
         android:padding="7dp"
         android:textAppearance="@style/Text"
         android:textCursorDrawable="@color/Assents"
-        android:textSize="14sp">
+        android:textSize="12sp">
 
     </TextView>
 
