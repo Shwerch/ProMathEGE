@@ -23,12 +23,10 @@ public class TheoryTesting extends MyAppCompatActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        if (size.x > size.y + 300) {
+        if (size.x > size.y + 300)
             setContentView(R.layout.theory_testing_landscape);
-        }
-        else {
+        else
             setContentView(R.layout.theory_testing_portrait);
-        }
 
         final Button MainMenu = findViewById(R.id.mainmenu);
         final TextView Title = findViewById(R.id.title);
