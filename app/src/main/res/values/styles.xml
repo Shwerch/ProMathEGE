@@ -7,13 +7,13 @@
         <item name="android:windowFullscreen">false</item>
     </style>
 
-    <style name="Text" parent="ThemeOverlay.Material3.Button.TextButton">
+    <style name="Text">
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/TextColor</item>
         <item name="android:background">@color/void0</item>
     </style>
 
-    <style name="MainButtons" parent="ThemeOverlay.Material3.Button">
+    <style name="MainButtons">
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:backgroundTint">@color/MainButtonColor</item>
         <item name="cornerRadius">10dp</item>
@@ -31,7 +31,7 @@
         <item name="android:elevation">10dp</item>
     </style>
 
-    <style name="Buttons" parent="ThemeOverlay.Material3.Button">
+    <style name="Buttons">
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:backgroundTint">@color/ButtonColor</item>
         <item name="cornerRadius">10dp</item>
