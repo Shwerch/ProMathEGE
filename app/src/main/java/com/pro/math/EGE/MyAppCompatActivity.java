@@ -31,8 +31,8 @@ public class MyAppCompatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Window window = getWindow();
-        window.setNavigationBarColor(getResources().getColor(R.color.Background));
-        window.setStatusBarColor(getResources().getColor(R.color.Background));
+        window.setNavigationBarColor(getResources().getColor(R.color.void0));
+        window.setStatusBarColor(getResources().getColor(R.color.void0));
     }
     @Override
     public void startActivity(Intent intent) {
