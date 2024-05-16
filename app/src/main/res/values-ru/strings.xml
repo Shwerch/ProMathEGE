@@ -23,7 +23,7 @@
     <string name="draft">Черновик</string>
     <string name="Undo">Отменить</string>
     <string name="Drawing">Рисование</string>
-    <string name="about_text">Создано Ильей Поповым благодаря центру образования детей IT–CUBE, 2023–2024 учебный год.</string>
+    <string name="about_text">Создано благодаря центру образования детей IT–CUBE, 2023–2024 учебный год.</string>
     <string name="add_points">Только для тестирования: добавить 1000 баллов</string>
     <string name="Clear">Очистить</string>
     <string name="Stroke">Толщина</string>

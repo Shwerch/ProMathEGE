@@ -1,8 +1,6 @@
 package com.pro.math.EGE;
 
 import android.annotation.SuppressLint;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.widget.Button;
@@ -21,6 +19,6 @@ public class AboutApp extends MyAppCompatActivity {
         Version.setText(Sources.GetAppVersion(this));
         About.setMovementMethod(new ScrollingMovementMethod());
         super.BackToMainMenu(Back);
-        super.SetSizes(new Button[]{Back},Title);
+        super.SetSizes(new Button[] {Back},Title);
     }
 }
