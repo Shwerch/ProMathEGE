@@ -294,7 +294,7 @@ public class Database {
             final int subTopicId = product[1];
             arrayList.add(Sources.GetStringArray(context.getResources(), theoryTopics.Get(topicId))[theorySubTopics.GetIndex(topicId,subTopicId)]+
                     " - "+Sources.GetRightPointsEnd(context, theoryAttributes.Get(topicId, subTopicId).cost)+
-                    " ("+context.getResources().getStringArray(R.array.TopicsAttributes)[topicId]+")");
+                    " ("+context.getResources().getStringArray(R.array.TopicsAttributes)[(topicId - 1) * 2]+")");
         }
         return arrayList;
     }
