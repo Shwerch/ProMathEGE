@@ -301,7 +301,7 @@ public class Database {
     static boolean BuySubTopic(int topicId, int subTopicId, int position) {
         SubTopic subTopic = theoryAttributes.Get(topicId, subTopicId);
         if (subTopic.cost <= GetPoints() && !subTopic.availability) {
-            ChangePoints(subTopic.cost);
+            ChangePoints(-subTopic.cost);
             theoryAttributes.Update(subTopic.topicId,subTopic.subTopicId,true);
             RemoveFromShop(position);
             return true;

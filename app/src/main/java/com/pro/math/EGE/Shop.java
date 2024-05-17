@@ -32,6 +32,7 @@ public class Shop extends MyAppCompatActivity {
             if (Database.BuySubTopic(product[0],product[1],position)) {
                 Toast.makeText(this,getResources().getString(R.string.successful_purchase),Toast.LENGTH_SHORT).show();
                 SetupList();
+                super.ChangePoints(Points);
             } else
                 Toast.makeText(this,getResources().getString(R.string.not_enough_points),Toast.LENGTH_SHORT).show();
         });
