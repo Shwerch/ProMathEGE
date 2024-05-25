@@ -18,14 +18,16 @@ import com.pro.math.EGE.Tasks.Task;
 import java.util.ArrayList;
 
 public class PracticeTesting extends MyAppCompatActivity{
-    private static Task task = null;
+    private static final Task task = new Task();
+    private static ArrayList<Integer> Numbers;
+    private static boolean[] responseReceived;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        final int minSize = Math.min(size.x,size.y)*4/5;
+        final int minSize = Math.min(size.x,size.y) * 4 / 5;
 
         setContentView(R.layout.practice_testing);
         final TextView Title = findViewById(R.id.title);
@@ -37,47 +39,50 @@ public class PracticeTesting extends MyAppCompatActivity{
         final ImageView Image = findViewById(R.id.image);
         final Button DraftButton = findViewById(R.id.draftButton);
 
-        final ArrayList<Integer> Numbers;
         try {
-            Numbers = (ArrayList<Integer>) getIntent().getSerializableExtra("Numbers");
-            if (Numbers == null)
+            final ArrayList<Integer> newNumbers = (ArrayList<Integer>) getIntent().getSerializableExtra("Numbers");
+            if (newNumbers == null)
                 throw new Exception();
+            else if (newNumbers != Numbers) {
+                Practice.GetTask(newNumbers.get((int) (newNumbers.size() * Math.random())), task);
+                Numbers = newNumbers;
+                responseReceived = new boolean[] {false};
+            }
         } catch (Exception e) {
+            Console.L(e);
             Toast.makeText(getBaseContext(), R.string.error_whe_getting_topic, Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             return;
         }
-
         super.BackToMainMenu(MainMenu);
-        Next.setOnClickListener(v -> startActivity(new Intent(this,PracticeTesting.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtra("Numbers",Numbers)));
-        final String[] RightAnswers = getResources().getStringArray(R.array.rightAnswers);
-        final String[] RightRewards =getResources().getStringArray(R.array.rightRewards);
+        Next.setOnClickListener(v -> startActivity(new Intent(this, PracticeTesting.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtra("Numbers", Numbers)));
+        String[] RightAnswers = getResources().getStringArray(R.array.rightAnswers);
+        String[] RightRewards = getResources().getStringArray(R.array.rightRewards);
 
-        if (task == null)
-            task = new Task();
-        Practice.GetTask(Numbers.get((int)(Numbers.size()*Math.random())),task);
         if (task.Image != null) {
             Image.setImageResource(task.Image);
             Image.setMaxHeight(minSize);
             Image.setMaxWidth(minSize);
-        }
-        else {
+        } else
             Image.setMaxHeight(0);
-        }
         final long reward = 60;
-        final boolean[] responseReceived = new boolean[] {false};
         final Context context = this;
 
         super.SetSizes(new Button[] {MainMenu,Next,Solution,DraftButton},Title);
-        DraftButton.setOnClickListener(l -> startActivity(new Intent(this,Draft.class).putExtra("Text",task.Text).addFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP)));
+        DraftButton.setOnClickListener(l ->
+            startActivity(new Intent(this, Draft.class).putExtra("Text", task.Text).addFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP))
+        );
 
         Task.setText(task.Text);
         Solution.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(task.Solution))));
         Answer.setOnKeyListener((v, keyCode, event) -> {
-            if(!responseReceived[0] && (event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+            final boolean action = (event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER);
+            if (!action)
+                return false;
+            if(!responseReceived[0]) {
                 responseReceived[0] = true;
                 String answerText = Answer.getText().toString().replace(" ", "").replace(".", ",");
-                if (answerText.equals(task.Answer) || answerText.equals("$sudo")) {
+                if (answerText.equals(task.Answer)) {
                     Database.ChangePoints(reward);
                     Toast.makeText(context,RightAnswers[(int)(Math.random()*RightAnswers.length)]+
                             " "+RightRewards[(int)(Math.random()*RightAnswers.length)]+
@@ -85,7 +90,8 @@ public class PracticeTesting extends MyAppCompatActivity{
                 } else
                     Toast.makeText(context,getString(R.string.rightAnswer)+": "+task.Answer,Toast.LENGTH_SHORT).show();
                 return true;
-            }
+            } else
+                Toast.makeText(context,R.string.answer_already_given,Toast.LENGTH_SHORT).show();
             return false;
         });
     }

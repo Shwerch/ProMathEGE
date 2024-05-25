@@ -2,7 +2,6 @@ package com.pro.math.EGE;
 
 import android.content.Intent;
 import android.graphics.Point;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Display;
 import android.widget.Button;
@@ -42,7 +41,6 @@ public class MainActivity extends MyAppCompatActivity {
         About.setOnClickListener(v -> startActivity(new Intent(this,AboutApp.class)));
         Theory.setOnClickListener(v -> startActivity(new Intent(this, TheoryChoosing.class)));
         Settings.setOnClickListener(v -> startActivity(new Intent(this,Settings.class)));
-        //Points.setOnClickListener(v -> startActivity(new Intent(this,Points.class)));
         Practice.setOnClickListener(v -> startActivity(new Intent(this, PracticeChoosing.class)));
         Shop.setOnClickListener(v -> startActivity(new Intent(this,Shop.class)));
     }

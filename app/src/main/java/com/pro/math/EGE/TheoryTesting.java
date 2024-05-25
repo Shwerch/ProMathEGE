@@ -14,7 +14,12 @@ import androidx.core.content.ContextCompat;
 import com.pro.math.EGE.Tasks.Question;
 
 public class TheoryTesting extends MyAppCompatActivity {
-    private static Question question = null;
+    private static final Question question = new Question();
+    private static boolean next = true;
+    private static byte[] buttonColors = new byte[6];
+
+    private static float[] RewardMultiplier;
+    private static byte[] AnswersCountIsGiven;
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +60,20 @@ public class TheoryTesting extends MyAppCompatActivity {
             startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             return;
         }
-        if (question == null)
-            question = new Question();
-        Theory.GetTask(this,Topic,question);
+        if (next) {
+            Theory.GetTask(this,Topic,question);
+            buttonColors = new byte[6];
+            next = false;
+            RewardMultiplier = new float[] {1f};
+            AnswersCountIsGiven = new byte[] {0};
+        } else {
+            for (int i = 0;i < 6;i++) {
+                if (buttonColors[i] == 1)
+                    AnswersButtons[i].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.red));
+                else if (buttonColors[i] == 2)
+                    AnswersButtons[i].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
+            }
+        }
 
         Task.setText(getResources().getString(R.string.question)+" "+question.Question+" ?");
         TopicText.setText(question.SubTopic+" ("+question.Reward+")");
@@ -65,11 +81,11 @@ public class TheoryTesting extends MyAppCompatActivity {
             AnswersButtons[i].setText(question.Answers.get(i));
         }
 
-        final float[] RewardMultiplier = {1f};
-        final byte[] AnswersCountIsGiven = {0};
         for (int i = 0;i < AnswersButtons.length;i++) {
             final int fuckingFinalI = i;
             AnswersButtons[i].setOnClickListener(v -> {
+                if (buttonColors[fuckingFinalI] != 0)
+                    return;
                 boolean correct = false;
                 for (int correctAnswer : question.CorrectAnswers) {
                     if (fuckingFinalI == correctAnswer) {
@@ -78,6 +94,7 @@ public class TheoryTesting extends MyAppCompatActivity {
                     }
                 }
                 if (correct) {
+                    buttonColors[fuckingFinalI] = 2;
                     AnswersButtons[fuckingFinalI].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.green));
                     if (RewardMultiplier[0] != 0) {
                         long reward = (long)(question.Reward*RewardMultiplier[0]/question.CorrectAnswersCount);
@@ -90,6 +107,7 @@ public class TheoryTesting extends MyAppCompatActivity {
                     }
                     AnswersCountIsGiven[0] += 1;
                 } else if (AnswersCountIsGiven[0] < question.CorrectAnswersCount) {
+                    buttonColors[fuckingFinalI] = 1;
                     AnswersButtons[fuckingFinalI].setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.red));
                     if (RewardMultiplier[0] != 0) {
                         RewardMultiplier[0] -= 0.5f;
@@ -99,7 +117,10 @@ public class TheoryTesting extends MyAppCompatActivity {
         }
         Title.setText(getResources().getStringArray(R.array.TopicsAttributes)[Topic * 2 - 1]);
         super.BackToMainMenu(MainMenu);
-        Next.setOnClickListener(v -> startActivity(new Intent(this, TheoryTesting.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtra("Topic",Topic)));
+        Next.setOnClickListener(v -> {
+            next = true;
+            startActivity(new Intent(this, TheoryTesting.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtra("Topic", Topic));
+        });
         super.SetSizes(new Button[]{MainMenu,Next,Answer1,Answer2,Answer3,Answer4,Answer5,Answer6},Title);
     }
 }
