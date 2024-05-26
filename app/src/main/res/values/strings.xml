@@ -3,6 +3,7 @@
     <string name="app_name" translatable="false">Pro Math EGE</string>
     <string name="github" translatable="false">https://github.com/Shwerch/ProMathEGE</string>
     <string name="trushin" translatable="false">https://www.youtube.com/@trushinbv</string>
+    <string name="bookege" translatable="false">https://trushinbv.ru/book.ege</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
     <string name="exit">Exit</string>
@@ -58,6 +59,6 @@
     </string-array>
     <string name="rightAnswer">Right answer</string>
 
-    <string name="youtuber">Thanks to Boris Trushin for the tasks from the EGE</string>
+    <string name="youtuber">Open a file with tasks from the EGE</string>
     <string name="release">Open the latest release on Github</string>
 </resources>

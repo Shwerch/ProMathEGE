@@ -52,7 +52,7 @@
     </string-array>
     <string name="answer_already_given">Ответ уже был дан</string>
     <string name="version">Версия</string>
-    <string name="youtuber">Благодарность Борису Трушину за задания из ЕГЭ</string>
+    <string name="youtuber">Открыть файл с заданиями из ЕГЭ</string>
     <string name="by">от</string>
     <string name="release">Открыть последний релиз на Github</string>
 </resources>
