@@ -70,7 +70,6 @@
             android:gravity="center"
             android:orientation="vertical"
             android:scrollbars="vertical">
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/github"
                 style="@style/Buttons"
@@ -82,6 +81,7 @@
                 app:icon="@drawable/link"
                 app:iconTint="@color/TextColor"
                 app:iconGravity="textEnd" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/release"
                 style="@style/Buttons"
@@ -104,6 +104,14 @@
                 app:icon="@drawable/link"
                 app:iconTint="@color/TextColor"
                 app:iconGravity="textEnd" />
+            <Button
+                android:id="@+id/add_points"
+                style="@style/Buttons"
+                android:layout_width="300dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:text="@string/add_points"
+                android:textSize="16sp" />
             <Button
                 android:id="@+id/reset_progress"
                 style="@style/Buttons"

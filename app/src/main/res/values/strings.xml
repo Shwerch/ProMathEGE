@@ -1,5 +1,5 @@
 <resources>
-    <string name="build" translatable="false">16.05.2024</string>
+    <string name="build" translatable="false">26.05.2024</string>
     <string name="app_name" translatable="false">Pro Math EGE</string>
     <string name="github" translatable="false">https://github.com/Shwerch/ProMathEGE</string>
     <string name="trushin" translatable="false">https://www.youtube.com/@trushinbv</string>
@@ -60,5 +60,5 @@
     <string name="rightAnswer">Right answer</string>
 
     <string name="youtuber">Open a file with tasks from the EGE</string>
-    <string name="release">Open the latest release on Github</string>
+    <string name="release">Download the latest version of app from Github</string>
 </resources>
