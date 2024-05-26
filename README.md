@@ -1,20 +1,25 @@
-# Pro Math EGE - android app for prepare for EGE
+# Pro Math EGE - Android app for prepare for EGE
 The project is using [bookege.pdf](http://trushinbv.ru/book.ege) by [Boris Trushin](https://www.youtube.com/@trushinbv).
 
-### [Shwerch](https://github.com/Shwerch) – Product Lead & Fullstack Java-Developer.
+### Developed by [Shwerch](https://github.com/Shwerch).
 
-### [Download latest version of application](https://github.com/Shwerch/ProMathEGE/releases/download/stable/ProMathEGE.apk)
+### [Download latest version of application](https://github.com/Shwerch/ProMathEGE/releases/download/stable/ProMathEGE.apk).
 
 The application supports Android since version 5.0 API 21.
-It does not need to have an internet connection or sound.
+It does not need to have an internet connection or sound to use the application.
 
-## Links for developers
+This is the project of the «Java Development for mobile devices» course on the Samsung Innovation Campus platform at [Samsung IT-school](https://innovationcampus.ru/itschool/).
 
-Download and open the project in Android Studio, install all the necessary packages 
-when initializing build.gradle, compile the project on an Android device.
-```commandline
-git clone git@github.com:Shwerch/ProMathEGE.git
-```
+___
 
-Project on the course «Java Development for mobile devices» 
-Samsung Innovation Campus at [Samsung IT-Cube school](https://innovationcampus.ru/itschool/).
+# Pro Math EGE - Android-приложение для подготовки к ЕГЭ
+Этот проект использует [bookege.pdf](http://trushinbv.ru/book.ege) от [Бориса Трушина](https://www.youtube.com/@trushinbv).
+
+### Разработано [Shwerch](https://github.com/Shwerch).
+
+### [Загрузить последнюю версию приложения](https://github.com/Shwerch/ProMathEGE/releases/download/stable/ProMathEGE.apk).
+
+Приложение работает на Android от версии 5.0 API 21.
+Не обязательно наличие интернета или звука для использования приложения.
+
+Это проект курса «Мобильная разработка на Java» на платформе Samsung Innovation Campus в [IT-школе Samsung](https://innovationcampus.ru/itschool/).
